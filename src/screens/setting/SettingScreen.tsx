@@ -1,5 +1,12 @@
-import { Text } from 'react-native';
+import { Button, View, Text } from 'react-native';
+import { useAuthStore } from '@/shared/store/authStore';
 
 export const SettingScreen = () => {
-  return <Text>SettingScreen</Text>;
+  const logout = useAuthStore(s => s.logout);
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Setting</Text>
+      <Button title="로그아웃" onPress={() => logout()} />
+    </View>
+  );
 };

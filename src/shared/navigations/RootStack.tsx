@@ -1,13 +1,13 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useAuthStore } from '@/shared/store/authStore';
 
 import { MainTabs } from '@/shared/navigations/MainTabs';
-
 import { OnboardingScreen } from '@/screens/auth/OnboardingScreen';
 import { LoginScreen } from '@/screens/auth/LoginScreen';
 import { FeedDetailScreen } from '@/screens/feed/FeedDetailScreen';
 
-const isSignedIn = () => true;
-const isSignedOut = () => false;
+const useIsSignedIn = () => useAuthStore(state => state.isLogin);
+const useIsSignedOut = () => !useAuthStore(state => state.isLogin);
 
 export const RootStack = createNativeStackNavigator({
   screenOptions: {
@@ -16,15 +16,15 @@ export const RootStack = createNativeStackNavigator({
   groups: {
     // 비로그인 상태
     SignedOut: {
-      if: isSignedOut,
+      if: useIsSignedOut,
       screens: {
-        Onboarding: { screen: OnboardingScreen },
         Login: { screen: LoginScreen },
+        Onboarding: { screen: OnboardingScreen },
       },
     },
     // 로그인 상태
     SignedIn: {
-      if: isSignedIn,
+      if: useIsSignedIn,
       screens: {
         Main: { screen: MainTabs },
         FeedDetail: { screen: FeedDetailScreen },

@@ -1,5 +1,12 @@
-import { Text } from 'react-native';
+import { Button, Text, View } from 'react-native';
+import { useAuthStore } from '@/shared/store/authStore';
 
 export const LoginScreen = () => {
-  return <Text>LoginScreen</Text>;
+  const login = useAuthStore(s => s.login);
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Login</Text>
+      <Button title="로그인" onPress={() => login()} />
+    </View>
+  );
 };
