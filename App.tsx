@@ -1,5 +1,5 @@
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Navigation } from './src/shared/navigations';
+import { Navigation } from '@/shared/navigations/index';
 
 function App() {
   return (

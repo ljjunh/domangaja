@@ -1,9 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { HomeScreen } from '../../screens/home/HomeScreen';
-import { MapScreen } from '../../screens/map/MapScreen';
-import { FeedScreen } from '../../screens/feed/FeedScreen';
-import { SettingScreen } from '../../screens/setting/SettingScreen';
+import { HomeScreen } from '@/screens/home/HomeScreen';
+import { MapScreen } from '@/screens/map/MapScreen';
+import { FeedScreen } from '@/screens/feed/FeedScreen';
+import { SettingScreen } from '@/screens/setting/SettingScreen';
 
 export const MainTabs = createBottomTabNavigator({
   screenOptions: {

@@ -1,10 +1,10 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { MainTabs } from './MainTabs';
+import { MainTabs } from '@/shared/navigations/MainTabs';
 
-import { OnboardingScreen } from '../../screens/auth/OnboardingScreen';
-import { LoginScreen } from '../../screens/auth/LoginScreen';
-import { FeedDetailScreen } from '../../screens/feed/FeedDetailScreen';
+import { OnboardingScreen } from '@/screens/auth/OnboardingScreen';
+import { LoginScreen } from '@/screens/auth/LoginScreen';
+import { FeedDetailScreen } from '@/screens/feed/FeedDetailScreen';
 
 const isSignedIn = () => true;
 const isSignedOut = () => false;
