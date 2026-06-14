@@ -1,30 +1,25 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { HomeScreen } from '@/screens/home/HomeScreen';
-import { MapScreen } from '@/screens/map/MapScreen';
-import { FeedScreen } from '@/screens/feed/FeedScreen';
-import { SettingScreen } from '@/screens/setting/SettingScreen';
+import { HomeScreen, MapScreen, FeedScreen, SettingScreen } from '@/screens';
+import CustomTabBar from '@/shared/navigations/CustomTabBar';
 
 export const MainTabs = createBottomTabNavigator({
   screenOptions: {
     headerShown: false,
   },
+  tabBar: props => <CustomTabBar {...props} />,
   screens: {
     Home: {
       screen: HomeScreen,
-      options: { title: '홈' },
     },
     Map: {
       screen: MapScreen,
-      options: { title: '지도' },
     },
     Feed: {
       screen: FeedScreen,
-      options: { title: '피드' },
     },
     Setting: {
       screen: SettingScreen,
-      options: { title: '설정' },
     },
   },
 });

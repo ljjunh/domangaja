@@ -1,7 +1,7 @@
 import { View, Text, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-export const HomeScreen = () => {
+export default function HomeScreen() {
   const navigation = useNavigation();
 
   return (
@@ -10,4 +10,4 @@ export const HomeScreen = () => {
       <Button title="피드디테일로 이동" onPress={() => navigation.navigate('FeedDetail')} />
     </View>
   );
-};
+}

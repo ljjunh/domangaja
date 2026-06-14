@@ -1,5 +1,5 @@
 import { Text } from 'react-native';
 
-export const OnboardingScreen = () => {
+export default function OnboardingScreen() {
   return <Text>OnboardingScreen</Text>;
-};
+}

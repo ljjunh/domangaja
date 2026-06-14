@@ -1,5 +1,5 @@
 import { Text } from 'react-native';
 
-export const MapScreen = () => {
+export default function MapScreen() {
   return <Text>MapScreen</Text>;
-};
+}

@@ -2,9 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuthStore } from '@/shared/store/authStore';
 
 import { MainTabs } from '@/shared/navigations/MainTabs';
-import { OnboardingScreen } from '@/screens/auth/OnboardingScreen';
-import { LoginScreen } from '@/screens/auth/LoginScreen';
-import { FeedDetailScreen } from '@/screens/feed/FeedDetailScreen';
+import { OnboardingScreen, LoginScreen, FeedDetailScreen } from '@/screens';
 
 const useIsSignedIn = () => useAuthStore(state => state.isLogin);
 const useIsSignedOut = () => !useAuthStore(state => state.isLogin);

@@ -1,5 +1,5 @@
 import { Text } from 'react-native';
 
-export const FeedDetailScreen = () => {
+export default function FeedDetailScreen() {
   return <Text>FeedDetailScreen</Text>;
-};
+}
