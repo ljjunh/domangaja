@@ -1,5 +1,11 @@
-import { useEffect, useRef } from 'react';
-import { Animated, Easing, StyleSheet, View, type ViewProps } from 'react-native';
+import { useEffect } from 'react';
+import { StyleSheet, View, type ViewProps } from 'react-native';
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 import { colors } from '@/shared/constants/colors';
 
 type Size = 'light' | 'normal' | 'bold';
@@ -36,22 +42,18 @@ export default function ProgressBar({
   ...rest
 }: ProgressBarProps) {
   const height = heightBySize[size];
-  const animated = useRef(new Animated.Value(progress)).current;
+  const clamped = Math.min(Math.max(progress, 0), 100);
+  const value = useSharedValue(clamped);
 
   useEffect(() => {
-    Animated.timing(animated, {
-      toValue: progress,
-      duration: withAnimation ? 500 : 0,
-      easing: Easing.ease,
-      useNativeDriver: false,
-    }).start();
-  }, [progress, withAnimation, animated]);
+    value.value = withAnimation
+      ? withTiming(clamped, { duration: 500, easing: Easing.ease })
+      : clamped; // 애니메이션 비활성 시 즉시 설정 (불필요한 timing 스케줄 방지)
+  }, [clamped, withAnimation, value]);
 
-  const width = animated.interpolate({
-    inputRange: [0, 100],
-    outputRange: ['0%', '100%'],
-    extrapolate: 'clamp',
-  });
+  const fillStyle = useAnimatedStyle(() => ({
+    width: `${value.value}%`,
+  }));
 
   return (
     <View
@@ -64,7 +66,7 @@ export default function ProgressBar({
       {...rest}
     >
       <Animated.View
-        style={[styles.fill, { width, backgroundColor: color, borderRadius: height / 2 }]}
+        style={[styles.fill, fillStyle, { backgroundColor: color, borderRadius: height / 2 }]}
       />
     </View>
   );
