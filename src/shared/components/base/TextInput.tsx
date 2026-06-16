@@ -30,7 +30,6 @@ export default function TextInput({
   ref,
   ...rest
 }: TextInputProps) {
-  // TextInput에는 lineHeight를 적용하지 않는다 (Android 캐럿/정렬 깨짐) — fontSize만 사용
   const { fontSize } = typographyMap[typography];
 
   return (

@@ -1,5 +1,6 @@
-import { StyleSheet, Pressable, Text } from 'react-native';
+import { StyleSheet, Pressable } from 'react-native';
 import { SOCIAL_PROVIDERS, type SocialProvider } from '@/domains/auth/constants/socialProviders';
+import { Text } from '@/shared/components/base';
 
 interface SocialLoginButtonProps {
   provider: SocialProvider;
@@ -15,7 +16,9 @@ export default function SocialLoginButton({ provider, onPress }: SocialLoginButt
       style={({ pressed }) => [styles.button, { backgroundColor }, pressed && styles.pressed]}
     >
       <Icon style={styles.icon} />
-      <Text style={[styles.label, { color: textColor }]}>{label}</Text>
+      <Text typography="t6" weight="semiBold" color={textColor}>
+        {label}
+      </Text>
     </Pressable>
   );
 }

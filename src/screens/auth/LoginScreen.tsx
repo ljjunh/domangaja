@@ -2,6 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import { useAuthStore } from '@/shared/store/authStore';
 import { BrandIntro, SocialLoginButton, TermsAgreementNotice } from '@/domains/auth/components';
 import { Layout } from '@/shared/components/layout';
+
 export default function LoginScreen() {
   const login = useAuthStore(s => s.login);
 

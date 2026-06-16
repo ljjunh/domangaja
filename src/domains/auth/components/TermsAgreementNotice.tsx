@@ -1,17 +1,31 @@
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Text } from '@/shared/components/base';
+import { colors } from '@/shared/constants/colors';
 
 export default function TermsAgreementNotice() {
   const handleTermsPress = () => {};
   const handlePrivacyPress = () => {};
 
   return (
-    <Text style={styles.text}>
+    <Text typography="st12" weight="regular" color={colors.grey[500]} textAlign="center">
       시작하면{' '}
-      <Text style={styles.link} onPress={handleTermsPress}>
+      <Text
+        typography="st12"
+        weight="regular"
+        color={colors.grey[500]}
+        onPress={handleTermsPress}
+        style={styles.link}
+      >
         이용약관
       </Text>
       과{' '}
-      <Text style={styles.link} onPress={handlePrivacyPress}>
+      <Text
+        typography="st12"
+        weight="regular"
+        color={colors.grey[500]}
+        onPress={handlePrivacyPress}
+        style={styles.link}
+      >
         개인정보처리방침
       </Text>
       에 동의하게 됩니다.
@@ -20,11 +34,5 @@ export default function TermsAgreementNotice() {
 }
 
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 12,
-    lineHeight: 18,
-    color: '#71717B',
-    textAlign: 'center',
-  },
   link: { textDecorationLine: 'underline' },
 });
