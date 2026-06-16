@@ -1,49 +1,44 @@
 import { type Ref } from 'react';
 import {
-  Text as RNText,
+  TextInput as RNTextInput,
   StyleSheet,
-  type TextProps as RNTextProps,
-  type TextStyle,
+  type TextInputProps as RNTextInputProps,
 } from 'react-native';
 import { colors } from '@/shared/constants/colors';
 import { fontFamilyByWeight, type FontWeight } from '@/shared/constants/font';
 import { typography as typographyMap, type TypographyKey } from '@/shared/constants/typography';
 
-export interface TextProps extends RNTextProps {
+export interface TextInputProps extends RNTextInputProps {
   typography: TypographyKey;
   /**
    * @default 'regular'
    */
   weight?: FontWeight;
   /**
-   * @default colors.black
+   * @default colors.grey[500]
    */
   color?: string;
-  textAlign?: TextStyle['textAlign'];
-  ref?: Ref<RNText>;
+  ref?: Ref<RNTextInput>;
 }
 
-export default function Text({
+export default function TextInput({
   typography,
   weight = 'regular',
   color = colors.black,
-  textAlign,
   style,
-  lineBreakStrategyIOS = 'hangul-word',
+  placeholderTextColor = colors.grey[500],
   ref,
   ...rest
-}: TextProps) {
+}: TextInputProps) {
+  // TextInput에는 lineHeight를 적용하지 않는다 (Android 캐럿/정렬 깨짐) — fontSize만 사용
+  const { fontSize } = typographyMap[typography];
+
   return (
-    <RNText
+    <RNTextInput
       ref={ref}
       allowFontScaling={false}
-      lineBreakStrategyIOS={lineBreakStrategyIOS}
-      style={[
-        styles.base,
-        typographyMap[typography],
-        { fontFamily: fontFamilyByWeight[weight], color, textAlign },
-        style,
-      ]}
+      placeholderTextColor={placeholderTextColor}
+      style={[styles.base, { fontSize, fontFamily: fontFamilyByWeight[weight], color }, style]}
       {...rest}
     />
   );
@@ -51,7 +46,6 @@ export default function Text({
 
 const styles = StyleSheet.create({
   base: {
-    flexShrink: 1,
-    includeFontPadding: false,
+    padding: 0,
   },
 });
