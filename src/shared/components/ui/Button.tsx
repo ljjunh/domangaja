@@ -73,8 +73,8 @@ const sizeStyle: Record<ButtonSize, ViewStyle> = {
 const sizeTypography: Record<ButtonSize, TypographyKey> = {
   tiny: 't7',
   medium: 't6',
-  large: 't5',
-  big: 't5',
+  large: 'st9',
+  big: 'st9',
 };
 
 const colorByTypeVariant: Record<
