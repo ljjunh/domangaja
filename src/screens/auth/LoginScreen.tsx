@@ -1,12 +1,27 @@
-import { Button, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useAuthStore } from '@/shared/store/authStore';
-
+import { BrandIntro, SocialLoginButton, TermsAgreementNotice } from '@/domains/auth/components';
+import { Layout } from '@/shared/components/layout';
 export default function LoginScreen() {
   const login = useAuthStore(s => s.login);
+
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Login</Text>
-      <Button title="로그인" onPress={() => login()} />
-    </View>
+    <Layout padded>
+      <BrandIntro />
+      <View style={styles.socialLoginButtonsWrapper}>
+        <SocialLoginButton provider="kakao" onPress={login} />
+        <SocialLoginButton provider="apple" onPress={login} />
+        <SocialLoginButton provider="google" onPress={login} />
+      </View>
+      <TermsAgreementNotice />
+    </Layout>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  socialLoginButtonsWrapper: {
+    paddingBottom: 16,
+    gap: 12,
+  },
+});
