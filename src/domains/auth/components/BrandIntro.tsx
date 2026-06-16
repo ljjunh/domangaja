@@ -1,5 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { Text } from '@/shared/components/base';
+import { colors } from '@/shared/constants/colors';
 
 export default function BrandIntro() {
   return (
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 82,
     height: 82,
-    backgroundColor: 'blue',
+    backgroundColor: colors.blue[500],
     borderRadius: 12,
   },
   textGroup: {
