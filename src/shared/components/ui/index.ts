@@ -1,4 +1,5 @@
 export { default as AnimateSkeleton } from './AnimateSkeleton';
+export { default as Badge } from './Badge';
 export { default as Border } from './Border';
 export { default as Button } from './Button';
 export { default as IconButton } from './IconButton';
