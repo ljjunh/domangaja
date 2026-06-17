@@ -8,5 +8,11 @@
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",
     "by_tapping_continue": "By tapping 'Continue', you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>."
+  },
+  "tab": {
+    "home": "Home",
+    "map": "Map",
+    "feed": "Feed",
+    "setting": "Settings"
   }
 }

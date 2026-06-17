@@ -1,34 +1,58 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useState, type ComponentType } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Pressable, StyleSheet, View } from 'react-native';
+import Animated, { useAnimatedStyle, withSpring } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import type { ComponentType } from 'react';
+import { Text } from '@/shared/components/base';
 import type { SvgProps } from 'react-native-svg';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { HomeIcon, MapIcon, FeedIcon, SettingIcon } from '@/assets/icons/nav';
-import { IS_ANDROID } from '../constants/platform';
+import { IS_ANDROID } from '@/shared/constants/platform';
+import { colors } from '../constants/colors';
 
-interface TabConfig {
-  label: string;
-  Icon: ComponentType<SvgProps>;
-}
-
-const TABS: Record<string, TabConfig> = {
-  Home: { label: '홈', Icon: HomeIcon },
-  Map: { label: '지도', Icon: MapIcon },
-  Feed: { label: '피드', Icon: FeedIcon },
-  Setting: { label: '설정', Icon: SettingIcon },
+const TAB_ICONS: Record<string, ComponentType<SvgProps>> = {
+  Home: HomeIcon,
+  Map: MapIcon,
+  Feed: FeedIcon,
+  Setting: SettingIcon,
 };
 
-// TODO: 다국어, base Component, typography
+const BAR_PADDING = 5;
+
 export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
+  const { t } = useTranslation();
   const { bottom } = useSafeAreaInsets();
+  const [contentWidth, setContentWidth] = useState(0);
+  const tabCount = state.routes.length;
+  const tabWidth = tabCount > 0 ? contentWidth / tabCount : 0;
+  const activeIndex = state.index;
+
+  const indicatorStyle = useAnimatedStyle(() => ({
+    transform: [
+      {
+        translateX: withSpring(activeIndex * tabWidth, {
+          stiffness: 400,
+          mass: 0.3,
+        }),
+      },
+    ],
+  }));
 
   return (
     <View style={[styles.wrapper, { paddingBottom: IS_ANDROID ? bottom + 8 : bottom }]}>
-      <View style={styles.bar}>
+      <View
+        style={styles.bar}
+        onLayout={e => setContentWidth(e.nativeEvent.layout.width - BAR_PADDING * 2)}
+      >
+        {tabWidth > 0 && (
+          <Animated.View style={[styles.indicator, { width: tabWidth }, indicatorStyle]} />
+        )}
+
         {state.routes.map((route, index) => {
           const isFocused = state.index === index;
-          const { label, Icon } = TABS[route.name];
-          const color = isFocused ? '#000000' : '#8B95A1';
+          const Icon = TAB_ICONS[route.name];
+          const label = t(`tab.${route.name.toLowerCase()}`);
+          const color = isFocused ? colors.black : colors.grey[500];
 
           const onPress = () => {
             const event = navigation.emit({
@@ -43,9 +67,9 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
 
           return (
             <Pressable key={route.key} onPress={onPress} style={styles.item}>
-              <View style={[styles.inner, isFocused && styles.innerActive]}>
+              <View style={styles.inner}>
                 <Icon width={22} height={22} color={color} />
-                <Text style={[styles.label, { color }]} allowFontScaling={false}>
+                <Text typography="st12" color={color}>
                   {label}
                 </Text>
               </View>
@@ -70,8 +94,16 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: '#E5E8EB',
     alignItems: 'center',
-    paddingHorizontal: 5,
-    paddingVertical: 5,
+    paddingHorizontal: BAR_PADDING,
+    paddingVertical: BAR_PADDING,
+  },
+  indicator: {
+    position: 'absolute',
+    left: BAR_PADDING,
+    top: BAR_PADDING,
+    bottom: BAR_PADDING,
+    backgroundColor: '#fff',
+    borderRadius: 30,
   },
   item: {
     flex: 1,
@@ -81,15 +113,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 2,
     paddingVertical: 3,
-    borderRadius: 30,
-    overflow: 'hidden',
-  },
-  innerActive: {
-    backgroundColor: '#fff',
-  },
-  label: {
-    fontSize: 12,
-    lineHeight: 18,
-    fontWeight: '500',
   },
 });
