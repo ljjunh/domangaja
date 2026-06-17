@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, Pressable } from 'react-native';
 import { SOCIAL_PROVIDERS, type SocialProvider } from '@/domains/auth/constants/socialProviders';
 import { Text } from '@/shared/components/base';
@@ -8,7 +9,8 @@ interface SocialLoginButtonProps {
 }
 
 export default function SocialLoginButton({ provider, onPress }: SocialLoginButtonProps) {
-  const { label, Icon, backgroundColor, textColor } = SOCIAL_PROVIDERS[provider];
+  const { t } = useTranslation();
+  const { Icon, backgroundColor, textColor } = SOCIAL_PROVIDERS[provider];
 
   return (
     <Pressable
@@ -17,7 +19,7 @@ export default function SocialLoginButton({ provider, onPress }: SocialLoginButt
     >
       <Icon style={styles.icon} />
       <Text typography="t6" weight="semiBold" color={textColor}>
-        {label}
+        {t(`login.${provider}`)}
       </Text>
     </Pressable>
   );
