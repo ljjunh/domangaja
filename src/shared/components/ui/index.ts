@@ -1,3 +1,4 @@
+export { default as Border } from './Border';
 export { default as Button } from './Button';
 export { default as IconButton } from './IconButton';
 export { default as ProgressBar } from './ProgressBar';
