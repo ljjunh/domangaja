@@ -35,5 +35,4 @@ const styles = StyleSheet.create({
   },
   pressed: { opacity: 0.85 },
   icon: { position: 'absolute', left: 20 },
-  label: { fontSize: 15, fontWeight: '600' },
 });
