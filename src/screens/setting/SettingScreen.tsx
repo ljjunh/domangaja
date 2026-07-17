@@ -40,7 +40,7 @@ export default function SettingScreen() {
   };
 
   return (
-    <Layout padded>
+    <Layout>
       <Text typography="t4" weight="bold">
         Setting
       </Text>

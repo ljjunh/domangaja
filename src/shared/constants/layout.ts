@@ -1,0 +1,2 @@
+export const SCREEN_PADDING_HORIZONTAL = 15;
+export const SCREEN_PADDING_BOTTOM = 12;
