@@ -1,14 +1,19 @@
-import { View, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useAuthStore } from '@/shared/store/authStore';
-import { overlay } from '@/shared/overlay';
-import { Button } from '@/shared/components/ui';
 import { Text } from '@/shared/components/base';
-import { colors } from '@/shared/constants/colors';
 import { Layout } from '@/shared/components/layout';
+import { Button } from '@/shared/components/ui';
+import { Header } from '@/shared/components/layout';
+import { overlay } from '@/shared/overlay';
+import { colors } from '@/shared/constants/colors';
 import { BaseModal } from '@/shared/components/overlay';
+import { useMainTabBarSpace } from '@/shared/hooks/useMainTabBarSpace';
+import { MAIN_TAB_SCREEN_EDGES, SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
+import { NotificationButton } from '@/domains/notification/components';
 
 export default function SettingScreen() {
   const logout = useAuthStore(state => state.logout);
+  const mainTabBarSpace = useMainTabBarSpace();
 
   const handleLogoutPress = () => {
     overlay.open(({ isOpen, close, unmount }) => (
@@ -40,21 +45,26 @@ export default function SettingScreen() {
   };
 
   return (
-    <Layout>
-      <Text typography="t4" weight="bold">
-        Setting
-      </Text>
-      <Button onPress={handleLogoutPress}>로그아웃</Button>
+    <Layout edges={MAIN_TAB_SCREEN_EDGES}>
+      <Header
+        left={
+          <Text typography="t4" weight="bold">
+            설정
+          </Text>
+        }
+        right={<NotificationButton />}
+      />
+      <ScrollView contentContainerStyle={[styles.container, { paddingBottom: mainTabBarSpace }]}>
+        <Button onPress={handleLogoutPress}>로그아웃</Button>
+        <Text typography="t1">Setting Screen</Text>
+      </ScrollView>
     </Layout>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 16,
+    paddingHorizontal: SCREEN_PADDING_HORIZONTAL,
   },
   buttons: {
     flexDirection: 'row',

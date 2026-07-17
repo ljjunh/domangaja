@@ -13,7 +13,7 @@ export default function HomeScreen() {
     <Layout edges={MAIN_TAB_SCREEN_EDGES}>
       <Header
         left={
-          <Text typography="t6" weight="bold">
+          <Text typography="t4" weight="bold">
             도망가자
           </Text>
         }
