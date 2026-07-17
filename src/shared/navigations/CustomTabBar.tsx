@@ -8,7 +8,8 @@ import type { SvgProps } from 'react-native-svg';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { HomeIcon, MapIcon, FeedIcon, SettingIcon } from '@/assets/icons/nav';
 import { IS_ANDROID } from '@/shared/constants/platform';
-import { colors } from '../constants/colors';
+import { colors } from '@/shared/constants/colors';
+import { MAIN_TAB_BAR_HEIGHT, MAIN_TAB_BAR_BOTTOM_GAP } from '@/shared/constants/layout';
 
 const TAB_ICONS: Record<string, ComponentType<SvgProps>> = {
   Home: HomeIcon,
@@ -39,7 +40,12 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
   }));
 
   return (
-    <View style={[styles.wrapper, { paddingBottom: IS_ANDROID ? bottom + 8 : bottom }]}>
+    <View
+      style={[
+        styles.wrapper,
+        { paddingBottom: IS_ANDROID ? bottom + MAIN_TAB_BAR_BOTTOM_GAP : bottom },
+      ]}
+    >
       <View
         style={styles.bar}
         onLayout={e => setContentWidth(e.nativeEvent.layout.width - BAR_PADDING * 2)}
@@ -89,6 +95,7 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   bar: {
+    height: MAIN_TAB_BAR_HEIGHT,
     flexDirection: 'row',
     marginHorizontal: 15,
     borderRadius: 30,
