@@ -1,8 +1,8 @@
 import { StyleSheet, View } from 'react-native';
 import { useAuthStore } from '@/shared/store/authStore';
-import { BrandIntro, SocialLoginButton, TermsAgreementNotice } from '@/domains/auth/components';
 import { Layout } from '@/shared/components/layout';
 import { SCREEN_PADDING_BOTTOM, SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
+import { BrandIntro, SocialLoginButton, TermsAgreementNotice } from '@/domains/auth/components';
 
 export default function LoginScreen() {
   // TODO: 임시 로그인
