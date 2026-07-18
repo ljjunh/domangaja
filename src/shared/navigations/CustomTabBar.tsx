@@ -1,7 +1,7 @@
-import { useState, type ComponentType } from 'react';
+import { useEffect, type ComponentType } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View } from 'react-native';
-import Animated, { useAnimatedStyle, withSpring } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text } from '@/shared/components/base';
 import type { SvgProps } from 'react-native-svg';
@@ -23,20 +23,21 @@ const BAR_PADDING = 5;
 export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
   const { t } = useTranslation();
   const { bottom } = useSafeAreaInsets();
-  const [contentWidth, setContentWidth] = useState(0);
   const tabCount = state.routes.length;
-  const tabWidth = tabCount > 0 ? contentWidth / tabCount : 0;
   const activeIndex = state.index;
 
+  const tabIndex = useSharedValue(state.index);
+
+  useEffect(() => {
+    tabIndex.value = withSpring(activeIndex, {
+      stiffness: 400,
+      mass: 0.3,
+    });
+  }, [activeIndex, tabIndex]);
+
   const indicatorStyle = useAnimatedStyle(() => ({
-    transform: [
-      {
-        translateX: withSpring(activeIndex * tabWidth, {
-          stiffness: 400,
-          mass: 0.3,
-        }),
-      },
-    ],
+    // translateX의 %는 자기 자신의 폭 기준 → 100% = 탭 한 칸
+    transform: [{ translateX: `${tabIndex.value * 100}%` }],
   }));
 
   return (
@@ -46,13 +47,10 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
         { paddingBottom: IS_ANDROID ? bottom + MAIN_TAB_BAR_BOTTOM_GAP : bottom },
       ]}
     >
-      <View
-        style={styles.bar}
-        onLayout={e => setContentWidth(e.nativeEvent.layout.width - BAR_PADDING * 2)}
-      >
-        {tabWidth > 0 && (
-          <Animated.View style={[styles.indicator, { width: tabWidth }, indicatorStyle]} />
-        )}
+      <View style={styles.bar}>
+        <Animated.View
+          style={[styles.indicator, { width: `${100 / tabCount}%` }, indicatorStyle]}
+        />
 
         {state.routes.map((route, index) => {
           const isFocused = state.index === index;
