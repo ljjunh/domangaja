@@ -5,6 +5,13 @@ import { MAIN_TAB_SCREEN_EDGES, SCREEN_PADDING_HORIZONTAL } from '@/shared/const
 import { Header } from '@/shared/components/layout';
 import { NotificationButton } from '@/domains/notification/components';
 import { useMainTabBarSpace } from '@/shared/hooks/useMainTabBarSpace';
+import {
+  TodaySpotBanner,
+  PopularSpotSection,
+  WeeklyThemeSection,
+  RecentSpotSection,
+} from '@/domains/spot/components';
+import { QuickMenu, NearbySpotBanner } from './components';
 
 export default function HomeScreen() {
   const mainTabBarSpace = useMainTabBarSpace();
@@ -20,44 +27,12 @@ export default function HomeScreen() {
         right={<NotificationButton />}
       />
       <ScrollView contentContainerStyle={[styles.container, { paddingBottom: mainTabBarSpace }]}>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
-        <Text typography="t1">홈화면</Text>
+        <TodaySpotBanner />
+        <QuickMenu />
+        <PopularSpotSection />
+        <NearbySpotBanner />
+        <WeeklyThemeSection />
+        <RecentSpotSection />
       </ScrollView>
     </Layout>
   );
@@ -66,5 +41,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: SCREEN_PADDING_HORIZONTAL,
+    gap: 16,
   },
 });
