@@ -42,12 +42,12 @@ export default function RankedSpotCard({
 const styles = StyleSheet.create({
   card: {
     width: 140,
-    height: 140,
+    aspectRatio: 1,
     overflow: 'hidden',
     borderRadius: 12,
   },
   image: {
-    aspectRatio: 1,
+    flex: 1,
     justifyContent: 'space-between',
   },
   rankBadge: {

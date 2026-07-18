@@ -1,4 +1,5 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { example1Image, example2Image } from '@/assets/images';
 import SectionHeader from './SectionHeader';
 import RankedSpotCard from './RankedSpotCard';
@@ -23,6 +24,7 @@ export default function PopularSpotSection() {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
+        style={styles.scroll}
         contentContainerStyle={styles.list}
       >
         {MOCK_POPULAR_SPOTS.map(spot => (
@@ -44,7 +46,11 @@ const styles = StyleSheet.create({
   container: {
     gap: 10,
   },
+  scroll: {
+    marginHorizontal: -SCREEN_PADDING_HORIZONTAL,
+  },
   list: {
+    paddingHorizontal: SCREEN_PADDING_HORIZONTAL,
     gap: 12,
   },
 });
