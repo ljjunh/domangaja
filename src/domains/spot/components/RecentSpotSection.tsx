@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { example1Image, example2Image } from '@/assets/images';
 import SectionHeader from './SectionHeader';
 import SpotListItem from './SpotListItem';
@@ -39,7 +39,7 @@ export default function RecentSpotSection() {
           console.log('최근 본 스팟으로 이동');
         }}
       />
-      <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={styles.list}>
+      <View style={styles.list}>
         {MOCK_RESENT_SPOT.map(spot => (
           <SpotListItem
             key={spot.id}
@@ -48,11 +48,11 @@ export default function RecentSpotSection() {
             quietness={spot.quietness}
             image={spot.image}
             isBookmarked={spot.isBookmarked}
-            onPress={() => console.log('도망지 상세 페이지로 이동')}
+            onPressItem={() => console.log('도망지 상세 페이지로 이동')}
             onPressBookmark={() => console.log('북마크 api 연동')}
           />
         ))}
-      </ScrollView>
+      </View>
     </View>
   );
 }

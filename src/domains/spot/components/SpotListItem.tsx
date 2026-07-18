@@ -11,7 +11,7 @@ interface SpotListItemProps {
   // 서버 연동 시 imageUrl(string)을 { uri: imageUrl }로 매핑
   image: ImageSourcePropType;
   isBookmarked: boolean;
-  onPress: () => void;
+  onPressItem: () => void;
   onPressBookmark: () => void;
 }
 
@@ -21,10 +21,11 @@ export default function SpotListItem({
   quietness,
   image,
   isBookmarked,
-  onPress,
+  onPressItem,
+  onPressBookmark,
 }: SpotListItemProps) {
   return (
-    <Pressable onPress={onPress} style={styles.container}>
+    <Pressable onPress={onPressItem} style={styles.container}>
       <Image source={image} style={styles.image} />
       <View style={styles.content}>
         <View style={styles.info}>
@@ -37,6 +38,7 @@ export default function SpotListItem({
           </Text>
         </View>
         <IconButton
+          onPress={onPressBookmark}
           icon={isBookmarked ? ArchiveTickFillIcon : ArchiveTickOutlineIcon}
           color={isBookmarked ? colors.blue[500] : colors.black}
           style={styles.bookmarkButton}
