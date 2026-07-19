@@ -1,7 +1,7 @@
 import { type Ref } from 'react';
 import { Image as RNImage, ImageProps as RNImageProps } from 'react-native';
 
-interface ImageProps extends RNImageProps {
+export interface ImageProps extends RNImageProps {
   ref?: Ref<RNImage>;
 }
 

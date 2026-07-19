@@ -18,7 +18,6 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8BA88B8FAC2945C082AB52A9 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1E0DCA820D7B4672B20EB622 /* Pretendard-ExtraLight.otf */; };
 		B48ABC8E939547B9B2BE2EA1 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBB1107ADB54085B41EF6D8 /* Pretendard-ExtraBold.otf */; };
-		C85CCBC9458E4F92A9195608 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = B7F89316990143CEBDAEDF3F /* .gitkeep */; };
 		CC968C85FDA44968A05A7825 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = F614AD79E08C4ED6AA494D07 /* Pretendard-Thin.otf */; };
 		EAB78B96CDD141AD90309E1B /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = ED2CE3DA83FF499AAA3C7C2A /* Pretendard-Medium.otf */; };
 		F0D71B24AB39420882004624 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA2ACE29C1D84B079917D634 /* Pretendard-SemiBold.otf */; };
@@ -38,7 +37,6 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = domangaja/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		82474B9FA4194E1DBA5996D3 /* Pretendard-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Light.otf"; path = "../src/assets/fonts/Pretendard-Light.otf"; sourceTree = "<group>"; };
 		8E00BF0152A9444282486A0C /* Pretendard-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Black.otf"; path = "../src/assets/fonts/Pretendard-Black.otf"; sourceTree = "<group>"; };
-		B7F89316990143CEBDAEDF3F /* .gitkeep */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = .gitkeep; path = ../src/assets/fonts/.gitkeep; sourceTree = "<group>"; };
 		CF7CCD9DE8E944EBBBE11C6C /* Pretendard-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Bold.otf"; path = "../src/assets/fonts/Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		CFBB1107ADB54085B41EF6D8 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-ExtraBold.otf"; path = "../src/assets/fonts/Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		EA2ACE29C1D84B079917D634 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-SemiBold.otf"; path = "../src/assets/fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -122,7 +120,6 @@
 				F614AD79E08C4ED6AA494D07 /* Pretendard-Thin.otf */,
 				1E0DCA820D7B4672B20EB622 /* Pretendard-ExtraLight.otf */,
 				EA2ACE29C1D84B079917D634 /* Pretendard-SemiBold.otf */,
-				B7F89316990143CEBDAEDF3F /* .gitkeep */,
 			);
 			name = Resources;
 			path = "";
@@ -209,7 +206,6 @@
 				CC968C85FDA44968A05A7825 /* Pretendard-Thin.otf in Resources */,
 				8BA88B8FAC2945C082AB52A9 /* Pretendard-ExtraLight.otf in Resources */,
 				F0D71B24AB39420882004624 /* Pretendard-SemiBold.otf in Resources */,
-				C85CCBC9458E4F92A9195608 /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
