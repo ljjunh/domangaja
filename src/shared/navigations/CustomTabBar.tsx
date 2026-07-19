@@ -6,19 +6,33 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text } from '@/shared/components/base';
 import type { SvgProps } from 'react-native-svg';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { HomeIcon, MapIcon, FeedIcon, SettingIcon } from '@/assets/icons/nav';
+import {
+  HomeFillIcon,
+  HomeOutlineIcon,
+  MapFillIcon,
+  MapOutlineIcon,
+  MessageFillIcon,
+  MessageOutlineIcon,
+  UserFillIcon,
+  UserOutlineIcon,
+} from '@/assets/icons/nav';
 import { IS_ANDROID } from '@/shared/constants/platform';
 import { colors } from '@/shared/constants/colors';
 import { MAIN_TAB_BAR_HEIGHT, MAIN_TAB_BAR_BOTTOM_GAP } from '@/shared/constants/layout';
 
-const TAB_ICONS: Record<string, ComponentType<SvgProps>> = {
-  Home: HomeIcon,
-  Map: MapIcon,
-  Feed: FeedIcon,
-  Setting: SettingIcon,
+interface TabIconSet {
+  fill: ComponentType<SvgProps>;
+  outline: ComponentType<SvgProps>;
+}
+
+const TAB_ICONS: Record<string, TabIconSet> = {
+  Home: { fill: HomeFillIcon, outline: HomeOutlineIcon },
+  Map: { fill: MapFillIcon, outline: MapOutlineIcon },
+  Feed: { fill: MessageFillIcon, outline: MessageOutlineIcon },
+  Setting: { fill: UserFillIcon, outline: UserOutlineIcon },
 };
 
-const BAR_PADDING = 5;
+const BAR_PADDING = 2.5;
 
 export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
   const { t } = useTranslation();
@@ -54,9 +68,9 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
 
         {state.routes.map((route, index) => {
           const isFocused = state.index === index;
-          const Icon = TAB_ICONS[route.name];
+          const Icon = isFocused ? TAB_ICONS[route.name].fill : TAB_ICONS[route.name].outline;
           const label = t(`tab.${route.name.toLowerCase()}`);
-          const color = isFocused ? colors.black : colors.grey[500];
+          const color = isFocused ? '#015CCD' : '#191919';
 
           const onPress = () => {
             const event = navigation.emit({
@@ -97,17 +111,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginHorizontal: 15,
     borderRadius: 30,
-    backgroundColor: '#E5E8EB',
+    backgroundColor: '#F7F8F8',
     alignItems: 'center',
     paddingHorizontal: BAR_PADDING,
     paddingVertical: BAR_PADDING,
+    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
+    borderWidth: 2,
+    borderColor: colors.white,
   },
   indicator: {
     position: 'absolute',
     left: BAR_PADDING,
     top: BAR_PADDING,
     bottom: BAR_PADDING,
-    backgroundColor: '#fff',
+    backgroundColor: '#E4E5E5',
     borderRadius: 30,
   },
   item: {
