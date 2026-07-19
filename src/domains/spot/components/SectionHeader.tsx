@@ -14,8 +14,8 @@ export default function SectionHeader({ title, onPressSeeAll }: SectionHeaderPro
         {title}
       </Text>
       <Pressable onPress={onPressSeeAll} hitSlop={8} style={styles.seeAllButton}>
-        <Text typography="st13" weight="medium" color={colors.grey[500]}>
-          전체보기 {'>'}
+        <Text typography="st13" weight="semiBold" color={colors.blue[500]}>
+          더보기
         </Text>
       </Pressable>
     </View>

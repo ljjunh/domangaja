@@ -5,10 +5,10 @@ import {
   type PressableProps as RNPressableProps,
   type StyleProp,
   type ViewStyle,
-  View,
+  type View,
 } from 'react-native';
 
-interface PressableProps extends Omit<RNPressableProps, 'style'> {
+export interface PressableProps extends Omit<RNPressableProps, 'style'> {
   style?: StyleProp<ViewStyle>;
   ref?: Ref<View>;
 }
