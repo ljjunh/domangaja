@@ -11,19 +11,16 @@ interface SettingSectionProps {
 export default function SettingSection({ title, children }: SettingSectionProps) {
   return (
     <View style={styles.section}>
-      <Text typography="t6" weight="bold" color={colors.grey[500]}>
+      <Text typography="t6" weight="semiBold" color={colors.grey[500]}>
         {title}
       </Text>
-      <View style={styles.items}>{children}</View>
+      <View>{children}</View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   section: {
-    gap: 10,
-  },
-  items: {
-    gap: 12,
+    gap: 4,
   },
 });

@@ -8,6 +8,7 @@ import { Button } from '@/shared/components/ui';
 import { NICKNAME_RULE_MESSAGE, isValidNickname } from '@/domains/user/utils/validateNickname';
 import { ProfileImagePicker } from '@/domains/user/components';
 
+// TODO: 갤러리 권한 거부 시 시스템권한으로 이동하는 바텀시트
 // TODO: 서버 연동 시 user 쿼리로 교체, 훅 분리
 
 const MOCK_MY_INFO = {
