@@ -1914,6 +1914,8 @@ PODS:
     - React-utils (= 0.86.0)
     - ReactNativeDependencies
   - ReactNativeDependencies (0.86.0)
+  - RNDeviceInfo (15.0.2):
+    - React-Core
   - RNLocalize (3.7.0):
     - hermes-engine
     - RCTRequired
@@ -1936,7 +1938,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - RNReanimated (4.4.1):
+  - RNReanimated (4.4.2):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -1958,11 +1960,11 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
-    - RNReanimated/apple (= 4.4.1)
-    - RNReanimated/common (= 4.4.1)
+    - RNReanimated/apple (= 4.4.2)
+    - RNReanimated/common (= 4.4.2)
     - RNWorklets
     - Yoga
-  - RNReanimated/apple (4.4.1):
+  - RNReanimated/apple (4.4.2):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -1986,7 +1988,7 @@ PODS:
     - ReactNativeDependencies
     - RNWorklets
     - Yoga
-  - RNReanimated/common (4.4.1):
+  - RNReanimated/common (4.4.2):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2253,6 +2255,7 @@ DEPENDENCIES:
   - ReactCodegen (from `build/generated/ios/ReactCodegen`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - ReactNativeDependencies (from `../node_modules/react-native/third-party-podspecs/ReactNativeDependencies.podspec`)
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -2414,6 +2417,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   ReactNativeDependencies:
     :podspec: "../node_modules/react-native/third-party-podspecs/ReactNativeDependencies.podspec"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
   RNLocalize:
     :path: "../node_modules/react-native-localize"
   RNReanimated:
@@ -2504,8 +2509,9 @@ SPEC CHECKSUMS:
   ReactCodegen: afe0d436ee089d7bea6418429d8312b1d23a6801
   ReactCommon: d5c1bb4427bf51c443de5926aac332c89ddd9363
   ReactNativeDependencies: fa0a54b3f5319ae0e3b9aff32bfee7a424b88e66
+  RNDeviceInfo: 4c852998208b60dc192ae3529e5867817719ad1e
   RNLocalize: f370284ea42c48f29f0d8dd3a7bcc28a04f82155
-  RNReanimated: 80a8d6e0854c9dddedc054efbce746294a8d3a3b
+  RNReanimated: b349cd990904bbf609d5ee488e63c40f0ddbef53
   RNScreens: 991cc417cd396602a6cf59a42139e5a9d91462a9
   RNSVG: 6cae8d4082913be2eb43eaec2a456222c42195ed
   RNWorklets: 2dd3ec21113976f9cf85f2864b9d9d27d9dedbaa
