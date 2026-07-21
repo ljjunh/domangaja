@@ -34,7 +34,7 @@ export const RootStack = createNativeStackNavigator({
       screens: {
         Main: { screen: MainTabs },
         FeedDetail: { screen: FeedDetailScreen },
-        Language: { screen: LanguageSettingScreen },
+        LanguageSetting: { screen: LanguageSettingScreen },
         MyInfo: { screen: MyInfoScreen },
         NotificationSetting: { screen: NotificationSettingScreen },
         SavedSpot: { screen: SavedSpotScreen },

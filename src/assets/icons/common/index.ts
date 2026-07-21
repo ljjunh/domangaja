@@ -7,6 +7,7 @@ export { default as CrownFillIcon } from './crown-fill.svg';
 export { default as DocumentTextFillIcon } from './document-text-fill.svg';
 export { default as InfoCircleFillIcon } from './info-circle-fill.svg';
 export { default as LocationFillIcon } from './location-fill.svg';
+export { default as LogoutFillIcon } from './logout-fill.svg';
 export { default as NotificationFillIcon } from './notification-fill.svg';
 export { default as NotificationOutlineIcon } from './notification-outline.svg';
 export { default as ShieldSecurityFillIcon } from './shield-security-fill.svg';
