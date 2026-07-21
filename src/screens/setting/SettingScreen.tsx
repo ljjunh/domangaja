@@ -1,4 +1,5 @@
 import { ScrollView, StyleSheet } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 import { useNavigation } from '@react-navigation/native';
 import { Text } from '@/shared/components/base';
 import { Layout, Header } from '@/shared/components/layout';
@@ -75,7 +76,7 @@ export default function SettingScreen() {
             icon={InfoCircleFillIcon}
             iconColor={colors.blue[500]}
             label="버전 정보"
-            value="1.0.0"
+            value={`v ${DeviceInfo.getVersion()}`}
           />
           <SettingListItem
             icon={DocumentTextFillIcon}
