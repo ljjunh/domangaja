@@ -5,16 +5,17 @@ import { colors } from '@/shared/constants/colors';
 
 interface SettingSectionProps {
   title: string;
+  gap?: number;
   children: ReactNode;
 }
 
-export default function SettingSection({ title, children }: SettingSectionProps) {
+export default function SettingSection({ title, gap, children }: SettingSectionProps) {
   return (
     <View style={styles.section}>
       <Text typography="t6" weight="semiBold" color={colors.grey[500]}>
         {title}
       </Text>
-      <View>{children}</View>
+      <View style={{ gap: gap }}>{children}</View>
     </View>
   );
 }

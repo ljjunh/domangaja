@@ -52,7 +52,7 @@ export default function SettingScreen() {
             icon={ArchiveTickFillIcon}
             iconColor={colors.red[300]}
             label="저장한 곳"
-            value="3곳"
+            value="4곳"
             onPress={() => navigate('SavedSpot')}
           />
         </SettingSection>
@@ -62,7 +62,7 @@ export default function SettingScreen() {
             icon={NotificationFillIcon}
             iconColor={colors.orange[500]}
             label="알림"
-            value="꺼짐"
+            value="켜짐"
             onPress={() => navigate('NotificationSetting')}
           />
           <SettingListItem
