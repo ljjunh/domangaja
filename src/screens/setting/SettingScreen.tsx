@@ -1,12 +1,15 @@
 import { ScrollView, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import DeviceInfo from 'react-native-device-info';
 import { useNavigation } from '@react-navigation/native';
 import { Text } from '@/shared/components/base';
 import { Layout, Header } from '@/shared/components/layout';
 import { colors } from '@/shared/constants/colors';
 import { useMainTabBarSpace } from '@/shared/hooks/useMainTabBarSpace';
+import { useLogout } from '@/domains/auth/hooks/useLogout';
 import { MAIN_TAB_SCREEN_EDGES, SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { NotificationButton } from '@/domains/notification/components';
+import { getLanguageNativeName } from '@/shared/i18n/languages';
 import { SettingListItem, SettingSection } from './components';
 import { UserFillIcon } from '@/assets/icons/nav';
 import {
@@ -19,10 +22,10 @@ import {
   ShieldSecurityFillIcon,
   TranslateFillIcon,
 } from '@/assets/icons/common';
-import { useLogout } from '@/domains/auth/hooks/useLogout';
 
 export default function SettingScreen() {
   const mainTabBarSpace = useMainTabBarSpace();
+  const { i18n } = useTranslation();
   const { navigate } = useNavigation();
   const { confirmLogout } = useLogout();
 
@@ -42,7 +45,7 @@ export default function SettingScreen() {
             icon={UserFillIcon}
             iconColor={colors.blue[500]}
             label="내 정보"
-            value="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            value="nickname"
             onPress={() => navigate('MyInfo')}
           />
           <SettingListItem
@@ -66,7 +69,7 @@ export default function SettingScreen() {
             icon={TranslateFillIcon}
             iconColor={colors.teal[500]}
             label="언어"
-            value="한국어"
+            value={getLanguageNativeName(i18n.language)}
             onPress={() => navigate('LanguageSetting')}
           />
         </SettingSection>

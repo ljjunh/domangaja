@@ -5,8 +5,11 @@ import '@/shared/i18n';
 import { Navigation } from '@/shared/navigations/index';
 import { queryClient } from '@/shared/api/queryClient';
 import { OverlayProvider } from '@/shared/overlay';
+import { useAppBootstrap } from '@/shared/hooks/useAppBootstrap';
 
 function App() {
+  useAppBootstrap();
+
   return (
     <SafeAreaProvider>
       <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />

@@ -1,0 +1,30 @@
+{
+  "login": {
+    "title": "domangaja",
+    "subtitle": "避開人潮，前往此刻最清靜的旅行地。",
+    "kakao": "透過 Kakao 繼續",
+    "google": "透過 Google 繼續",
+    "apple": "透過 Apple 繼續",
+    "terms": "服務條款",
+    "privacy": "隱私權政策",
+    "by_tapping_continue": "點擊「開始」即表示您同意<terms>服務條款</terms>與<privacy>隱私權政策</privacy>。"
+  },
+  "tab": {
+    "home": "首頁",
+    "map": "地圖",
+    "feed": "動態",
+    "setting": "設定"
+  },
+  "language": {
+    "title": "語言",
+    "select": "選擇語言",
+    "default": "預設語言",
+    "names": {
+      "ko": "韓語",
+      "zh-Hans": "簡體中文",
+      "zh-Hant": "繁體中文",
+      "ja": "日語",
+      "en": "英語"
+    }
+  }
+}

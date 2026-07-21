@@ -1,6 +1,6 @@
 {
   "login": {
-    "title": "runaway",
+    "title": "domangaja",
     "subtitle": "Avoid crowded places, to the quietest travel destination right now.",
     "kakao": "Continue with Kakao",
     "google": "Continue with Google",
@@ -14,5 +14,17 @@
     "map": "Map",
     "feed": "Feed",
     "setting": "Settings"
+  },
+  "language": {
+    "title": "Language",
+    "select": "Select Language",
+    "default": "Default language",
+    "names": {
+      "ko": "Korean",
+      "zh-Hans": "Chinese (Simplified)",
+      "zh-Hant": "Chinese (Traditional)",
+      "ja": "Japanese",
+      "en": "English"
+    }
   }
 }

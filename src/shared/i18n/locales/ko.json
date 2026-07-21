@@ -14,5 +14,17 @@
     "map": "지도",
     "feed": "피드",
     "setting": "설정"
+  },
+  "language": {
+    "title": "언어",
+    "select": "언어 선택",
+    "default": "기본 언어",
+    "names": {
+      "ko": "한국어",
+      "zh-Hans": "중국어 (간체)",
+      "zh-Hant": "중국어 (번체)",
+      "ja": "일본어",
+      "en": "영어"
+    }
   }
 }

@@ -1,0 +1,30 @@
+{
+  "login": {
+    "title": "domangaja",
+    "subtitle": "混雑を避けて、今いちばん静かな旅先へ。",
+    "kakao": "カカオで続ける",
+    "google": "Googleで続ける",
+    "apple": "Appleで続ける",
+    "terms": "利用規約",
+    "privacy": "プライバシーポリシー",
+    "by_tapping_continue": "「はじめる」をタップすると、<terms>利用規約</terms>と<privacy>プライバシーポリシー</privacy>に同意したものとみなされます。"
+  },
+  "tab": {
+    "home": "ホーム",
+    "map": "地図",
+    "feed": "フィード",
+    "setting": "設定"
+  },
+  "language": {
+    "title": "言語",
+    "select": "言語を選択",
+    "default": "デフォルト言語",
+    "names": {
+      "ko": "韓国語",
+      "zh-Hans": "中国語（簡体字）",
+      "zh-Hant": "中国語（繁体字）",
+      "ja": "日本語",
+      "en": "英語"
+    }
+  }
+}

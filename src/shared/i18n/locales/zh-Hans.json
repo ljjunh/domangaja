@@ -1,0 +1,30 @@
+{
+  "login": {
+    "title": "domangaja",
+    "subtitle": "避开人群，前往此刻最清静的旅行地。",
+    "kakao": "通过 Kakao 继续",
+    "google": "通过 Google 继续",
+    "apple": "通过 Apple 继续",
+    "terms": "服务条款",
+    "privacy": "隐私政策",
+    "by_tapping_continue": "点击“开始”即表示您同意<terms>服务条款</terms>和<privacy>隐私政策</privacy>。"
+  },
+  "tab": {
+    "home": "首页",
+    "map": "地图",
+    "feed": "动态",
+    "setting": "设置"
+  },
+  "language": {
+    "title": "语言",
+    "select": "选择语言",
+    "default": "默认语言",
+    "names": {
+      "ko": "韩语",
+      "zh-Hans": "简体中文",
+      "zh-Hant": "繁体中文",
+      "ja": "日语",
+      "en": "英语"
+    }
+  }
+}

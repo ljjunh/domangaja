@@ -1,4 +1,5 @@
 import { ScrollView, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Text } from '@/shared/components/base';
 import { Layout } from '@/shared/components/layout';
 import { MAIN_TAB_SCREEN_EDGES, SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
@@ -15,13 +16,14 @@ import { QuickMenu, NearbySpotBanner } from './components';
 
 export default function HomeScreen() {
   const mainTabBarSpace = useMainTabBarSpace();
+  const { t } = useTranslation();
 
   return (
     <Layout edges={MAIN_TAB_SCREEN_EDGES}>
       <Header
         left={
           <Text typography="t4" weight="bold">
-            도망가자
+            {t('login.title')}
           </Text>
         }
         right={<NotificationButton />}
