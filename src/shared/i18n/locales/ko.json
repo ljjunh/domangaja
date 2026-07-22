@@ -15,6 +15,28 @@
     "feed": "피드",
     "setting": "설정"
   },
+  "setting": {
+    "title": "설정",
+    "sections": {
+      "account": "계정",
+      "app": "앱 설정",
+      "appInfo": "앱 정보",
+      "accountManagement": "계정 관리"
+    },
+    "myInfo": "내 정보",
+    "savedSpot": "저장한 곳",
+    "savedSpotCount_one": "{{count}} 곳",
+    "savedSpotCount_other": "{{count}}곳",
+    "notification": "알림",
+    "language": "언어",
+    "version": "버전 정보",
+    "terms": "이용약관",
+    "privacy": "개인정보 처리방침",
+    "logout": "로그아웃",
+    "withdraw": "탈퇴하기",
+    "on": "켜짐",
+    "off": "꺼짐"
+  },
   "language": {
     "title": "언어",
     "select": "언어 선택",

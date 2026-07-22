@@ -15,6 +15,28 @@
     "feed": "フィード",
     "setting": "設定"
   },
+  "setting": {
+    "title": "設定",
+    "sections": {
+      "account": "アカウント",
+      "app": "アプリ設定",
+      "appInfo": "アプリ情報",
+      "accountManagement": "アカウント管理"
+    },
+    "myInfo": "プロフィール",
+    "savedSpot": "保存した場所",
+    "savedSpotCount_one": "{{count}}か所",
+    "savedSpotCount_other": "{{count}}か所",
+    "notification": "通知",
+    "language": "言語",
+    "version": "バージョン情報",
+    "terms": "利用規約",
+    "privacy": "プライバシーポリシー",
+    "logout": "ログアウト",
+    "withdraw": "退会する",
+    "on": "オン",
+    "off": "オフ"
+  },
   "language": {
     "title": "言語",
     "select": "言語を選択",

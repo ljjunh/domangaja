@@ -15,6 +15,28 @@
     "feed": "動態",
     "setting": "設定"
   },
+  "setting": {
+    "title": "設定",
+    "sections": {
+      "account": "帳戶",
+      "app": "應用程式設定",
+      "appInfo": "應用程式資訊",
+      "accountManagement": "帳戶管理"
+    },
+    "myInfo": "我的資訊",
+    "savedSpot": "收藏的地點",
+    "savedSpotCount_one": "{{count}}個地點",
+    "savedSpotCount_other": "{{count}}個地點",
+    "notification": "通知",
+    "language": "語言",
+    "version": "版本資訊",
+    "terms": "服務條款",
+    "privacy": "隱私權政策",
+    "logout": "登出",
+    "withdraw": "刪除帳號",
+    "on": "已開啟",
+    "off": "已關閉"
+  },
   "language": {
     "title": "語言",
     "select": "選擇語言",

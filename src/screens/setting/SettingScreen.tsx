@@ -25,7 +25,7 @@ import {
 
 export default function SettingScreen() {
   const mainTabBarSpace = useMainTabBarSpace();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const { navigate } = useNavigation();
   const { confirmLogout } = useLogout();
 
@@ -34,78 +34,78 @@ export default function SettingScreen() {
       <Header
         left={
           <Text typography="t4" weight="bold">
-            설정
+            {t('setting.title')}
           </Text>
         }
         right={<NotificationButton />}
       />
       <ScrollView contentContainerStyle={[styles.container, { paddingBottom: mainTabBarSpace }]}>
-        <SettingSection title="계정">
+        <SettingSection title={t('setting.sections.account')}>
           <SettingListItem
             icon={UserFillIcon}
             iconColor={colors.blue[500]}
-            label="내 정보"
+            label={t('setting.myInfo')}
             value="nickname"
             onPress={() => navigate('MyInfo')}
           />
           <SettingListItem
             icon={ArchiveTickFillIcon}
             iconColor={colors.red[300]}
-            label="저장한 곳"
-            value="4곳"
+            label={t('setting.savedSpot')}
+            value={t('setting.savedSpotCount', { count: 4 })}
             onPress={() => navigate('SavedSpot')}
           />
         </SettingSection>
 
-        <SettingSection title="앱 설정">
+        <SettingSection title={t('setting.sections.app')}>
           <SettingListItem
             icon={NotificationFillIcon}
             iconColor={colors.orange[500]}
-            label="알림"
-            value="켜짐"
+            label={t('setting.notification')}
+            value={t('setting.on')}
             onPress={() => navigate('NotificationSetting')}
           />
           <SettingListItem
             icon={TranslateFillIcon}
             iconColor={colors.teal[500]}
-            label="언어"
+            label={t('setting.language')}
             value={getLanguageNativeName(i18n.language)}
             onPress={() => navigate('LanguageSetting')}
           />
         </SettingSection>
 
-        <SettingSection title="앱 정보">
+        <SettingSection title={t('setting.sections.appInfo')}>
           <SettingListItem
             icon={InfoCircleFillIcon}
             iconColor={colors.blue[500]}
-            label="버전 정보"
+            label={t('setting.version')}
             value={`v ${DeviceInfo.getVersion()}`}
           />
           <SettingListItem
             icon={DocumentTextFillIcon}
             iconColor={colors.purple[500]}
-            label="이용약관"
+            label={t('setting.terms')}
             onPress={() => console.log('이용약관 페이지 이동')}
           />
           <SettingListItem
             icon={ShieldSecurityFillIcon}
             iconColor={colors.blue[500]}
-            label="개인정보 처리방침"
+            label={t('setting.privacy')}
             onPress={() => console.log('개인정보 처리방침 페이지 이동')}
           />
         </SettingSection>
 
-        <SettingSection title="계정 관리">
+        <SettingSection title={t('setting.sections.accountManagement')}>
           <SettingListItem
             icon={LogoutFillIcon}
             iconColor={colors.red[500]}
-            label="로그아웃"
+            label={t('setting.logout')}
             onPress={confirmLogout}
           />
           <SettingListItem
             icon={CloseSquareFillIcon}
             iconColor={colors.red[500]}
-            label="탈퇴하기"
+            label={t('setting.withdraw')}
             onPress={() => console.log('탈퇴 페이지 이동')}
           />
         </SettingSection>

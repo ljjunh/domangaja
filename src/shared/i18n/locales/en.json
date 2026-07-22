@@ -15,6 +15,28 @@
     "feed": "Feed",
     "setting": "Settings"
   },
+  "setting": {
+    "title": "Settings",
+    "sections": {
+      "account": "Account",
+      "app": "App Settings",
+      "appInfo": "App Info",
+      "accountManagement": "Account Management"
+    },
+    "myInfo": "My Info",
+    "savedSpot": "Saved Places",
+    "savedSpotCount_one": "{{count}} place",
+    "savedSpotCount_other": "{{count}} places",
+    "notification": "Notifications",
+    "language": "Language",
+    "version": "Version",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "logout": "Log Out",
+    "withdraw": "Delete Account",
+    "on": "On",
+    "off": "Off"
+  },
   "language": {
     "title": "Language",
     "select": "Select Language",

@@ -15,6 +15,28 @@
     "feed": "动态",
     "setting": "设置"
   },
+  "setting": {
+    "title": "设置",
+    "sections": {
+      "account": "账户",
+      "app": "应用设置",
+      "appInfo": "应用信息",
+      "accountManagement": "账户管理"
+    },
+    "myInfo": "我的信息",
+    "savedSpot": "收藏的地点",
+    "savedSpotCount_one": "{{count}}个地点",
+    "savedSpotCount_other": "{{count}}个地点",
+    "notification": "通知",
+    "language": "语言",
+    "version": "版本信息",
+    "terms": "服务条款",
+    "privacy": "隐私政策",
+    "logout": "退出登录",
+    "withdraw": "注销账户",
+    "on": "已开启",
+    "off": "已关闭"
+  },
   "language": {
     "title": "语言",
     "select": "选择语言",
