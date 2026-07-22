@@ -85,13 +85,13 @@ export default function SettingScreen() {
             icon={DocumentTextFillIcon}
             iconColor={colors.purple[500]}
             label={t('setting.terms')}
-            onPress={() => console.log('이용약관 페이지 이동')}
+            onPress={() => navigate('Policy', { type: 'terms' })}
           />
           <SettingListItem
             icon={ShieldSecurityFillIcon}
             iconColor={colors.blue[500]}
             label={t('setting.privacy')}
-            onPress={() => console.log('개인정보 처리방침 페이지 이동')}
+            onPress={() => navigate('Policy', { type: 'privacy' })}
           />
         </SettingSection>
 

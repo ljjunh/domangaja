@@ -10,6 +10,7 @@ import {
   MyInfoScreen,
   NotificationSettingScreen,
   SavedSpotScreen,
+  PolicyScreen,
 } from '@/screens';
 
 const useIsSignedIn = () => useAuthStore(state => state.isLogin);
@@ -38,6 +39,12 @@ export const RootStack = createNativeStackNavigator({
         MyInfo: { screen: MyInfoScreen },
         NotificationSetting: { screen: NotificationSettingScreen },
         SavedSpot: { screen: SavedSpotScreen },
+      },
+    },
+    // 로그인 여부와 무관한 공통 화면
+    Common: {
+      screens: {
+        Policy: { screen: PolicyScreen },
       },
     },
   },
