@@ -42,7 +42,8 @@
     "apple": "通过 Apple 继续",
     "terms": "服务条款",
     "privacy": "隐私政策",
-    "by_tapping_continue": "点击“开始”即表示您同意<terms>服务条款</terms>和<privacy>隐私政策</privacy>。"
+    "by_tapping_continue": "点击“开始”即表示您同意<terms>服务条款</terms>和<privacy>隐私政策</privacy>。",
+    "errorNetwork": "请检查网络连接后重试。"
   },
   "tab": {
     "home": "首页",

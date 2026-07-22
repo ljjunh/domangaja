@@ -42,7 +42,8 @@
     "apple": "Appleで続ける",
     "terms": "利用規約",
     "privacy": "プライバシーポリシー",
-    "by_tapping_continue": "「はじめる」をタップすると、<terms>利用規約</terms>と<privacy>プライバシーポリシー</privacy>に同意したものとみなされます。"
+    "by_tapping_continue": "「はじめる」をタップすると、<terms>利用規約</terms>と<privacy>プライバシーポリシー</privacy>に同意したものとみなされます。",
+    "errorNetwork": "ネットワーク接続を確認して、もう一度お試しください。"
   },
   "tab": {
     "home": "ホーム",
