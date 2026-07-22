@@ -1,4 +1,39 @@
 {
+  "common": {
+    "cancel": "取消",
+    "confirm": "確認"
+  },
+  "logout": {
+    "title": "登出",
+    "message": "確定要登出嗎？"
+  },
+  "myInfo": {
+    "title": "我的資訊",
+    "submit": "儲存",
+    "nicknameRule": "可使用韓文、英文、數字和底線。"
+  },
+  "notificationSetting": {
+    "title": "通知",
+    "push": {
+      "title": "應用程式推播通知",
+      "description": "接收應用程式發送的推播通知。"
+    },
+    "section": "通知類型",
+    "items": {
+      "quietness": {
+        "title": "清靜度",
+        "description": "當您關注的地點變得清靜時通知您。"
+      },
+      "like": {
+        "title": "按讚",
+        "description": "當您的貼文收到按讚時"
+      },
+      "comment": {
+        "title": "留言",
+        "description": "當您的貼文收到留言時"
+      }
+    }
+  },
   "login": {
     "title": "domangaja",
     "subtitle": "避開人潮，前往此刻最清靜的旅行地。",
@@ -23,16 +58,13 @@
       "appInfo": "應用程式資訊",
       "accountManagement": "帳戶管理"
     },
-    "myInfo": "我的資訊",
     "savedSpot": "收藏的地點",
     "savedSpotCount_one": "{{count}}個地點",
     "savedSpotCount_other": "{{count}}個地點",
     "notification": "通知",
-    "language": "語言",
     "version": "版本資訊",
     "terms": "服務條款",
     "privacy": "隱私權政策",
-    "logout": "登出",
     "withdraw": "刪除帳號",
     "on": "已開啟",
     "off": "已關閉"

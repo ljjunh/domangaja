@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Text, TextInput } from '@/shared/components/base';
 import { Layout, StackHeader } from '@/shared/components/layout';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { colors } from '@/shared/constants/colors';
 import { Button } from '@/shared/components/ui';
-import { NICKNAME_RULE_MESSAGE, isValidNickname } from '@/domains/user/utils/validateNickname';
+import { isValidNickname } from '@/domains/user/utils/validateNickname';
 import { ProfileImagePicker } from '@/domains/user/components';
 
 // TODO: 갤러리 권한 거부 시 시스템권한으로 이동하는 바텀시트
@@ -17,6 +18,7 @@ const MOCK_MY_INFO = {
 };
 
 export default function MyInfoScreen() {
+  const { t } = useTranslation();
   const [nickname, setNickname] = useState(MOCK_MY_INFO.nickname);
   const [imageUri, setImageUri] = useState<string | null>(MOCK_MY_INFO.imageUri);
 
@@ -25,7 +27,7 @@ export default function MyInfoScreen() {
 
   return (
     <Layout>
-      <StackHeader title="내 정보" />
+      <StackHeader title={t('myInfo.title')} />
       <View style={styles.container}>
         <ProfileImagePicker imageUri={imageUri} onChange={setImageUri} />
         <TextInput
@@ -47,10 +49,10 @@ export default function MyInfoScreen() {
             disabled={!canSubmit}
             onPress={() => console.log('TODO: 프로필 저장')}
           >
-            수정완료
+            {t('myInfo.submit')}
           </Button>
           <Text typography="t7" weight="semiBold" color={colors.grey[500]}>
-            {NICKNAME_RULE_MESSAGE}
+            {t('myInfo.nicknameRule')}
           </Text>
         </View>
       </View>

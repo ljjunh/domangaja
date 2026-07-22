@@ -1,5 +1,6 @@
 import { useState, type ComponentType } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { type SvgProps } from 'react-native-svg';
 import { Layout, StackHeader } from '@/shared/components/layout';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
@@ -24,8 +25,6 @@ interface NotificationItem {
   icon: ComponentType<SvgProps>;
   iconColor: string;
   badgeColor: string;
-  title: string;
-  description: string;
 }
 
 const NOTIFICATION_ITEMS: NotificationItem[] = [
@@ -34,28 +33,23 @@ const NOTIFICATION_ITEMS: NotificationItem[] = [
     icon: LocationFillIcon,
     iconColor: colors.orange[500],
     badgeColor: colors.orange[50],
-    title: '한적도',
-    description: '관심 장소가 지금 한적할 때 알려드립니다.',
   },
   {
     key: 'like',
     icon: HeartOutlineIcon,
     iconColor: colors.red[500],
     badgeColor: colors.red[50],
-    title: '좋아요',
-    description: '내 게시물에 좋아요가 눌렸을 때',
   },
   {
     key: 'comment',
     icon: MessageOutlineIcon,
     iconColor: colors.purple[500],
     badgeColor: colors.purple[50],
-    title: '댓글 작성',
-    description: '내 게시물에 댓글이 작성되었을 때',
   },
 ];
 
 export default function NotificationSettingScreen() {
+  const { t } = useTranslation();
   const [settings, setSettings] = useState(MOCK_SETTINGS);
 
   const toggle = (key: SettingKey) => {
@@ -64,23 +58,23 @@ export default function NotificationSettingScreen() {
 
   return (
     <Layout>
-      <StackHeader title="알림" />
+      <StackHeader title={t('notificationSetting.title')} />
       <View style={styles.container}>
         <SettingToggleItem
-          title="앱 푸시 알림"
-          description="앱에서 보내는 푸시 알림을 받습니다."
+          title={t('notificationSetting.push.title')}
+          description={t('notificationSetting.push.description')}
           value={settings.push}
           onValueChange={() => toggle('push')}
         />
-        <SettingSection title="알림 항목">
+        <SettingSection title={t('notificationSetting.section')}>
           {NOTIFICATION_ITEMS.map(item => (
             <SettingToggleItem
               key={item.key}
               icon={item.icon}
               iconColor={item.iconColor}
               badgeColor={item.badgeColor}
-              title={item.title}
-              description={item.description}
+              title={t(`notificationSetting.items.${item.key}.title`)}
+              description={t(`notificationSetting.items.${item.key}.description`)}
               value={settings[item.key]}
               onValueChange={() => toggle(item.key)}
               disabled={!settings.push}

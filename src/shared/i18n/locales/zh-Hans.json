@@ -1,4 +1,39 @@
 {
+  "common": {
+    "cancel": "取消",
+    "confirm": "确认"
+  },
+  "logout": {
+    "title": "退出登录",
+    "message": "确定要退出登录吗？"
+  },
+  "myInfo": {
+    "title": "我的信息",
+    "submit": "保存",
+    "nicknameRule": "可使用韩文、英文、数字和下划线。"
+  },
+  "notificationSetting": {
+    "title": "通知",
+    "push": {
+      "title": "应用推送通知",
+      "description": "接收应用发送的推送通知。"
+    },
+    "section": "通知类型",
+    "items": {
+      "quietness": {
+        "title": "清静度",
+        "description": "当您关注的地点变得清静时通知您。"
+      },
+      "like": {
+        "title": "点赞",
+        "description": "当您的帖子收到点赞时"
+      },
+      "comment": {
+        "title": "评论",
+        "description": "当您的帖子收到评论时"
+      }
+    }
+  },
   "login": {
     "title": "domangaja",
     "subtitle": "避开人群，前往此刻最清静的旅行地。",
@@ -23,16 +58,13 @@
       "appInfo": "应用信息",
       "accountManagement": "账户管理"
     },
-    "myInfo": "我的信息",
     "savedSpot": "收藏的地点",
     "savedSpotCount_one": "{{count}}个地点",
     "savedSpotCount_other": "{{count}}个地点",
     "notification": "通知",
-    "language": "语言",
     "version": "版本信息",
     "terms": "服务条款",
     "privacy": "隐私政策",
-    "logout": "退出登录",
     "withdraw": "注销账户",
     "on": "已开启",
     "off": "已关闭"

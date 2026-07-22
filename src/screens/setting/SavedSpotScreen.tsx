@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Layout, StackHeader } from '@/shared/components/layout';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { Text } from '@/shared/components/base';
@@ -43,6 +44,7 @@ const MOCK_SAVED_SPOTS = [
 ];
 
 export default function SavedSpotScreen() {
+  const { t } = useTranslation();
   const [spots, setSpots] = useState(MOCK_SAVED_SPOTS);
 
   const toggleBookmark = (id: number) => {
@@ -53,14 +55,14 @@ export default function SavedSpotScreen() {
 
   return (
     <Layout>
-      <StackHeader title="저장한 곳" />
+      <StackHeader title={t('setting.savedSpot')} />
       <FlatList
         data={spots}
         keyExtractor={spot => String(spot.id)}
         contentContainerStyle={styles.list}
         ListHeaderComponent={
           <Text typography="t6" weight="semiBold">
-            총 {spots.length}곳
+            {t('setting.savedSpotCount', { count: spots.length })}
           </Text>
         }
         renderItem={({ item }) => (

@@ -44,7 +44,7 @@ export default function SettingScreen() {
           <SettingListItem
             icon={UserFillIcon}
             iconColor={colors.blue[500]}
-            label={t('setting.myInfo')}
+            label={t('myInfo.title')}
             value="nickname"
             onPress={() => navigate('MyInfo')}
           />
@@ -68,7 +68,7 @@ export default function SettingScreen() {
           <SettingListItem
             icon={TranslateFillIcon}
             iconColor={colors.teal[500]}
-            label={t('setting.language')}
+            label={t('language.title')}
             value={getLanguageNativeName(i18n.language)}
             onPress={() => navigate('LanguageSetting')}
           />
@@ -99,7 +99,7 @@ export default function SettingScreen() {
           <SettingListItem
             icon={LogoutFillIcon}
             iconColor={colors.red[500]}
-            label={t('setting.logout')}
+            label={t('logout.title')}
             onPress={confirmLogout}
           />
           <SettingListItem

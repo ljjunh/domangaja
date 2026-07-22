@@ -1,4 +1,39 @@
 {
+  "common": {
+    "cancel": "Cancel",
+    "confirm": "OK"
+  },
+  "logout": {
+    "title": "Log Out",
+    "message": "Are you sure you want to log out?"
+  },
+  "myInfo": {
+    "title": "My Info",
+    "submit": "Save",
+    "nicknameRule": "Korean letters, English letters, numbers, and underscores are allowed."
+  },
+  "notificationSetting": {
+    "title": "Notifications",
+    "push": {
+      "title": "App Push Notifications",
+      "description": "Receive push notifications from the app."
+    },
+    "section": "Notification Types",
+    "items": {
+      "quietness": {
+        "title": "Quietness",
+        "description": "Get notified when your favorite places are quiet."
+      },
+      "like": {
+        "title": "Likes",
+        "description": "When someone likes your post"
+      },
+      "comment": {
+        "title": "Comments",
+        "description": "When someone comments on your post"
+      }
+    }
+  },
   "login": {
     "title": "domangaja",
     "subtitle": "Avoid crowded places, to the quietest travel destination right now.",
@@ -23,16 +58,13 @@
       "appInfo": "App Info",
       "accountManagement": "Account Management"
     },
-    "myInfo": "My Info",
     "savedSpot": "Saved Places",
     "savedSpotCount_one": "{{count}} place",
     "savedSpotCount_other": "{{count}} places",
     "notification": "Notifications",
-    "language": "Language",
     "version": "Version",
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",
-    "logout": "Log Out",
     "withdraw": "Delete Account",
     "on": "On",
     "off": "Off"

@@ -1,4 +1,39 @@
 {
+  "common": {
+    "cancel": "キャンセル",
+    "confirm": "確認"
+  },
+  "logout": {
+    "title": "ログアウト",
+    "message": "ログアウトしますか？"
+  },
+  "myInfo": {
+    "title": "プロフィール",
+    "submit": "保存",
+    "nicknameRule": "ハングル、英字、数字、アンダーバーが使用できます。"
+  },
+  "notificationSetting": {
+    "title": "通知",
+    "push": {
+      "title": "アプリのプッシュ通知",
+      "description": "アプリからのプッシュ通知を受け取ります。"
+    },
+    "section": "通知項目",
+    "items": {
+      "quietness": {
+        "title": "閑散度",
+        "description": "お気に入りの場所が空いているときにお知らせします。"
+      },
+      "like": {
+        "title": "いいね",
+        "description": "自分の投稿にいいねが押されたとき"
+      },
+      "comment": {
+        "title": "コメント",
+        "description": "自分の投稿にコメントが付いたとき"
+      }
+    }
+  },
   "login": {
     "title": "domangaja",
     "subtitle": "混雑を避けて、今いちばん静かな旅先へ。",
@@ -23,16 +58,13 @@
       "appInfo": "アプリ情報",
       "accountManagement": "アカウント管理"
     },
-    "myInfo": "プロフィール",
     "savedSpot": "保存した場所",
     "savedSpotCount_one": "{{count}}か所",
     "savedSpotCount_other": "{{count}}か所",
     "notification": "通知",
-    "language": "言語",
     "version": "バージョン情報",
     "terms": "利用規約",
     "privacy": "プライバシーポリシー",
-    "logout": "ログアウト",
     "withdraw": "退会する",
     "on": "オン",
     "off": "オフ"
