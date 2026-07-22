@@ -42,7 +42,8 @@
     "apple": "Continue with Apple",
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",
-    "by_tapping_continue": "By tapping 'Continue', you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>."
+    "by_tapping_continue": "By tapping 'Continue', you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
+    "errorNetwork": "Please check your network connection and try again."
   },
   "tab": {
     "home": "Home",

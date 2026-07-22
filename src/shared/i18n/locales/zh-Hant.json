@@ -42,7 +42,8 @@
     "apple": "透過 Apple 繼續",
     "terms": "服務條款",
     "privacy": "隱私權政策",
-    "by_tapping_continue": "點擊「開始」即表示您同意<terms>服務條款</terms>與<privacy>隱私權政策</privacy>。"
+    "by_tapping_continue": "點擊「開始」即表示您同意<terms>服務條款</terms>與<privacy>隱私權政策</privacy>。",
+    "errorNetwork": "請檢查網路連線後再試一次。"
   },
   "tab": {
     "home": "首頁",

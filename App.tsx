@@ -1,6 +1,8 @@
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'react-native';
 import { QueryClientProvider } from '@tanstack/react-query';
+import Toast from 'react-native-toast-message';
+import { toastConfig } from '@/shared/lib/toastConfig';
 import '@/shared/i18n';
 import { Navigation } from '@/shared/navigations/index';
 import { queryClient } from '@/shared/api/queryClient';
@@ -18,6 +20,7 @@ function App() {
           <Navigation />
         </OverlayProvider>
       </QueryClientProvider>
+      <Toast config={toastConfig} position="bottom" bottomOffset={80} />
     </SafeAreaProvider>
   );
 }

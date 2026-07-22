@@ -4,20 +4,28 @@ import { login } from '@react-native-seoul/kakao-login';
 import { appleAuth } from '@invertase/react-native-apple-authentication';
 import { type SocialProvider } from '@/domains/auth/constants/socialProviders';
 
-type SocialAuthStrategy = () => Promise<string | null>;
+// 취소(사용자 의도)와 실패(안내 필요)를 구분해
+export type SocialAuthResult =
+  | { status: 'success'; token: string }
+  | { status: 'cancelled' }
+  | { status: 'failed' };
 
-async function signInWithGoogle(): Promise<string | null> {
+type SocialAuthStrategy = () => Promise<SocialAuthResult>;
+
+async function signInWithGoogle(): Promise<SocialAuthResult> {
   try {
     await GoogleSignin.hasPlayServices();
     const response = await GoogleSignin.signIn();
     if (response.type === 'cancelled') {
-      return null;
+      return { status: 'cancelled' };
     }
-    return response.data.idToken;
+    if (!response.data.idToken) {
+      return { status: 'failed' };
+    }
+    return { status: 'success', token: response.data.idToken };
   } catch (error) {
-    // TODO: 에러 안내(토스트) 붙일 때 처리
     console.warn('구글 로그인 실패', error);
-    return null;
+    return { status: 'failed' };
   }
 }
 
@@ -34,22 +42,25 @@ function isAppleAuthCancelled(error: unknown): boolean {
 // 무료 계정은 Sign in with Apple capability를 못 붙여서 error 1000으로 실패
 // 결제·승인 후: Xcode > 타겟 domangaja > Signing & Capabilities > + Capability
 // > "Sign in with Apple" 추가
-async function signInWithApple(): Promise<string | null> {
+async function signInWithApple(): Promise<SocialAuthResult> {
   if (Platform.OS === 'android') {
-    return null;
+    return { status: 'cancelled' }; // Android는 애플 버튼 미노출 — 도달하지 않는 경로
   }
   try {
     const response = await appleAuth.performRequest({
       requestedOperation: appleAuth.Operation.LOGIN,
       requestedScopes: [], // 이메일·이름을 받지 않음 — 식별은 identityToken의 sub로만
     });
-    return response.identityToken;
+    if (!response.identityToken) {
+      return { status: 'failed' };
+    }
+    return { status: 'success', token: response.identityToken };
   } catch (error) {
     if (isAppleAuthCancelled(error)) {
-      return null; // 취소는 정상 흐름
+      return { status: 'cancelled' };
     }
     console.warn('애플 로그인 실패', error);
-    return null;
+    return { status: 'failed' };
   }
 }
 
@@ -61,17 +72,16 @@ function isKakaoCancelled(error: unknown): boolean {
   return code === 'E_CANCELLED_OPERATION' || /cancel/i.test(message ?? '');
 }
 
-async function signInWithKakao(): Promise<string | null> {
+async function signInWithKakao(): Promise<SocialAuthResult> {
   try {
     const token = await login(); // 카카오톡 앱이 있으면 앱 전환, 없으면 계정 로그인
-    return token.accessToken;
+    return { status: 'success', token: token.accessToken };
   } catch (error) {
     if (isKakaoCancelled(error)) {
-      return null; // 취소는 정상 흐름
+      return { status: 'cancelled' };
     }
-    // TODO: 에러 안내(토스트) 붙일 때 처리
     console.warn('카카오 로그인 실패', error);
-    return null;
+    return { status: 'failed' };
   }
 }
 
