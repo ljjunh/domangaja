@@ -37,6 +37,15 @@
 	<string/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Photo library access is needed to upload photos to your profile and posts.</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.427482527525-nehokat582va5cde93tv0ud7c31k7gnb</string>
+			</array>
+		</dict>
+	</array>
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
