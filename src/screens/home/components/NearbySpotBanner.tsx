@@ -1,14 +1,14 @@
 import { StyleSheet, View } from 'react-native';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
-import { ArrowRightIcon, LocationIcon } from '@/assets/icons/common';
+import { ArrowRightIcon, LocationFillIcon } from '@/assets/icons/common';
 
 export default function NearbySpotBanner() {
   return (
     <Pressable style={styles.banner}>
       <View style={styles.content}>
         <View style={styles.locationIconBadge}>
-          <LocationIcon color={colors.blue[500]} />
+          <LocationFillIcon color={colors.blue[500]} />
         </View>
         <View>
           <Text typography="st12" weight="semiBold">

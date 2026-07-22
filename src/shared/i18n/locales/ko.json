@@ -1,4 +1,39 @@
 {
+  "common": {
+    "cancel": "취소",
+    "confirm": "확인"
+  },
+  "logout": {
+    "title": "로그아웃",
+    "message": "로그아웃 하시겠습니까?"
+  },
+  "myInfo": {
+    "title": "내 정보",
+    "submit": "수정완료",
+    "nicknameRule": "한글/영어/숫자/밑줄을 사용할 수 있습니다."
+  },
+  "notificationSetting": {
+    "title": "알림",
+    "push": {
+      "title": "앱 푸시 알림",
+      "description": "앱에서 보내는 푸시 알림을 받습니다."
+    },
+    "section": "알림 항목",
+    "items": {
+      "quietness": {
+        "title": "한적도",
+        "description": "관심 장소가 지금 한적할 때 알려드립니다."
+      },
+      "like": {
+        "title": "좋아요",
+        "description": "내 게시물에 좋아요가 눌렸을 때"
+      },
+      "comment": {
+        "title": "댓글 작성",
+        "description": "내 게시물에 댓글이 작성되었을 때"
+      }
+    }
+  },
   "login": {
     "title": "도망가자",
     "subtitle": "붐비는 곳을 피해, 지금 가장 한적한 여행지로.",
@@ -14,5 +49,36 @@
     "map": "지도",
     "feed": "피드",
     "setting": "설정"
+  },
+  "setting": {
+    "title": "설정",
+    "sections": {
+      "account": "계정",
+      "app": "앱 설정",
+      "appInfo": "앱 정보",
+      "accountManagement": "계정 관리"
+    },
+    "savedSpot": "저장한 곳",
+    "savedSpotCount_one": "{{count}}곳",
+    "savedSpotCount_other": "{{count}}곳",
+    "notification": "알림",
+    "version": "버전 정보",
+    "terms": "이용약관",
+    "privacy": "개인정보 처리방침",
+    "withdraw": "탈퇴하기",
+    "on": "켜짐",
+    "off": "꺼짐"
+  },
+  "language": {
+    "title": "언어",
+    "select": "언어 선택",
+    "default": "기본 언어",
+    "names": {
+      "ko": "한국어",
+      "zh-Hans": "중국어 (간체)",
+      "zh-Hant": "중국어 (번체)",
+      "ja": "일본어",
+      "en": "영어"
+    }
   }
 }

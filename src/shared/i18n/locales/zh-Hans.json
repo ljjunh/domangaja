@@ -1,0 +1,84 @@
+{
+  "common": {
+    "cancel": "取消",
+    "confirm": "确认"
+  },
+  "logout": {
+    "title": "退出登录",
+    "message": "确定要退出登录吗？"
+  },
+  "myInfo": {
+    "title": "我的信息",
+    "submit": "保存",
+    "nicknameRule": "可使用韩文、英文、数字和下划线。"
+  },
+  "notificationSetting": {
+    "title": "通知",
+    "push": {
+      "title": "应用推送通知",
+      "description": "接收应用发送的推送通知。"
+    },
+    "section": "通知类型",
+    "items": {
+      "quietness": {
+        "title": "清静度",
+        "description": "当您关注的地点变得清静时通知您。"
+      },
+      "like": {
+        "title": "点赞",
+        "description": "当您的帖子收到点赞时"
+      },
+      "comment": {
+        "title": "评论",
+        "description": "当您的帖子收到评论时"
+      }
+    }
+  },
+  "login": {
+    "title": "domangaja",
+    "subtitle": "避开人群，前往此刻最清静的旅行地。",
+    "kakao": "通过 Kakao 继续",
+    "google": "通过 Google 继续",
+    "apple": "通过 Apple 继续",
+    "terms": "服务条款",
+    "privacy": "隐私政策",
+    "by_tapping_continue": "点击“开始”即表示您同意<terms>服务条款</terms>和<privacy>隐私政策</privacy>。"
+  },
+  "tab": {
+    "home": "首页",
+    "map": "地图",
+    "feed": "动态",
+    "setting": "设置"
+  },
+  "setting": {
+    "title": "设置",
+    "sections": {
+      "account": "账户",
+      "app": "应用设置",
+      "appInfo": "应用信息",
+      "accountManagement": "账户管理"
+    },
+    "savedSpot": "收藏的地点",
+    "savedSpotCount_one": "{{count}}个地点",
+    "savedSpotCount_other": "{{count}}个地点",
+    "notification": "通知",
+    "version": "版本信息",
+    "terms": "服务条款",
+    "privacy": "隐私政策",
+    "withdraw": "注销账户",
+    "on": "已开启",
+    "off": "已关闭"
+  },
+  "language": {
+    "title": "语言",
+    "select": "选择语言",
+    "default": "默认语言",
+    "names": {
+      "ko": "韩语",
+      "zh-Hans": "简体中文",
+      "zh-Hant": "繁体中文",
+      "ja": "日语",
+      "en": "英语"
+    }
+  }
+}

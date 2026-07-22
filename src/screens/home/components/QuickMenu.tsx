@@ -2,7 +2,12 @@ import { type ComponentType } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SvgProps } from 'react-native-svg';
 import { Text, Pressable } from '@/shared/components/base';
-import { ArchiveTickFillIcon, CrownIcon, LocationIcon, SunFogIcon } from '@/assets/icons/common';
+import {
+  ArchiveTickFillIcon,
+  CrownFillIcon,
+  LocationFillIcon,
+  SunFogFillIcon,
+} from '@/assets/icons/common';
 import { colors } from '@/shared/constants/colors';
 
 interface QuickMenuItem {
@@ -12,9 +17,13 @@ interface QuickMenuItem {
 }
 
 const MENU_ITEMS: QuickMenuItem[] = [
-  { label: '지역별 찾기', icon: LocationIcon, onPress: () => console.log('지역별 찾기로 이동') },
-  { label: '테마별 찾기', icon: SunFogIcon, onPress: () => console.log('테마별 찾기로 이동') },
-  { label: '인기 도망지', icon: CrownIcon, onPress: () => console.log('인기 도망지로 이동') },
+  {
+    label: '지역별 찾기',
+    icon: LocationFillIcon,
+    onPress: () => console.log('지역별 찾기로 이동'),
+  },
+  { label: '테마별 찾기', icon: SunFogFillIcon, onPress: () => console.log('테마별 찾기로 이동') },
+  { label: '인기 도망지', icon: CrownFillIcon, onPress: () => console.log('인기 도망지로 이동') },
   {
     label: '저장한 곳',
     icon: ArchiveTickFillIcon,

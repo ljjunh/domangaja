@@ -2,7 +2,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuthStore } from '@/shared/store/authStore';
 
 import { MainTabs } from '@/shared/navigations/MainTabs';
-import { OnboardingScreen, LoginScreen, FeedDetailScreen } from '@/screens';
+import {
+  OnboardingScreen,
+  LoginScreen,
+  FeedDetailScreen,
+  LanguageSettingScreen,
+  MyInfoScreen,
+  NotificationSettingScreen,
+  SavedSpotScreen,
+  PolicyScreen,
+} from '@/screens';
 
 const useIsSignedIn = () => useAuthStore(state => state.isLogin);
 const useIsSignedOut = () => !useAuthStore(state => state.isLogin);
@@ -26,6 +35,16 @@ export const RootStack = createNativeStackNavigator({
       screens: {
         Main: { screen: MainTabs },
         FeedDetail: { screen: FeedDetailScreen },
+        LanguageSetting: { screen: LanguageSettingScreen },
+        MyInfo: { screen: MyInfoScreen },
+        NotificationSetting: { screen: NotificationSettingScreen },
+        SavedSpot: { screen: SavedSpotScreen },
+      },
+    },
+    // 로그인 여부와 무관한 공통 화면
+    Common: {
+      screens: {
+        Policy: { screen: PolicyScreen },
       },
     },
   },

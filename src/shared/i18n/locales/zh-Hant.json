@@ -1,0 +1,84 @@
+{
+  "common": {
+    "cancel": "取消",
+    "confirm": "確認"
+  },
+  "logout": {
+    "title": "登出",
+    "message": "確定要登出嗎？"
+  },
+  "myInfo": {
+    "title": "我的資訊",
+    "submit": "儲存",
+    "nicknameRule": "可使用韓文、英文、數字和底線。"
+  },
+  "notificationSetting": {
+    "title": "通知",
+    "push": {
+      "title": "應用程式推播通知",
+      "description": "接收應用程式發送的推播通知。"
+    },
+    "section": "通知類型",
+    "items": {
+      "quietness": {
+        "title": "清靜度",
+        "description": "當您關注的地點變得清靜時通知您。"
+      },
+      "like": {
+        "title": "按讚",
+        "description": "當您的貼文收到按讚時"
+      },
+      "comment": {
+        "title": "留言",
+        "description": "當您的貼文收到留言時"
+      }
+    }
+  },
+  "login": {
+    "title": "domangaja",
+    "subtitle": "避開人潮，前往此刻最清靜的旅行地。",
+    "kakao": "透過 Kakao 繼續",
+    "google": "透過 Google 繼續",
+    "apple": "透過 Apple 繼續",
+    "terms": "服務條款",
+    "privacy": "隱私權政策",
+    "by_tapping_continue": "點擊「開始」即表示您同意<terms>服務條款</terms>與<privacy>隱私權政策</privacy>。"
+  },
+  "tab": {
+    "home": "首頁",
+    "map": "地圖",
+    "feed": "動態",
+    "setting": "設定"
+  },
+  "setting": {
+    "title": "設定",
+    "sections": {
+      "account": "帳戶",
+      "app": "應用程式設定",
+      "appInfo": "應用程式資訊",
+      "accountManagement": "帳戶管理"
+    },
+    "savedSpot": "收藏的地點",
+    "savedSpotCount_one": "{{count}}個地點",
+    "savedSpotCount_other": "{{count}}個地點",
+    "notification": "通知",
+    "version": "版本資訊",
+    "terms": "服務條款",
+    "privacy": "隱私權政策",
+    "withdraw": "刪除帳號",
+    "on": "已開啟",
+    "off": "已關閉"
+  },
+  "language": {
+    "title": "語言",
+    "select": "選擇語言",
+    "default": "預設語言",
+    "names": {
+      "ko": "韓語",
+      "zh-Hans": "簡體中文",
+      "zh-Hant": "繁體中文",
+      "ja": "日語",
+      "en": "英語"
+    }
+  }
+}
