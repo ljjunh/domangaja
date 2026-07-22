@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { Layout } from '@/shared/components/layout';
 import { SCREEN_PADDING_BOTTOM, SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { BrandIntro, SocialLoginButton, TermsAgreementNotice } from '@/domains/auth/components';
@@ -18,12 +18,14 @@ export default function LoginScreen() {
             loading={loadingProvider === 'kakao'}
             disabled={loadingProvider !== null && loadingProvider !== 'kakao'}
           />
-          <SocialLoginButton
-            provider="apple"
-            onPress={() => signIn('apple')}
-            loading={loadingProvider === 'apple'}
-            disabled={loadingProvider !== null && loadingProvider !== 'apple'}
-          />
+          {Platform.OS === 'ios' && (
+            <SocialLoginButton
+              provider="apple"
+              onPress={() => signIn('apple')}
+              loading={loadingProvider === 'apple'}
+              disabled={loadingProvider !== null && loadingProvider !== 'apple'}
+            />
+          )}
           <SocialLoginButton
             provider="google"
             onPress={() => signIn('google')}

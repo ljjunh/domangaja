@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuthStore } from '@/shared/store/authStore';
-import { socialAuth } from '../lib/socialAuth';
-import type { SocialProvider } from '../constants/socialProviders';
+import { socialAuth } from '@/domains/auth/lib/socialAuth';
+import type { SocialProvider } from '@/domains/auth/constants/socialProviders';
 
 export const useSocialLogin = () => {
   const login = useAuthStore(state => state.login);
