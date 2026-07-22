@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">도망가자</string>
+    <string name="kakao_app_key">de0f6081e8353c2aa5608c21d40fd660</string>
 </resources>

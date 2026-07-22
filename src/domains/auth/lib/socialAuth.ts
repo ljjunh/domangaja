@@ -1,7 +1,8 @@
 import { Platform } from 'react-native';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { login } from '@react-native-seoul/kakao-login';
 import { appleAuth } from '@invertase/react-native-apple-authentication';
-import type { SocialProvider } from '../constants/socialProviders';
+import { type SocialProvider } from '@/domains/auth/constants/socialProviders';
 
 type SocialAuthStrategy = () => Promise<string | null>;
 
@@ -52,11 +53,30 @@ async function signInWithApple(): Promise<string | null> {
   }
 }
 
+function isKakaoCancelled(error: unknown): boolean {
+  if (typeof error !== 'object' || error === null) {
+    return false;
+  }
+  const { code, message } = error as { code?: string; message?: string };
+  return code === 'E_CANCELLED_OPERATION' || /cancel/i.test(message ?? '');
+}
+
+async function signInWithKakao(): Promise<string | null> {
+  try {
+    const token = await login(); // 카카오톡 앱이 있으면 앱 전환, 없으면 계정 로그인
+    return token.accessToken;
+  } catch (error) {
+    if (isKakaoCancelled(error)) {
+      return null; // 취소는 정상 흐름
+    }
+    // TODO: 에러 안내(토스트) 붙일 때 처리
+    console.warn('카카오 로그인 실패', error);
+    return null;
+  }
+}
+
 export const socialAuth: Record<SocialProvider, SocialAuthStrategy> = {
   google: signInWithGoogle,
   apple: signInWithApple,
-  kakao: async () => {
-    console.log('TODO: 카카오 SDK 연동');
-    return '임시로 통과';
-  },
+  kakao: signInWithKakao,
 };
