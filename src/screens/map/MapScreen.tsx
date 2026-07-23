@@ -1,23 +1,20 @@
-import { ScrollView, StyleSheet } from 'react-native';
-import { Text } from '@/shared/components/base';
-import { Layout } from '@/shared/components/layout';
-import { MAIN_TAB_SCREEN_EDGES, SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
-import { useMainTabBarSpace } from '@/shared/hooks/useMainTabBarSpace';
+import { StyleSheet } from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+
+// 첫 단계: 확인용 초기 위치 (충북 단양)
+const INITIAL_REGION = {
+  latitude: 36.9846,
+  longitude: 128.3655,
+  latitudeDelta: 0.5,
+  longitudeDelta: 0.5,
+};
 
 export default function MapScreen() {
-  const mainTabBarSpace = useMainTabBarSpace();
-
   return (
-    <Layout edges={MAIN_TAB_SCREEN_EDGES}>
-      <ScrollView contentContainerStyle={[styles.container, { paddingBottom: mainTabBarSpace }]}>
-        <Text typography="t1">Map Screen</Text>
-      </ScrollView>
-    </Layout>
+    <MapView
+      provider={PROVIDER_GOOGLE}
+      style={StyleSheet.absoluteFill}
+      initialRegion={INITIAL_REGION}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: SCREEN_PADDING_HORIZONTAL,
-  },
-});
