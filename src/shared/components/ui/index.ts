@@ -5,4 +5,5 @@ export { default as Button } from './Button';
 export { default as IconButton } from './IconButton';
 export { default as ProgressBar } from './ProgressBar';
 export { default as Skeleton } from './Skeleton';
+export { default as Tab } from './Tab';
 export { default as TextButton } from './TextButton';
