@@ -51,6 +51,15 @@
     "feed": "Feed",
     "setting": "Settings"
   },
+  "spotSheet": {
+    "tabs": {
+      "calendar": "Calendar",
+      "tourInfo": "Tour Info"
+    },
+    "weeklyVisitors": "Weekly Visitors",
+    "trend": "Trend",
+    "audioGuide": "Audio Guide"
+  },
   "setting": {
     "title": "Settings",
     "sections": {

@@ -51,6 +51,15 @@
     "feed": "动态",
     "setting": "设置"
   },
+  "spotSheet": {
+    "tabs": {
+      "calendar": "日历",
+      "tourInfo": "旅游信息"
+    },
+    "weeklyVisitors": "每周访客",
+    "trend": "趋势",
+    "audioGuide": "语音导览"
+  },
   "setting": {
     "title": "设置",
     "sections": {

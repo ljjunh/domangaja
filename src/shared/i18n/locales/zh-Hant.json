@@ -51,6 +51,15 @@
     "feed": "動態",
     "setting": "設定"
   },
+  "spotSheet": {
+    "tabs": {
+      "calendar": "日曆",
+      "tourInfo": "旅遊資訊"
+    },
+    "weeklyVisitors": "每週訪客",
+    "trend": "趨勢",
+    "audioGuide": "語音導覽"
+  },
   "setting": {
     "title": "設定",
     "sections": {

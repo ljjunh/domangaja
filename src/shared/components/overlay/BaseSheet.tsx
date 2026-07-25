@@ -25,6 +25,7 @@ export default function BaseSheet({
   return (
     <BottomSheet
       enablePanDownToClose
+      handleStyle={styles.handleContainer}
       handleIndicatorStyle={styles.handle}
       backgroundStyle={styles.background}
       {...bottomSheetProps}
@@ -39,6 +40,9 @@ export default function BaseSheet({
 }
 
 const styles = StyleSheet.create({
+  handleContainer: {
+    paddingBottom: 0, // 아래 간격은 content 쪽에서만 관리
+  },
   // 시트 위쪽 손잡이(pill 인디케이터)
   handle: {
     backgroundColor: colors.grey[300],
@@ -55,6 +59,6 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: SCREEN_PADDING_HORIZONTAL,
-    paddingTop: 4,
+    paddingTop: 14,
   },
 });

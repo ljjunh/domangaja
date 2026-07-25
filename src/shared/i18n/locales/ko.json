@@ -51,6 +51,15 @@
     "feed": "피드",
     "setting": "설정"
   },
+  "spotSheet": {
+    "tabs": {
+      "calendar": "캘린더",
+      "tourInfo": "관광정보"
+    },
+    "weeklyVisitors": "주간 방문객",
+    "trend": "추세",
+    "audioGuide": "오디오 가이드"
+  },
   "setting": {
     "title": "설정",
     "sections": {
