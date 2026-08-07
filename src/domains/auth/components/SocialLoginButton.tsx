@@ -1,7 +1,9 @@
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, StyleSheet, Pressable } from 'react-native';
+import { ActivityIndicator, Animated, StyleSheet, Pressable } from 'react-native';
 import { SOCIAL_PROVIDERS, type SocialProvider } from '@/domains/auth/constants/socialProviders';
 import { Text } from '@/shared/components/base';
+import { SPRING } from '@/shared/constants/springs';
 
 interface SocialLoginButtonProps {
   provider: SocialProvider;
@@ -26,26 +28,29 @@ export default function SocialLoginButton({
 }: SocialLoginButtonProps) {
   const { t } = useTranslation();
   const { Icon, backgroundColor, textColor } = SOCIAL_PROVIDERS[provider];
+  const scale = useRef(new Animated.Value(1)).current;
 
   return (
     <Pressable
       onPress={onPress}
       disabled={disabled || loading}
-      style={({ pressed }) => [
-        styles.button,
-        { backgroundColor },
-        pressed && styles.pressed,
-        disabled && styles.dimmed,
-      ]}
+      onPressIn={() => {
+        Animated.spring(scale, { toValue: 0.96, useNativeDriver: true, ...SPRING.rapid }).start();
+      }}
+      onPressOut={() => {
+        Animated.spring(scale, { toValue: 1, useNativeDriver: true, ...SPRING.quick }).start();
+      }}
     >
-      <Icon style={styles.icon} />
-      {loading ? (
-        <ActivityIndicator color={textColor} />
-      ) : (
-        <Text typography="t6" weight="semiBold" color={textColor}>
-          {t(`login.${provider}`)}
-        </Text>
-      )}
+      <Animated.View style={[styles.button, { backgroundColor, transform: [{ scale }] }]}>
+        <Icon style={styles.icon} />
+        {loading ? (
+          <ActivityIndicator color={textColor} />
+        ) : (
+          <Text typography="t6" weight="semiBold" color={textColor}>
+            {t(`login.${provider}`)}
+          </Text>
+        )}
+      </Animated.View>
     </Pressable>
   );
 }
@@ -59,7 +64,5 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     minHeight: 52,
   },
-  pressed: { opacity: 0.85 },
-  dimmed: { opacity: 0.4 },
   icon: { position: 'absolute', left: 20 },
 });

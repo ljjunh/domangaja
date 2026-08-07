@@ -12,14 +12,10 @@ import {
 } from 'react-native';
 import { Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
+import { SPRING } from '@/shared/constants/springs';
 
 type TabValue = string;
 type TabSize = 'large' | 'small';
-
-const SPRING = {
-  quick: { stiffness: 800, damping: 55, mass: 1 },
-  rapid: { stiffness: 1000, damping: 55, mass: 1 },
-} as const;
 
 interface TabContextValue {
   value?: TabValue;
