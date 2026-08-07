@@ -9,8 +9,8 @@ export function getQuietnessLevel(quietness: number): QuietnessLevel {
   return 'crowded';
 }
 
-export const QUIETNESS_LEVEL_COLORS: Record<QuietnessLevel, string> = {
-  quiet: colors.green[500],
-  normal: colors.yellow[500],
-  crowded: colors.red[500],
+export const QUIETNESS_LEVEL_COLORS: Record<QuietnessLevel, { fill: string; ink: string }> = {
+  quiet: { fill: colors.green[500], ink: colors.green[600] },
+  normal: { fill: colors.yellow[500], ink: colors.yellow[600] },
+  crowded: { fill: colors.red[500], ink: colors.red[600] },
 };

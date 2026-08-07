@@ -14,7 +14,7 @@ export default function SpotSheetHeader({ name, region, category }: SpotSheetHea
       <Text typography="t4" weight="semiBold">
         {name}
       </Text>
-      <Text typography="st12" weight="medium" color={colors.grey[600]}>
+      <Text typography="t6" weight="medium" color={colors.grey[600]}>
         {region}
         {' · '}
         {category}

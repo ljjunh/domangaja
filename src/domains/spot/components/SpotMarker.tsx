@@ -11,7 +11,7 @@ export default function SpotMarker({ quietness }: SpotMarkerProps) {
   const level = getQuietnessLevel(quietness);
 
   return (
-    <View style={[styles.bubble, { backgroundColor: QUIETNESS_LEVEL_COLORS[level] }]}>
+    <View style={[styles.bubble, { backgroundColor: QUIETNESS_LEVEL_COLORS[level].fill }]}>
       <Text typography="st13" weight="semiBold" color={colors.white}>
         {quietness}
       </Text>

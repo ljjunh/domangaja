@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { SpotMarker, SpotSheetContent } from '@/domains/spot/components';
 import { BaseSheet } from '@/shared/components/overlay';
+import { colors } from '@/shared/constants/colors';
 
 // 첫 단계: 확인용 초기 위치 (충북 단양)
 const INITIAL_REGION = {
@@ -83,6 +84,7 @@ type MapSpot = (typeof MOCK_MAP_SPOTS)[number];
 
 export default function MapScreen() {
   const [selectedSpot, setSelectedSpot] = useState<MapSpot | null>(null);
+  const [isMapReady, setIsMapReady] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -91,6 +93,7 @@ export default function MapScreen() {
         style={StyleSheet.absoluteFill}
         initialRegion={INITIAL_REGION}
         showsCompass={false}
+        onMapReady={() => setIsMapReady(true)}
         onPress={e => {
           // 마커 탭도 지도 press를 발화시킨다(action: 'marker-press') — 빈 곳 탭일 때만 닫기
           if (e.nativeEvent.action === 'marker-press') {
@@ -110,6 +113,11 @@ export default function MapScreen() {
           </Marker>
         ))}
       </MapView>
+      {!isMapReady && (
+        <View style={styles.loadingOverlay}>
+          <ActivityIndicator size="large" color={colors.blue[500]} />
+        </View>
+      )}
       {selectedSpot != null && (
         <BaseSheet avoidMainTabBar onClose={() => setSelectedSpot(null)}>
           <SpotSheetContent
@@ -126,5 +134,11 @@ export default function MapScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  loadingOverlay: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: colors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

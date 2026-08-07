@@ -58,7 +58,10 @@
     },
     "weeklyVisitors": "주간 방문객",
     "trend": "추세",
-    "audioGuide": "오디오 가이드"
+    "audioGuide": "오디오 가이드",
+    "bestDayTitle": "{{date}}이 가장 한적해요",
+    "bestDaySubtitle": "예측 한적도 {{score}} · 이날을 추천드려요",
+    "quietnessLevel": { "quiet": "한적", "normal": "보통", "crowded": "혼잡" }
   },
   "setting": {
     "title": "설정",
