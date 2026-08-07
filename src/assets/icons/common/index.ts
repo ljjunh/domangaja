@@ -13,6 +13,7 @@ export { default as LogoutFillIcon } from './logout-fill.svg';
 export { default as MessageOutlineIcon } from './message-outline.svg';
 export { default as NotificationFillIcon } from './notification-fill.svg';
 export { default as NotificationOutlineIcon } from './notification-outline.svg';
+export { default as PlayFillIcon } from './play-fill.svg';
 export { default as ShieldSecurityFillIcon } from './shield-security-fill.svg';
 export { default as SunFogFillIcon } from './sun-fog-fill.svg';
 export { default as TranslateFillIcon } from './translate-fill.svg';

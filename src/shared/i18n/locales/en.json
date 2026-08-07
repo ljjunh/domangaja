@@ -51,6 +51,18 @@
     "feed": "Feed",
     "setting": "Settings"
   },
+  "spotSheet": {
+    "tabs": {
+      "calendar": "Calendar",
+      "tourInfo": "Tour Info"
+    },
+    "weeklyVisitors": "Weekly Visitors",
+    "trend": "Trend",
+    "audioGuide": "Audio Guide",
+    "bestDayTitle": "{{date}} is the quietest",
+    "bestDaySubtitle": "Predicted quietness {{score}} · We recommend this day",
+    "quietnessLevel": { "quiet": "Quiet", "normal": "Moderate", "crowded": "Crowded" }
+  },
   "setting": {
     "title": "Settings",
     "sections": {

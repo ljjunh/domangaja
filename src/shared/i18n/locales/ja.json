@@ -51,6 +51,18 @@
     "feed": "フィード",
     "setting": "設定"
   },
+  "spotSheet": {
+    "tabs": {
+      "calendar": "カレンダー",
+      "tourInfo": "観光情報"
+    },
+    "weeklyVisitors": "週間訪問者数",
+    "trend": "推移",
+    "audioGuide": "オーディオガイド",
+    "bestDayTitle": "{{date}}が最も空いています",
+    "bestDaySubtitle": "予測閑散度 {{score}} ・ この日がおすすめです",
+    "quietnessLevel": { "quiet": "閑散", "normal": "普通", "crowded": "混雑" }
+  },
   "setting": {
     "title": "設定",
     "sections": {

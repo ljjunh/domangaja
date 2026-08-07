@@ -51,6 +51,18 @@
     "feed": "피드",
     "setting": "설정"
   },
+  "spotSheet": {
+    "tabs": {
+      "calendar": "캘린더",
+      "tourInfo": "관광정보"
+    },
+    "weeklyVisitors": "주간 방문객",
+    "trend": "추세",
+    "audioGuide": "오디오 가이드",
+    "bestDayTitle": "{{date}}이 가장 한적해요",
+    "bestDaySubtitle": "예측 한적도 {{score}} · 이날을 추천드려요",
+    "quietnessLevel": { "quiet": "한적", "normal": "보통", "crowded": "혼잡" }
+  },
   "setting": {
     "title": "설정",
     "sections": {

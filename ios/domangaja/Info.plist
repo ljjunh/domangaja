@@ -58,7 +58,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Location access is used to show quiet places near you on the map.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Photo library access is needed to upload photos to your profile and posts.</string>
 	<key>RCTNewArchEnabled</key>
