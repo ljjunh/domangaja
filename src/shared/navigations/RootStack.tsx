@@ -26,7 +26,10 @@ export const RootStack = createNativeStackNavigator({
       if: useIsSignedOut,
       screens: {
         Login: { screen: LoginScreen },
-        Onboarding: { screen: OnboardingScreen },
+        Onboarding: {
+          screen: OnboardingScreen,
+          options: { gestureEnabled: false },
+        },
       },
     },
     // 로그인 상태

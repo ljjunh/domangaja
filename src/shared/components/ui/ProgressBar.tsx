@@ -45,11 +45,14 @@ export default function ProgressBar({
   const clamped = Math.min(Math.max(progress, 0), 100);
   const value = useSharedValue(clamped);
 
-  useEffect(() => {
-    value.value = withAnimation
-      ? withTiming(clamped, { duration: 500, easing: Easing.ease })
-      : clamped; // 애니메이션 비활성 시 즉시 설정 (불필요한 timing 스케줄 방지)
-  }, [clamped, withAnimation, value]);
+  useEffect(
+    function applyProgress() {
+      value.value = withAnimation
+        ? withTiming(clamped, { duration: 500, easing: Easing.ease })
+        : clamped; // 애니메이션 비활성 시 즉시 설정 (불필요한 timing 스케줄 방지)
+    },
+    [clamped, withAnimation, value],
+  );
 
   const fillStyle = useAnimatedStyle(() => ({
     width: `${value.value}%`,

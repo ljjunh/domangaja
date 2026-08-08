@@ -3,7 +3,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { restoreLanguage } from '@/shared/i18n';
 
 export const useAppBootstrap = () => {
-  useEffect(() => {
+  useEffect(function bootstrapApp() {
     restoreLanguage();
     // 클라이언트 ID는 공개 값(토큰 발신/수신자 식별용)이라 코드에 둬도 무방
     GoogleSignin.configure({

@@ -42,12 +42,15 @@ export default function CustomTabBar({ state, navigation }: BottomTabBarProps) {
 
   const tabIndex = useSharedValue(state.index);
 
-  useEffect(() => {
-    tabIndex.value = withSpring(activeIndex, {
-      stiffness: 400,
-      mass: 0.3,
-    });
-  }, [activeIndex, tabIndex]);
+  useEffect(
+    function animateTabIndicator() {
+      tabIndex.value = withSpring(activeIndex, {
+        stiffness: 400,
+        mass: 0.3,
+      });
+    },
+    [activeIndex, tabIndex],
+  );
 
   const indicatorStyle = useAnimatedStyle(() => ({
     // translateX의 %는 자기 자신의 폭 기준 → 100% = 탭 한 칸

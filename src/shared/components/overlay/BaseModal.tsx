@@ -38,28 +38,34 @@ export default function BaseModal({
   const hasOpenedRef = useRef(false);
 
   // isOpen 변화에 따라 등장/퇴장 애니메이션
-  useEffect(() => {
-    if (isOpen) {
-      hasOpenedRef.current = true;
-      progress.value = withTiming(1, { duration: ENTER_DURATION });
-    } else if (hasOpenedRef.current) {
-      // 한 번 열렸다가 닫히는 경우만 퇴장 애니메이션 후 unmount
-      progress.value = withTiming(0, { duration: EXIT_DURATION }, finished => {
-        if (finished) {
-          runOnJS(onUnmount)();
-        }
-      });
-    }
-  }, [isOpen, onUnmount, progress]);
+  useEffect(
+    function runEnterExitAnimation() {
+      if (isOpen) {
+        hasOpenedRef.current = true;
+        progress.value = withTiming(1, { duration: ENTER_DURATION });
+      } else if (hasOpenedRef.current) {
+        // 한 번 열렸다가 닫히는 경우만 퇴장 애니메이션 후 unmount
+        progress.value = withTiming(0, { duration: EXIT_DURATION }, finished => {
+          if (finished) {
+            runOnJS(onUnmount)();
+          }
+        });
+      }
+    },
+    [isOpen, onUnmount, progress],
+  );
 
   // 안드로이드 뒤로가기 → 닫기
-  useEffect(() => {
-    const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
-      onClose();
-      return true; // 기본 동작(화면 뒤로) 막음
-    });
-    return () => subscription.remove();
-  }, [onClose]);
+  useEffect(
+    function closeOnAndroidBackPress() {
+      const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
+        onClose();
+        return true; // 기본 동작(화면 뒤로) 막음
+      });
+      return () => subscription.remove();
+    },
+    [onClose],
+  );
 
   const backdropStyle = useAnimatedStyle(() => ({
     opacity: progress.value,

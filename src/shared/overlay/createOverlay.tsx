@@ -113,7 +113,9 @@ export function createOverlay() {
     }
 
     // 언마운트 시 전체 정리
-    useEffect(() => () => overlayDispatch({ type: 'REMOVE_ALL' }), []);
+    useEffect(function removeAllOnUnmount() {
+      return () => overlayDispatch({ type: 'REMOVE_ALL' });
+    }, []);
 
     return (
       <OverlayContextProvider value={overlayState}>

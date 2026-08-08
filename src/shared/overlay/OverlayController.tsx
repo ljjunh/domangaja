@@ -20,11 +20,14 @@ export const OverlayController = memo(function OverlayController({
   controller: Controller,
   overlayDispatch,
 }: OverlayControllerHostProps) {
-  useEffect(() => {
-    requestAnimationFrame(() => {
-      overlayDispatch({ type: 'OPEN', overlayId });
-    });
-  }, [overlayDispatch, overlayId]);
+  useEffect(
+    function dispatchOpenOnMount() {
+      requestAnimationFrame(() => {
+        overlayDispatch({ type: 'OPEN', overlayId });
+      });
+    },
+    [overlayDispatch, overlayId],
+  );
 
   return (
     <Controller
