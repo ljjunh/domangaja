@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { BackHandler, KeyboardAvoidingView, StyleSheet, View } from 'react-native';
-import { IS_IOS } from '@/shared/constants/platform';
 import { useNavigation } from '@react-navigation/native';
 import { Layout } from '@/shared/components/layout';
 import { IconButton } from '@/shared/components/ui';
@@ -51,8 +50,7 @@ export default function OnboardingScreen() {
   return (
     <Layout>
       <IconButton icon={ArrowLeftIcon} onPress={goBackOneStep} color={colors.black} />
-      {/* iOS는 키보드가 화면을 밀지 않으므로 키보드 높이만큼 패딩을 넣어 하단 버튼을 띄운다 */}
-      <KeyboardAvoidingView style={styles.avoidingView} behavior={IS_IOS ? 'padding' : undefined}>
+      <KeyboardAvoidingView style={styles.avoidingView} behavior="padding">
         <View style={styles.container}>
           {step === 'nickname' && (
             <NicknameStep

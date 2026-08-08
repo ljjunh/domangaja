@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { trigger } from 'react-native-haptic-feedback';
 import { Text } from '@/shared/components/base';
-import { IS_IOS } from '@/shared/constants/platform';
 
 const TYPING_INTERVAL_MS = 30;
 
@@ -47,7 +46,7 @@ export default function TypingTitle({ text, onComplete }: TypingTitleProps) {
   useEffect(
     function tickHapticPerChar() {
       if (visibleLength > 0 && visibleLength <= text.length) {
-        trigger(IS_IOS ? 'impactMedium' : 'effectTick');
+        trigger('impactMedium');
       }
     },
     [visibleLength, text.length],

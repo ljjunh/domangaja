@@ -36,6 +36,7 @@ export default function TextInput({
     <RNTextInput
       ref={ref}
       allowFontScaling={false}
+      underlineColorAndroid="transparent" // Android 기본 밑줄 제거
       placeholderTextColor={placeholderTextColor}
       style={[styles.base, { fontSize, fontFamily: fontFamilyByWeight[weight], color }, style]}
       {...rest}

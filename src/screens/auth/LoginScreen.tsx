@@ -17,15 +17,16 @@ export default function LoginScreen() {
         <View style={styles.socialLoginButtonsWrapper}>
           <SocialLoginButton
             provider="kakao"
-            onPress={() => signIn('kakao')}
+            // onPress={() => signIn('kakao')}
+            // TODO: 로 되돌리기 — 임시로 온보딩 확인용
+            onPress={() => navigate('Onboarding')}
             loading={loadingProvider === 'kakao'}
             disabled={loadingProvider !== null && loadingProvider !== 'kakao'}
           />
           {Platform.OS === 'ios' && (
             <SocialLoginButton
               provider="apple"
-              // TODO: 애플 로그인 복구 시 signIn('apple')로 되돌리기 — 임시로 온보딩 확인용
-              onPress={() => navigate('Onboarding')}
+              onPress={() => signIn('apple')}
               loading={loadingProvider === 'apple'}
               disabled={loadingProvider !== null && loadingProvider !== 'apple'}
             />
