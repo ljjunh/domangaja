@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { restoreLanguage } from '@/shared/i18n';
+import { tokenStorage } from '@/shared/api/tokenStorage';
+import { useAuthStore } from '@/shared/store/authStore';
 
 export const useAppBootstrap = () => {
   useEffect(function bootstrapApp() {
@@ -11,5 +13,11 @@ export const useAppBootstrap = () => {
       iosClientId: '427482527525-nehokat582va5cde93tv0ud7c31k7gnb.apps.googleusercontent.com',
     });
     // TODO: FCM 등 초기화로직들
+
+    tokenStorage.load().then(tokens => {
+      if (tokens != null) {
+        useAuthStore.getState().login();
+      }
+    });
   }, []);
 };
