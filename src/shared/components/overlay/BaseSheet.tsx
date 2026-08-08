@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 import { StyleSheet } from 'react-native';
-import BottomSheet, { BottomSheetView, type BottomSheetProps } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetScrollView, type BottomSheetProps } from '@gorhom/bottom-sheet';
 import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { useMainTabBarSpace } from '@/shared/hooks/useMainTabBarSpace';
@@ -20,7 +20,8 @@ export default function BaseSheet({
   children,
   ...bottomSheetProps
 }: BaseSheetProps) {
-  const mainTabBarSpace = useMainTabBarSpace();
+  // 시트는 SafeArea 밖에서 물리 화면 바닥에 붙으므로 시스템 네비 인셋까지 포함
+  const mainTabBarSpace = useMainTabBarSpace({ fromPhysicalBottom: true });
 
   return (
     <BottomSheet
@@ -30,11 +31,16 @@ export default function BaseSheet({
       backgroundStyle={styles.background}
       {...bottomSheetProps}
     >
-      <BottomSheetView
-        style={[styles.content, avoidMainTabBar && { paddingBottom: mainTabBarSpace }]}
+      {/* 콘텐츠가 시트 최대 높이(화면)를 넘으면 잘리는 대신 시트 안에서 스크롤 */}
+      <BottomSheetScrollView
+        contentContainerStyle={[
+          styles.content,
+          avoidMainTabBar && { paddingBottom: mainTabBarSpace },
+        ]}
+        showsVerticalScrollIndicator={false}
       >
         {children}
-      </BottomSheetView>
+      </BottomSheetScrollView>
     </BottomSheet>
   );
 }
