@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { trigger } from 'react-native-haptic-feedback';
 import { Text } from '@/shared/components/base';
+import { IS_IOS } from '@/shared/constants/platform';
 
 const TYPING_INTERVAL_MS = 30;
 
@@ -16,25 +18,40 @@ export default function TypingTitle({ text, onComplete }: TypingTitleProps) {
   const [visibleLength, setVisibleLength] = useState(0);
   const isDone = visibleLength >= text.length;
 
-  useEffect(() => {
-    if (isDone) {
-      onComplete?.();
-    }
-  }, [isDone, onComplete]);
+  useEffect(
+    function notifyComplete() {
+      if (isDone) {
+        onComplete?.();
+      }
+    },
+    [isDone, onComplete],
+  );
 
   // 글자를 한 자씩 늘리는 타이핑 연출
-  useEffect(() => {
-    const id = setInterval(() => {
-      setVisibleLength(length => {
-        if (length >= text.length) {
-          clearInterval(id);
-          return length;
-        }
-        return length + 1;
-      });
-    }, TYPING_INTERVAL_MS);
-    return () => clearInterval(id);
-  }, [text]);
+  useEffect(
+    function advanceTyping() {
+      const id = setInterval(() => {
+        setVisibleLength(length => {
+          if (length >= text.length) {
+            clearInterval(id);
+            return length;
+          }
+          return length + 1;
+        });
+      }, TYPING_INTERVAL_MS);
+      return () => clearInterval(id);
+    },
+    [text],
+  );
+
+  useEffect(
+    function tickHapticPerChar() {
+      if (visibleLength > 0 && visibleLength <= text.length) {
+        trigger(IS_IOS ? 'impactMedium' : 'effectTick');
+      }
+    },
+    [visibleLength, text.length],
+  );
 
   return (
     <View>

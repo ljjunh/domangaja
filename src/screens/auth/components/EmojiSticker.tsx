@@ -35,16 +35,19 @@ interface EmojiStickerProps {
 export default function EmojiSticker({ emoji }: EmojiStickerProps) {
   // 등장 효과가 끝난 뒤 좌우로 까딱까딱 무한 반복
   const rotation = useSharedValue(0);
-  useEffect(() => {
-    rotation.value = withDelay(
-      ENTER_DURATION_MS,
-      withRepeat(
-        withSequence(withTiming(-15, { duration: 150 }), withTiming(20, { duration: 150 })),
-        -1,
-        true,
-      ),
-    );
-  }, [rotation]);
+  useEffect(
+    function startWaving() {
+      rotation.value = withDelay(
+        ENTER_DURATION_MS,
+        withRepeat(
+          withSequence(withTiming(-15, { duration: 150 }), withTiming(20, { duration: 150 })),
+          -1,
+          true,
+        ),
+      );
+    },
+    [rotation],
+  );
 
   const rotationStyle = useAnimatedStyle(() => ({
     transform: [{ rotate: `${rotation.value}deg` }],

@@ -49,18 +49,21 @@ export default function AnimateSkeleton({
   // shimmer 펄스: 0.2 ↔ 1 반복
   const shimmerOpacity = useSharedValue(withShimmer ? 0.2 : 1);
 
-  useEffect(() => {
-    containerOpacity.value = withDelay(delay, withTiming(1, { duration: 100 }));
-    if (withShimmer) {
-      shimmerOpacity.value = withDelay(
-        delay,
-        withRepeat(
-          withSequence(withTiming(1, { duration: 650 }), withTiming(0.2, { duration: 650 })),
-          -1,
-        ),
-      );
-    }
-  }, [delay, withShimmer, containerOpacity, shimmerOpacity]);
+  useEffect(
+    function startSkeletonAnimation() {
+      containerOpacity.value = withDelay(delay, withTiming(1, { duration: 100 }));
+      if (withShimmer) {
+        shimmerOpacity.value = withDelay(
+          delay,
+          withRepeat(
+            withSequence(withTiming(1, { duration: 650 }), withTiming(0.2, { duration: 650 })),
+            -1,
+          ),
+        );
+      }
+    },
+    [delay, withShimmer, containerOpacity, shimmerOpacity],
+  );
 
   const containerStyle = useAnimatedStyle(() => ({ opacity: containerOpacity.value }));
   const shimmerStyle = useAnimatedStyle(() => ({ opacity: shimmerOpacity.value }));

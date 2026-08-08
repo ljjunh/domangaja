@@ -37,13 +37,16 @@ export default function OnboardingScreen() {
   }, [step, navigation]);
 
   // Android 하드웨어 백버튼도 같은 규칙
-  useEffect(() => {
-    const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
-      goBackOneStep();
-      return true;
-    });
-    return () => subscription.remove();
-  }, [goBackOneStep]);
+  useEffect(
+    function stepBackOnAndroidBackPress() {
+      const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
+        goBackOneStep();
+        return true;
+      });
+      return () => subscription.remove();
+    },
+    [goBackOneStep],
+  );
 
   return (
     <Layout>

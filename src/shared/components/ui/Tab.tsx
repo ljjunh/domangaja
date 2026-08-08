@@ -90,13 +90,16 @@ function TabItem({ value, children, style }: TabItemProps) {
   const [layout, setLayout] = useState<LayoutRectangle>();
   const { setWidth, setTranslateX } = useContext(IndicatorContext);
 
-  useEffect(() => {
-    if (!isSelected || layout == null) {
-      return;
-    }
-    setTranslateX(layout.x + padding.horizontal);
-    setWidth(layout.width - padding.horizontal * 2);
-  }, [isSelected, layout, setTranslateX, setWidth, padding.horizontal]);
+  useEffect(
+    function reportIndicatorPosition() {
+      if (!isSelected || layout == null) {
+        return;
+      }
+      setTranslateX(layout.x + padding.horizontal);
+      setWidth(layout.width - padding.horizontal * 2);
+    },
+    [isSelected, layout, setTranslateX, setWidth, padding.horizontal],
+  );
 
   return (
     <Pressable
@@ -153,13 +156,16 @@ function Tab({ value, children, onChange, style, size = 'large', ...rest }: TabP
   const [width, setWidth] = useState(0);
   const indicatorStyle = { width, transform: [{ translateX: animatedTranslateX }] };
 
-  useEffect(() => {
-    Animated.spring(animatedTranslateX, {
-      toValue: translateX,
-      useNativeDriver: true,
-      ...SPRING.quick,
-    }).start();
-  }, [translateX, animatedTranslateX]);
+  useEffect(
+    function animateIndicator() {
+      Animated.spring(animatedTranslateX, {
+        toValue: translateX,
+        useNativeDriver: true,
+        ...SPRING.quick,
+      }).start();
+    },
+    [translateX, animatedTranslateX],
+  );
 
   const borderStyle = { ...styles.border, borderBottomColor: colors.grey[200] };
 
