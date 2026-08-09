@@ -5,6 +5,7 @@ export { default as MapScreen } from './map/MapScreen';
 export { default as FeedScreen } from './feed/FeedScreen';
 export { default as SettingScreen } from './setting/SettingScreen';
 export { default as FeedDetailScreen } from './feed/FeedDetailScreen';
+export { default as StoryDetailScreen } from './feed/StoryDetailScreen';
 export { default as LanguageSettingScreen } from './setting/LanguageSettingScreen';
 export { default as MyInfoScreen } from './setting/MyInfoScreen';
 export { default as NotificationSettingScreen } from './setting/NotificationSettingScreen';

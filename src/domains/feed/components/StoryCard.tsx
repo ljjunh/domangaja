@@ -10,11 +10,18 @@ interface StoryCardProps {
   viewCount: number;
   // 서버 연동 시 imageUrl(string)을 { uri: imageUrl }로 매핑
   image: ImageSourcePropType;
+  onPress: () => void;
 }
 
-export default function StoryCard({ quietness, placeName, viewCount, image }: StoryCardProps) {
+export default function StoryCard({
+  quietness,
+  placeName,
+  viewCount,
+  image,
+  onPress,
+}: StoryCardProps) {
   return (
-    <Pressable onPress={() => console.log('TODO: 스토리 상세 페이지로 이동')} style={styles.card}>
+    <Pressable onPress={onPress} style={styles.card}>
       <ImageBackground source={image} fadeDuration={0} style={styles.image}>
         <View style={styles.badge}>
           <Text typography="st12" weight="bold" color={colors.grey[800]}>
