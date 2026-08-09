@@ -118,11 +118,21 @@ function LandscapeCard({ label, image, isSelected, onPress }: LandscapeCardProps
   );
 }
 
+export type RegionSelection = {
+  regions: string[];
+  landscapes: string[];
+};
+
 interface RegionStepProps {
-  onNext: (selection: { regions: string[]; landscapes: string[] }) => void;
+  onNext: (selection: RegionSelection) => void;
+  /**
+   * 제출 진행 중 — 시작하기 버튼 잠금 (중복 제출 방지)
+   * @default false
+   */
+  isSubmitting?: boolean;
 }
 
-export default function RegionStep({ onNext }: RegionStepProps) {
+export default function RegionStep({ onNext, isSubmitting = false }: RegionStepProps) {
   const [isTitleDone, setIsTitleDone] = useState(false);
   const [regions, setRegions] = useState<string[]>([]);
   const [landscapes, setLandscapes] = useState<string[]>([]);
@@ -168,7 +178,11 @@ export default function RegionStep({ onNext }: RegionStepProps) {
           </Animated.View>
 
           <Animated.View entering={stepEntering(200)} style={styles.startButtonArea}>
-            <Button display="block" onPress={() => onNext({ regions, landscapes })}>
+            <Button
+              display="block"
+              loading={isSubmitting}
+              onPress={() => onNext({ regions, landscapes })}
+            >
               시작하기
             </Button>
           </Animated.View>

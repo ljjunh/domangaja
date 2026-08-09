@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { STORAGE_KEYS } from '@/shared/constants/storageKeys';
 
-interface Tokens {
+export type Tokens = {
   accessToken: string;
   refreshToken: string;
-}
+};
 
 // 메모리 사본 - 요청 인터셉터가 동기적으로 읽음
 let tokens: Tokens | null = null;
