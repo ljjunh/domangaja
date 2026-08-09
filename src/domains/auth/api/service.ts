@@ -6,3 +6,7 @@ export const loginWithKakao = async (params: KakaoLoginRequest): Promise<KakaoLo
   const { data } = await apiClient.post<KakaoLoginResponse>('/api/v1/auth/kakao', params);
   return data;
 };
+
+export const withdraw = async (): Promise<void> => {
+  await apiClient.delete('/api/v1/members/me');
+};

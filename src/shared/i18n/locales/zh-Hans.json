@@ -5,7 +5,20 @@
   },
   "logout": {
     "title": "退出登录",
-    "message": "确定要退出登录吗？"
+    "message": "要退出登录吗？",
+    "description": "重新登录后，收藏的地点和记录都会保留。"
+  },
+  "withdrawal": {
+    "title": "注销账户",
+    "message": "确定要注销账户吗？",
+    "description": "注销后，以下信息将<danger>立即删除，\n且无法恢复。</danger>",
+    "noticeTitle": "将被删除的信息",
+    "notice": {
+      "savedSpot": "收藏的地点",
+      "post": "发布的帖子和评论",
+      "history": "访问记录与偏好数据"
+    },
+    "agree": "我已阅读并确认以上内容"
   },
   "myInfo": {
     "title": "我的信息",
@@ -78,7 +91,6 @@
     "version": "版本信息",
     "terms": "服务条款",
     "privacy": "隐私政策",
-    "withdraw": "注销账户",
     "on": "已开启",
     "off": "已关闭"
   },

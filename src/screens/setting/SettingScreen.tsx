@@ -7,6 +7,7 @@ import { Layout, Header } from '@/shared/components/layout';
 import { colors } from '@/shared/constants/colors';
 import { useMainTabBarSpace } from '@/shared/hooks/useMainTabBarSpace';
 import { useLogout } from '@/domains/auth/hooks/useLogout';
+import { useWithdrawal } from '@/domains/auth/hooks/useWithdrawal';
 import { MAIN_TAB_SCREEN_EDGES, SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { NotificationButton } from '@/domains/notification/components';
 import { getLanguageNativeName } from '@/shared/i18n/languages';
@@ -28,6 +29,7 @@ export default function SettingScreen() {
   const { i18n, t } = useTranslation();
   const { navigate } = useNavigation();
   const { confirmLogout } = useLogout();
+  const { confirmWithdrawal } = useWithdrawal();
 
   return (
     <Layout edges={MAIN_TAB_SCREEN_EDGES}>
@@ -105,8 +107,8 @@ export default function SettingScreen() {
           <SettingListItem
             icon={CloseSquareFillIcon}
             iconColor={colors.red[500]}
-            label={t('setting.withdraw')}
-            onPress={() => console.log('탈퇴 페이지 이동')}
+            label={t('withdrawal.title')}
+            onPress={confirmWithdrawal}
           />
         </SettingSection>
       </ScrollView>
