@@ -4,6 +4,7 @@ import React_RCTAppDelegate
 import ReactAppDependencyProvider
 import KakaoSDKAuth
 import GoogleMaps
+import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   ) -> Bool {
     // 구글 지도 키 등록 — 반드시 didFinishLaunching의 첫 호출이어야 함 (아니면 지도 빈 화면)
     GMSServices.provideAPIKey("AIzaSyBy4GDkH3HDP95lrwDkCTYbWUDCUy7RETc")
+
+    // Firebase 초기화 — GoogleService-Info.plist를 읽어 [DEFAULT] 앱 생성 (react-native-firebase 필수)
+    FirebaseApp.configure()
 
     let delegate = ReactNativeDelegate()
     let factory = RCTReactNativeFactory(delegate: delegate)
