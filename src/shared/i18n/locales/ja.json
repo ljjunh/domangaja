@@ -16,21 +16,21 @@
     "title": "通知",
     "push": {
       "title": "アプリのプッシュ通知",
-      "description": "アプリからのプッシュ通知を受け取ります。"
+      "description": "アプリからのプッシュ通知を受け取ります"
     },
     "section": "通知項目",
     "items": {
       "quietness": {
         "title": "閑散度",
-        "description": "お気に入りの場所が空いているときにお知らせします。"
+        "description": "お気に入りの場所が空いてきたらお知らせします"
       },
-      "like": {
-        "title": "いいね",
-        "description": "自分の投稿にいいねが押されたとき"
+      "community": {
+        "title": "コミュニティ",
+        "description": "自分の投稿にコメントやいいねが付いたらお知らせします"
       },
-      "comment": {
-        "title": "コメント",
-        "description": "自分の投稿にコメントが付いたとき"
+      "marketing": {
+        "title": "特典・イベント",
+        "description": "最新情報や特典を受け取れます"
       }
     }
   },

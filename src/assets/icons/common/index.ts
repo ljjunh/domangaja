@@ -7,6 +7,7 @@ export { default as CloseSquareFillIcon } from './close-square-fill.svg';
 export { default as CrownFillIcon } from './crown-fill.svg';
 export { default as DocumentTextFillIcon } from './document-text-fill.svg';
 export { default as DoneIcon } from './done.svg';
+export { default as GiftFillIcon } from './gift-fill.svg';
 export { default as HeartOutlineIcon } from './heart-outline.svg';
 export { default as InfoCircleFillIcon } from './info-circle-fill.svg';
 export { default as LocationFillIcon } from './location-fill.svg';
