@@ -3,10 +3,18 @@ export interface KakaoLoginRequest {
   kakaoAccessToken: string;
 }
 
-export interface KakaoLoginResponse {
+export interface SocialLoginResponse {
   accessToken: string;
   refreshToken: string;
   tokenType: string;
   signupCompleted: boolean;
   newMember: boolean;
+}
+
+export interface GoogleLoginRequest {
+  idToken: string;
+}
+
+export interface AppleLoginRequest {
+  idToken: string;
 }

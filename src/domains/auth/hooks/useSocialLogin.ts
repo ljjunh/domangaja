@@ -5,8 +5,14 @@ import { useAuthStore } from '@/shared/store/authStore';
 import { showToast } from '@/shared/lib/toast';
 import { tokenStorage } from '@/shared/api/tokenStorage';
 import { socialAuth } from '@/domains/auth/lib/socialAuth';
-import { loginWithKakao } from '@/domains/auth/api/service';
+import { loginWithApple, loginWithGoogle, loginWithKakao } from '@/domains/auth/api/service';
 import type { SocialProvider } from '@/domains/auth/constants/socialProviders';
+
+const exchangeByProvider = {
+  kakao: (token: string) => loginWithKakao({ kakaoAccessToken: token }),
+  google: (token: string) => loginWithGoogle({ idToken: token }),
+  apple: (token: string) => loginWithApple({ idToken: token }),
+};
 
 export const useSocialLogin = () => {
   const { t } = useTranslation();
@@ -28,13 +34,13 @@ export const useSocialLogin = () => {
         showToast('error', t('login.errorNetwork'));
         return;
       }
-      // TODO: 서버 완성 전까지 카카오를 제외한 애플, 구글은 그냥 로그인 시키기
-      if (provider !== 'kakao') {
+      // TODO: 애플 계정 승인전까지 애플 그냥 로그인 시키기
+      if (provider === 'apple') {
         login();
         return;
       }
 
-      const response = await loginWithKakao({ kakaoAccessToken: result.token });
+      const response = await exchangeByProvider[provider](result.token);
 
       if (!response.signupCompleted) {
         navigate('Onboarding', {
