@@ -1,23 +1,22 @@
-import { ScrollView, StyleSheet } from 'react-native';
-import { Text } from '@/shared/components/base';
+import { useState } from 'react';
 import { Layout } from '@/shared/components/layout';
-import { MAIN_TAB_SCREEN_EDGES, SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
+import { MAIN_TAB_SCREEN_EDGES } from '@/shared/constants/layout';
 import { useMainTabBarSpace } from '@/shared/hooks/useMainTabBarSpace';
+import { FeedList, StoryList } from '@/domains/feed/components';
+import { CommunityTabs, type CommunityTabValue } from './components';
 
-export default function Feedcreen() {
+export default function FeedScreen() {
   const mainTabBarSpace = useMainTabBarSpace();
+  const [tab, setTab] = useState<CommunityTabValue>('story');
 
   return (
     <Layout edges={MAIN_TAB_SCREEN_EDGES}>
-      <ScrollView contentContainerStyle={[styles.container, { paddingBottom: mainTabBarSpace }]}>
-        <Text typography="t1">Feed Screen</Text>
-      </ScrollView>
+      <CommunityTabs value={tab} onChange={setTab} />
+      {tab === 'story' ? (
+        <StoryList bottomInset={mainTabBarSpace} />
+      ) : (
+        <FeedList bottomInset={mainTabBarSpace} />
+      )}
     </Layout>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: SCREEN_PADDING_HORIZONTAL,
-  },
-});
