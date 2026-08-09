@@ -4,3 +4,7 @@ export { default as FeedList } from './FeedList';
 export { default as StoryCard } from './StoryCard';
 export { default as StoryHeader } from './StoryHeader';
 export { default as StoryList } from './StoryList';
+export { default as StoryMedia } from './StoryMedia';
+export { default as StoryProgressBar } from './StoryProgressBar';
+export { default as StoryViewerFooter } from './StoryViewerFooter';
+export { default as StoryViewerHeader } from './StoryViewerHeader';

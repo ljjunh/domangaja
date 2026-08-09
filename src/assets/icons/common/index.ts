@@ -4,6 +4,7 @@ export { default as ArrowLeftIcon } from './arrow-left.svg';
 export { default as ArrowRightIcon } from './arrow-right.svg';
 export { default as ArrowRightLongIcon } from './arrow-right-long.svg';
 export { default as CloseSquareFillIcon } from './close-square-fill.svg';
+export { default as CloseIcon } from './close.svg';
 export { default as CrownFillIcon } from './crown-fill.svg';
 export { default as DocumentTextFillIcon } from './document-text-fill.svg';
 export { default as DoneIcon } from './done.svg';

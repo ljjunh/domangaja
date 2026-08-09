@@ -6,6 +6,7 @@ import {
   OnboardingScreen,
   LoginScreen,
   FeedDetailScreen,
+  StoryDetailScreen,
   LanguageSettingScreen,
   MyInfoScreen,
   NotificationSettingScreen,
@@ -38,6 +39,10 @@ export const RootStack = createNativeStackNavigator({
       screens: {
         Main: { screen: MainTabs },
         FeedDetail: { screen: FeedDetailScreen },
+        StoryDetail: {
+          screen: StoryDetailScreen,
+          options: { animation: 'fade', presentation: 'fullScreenModal' },
+        },
         LanguageSetting: { screen: LanguageSettingScreen },
         MyInfo: { screen: MyInfoScreen },
         NotificationSetting: { screen: NotificationSettingScreen },
