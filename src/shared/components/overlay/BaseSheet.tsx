@@ -1,8 +1,9 @@
 import { type ComponentRef, type ReactNode, type Ref } from 'react';
 import { StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import BottomSheet, { BottomSheetScrollView, type BottomSheetProps } from '@gorhom/bottom-sheet';
 import { colors } from '@/shared/constants/colors';
-import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
+import { SCREEN_PADDING_BOTTOM, SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { useMainTabBarSpace } from '@/shared/hooks/useMainTabBarSpace';
 
 interface BaseSheetProps
@@ -24,6 +25,7 @@ export default function BaseSheet({
 }: BaseSheetProps) {
   // 시트는 SafeArea 밖에서 물리 화면 바닥에 붙으므로 시스템 네비 인셋까지 포함
   const mainTabBarSpace = useMainTabBarSpace({ fromPhysicalBottom: true });
+  const { bottom } = useSafeAreaInsets();
 
   return (
     <BottomSheet
@@ -38,7 +40,7 @@ export default function BaseSheet({
       <BottomSheetScrollView
         contentContainerStyle={[
           styles.content,
-          avoidMainTabBar && { paddingBottom: mainTabBarSpace },
+          { paddingBottom: avoidMainTabBar ? mainTabBarSpace : SCREEN_PADDING_BOTTOM + bottom },
         ]}
         showsVerticalScrollIndicator={false}
       >
