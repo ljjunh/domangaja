@@ -8,23 +8,26 @@ import TypingTitle from './TypingTitle';
 import StepNextButton from './StepNextButton';
 import { stepEntering } from '../utils/stepEntering';
 
-const BIRTH_DATE_MASK = 'MM/DD/YYYY';
+const BIRTH_DATE_MASK = 'YYYY/MM/DD';
 const BIRTH_DATE_DIGIT_COUNT = 8;
 
-// 숫자만 받아 MM/DD/YYYY 중간까지 포맷 (예: "0101199" → "01/01/199")
 function formatBirthDate(digits: string): string {
-  const month = digits.slice(0, 2);
-  const day = digits.slice(2, 4);
-  const year = digits.slice(4, 8);
+  const year = digits.slice(0, 4);
+  const month = digits.slice(4, 6);
+  const day = digits.slice(6, 8);
 
-  let formatted = month;
+  let formatted = year;
+  if (month) {
+    formatted += `/${month}`;
+  }
   if (day) {
     formatted += `/${day}`;
   }
-  if (year) {
-    formatted += `/${year}`;
-  }
   return formatted;
+}
+
+function toServerBirthDate(digits: string): string {
+  return `${digits.slice(0, 4)}-${digits.slice(4, 6)}-${digits.slice(6, 8)}`;
 }
 
 interface BirthDateStepProps {
@@ -68,7 +71,10 @@ export default function BirthDateStep({ onNext }: BirthDateStepProps) {
             </View> */}
           </Animated.View>
           <Animated.View entering={stepEntering(200)} style={styles.nextButtonArea}>
-            <StepNextButton disabled={!isComplete} onPress={() => onNext(formatted)} />
+            <StepNextButton
+              disabled={!isComplete}
+              onPress={() => onNext(toServerBirthDate(birthDigits))}
+            />
           </Animated.View>
         </>
       )}

@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import DeviceInfo from 'react-native-device-info';
 import { useNavigation } from '@react-navigation/native';
+import { useQuery } from '@tanstack/react-query';
 import { Text } from '@/shared/components/base';
 import { Layout, Header } from '@/shared/components/layout';
 import { colors } from '@/shared/constants/colors';
@@ -10,6 +11,7 @@ import { useLogout } from '@/domains/auth/hooks/useLogout';
 import { useWithdrawal } from '@/domains/auth/hooks/useWithdrawal';
 import { MAIN_TAB_SCREEN_EDGES, SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { NotificationButton } from '@/domains/notification/components';
+import { userQueries } from '@/domains/user/api/queries';
 import { getLanguageNativeName } from '@/shared/i18n/languages';
 import { SettingListItem, SettingSection } from './components';
 import { UserFillIcon } from '@/assets/icons/nav';
@@ -30,6 +32,7 @@ export default function SettingScreen() {
   const { navigate } = useNavigation();
   const { confirmLogout } = useLogout();
   const { confirmWithdrawal } = useWithdrawal();
+  const { data: me } = useQuery(userQueries.getMe());
 
   return (
     <Layout edges={MAIN_TAB_SCREEN_EDGES}>
@@ -47,7 +50,7 @@ export default function SettingScreen() {
             icon={UserFillIcon}
             iconColor={colors.blue[500]}
             label={t('myInfo.title')}
-            value="nickname"
+            value={me?.nickname}
             onPress={() => navigate('MyInfo')}
           />
           <SettingListItem

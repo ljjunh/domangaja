@@ -8,6 +8,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { Pressable, Text } from '@/shared/components/base';
+import type { PreferredCategory, PreferredRegion } from '@/domains/user/types/api';
 import { colors } from '@/shared/constants/colors';
 import { SPRING } from '@/shared/constants/springs';
 import { DoneIcon } from '@/assets/icons/common';
@@ -16,21 +17,29 @@ import TypingTitle from './TypingTitle';
 import { stepEntering } from '../utils/stepEntering';
 import { Button } from '@/shared/components/ui';
 
-// TODO: 서버 연동 시 지역/풍경 목록 응답으로 대체 (다국어 처리 예정)
-const REGIONS = ['서울', '강원', '충청', '전라', '경상', '제주'];
+// TODO: 다국어 처리 예정 (label)
+const REGIONS: { value: PreferredRegion; label: string }[] = [
+  { value: 'SEOUL', label: '서울' },
+  { value: 'GANGWON', label: '강원' },
+  { value: 'CHUNGCHEONG', label: '충청' },
+  { value: 'JEOLLA', label: '전라' },
+  { value: 'GYEONGSANG', label: '경상' },
+  { value: 'JEJU', label: '제주' },
+];
 
 // TODO: 디자인 확정 시 풍경별 실제 이미지로 교체
-const LANDSCAPES: { key: string; label: string; image: ImageSourcePropType }[] = [
-  { key: 'beach', label: '바다 · 해변', image: example1Image },
-  { key: 'forest', label: '숲 · 산', image: example2Image },
-  { key: 'island', label: '섬', image: example1Image },
-  { key: 'field', label: '들판 · 시골', image: example2Image },
-  { key: 'night', label: '별 · 밤하늘', image: example1Image },
-  { key: 'valley', label: '계곡 · 물', image: example2Image },
+// 서버 카테고리 8종 중 온보딩 노출은 6종 (CITY, ETC는 피드 전용)
+const LANDSCAPES: { value: PreferredCategory; label: string; image: ImageSourcePropType }[] = [
+  { value: 'SEA', label: '바다 · 해변', image: example1Image },
+  { value: 'MOUNTAIN', label: '숲 · 산', image: example2Image },
+  { value: 'ISLAND', label: '섬', image: example1Image },
+  { value: 'FIELD', label: '들판 · 시골', image: example2Image },
+  { value: 'NIGHT_SKY', label: '별 · 밤하늘', image: example1Image },
+  { value: 'WATER', label: '계곡 · 물', image: example2Image },
 ];
 
 // 있으면 빼고, 없으면 넣는 다중 선택 토글
-function toggleSelection(list: string[], value: string): string[] {
+function toggleSelection<T>(list: T[], value: T): T[] {
   return list.includes(value) ? list.filter(item => item !== value) : [...list, value];
 }
 
@@ -119,8 +128,8 @@ function LandscapeCard({ label, image, isSelected, onPress }: LandscapeCardProps
 }
 
 export type RegionSelection = {
-  regions: string[];
-  landscapes: string[];
+  regions: PreferredRegion[];
+  landscapes: PreferredCategory[];
 };
 
 interface RegionStepProps {
@@ -134,8 +143,8 @@ interface RegionStepProps {
 
 export default function RegionStep({ onNext, isSubmitting = false }: RegionStepProps) {
   const [isTitleDone, setIsTitleDone] = useState(false);
-  const [regions, setRegions] = useState<string[]>([]);
-  const [landscapes, setLandscapes] = useState<string[]>([]);
+  const [regions, setRegions] = useState<PreferredRegion[]>([]);
+  const [landscapes, setLandscapes] = useState<PreferredCategory[]>([]);
 
   return (
     <View style={styles.container}>
@@ -151,10 +160,10 @@ export default function RegionStep({ onNext, isSubmitting = false }: RegionStepP
             <View style={styles.chipRow}>
               {REGIONS.map(region => (
                 <RegionChip
-                  key={region}
-                  label={region}
-                  isSelected={regions.includes(region)}
-                  onPress={() => setRegions(prev => toggleSelection(prev, region))}
+                  key={region.value}
+                  label={region.label}
+                  isSelected={regions.includes(region.value)}
+                  onPress={() => setRegions(prev => toggleSelection(prev, region.value))}
                 />
               ))}
             </View>
@@ -167,11 +176,11 @@ export default function RegionStep({ onNext, isSubmitting = false }: RegionStepP
             <View style={styles.cardGrid}>
               {LANDSCAPES.map(landscape => (
                 <LandscapeCard
-                  key={landscape.key}
+                  key={landscape.value}
                   label={landscape.label}
                   image={landscape.image}
-                  isSelected={landscapes.includes(landscape.key)}
-                  onPress={() => setLandscapes(prev => toggleSelection(prev, landscape.key))}
+                  isSelected={landscapes.includes(landscape.value)}
+                  onPress={() => setLandscapes(prev => toggleSelection(prev, landscape.value))}
                 />
               ))}
             </View>
