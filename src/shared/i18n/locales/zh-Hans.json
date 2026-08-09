@@ -5,7 +5,8 @@
   },
   "logout": {
     "title": "退出登录",
-    "message": "确定要退出登录吗？"
+    "message": "要退出登录吗？",
+    "description": "重新登录后，收藏的地点和记录都会保留。"
   },
   "myInfo": {
     "title": "我的信息",

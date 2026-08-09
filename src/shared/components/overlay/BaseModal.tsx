@@ -88,7 +88,7 @@ export default function BaseModal({
       <View style={styles.centerWrap} pointerEvents="box-none">
         <Animated.View style={[styles.card, contentStyle]}>
           {title ? (
-            <Text typography="t5" weight="semiBold" color={colors.grey[900]} textAlign="center">
+            <Text typography="t5" weight="bold" color={colors.grey[900]} textAlign="center">
               {title}
             </Text>
           ) : null}

@@ -26,7 +26,7 @@ export default function SettingListItem({
         <View style={styles.iconBadge}>
           <Icon width={24} height={24} color={iconColor} />
         </View>
-        <Text typography="t5" weight="semiBold">
+        <Text typography="t6" weight="semiBold">
           {label}
         </Text>
       </View>

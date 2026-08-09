@@ -5,7 +5,8 @@
   },
   "logout": {
     "title": "Log Out",
-    "message": "Are you sure you want to log out?"
+    "message": "Log out?",
+    "description": "Your saved places and history will still be here when you log back in."
   },
   "myInfo": {
     "title": "My Info",

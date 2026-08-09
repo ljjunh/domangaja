@@ -5,7 +5,8 @@
   },
   "logout": {
     "title": "登出",
-    "message": "確定要登出嗎？"
+    "message": "要登出嗎？",
+    "description": "重新登入後，收藏的地點與紀錄都會保留。"
   },
   "myInfo": {
     "title": "我的資訊",

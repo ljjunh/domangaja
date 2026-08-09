@@ -5,7 +5,8 @@
   },
   "logout": {
     "title": "로그아웃",
-    "message": "로그아웃 하시겠습니까?"
+    "message": "로그아웃 할까요?",
+    "description": "다시 로그인하면 저장한 곳과 기록을 그대로 볼 수 있어요."
   },
   "myInfo": {
     "title": "내 정보",
