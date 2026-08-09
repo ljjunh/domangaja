@@ -5,6 +5,8 @@ import { BaseModal } from '@/shared/components/overlay';
 import { overlay } from '@/shared/overlay';
 import { useAuthStore } from '@/shared/store/authStore';
 import { tokenStorage } from '@/shared/api/tokenStorage';
+import { queryClient } from '@/shared/api/queryClient';
+import { userQueryKeys } from '@/domains/user/api/queries';
 
 export const useLogout = () => {
   const logout = useAuthStore(state => state.logout);
@@ -14,6 +16,7 @@ export const useLogout = () => {
     overlay.open(({ isOpen, close, unmount }) => {
       const handleLogoutConfirm = async () => {
         await tokenStorage.clear();
+        queryClient.removeQueries({ queryKey: userQueryKeys.all });
         logout();
         close();
       };

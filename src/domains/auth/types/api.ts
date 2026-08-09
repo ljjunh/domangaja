@@ -7,5 +7,6 @@ export interface KakaoLoginResponse {
   accessToken: string;
   refreshToken: string;
   tokenType: string;
+  signupCompleted: boolean;
   newMember: boolean;
 }

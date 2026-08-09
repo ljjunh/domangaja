@@ -36,14 +36,19 @@ export const useSocialLogin = () => {
 
       const response = await loginWithKakao({ kakaoAccessToken: result.token });
 
+      if (!response.signupCompleted) {
+        navigate('Onboarding', {
+          accessToken: response.accessToken,
+          refreshToken: response.refreshToken,
+        });
+        return;
+      }
+
       await tokenStorage.save({
         accessToken: response.accessToken,
         refreshToken: response.refreshToken,
       });
-      if (response.newMember) {
-        navigate('Onboarding');
-        return;
-      }
+
       login();
     } finally {
       setLoadingProvider(null);
