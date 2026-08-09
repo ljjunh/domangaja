@@ -10,10 +10,11 @@ export const userQueryKeys = {
 };
 
 export const userQueries = {
-  getMe: queryOptions({
-    queryKey: userQueryKeys.me,
-    queryFn: getMe,
-  }),
+  getMe: () =>
+    queryOptions({
+      queryKey: userQueryKeys.me,
+      queryFn: getMe,
+    }),
 };
 
 export const userMutations = {

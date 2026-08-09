@@ -16,21 +16,21 @@
     "title": "Notifications",
     "push": {
       "title": "App Push Notifications",
-      "description": "Receive push notifications from the app."
+      "description": "Receive push notifications from the app"
     },
     "section": "Notification Types",
     "items": {
       "quietness": {
         "title": "Quietness",
-        "description": "Get notified when your favorite places are quiet."
+        "description": "Get notified when your favorite places become quiet"
       },
-      "like": {
-        "title": "Likes",
-        "description": "When someone likes your post"
+      "community": {
+        "title": "Community",
+        "description": "Get notified about comments and likes on your posts"
       },
-      "comment": {
-        "title": "Comments",
-        "description": "When someone comments on your post"
+      "marketing": {
+        "title": "Benefits & Events",
+        "description": "Receive news and special offers"
       }
     }
   },

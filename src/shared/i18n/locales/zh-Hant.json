@@ -16,21 +16,21 @@
     "title": "通知",
     "push": {
       "title": "應用程式推播通知",
-      "description": "接收應用程式發送的推播通知。"
+      "description": "接收應用程式發送的推播通知"
     },
     "section": "通知類型",
     "items": {
       "quietness": {
         "title": "清靜度",
-        "description": "當您關注的地點變得清靜時通知您。"
+        "description": "收藏的地點變得清靜時通知您"
       },
-      "like": {
-        "title": "按讚",
-        "description": "當您的貼文收到按讚時"
+      "community": {
+        "title": "社群",
+        "description": "您的貼文收到留言或按讚時通知您"
       },
-      "comment": {
-        "title": "留言",
-        "description": "當您的貼文收到留言時"
+      "marketing": {
+        "title": "優惠·活動",
+        "description": "接收最新消息和優惠資訊"
       }
     }
   },
