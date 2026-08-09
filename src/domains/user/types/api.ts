@@ -1,21 +1,50 @@
-export interface UpdateMyProfileRequest {
-  preferredCategories: string[];
+// 서버 enum — 선호 지역 6종
+export type PreferredRegion =
+  | 'SEOUL'
+  | 'GANGWON'
+  | 'CHUNGCHEONG'
+  | 'JEOLLA'
+  | 'GYEONGSANG'
+  | 'JEJU';
+
+// 서버 enum — 선호 카테고리 8종 (온보딩 화면엔 CITY, ETC 제외 6종만 노출)
+export type PreferredCategory =
+  | 'SEA'
+  | 'MOUNTAIN'
+  | 'ISLAND'
+  | 'FIELD'
+  | 'NIGHT_SKY'
+  | 'WATER'
+  | 'CITY'
+  | 'ETC';
+
+export interface CompleteOnboardingRequest {
+  nickname: string;
+  birthDate: string;
+  preferredRegions: PreferredRegion[];
+  preferredCategories: PreferredCategory[];
 }
 
-export interface UpdateMyProfileResponse {
+export interface CompleteOnboardingResponse {
   id: number;
   nickname: string;
-  email: string;
+  email: string | null;
   role: string;
   signupCompleted: boolean;
-  preferredCategories: string[];
+  preferredCategories: PreferredCategory[];
+  preferredRegions: PreferredRegion[];
+  birthDate: string | null;
+  locale: string;
 }
 
 export interface GetMeResponse {
   id: number;
   nickname: string;
-  email: string;
+  email: string | null;
   role: string;
   signupCompleted: boolean;
-  preferredCategories: string[];
+  preferredCategories: PreferredCategory[];
+  preferredRegions: PreferredRegion[];
+  birthDate: string | null;
+  locale: string;
 }

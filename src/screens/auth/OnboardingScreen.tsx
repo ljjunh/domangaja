@@ -31,7 +31,7 @@ export default function OnboardingScreen({ route }: OnboardingScreenProps) {
   const { t } = useTranslation();
   const tokens = route.params;
   const login = useAuthStore(state => state.login);
-  const { mutate: submitProfile, isPending } = useMutation(userMutations.updateMyProfile());
+  const { mutate: submitOnboarding, isPending } = useMutation(userMutations.completeOnboarding());
 
   const [step, setStep] = useState<OnboardingStep>('nickname');
   const [form, setForm] = useState<OnboardingForm>({
@@ -72,16 +72,18 @@ export default function OnboardingScreen({ route }: OnboardingScreenProps) {
   };
 
   const completeOnboarding = async ({ regions, landscapes }: RegionSelection) => {
-    if (tokens == null) {
+    if (tokens == null || form.birthDate == null) {
       return;
     }
     await tokenStorage.save(tokens);
 
-    // TODO: 서버 확장 시 페이로드에 포함할 수집값
-    console.log('미전송 수집값(서버 확장 대기):', { ...form, regions });
-
-    submitProfile(
-      { preferredCategories: landscapes },
+    submitOnboarding(
+      {
+        nickname: form.nickname,
+        birthDate: form.birthDate,
+        preferredRegions: regions,
+        preferredCategories: landscapes,
+      },
       {
         onSuccess: () => login(),
         onError: async () => {

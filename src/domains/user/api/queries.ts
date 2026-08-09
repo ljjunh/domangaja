@@ -1,5 +1,5 @@
 import { mutationOptions, queryOptions } from '@tanstack/react-query';
-import { getMe, updateMyProfile } from '@/domains/user/api/service';
+import { completeOnboarding, getMe } from '@/domains/user/api/service';
 import { queryClient } from '@/shared/api/queryClient';
 
 const all = ['user'] as const;
@@ -18,9 +18,9 @@ export const userQueries = {
 };
 
 export const userMutations = {
-  updateMyProfile: () =>
+  completeOnboarding: () =>
     mutationOptions({
-      mutationFn: updateMyProfile,
+      mutationFn: completeOnboarding,
       onSuccess: data => {
         queryClient.setQueryData(userQueryKeys.me, data);
       },
