@@ -8,6 +8,18 @@
     "message": "要登出嗎？",
     "description": "重新登入後，收藏的地點與紀錄都會保留。"
   },
+  "withdrawal": {
+    "title": "刪除帳號",
+    "message": "確定要刪除帳號嗎？",
+    "description": "刪除後，以下資訊將<danger>立即刪除，\n且無法復原。</danger>",
+    "noticeTitle": "將被刪除的資訊",
+    "notice": {
+      "savedSpot": "收藏的地點",
+      "post": "發布的貼文與留言",
+      "history": "造訪紀錄與偏好資料"
+    },
+    "agree": "我已閱讀並確認以上內容"
+  },
   "myInfo": {
     "title": "我的資訊",
     "submit": "儲存",
@@ -79,7 +91,6 @@
     "version": "版本資訊",
     "terms": "服務條款",
     "privacy": "隱私權政策",
-    "withdraw": "刪除帳號",
     "on": "已開啟",
     "off": "已關閉"
   },

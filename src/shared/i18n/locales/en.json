@@ -8,6 +8,18 @@
     "message": "Log out?",
     "description": "Your saved places and history will still be here when you log back in."
   },
+  "withdrawal": {
+    "title": "Delete Account",
+    "message": "Delete your account?",
+    "description": "The information below will be <danger>deleted right away\nand cannot be restored.</danger>",
+    "noticeTitle": "What gets deleted",
+    "notice": {
+      "savedSpot": "saved places",
+      "post": "All of your posts and comments",
+      "history": "Visit history and preference data"
+    },
+    "agree": "I've read and understood the notice"
+  },
   "myInfo": {
     "title": "My Info",
     "submit": "Save",
@@ -79,7 +91,6 @@
     "version": "Version",
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",
-    "withdraw": "Delete Account",
     "on": "On",
     "off": "Off"
   },

@@ -8,6 +8,18 @@
     "message": "ログアウトしますか？",
     "description": "再度ログインすると、保存した場所と履歴をそのまま見ることができます。"
   },
+  "withdrawal": {
+    "title": "退会する",
+    "message": "本当に退会しますか？",
+    "description": "退会すると以下の情報が<danger>すぐに削除され、\n元に戻せません。</danger>",
+    "noticeTitle": "削除される情報",
+    "notice": {
+      "savedSpot": "保存した場所",
+      "post": "投稿とコメント",
+      "history": "訪問履歴と好みのデータ"
+    },
+    "agree": "案内事項をすべて確認しました"
+  },
   "myInfo": {
     "title": "プロフィール",
     "submit": "保存",
@@ -79,7 +91,6 @@
     "version": "バージョン情報",
     "terms": "利用規約",
     "privacy": "プライバシーポリシー",
-    "withdraw": "退会する",
     "on": "オン",
     "off": "オフ"
   },

@@ -8,6 +8,18 @@
     "message": "로그아웃 할까요?",
     "description": "다시 로그인하면 저장한 곳과 기록을 그대로 볼 수 있어요."
   },
+  "withdrawal": {
+    "title": "탈퇴하기",
+    "message": "정말 탈퇴하시겠어요?",
+    "description": "탈퇴하면 아래 정보가 <danger>즉시 삭제되고\n되돌릴 수 없어요.</danger>",
+    "noticeTitle": "삭제되는 정보",
+    "notice": {
+      "savedSpot": "저장한 도망지",
+      "post": "작성한 게시글과 댓글 전체",
+      "history": "방문 기록과 취향 데이터"
+    },
+    "agree": "안내 사항을 모두 확인했어요"
+  },
   "myInfo": {
     "title": "내 정보",
     "submit": "수정완료",
@@ -79,7 +91,6 @@
     "version": "버전 정보",
     "terms": "이용약관",
     "privacy": "개인정보 처리방침",
-    "withdraw": "탈퇴하기",
     "on": "켜짐",
     "off": "꺼짐"
   },

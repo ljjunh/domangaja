@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import { type ComponentRef, type ReactNode, type Ref } from 'react';
 import { StyleSheet } from 'react-native';
 import BottomSheet, { BottomSheetScrollView, type BottomSheetProps } from '@gorhom/bottom-sheet';
 import { colors } from '@/shared/constants/colors';
@@ -13,11 +13,13 @@ interface BaseSheetProps
    */
   avoidMainTabBar?: boolean;
   children: ReactNode;
+  ref?: Ref<ComponentRef<typeof BottomSheet>>;
 }
 
 export default function BaseSheet({
   avoidMainTabBar = false,
   children,
+  ref,
   ...bottomSheetProps
 }: BaseSheetProps) {
   // 시트는 SafeArea 밖에서 물리 화면 바닥에 붙으므로 시스템 네비 인셋까지 포함
@@ -25,6 +27,7 @@ export default function BaseSheet({
 
   return (
     <BottomSheet
+      ref={ref}
       enablePanDownToClose
       handleStyle={styles.handleContainer}
       handleIndicatorStyle={styles.handle}
