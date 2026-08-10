@@ -1,8 +1,8 @@
 import { apiClient } from '@/shared/api/client';
 import type {
+  CompleteOnboardingRequest,
+  CompleteOnboardingResponse,
   GetMeResponse,
-  UpdateMyProfileRequest,
-  UpdateMyProfileResponse,
 } from '@/domains/user/types/api';
 
 export const getMe = async (): Promise<GetMeResponse> => {
@@ -10,10 +10,10 @@ export const getMe = async (): Promise<GetMeResponse> => {
   return data;
 };
 
-export const updateMyProfile = async (
-  params: UpdateMyProfileRequest,
-): Promise<UpdateMyProfileResponse> => {
-  const { data } = await apiClient.put<UpdateMyProfileResponse>(
+export const completeOnboarding = async (
+  params: CompleteOnboardingRequest,
+): Promise<CompleteOnboardingResponse> => {
+  const { data } = await apiClient.put<CompleteOnboardingResponse>(
     '/api/v1/members/me/onboarding',
     params,
   );

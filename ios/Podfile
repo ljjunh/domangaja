@@ -14,6 +14,12 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
+# Firebase iOS SDK(Swift)는 static framework 링크를 요구한다 (react-native-firebase 공식 설정)
+# SPM 경유는 static과 충돌하므로 CocoaPods 경로로 고정 ($RNFirebaseDisableSPM)
+use_frameworks! :linkage => :static
+$RNFirebaseAsStaticFramework = true
+$RNFirebaseDisableSPM = true
+
 # React Native Maps — iOS도 구글 지도 사용 (Android와 통일)
 rn_maps_path = '../node_modules/react-native-maps'
 pod 'react-native-maps/Google', :path => rn_maps_path

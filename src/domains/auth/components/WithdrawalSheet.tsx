@@ -5,7 +5,6 @@ import BottomSheet, {
   BottomSheetBackdrop,
   type BottomSheetBackdropProps,
 } from '@gorhom/bottom-sheet';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Pressable, Text } from '@/shared/components/base';
 import { Button } from '@/shared/components/ui';
 import { BaseSheet } from '@/shared/components/overlay';
@@ -19,7 +18,6 @@ interface WithdrawalSheetProps {
 
 export default function WithdrawalSheet({ onClose, onConfirm }: WithdrawalSheetProps) {
   const { t } = useTranslation();
-  const { bottom } = useSafeAreaInsets();
   const [isAgreed, setIsAgreed] = useState(false);
   const sheetRef = useRef<ComponentRef<typeof BottomSheet>>(null);
 
@@ -37,7 +35,7 @@ export default function WithdrawalSheet({ onClose, onConfirm }: WithdrawalSheetP
 
   return (
     <BaseSheet ref={sheetRef} onClose={onClose} backdropComponent={renderBackdrop}>
-      <View style={[styles.container, { paddingBottom: bottom + 12 }]}>
+      <View style={styles.container}>
         <Text typography="t4" weight="bold" color={colors.grey[900]}>
           {t('withdrawal.message')}
         </Text>
