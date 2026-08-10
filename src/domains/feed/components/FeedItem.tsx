@@ -1,9 +1,7 @@
 import { StyleSheet, View, type ImageSourcePropType } from 'react-native';
 import { Image, Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
-import { ArchiveTickOutlineIcon } from '@/assets/icons/common';
-import { MoreOutlineIcon } from '@/assets/icons/common';
-import { LocationFillIcon } from '@/assets/icons/common';
+import { ArchiveTickOutlineIcon, MoreOutlineIcon, LocationFillIcon } from '@/assets/icons/common';
 
 interface FeedItemProps {
   nickname: string;

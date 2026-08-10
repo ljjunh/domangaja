@@ -7,6 +7,8 @@ import {
   LoginScreen,
   FeedDetailScreen,
   StoryDetailScreen,
+  FeedWriteScreen,
+  StoryWriteScreen,
   LanguageSettingScreen,
   MyInfoScreen,
   NotificationSettingScreen,
@@ -42,6 +44,14 @@ export const RootStack = createNativeStackNavigator({
         StoryDetail: {
           screen: StoryDetailScreen,
           options: { animation: 'fade', presentation: 'fullScreenModal' },
+        },
+        FeedWrite: {
+          screen: FeedWriteScreen,
+          options: { presentation: 'fullScreenModal' },
+        },
+        StoryWrite: {
+          screen: StoryWriteScreen,
+          options: { presentation: 'fullScreenModal' },
         },
         LanguageSetting: { screen: LanguageSettingScreen },
         MyInfo: { screen: MyInfoScreen },

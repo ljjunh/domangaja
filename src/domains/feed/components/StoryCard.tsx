@@ -1,8 +1,7 @@
 import { ImageBackground, StyleSheet, View, type ImageSourcePropType } from 'react-native';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
-import { HeartOutlineIcon } from '@/assets/icons/common';
-import { ViewOutlineIcon } from '@/assets/icons/common';
+import { HeartOutlineIcon, ViewOutlineIcon } from '@/assets/icons/common';
 
 interface StoryCardProps {
   quietness: number;

@@ -1,3 +1,4 @@
+export { default as AddIcon } from './add.svg';
 export { default as ArchiveTickFillIcon } from './archive-tick-fill.svg';
 export { default as ArchiveTickOutlineIcon } from './archive-tick-outline.svg';
 export { default as ArrowLeftIcon } from './arrow-left.svg';
@@ -8,6 +9,7 @@ export { default as CloseIcon } from './close.svg';
 export { default as CrownFillIcon } from './crown-fill.svg';
 export { default as DocumentTextFillIcon } from './document-text-fill.svg';
 export { default as DoneIcon } from './done.svg';
+export { default as GalleryIcon } from './gallery.svg';
 export { default as GiftFillIcon } from './gift-fill.svg';
 export { default as HeartOutlineIcon } from './heart-outline.svg';
 export { default as InfoCircleFillIcon } from './info-circle-fill.svg';
