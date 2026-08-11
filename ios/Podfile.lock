@@ -2277,6 +2277,28 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
+  - RNPermissions (5.6.1):
+    - hermes-engine
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-Core-prebuilt
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - ReactNativeDependencies
+    - Yoga
   - RNReactNativeHapticFeedback (3.0.0):
     - hermes-engine
     - RCTRequired
@@ -2628,6 +2650,7 @@ DEPENDENCIES:
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNLocalize (from `../node_modules/react-native-localize`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -2836,6 +2859,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-crop-picker"
   RNLocalize:
     :path: "../node_modules/react-native-localize"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNReactNativeHapticFeedback:
     :path: "../node_modules/react-native-haptic-feedback"
   RNReanimated:
@@ -2958,6 +2983,7 @@ SPEC CHECKSUMS:
   RNGoogleSignin: 6fa1cf7f7fb24d68cc41a89bd6370f302bbe2dcc
   RNImageCropPicker: 5c9c8bef4c72d3f451b499aa0ecd90a644ea1bbd
   RNLocalize: 17bce0556e2d33fe1201c8cef53b3b7786e07612
+  RNPermissions: acaec9a5c663de127980054fa2a9b559669896f8
   RNReactNativeHapticFeedback: 9dc72312c12cb53ee240b5b7aae1e167f3d940a6
   RNReanimated: 43a0fcc841131459bdd3ba4261e5fc7a4ebc85c8
   RNScreens: 8d318eb8905fa1d3439a1ce5d567f82ae8245657
@@ -2966,6 +2992,6 @@ SPEC CHECKSUMS:
   TOCropViewController: 797deaf39c90e6e9ddd848d88817f6b9a8a09888
   Yoga: c30c859b7e9b75e547b600b486fe33165f60de00
 
-PODFILE CHECKSUM: e93299752729e3bb845fa1af0924b6eb753833b2
+PODFILE CHECKSUM: 5924d69917a3eef3c78d95e22d8d94957495594e
 
 COCOAPODS: 1.16.2

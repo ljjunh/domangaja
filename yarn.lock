@@ -6577,6 +6577,11 @@ react-native-maps@1.28.2:
   dependencies:
     "@types/geojson" "^7946.0.13"
 
+react-native-permissions@^5.6.1:
+  version "5.6.1"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-5.6.1.tgz#a2f5324bacc3ac124831544b53a1c980389bfd4d"
+  integrity sha512-9FwecmnUCHPwUZ+uwfcB7+CHES8cmwyY2gcVZQsZ3zloQCumle10KbDWuaOtgaEqNdzjLd5cyCpb7hKLw8H16A==
+
 react-native-reanimated@4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-4.4.2.tgz#18880a704a41a19e353283eeb5a74d455a974c6f"

@@ -15,12 +15,14 @@ import {
   usePushNavigation,
 } from '@/domains/notification/hooks/usePushNavigation';
 import { useForegroundPush } from '@/domains/notification/hooks/useForegroundPush';
+import { useNotificationPermissionRequest } from '@/domains/notification/hooks/useNotificationPermissionRequest';
 
 function App() {
   useAppBootstrap();
   useDeviceTokenSync();
   usePushNavigation();
   useForegroundPush();
+  useNotificationPermissionRequest();
 
   return (
     <GestureHandlerRootView style={styles.root}>

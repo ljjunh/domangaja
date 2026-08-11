@@ -7,11 +7,11 @@ import { Layout, StackHeader } from '@/shared/components/layout';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { colors } from '@/shared/constants/colors';
 import { notificationQueries, notificationMutations } from '@/domains/notification/api/queries';
+import { NotificationPermissionBanner } from '@/domains/notification/components';
 import type { NotificationSettings } from '@/domains/notification/types/api';
 import { SettingSection, SettingToggleItem } from './components';
 import { GiftFillIcon, LocationFillIcon, MessageOutlineIcon } from '@/assets/icons/common';
-
-// TODO: 시스템 권한 막혀있을때 푸쉬 on 하면 시스템 세팅으로 이동하는 로직 & UI
+import { useNotificationPermission } from '@/domains/notification/hooks/useNotificationPermission';
 
 type AlertKey = Exclude<keyof NotificationSettings, 'pushEnabled'>;
 
@@ -49,6 +49,7 @@ const NOTIFICATION_ITEMS: NotificationItem[] = [
 
 export default function NotificationSettingScreen() {
   const { t } = useTranslation();
+  const { isPermissionGranted } = useNotificationPermission();
 
   const { data: settings } = useQuery(notificationQueries.getNotificationSetting());
   const { mutate: saveSettings } = useMutation(notificationMutations.updateNotificationSettings());
@@ -74,13 +75,14 @@ export default function NotificationSettingScreen() {
   return (
     <Layout>
       <StackHeader title={t('notificationSetting.title')} />
+      {!isPermissionGranted && <NotificationPermissionBanner />}
       <View style={styles.container}>
         <SettingToggleItem
           title={t('notificationSetting.push.title')}
           description={t('notificationSetting.push.description')}
           value={isPushEnabled}
           onValueChange={handleTogglePush}
-          disabled={settings == null}
+          disabled={settings == null || !isPermissionGranted}
         />
         <SettingSection title={t('notificationSetting.section')}>
           {NOTIFICATION_ITEMS.map(item => (
@@ -93,7 +95,7 @@ export default function NotificationSettingScreen() {
               description={t(`notificationSetting.items.${item.i18nKey}.description`)}
               value={settings?.[item.key] ?? false}
               onValueChange={() => handleToggleAlert(item.key)}
-              disabled={!isPushEnabled || settings == null}
+              disabled={settings == null || !isPermissionGranted || !isPushEnabled}
             />
           ))}
         </SettingSection>
