@@ -4,6 +4,8 @@ import type {
   CompleteOnboardingResponse,
   GetMeResponse,
 } from '@/domains/user/types/api';
+import { LanguageCode } from '@/shared/i18n/languages';
+import { toServerLocale } from '@/domains/user/utils/serverLocale';
 
 export const getMe = async (): Promise<GetMeResponse> => {
   const { data } = await apiClient.get<GetMeResponse>('/members/me');
@@ -18,4 +20,8 @@ export const completeOnboarding = async (
     params,
   );
   return data;
+};
+
+export const updateLocale = async (code: LanguageCode): Promise<void> => {
+  await apiClient.put('/members/me/locale', { locale: toServerLocale(code) });
 };
