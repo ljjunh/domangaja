@@ -13,8 +13,10 @@ import { GiftFillIcon, LocationFillIcon, MessageOutlineIcon } from '@/assets/ico
 
 // TODO: 시스템 권한 막혀있을때 푸쉬 on 하면 시스템 세팅으로 이동하는 로직 & UI
 
+type AlertKey = Exclude<keyof NotificationSettings, 'pushEnabled'>;
+
 interface NotificationItem {
-  key: keyof NotificationSettings;
+  key: AlertKey;
   i18nKey: 'quietness' | 'community' | 'marketing';
   icon: ComponentType<SvgProps>;
   iconColor: string;
@@ -51,20 +53,18 @@ export default function NotificationSettingScreen() {
   const { data: settings } = useQuery(notificationQueries.getNotificationSetting());
   const { mutate: saveSettings } = useMutation(notificationMutations.updateNotificationSettings());
 
-  // 마스터 토글 표시값: 알림이 하나라도 켜져 있으면 켜짐
-  const isPushEnabled = settings != null && Object.values(settings).some(Boolean);
+  const isPushEnabled = settings?.pushEnabled ?? false;
 
-  // 마스터: 모든 알림을 한꺼번에 켜거나 끈다
-  const handleToggleAllAlerts = () => {
+  // 마스터: pushEnabled만 뒤집는다 — 개별 알림 설정은 보존돼서 다시 켜면 그대로 복원
+  const handleTogglePush = () => {
     if (settings == null) {
       return;
     }
-    const next = !isPushEnabled;
-    saveSettings({ congestionAlert: next, communityAlert: next, marketingAlert: next });
+    saveSettings({ ...settings, pushEnabled: !settings.pushEnabled });
   };
 
-  // 개별: 해당 알림 하나만 뒤집는다 (3필드 필수 PUT이라 통째로 전송)
-  const handleToggleAlert = (key: keyof NotificationSettings) => {
+  // 개별: 해당 알림 하나만 뒤집는다 (4필드 필수 PUT이라 통째로 전송)
+  const handleToggleAlert = (key: AlertKey) => {
     if (settings == null) {
       return;
     }
@@ -79,7 +79,7 @@ export default function NotificationSettingScreen() {
           title={t('notificationSetting.push.title')}
           description={t('notificationSetting.push.description')}
           value={isPushEnabled}
-          onValueChange={handleToggleAllAlerts}
+          onValueChange={handleTogglePush}
           disabled={settings == null}
         />
         <SettingSection title={t('notificationSetting.section')}>

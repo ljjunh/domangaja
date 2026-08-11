@@ -1,4 +1,5 @@
 export interface NotificationSettings {
+  pushEnabled: boolean;
   congestionAlert: boolean;
   communityAlert: boolean;
   marketingAlert: boolean;
