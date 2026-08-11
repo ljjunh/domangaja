@@ -38,7 +38,7 @@ async function refreshAccessToken(baseURL: string): Promise<string> {
   }
   // 리프레시는 apiClient가 아니라 기본 axios
   const { data } = await axios.post<{ accessToken: string; refreshToken: string }>(
-    `${baseURL}/api/v1/auth/refresh`,
+    `${baseURL}/auth/refresh`,
     { refreshToken: tokens.refreshToken },
   );
   await tokenStorage.save(data);
