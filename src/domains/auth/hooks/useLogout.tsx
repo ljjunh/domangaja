@@ -9,6 +9,9 @@ import { tokenStorage } from '@/shared/api/tokenStorage';
 import { queryClient } from '@/shared/api/queryClient';
 import { userQueryKeys } from '@/domains/user/api/queries';
 import { colors } from '@/shared/constants/colors';
+import { IS_IOS } from '@/shared/constants/platform';
+import { getFcmToken } from '@/domains/notification/lib/fcm';
+import { unregisterDeviceToken } from '@/domains/notification/api/service';
 
 export const useLogout = () => {
   const logout = useAuthStore(state => state.logout);
@@ -17,6 +20,13 @@ export const useLogout = () => {
   const confirmLogout = () => {
     overlay.open(({ isOpen, close, unmount }) => {
       const handleLogoutConfirm = async () => {
+        const fcmToken = await getFcmToken();
+        if (fcmToken != null) {
+          try {
+            await unregisterDeviceToken({ token: fcmToken, platform: IS_IOS ? 'IOS' : 'ANDROID' });
+          } catch {}
+        }
+
         await tokenStorage.clear();
         queryClient.removeQueries({ queryKey: userQueryKeys.all });
         logout();

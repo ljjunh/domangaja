@@ -9,9 +9,11 @@ import { Navigation } from '@/shared/navigations/index';
 import { queryClient } from '@/shared/api/queryClient';
 import { OverlayProvider } from '@/shared/overlay';
 import { useAppBootstrap } from '@/shared/hooks/useAppBootstrap';
+import { useDeviceTokenSync } from '@/domains/notification/hooks/useDeviceTokenSync';
 
 function App() {
   useAppBootstrap();
+  useDeviceTokenSync();
 
   return (
     <GestureHandlerRootView style={styles.root}>
