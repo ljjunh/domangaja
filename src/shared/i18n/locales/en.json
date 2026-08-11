@@ -22,7 +22,8 @@
   },
   "myInfo": {
     "title": "My Info",
-    "submit": "Save"
+    "submit": "Save",
+    "saveError": "Failed to save. Please try again in a moment."
   },
   "nickname": {
     "rule": "Use 2–10 Korean or English letters and numbers.",

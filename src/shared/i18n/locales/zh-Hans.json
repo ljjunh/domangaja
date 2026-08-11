@@ -22,7 +22,8 @@
   },
   "myInfo": {
     "title": "我的信息",
-    "submit": "保存"
+    "submit": "保存",
+    "saveError": "保存失败，请稍后重试。"
   },
   "nickname": {
     "rule": "请输入2~10位韩文、英文或数字。",
