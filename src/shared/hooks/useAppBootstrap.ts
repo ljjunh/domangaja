@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { AppState } from 'react-native';
+import BootSplash from 'react-native-bootsplash';
 import { focusManager } from '@tanstack/react-query';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { restoreLanguage } from '@/shared/i18n';
@@ -15,11 +16,12 @@ export const useAppBootstrap = () => {
       iosClientId: '427482527525-nehokat582va5cde93tv0ud7c31k7gnb.apps.googleusercontent.com',
     });
 
-    tokenStorage.load().then(tokens => {
-      if (tokens != null) {
-        useAuthStore.getState().login();
-      }
-    });
+    tokenStorage
+      .load()
+      .then(tokens => {
+        if (tokens != null) useAuthStore.getState().login();
+      })
+      .finally(() => BootSplash.hide({ fade: true }));
 
     // RN에는 웹의 window focus 이벤트가 없어서, 백그라운드 -> 포그라운드 복귀를
     // TanStack Query에 focus로 알려줘야 refetchOnWindowFocus(복귀 시 stale 쿼리 갱신)가 동작한다
