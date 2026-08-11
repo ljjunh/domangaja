@@ -9,9 +9,18 @@ import { Navigation } from '@/shared/navigations/index';
 import { queryClient } from '@/shared/api/queryClient';
 import { OverlayProvider } from '@/shared/overlay';
 import { useAppBootstrap } from '@/shared/hooks/useAppBootstrap';
+import { useDeviceTokenSync } from '@/domains/notification/hooks/useDeviceTokenSync';
+import {
+  flushPendingPushNavigation,
+  usePushNavigation,
+} from '@/domains/notification/hooks/usePushNavigation';
+import { useForegroundPush } from '@/domains/notification/hooks/useForegroundPush';
 
 function App() {
   useAppBootstrap();
+  useDeviceTokenSync();
+  usePushNavigation();
+  useForegroundPush();
 
   return (
     <GestureHandlerRootView style={styles.root}>
@@ -19,7 +28,7 @@ function App() {
         <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
         <QueryClientProvider client={queryClient}>
           <OverlayProvider>
-            <Navigation />
+            <Navigation onReady={flushPendingPushNavigation} />
           </OverlayProvider>
         </QueryClientProvider>
         <Toast config={toastConfig} position="bottom" bottomOffset={80} />

@@ -34,11 +34,6 @@ export const useSocialLogin = () => {
         showToast('error', t('login.errorNetwork'));
         return;
       }
-      // TODO: 애플 계정 승인전까지 애플 그냥 로그인 시키기
-      if (provider === 'apple') {
-        login();
-        return;
-      }
 
       const response = await exchangeByProvider[provider](result.token);
 
