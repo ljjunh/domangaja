@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { AppState } from 'react-native';
+import { focusManager } from '@tanstack/react-query';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { restoreLanguage } from '@/shared/i18n';
 import { tokenStorage } from '@/shared/api/tokenStorage';
@@ -12,12 +14,18 @@ export const useAppBootstrap = () => {
       webClientId: '427482527525-a5ukqo10h2828u6uu56j4c4bh2a73tm2.apps.googleusercontent.com',
       iosClientId: '427482527525-nehokat582va5cde93tv0ud7c31k7gnb.apps.googleusercontent.com',
     });
-    // TODO: FCM 등 초기화로직들
 
     tokenStorage.load().then(tokens => {
       if (tokens != null) {
         useAuthStore.getState().login();
       }
     });
+
+    // RN에는 웹의 window focus 이벤트가 없어서, 백그라운드 -> 포그라운드 복귀를
+    // TanStack Query에 focus로 알려줘야 refetchOnWindowFocus(복귀 시 stale 쿼리 갱신)가 동작한다
+    const appStateSubscription = AppState.addEventListener('change', status => {
+      focusManager.setFocused(status === 'active');
+    });
+    return () => appStateSubscription.remove();
   }, []);
 };
