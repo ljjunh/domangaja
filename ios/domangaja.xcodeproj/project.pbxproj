@@ -12,6 +12,7 @@
 		1773F956CAEDBEEF56F81238 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		3BD5731B4FBF45E5A8653B08 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 23118CC4F5D248B3A59A2DCB /* Pretendard-Regular.otf */; };
 		42EDFD9B2E864A10A0A95123 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CF7CCD9DE8E944EBBBE11C6C /* Pretendard-Bold.otf */; };
+		47C137B6F19544F5842D116E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4A3B45F1AD04797A4A63B9C /* Colors.xcassets */; };
 		6A8FC459A7ED4FB485E16397 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8E00BF0152A9444282486A0C /* Pretendard-Black.otf */; };
 		740FBD4A3028DBD60020DAD5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 740FBD493028DBD60020DAD5 /* GoogleService-Info.plist */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
@@ -19,6 +20,7 @@
 		8BA88B8FAC2945C082AB52A9 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1E0DCA820D7B4672B20EB622 /* Pretendard-ExtraLight.otf */; };
 		B48ABC8E939547B9B2BE2EA1 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = CFBB1107ADB54085B41EF6D8 /* Pretendard-ExtraBold.otf */; };
 		CC968C85FDA44968A05A7825 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = F614AD79E08C4ED6AA494D07 /* Pretendard-Thin.otf */; };
+		E66C6DE460EE46028B287BA1 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4F841A6EBED4D1FB59F3A00 /* BootSplash.storyboard */; };
 		EAB78B96CDD141AD90309E1B /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = ED2CE3DA83FF499AAA3C7C2A /* Pretendard-Medium.otf */; };
 		F0D71B24AB39420882004624 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA2ACE29C1D84B079917D634 /* Pretendard-SemiBold.otf */; };
 		FC2279F1174EDB8880017279 /* Pods_domangaja.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E6E2BF6B494B631A891EA9 /* Pods_domangaja.framework */; };
@@ -40,6 +42,8 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = domangaja/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		82474B9FA4194E1DBA5996D3 /* Pretendard-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Light.otf"; path = "../src/assets/fonts/Pretendard-Light.otf"; sourceTree = "<group>"; };
 		8E00BF0152A9444282486A0C /* Pretendard-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Black.otf"; path = "../src/assets/fonts/Pretendard-Black.otf"; sourceTree = "<group>"; };
+		B4F841A6EBED4D1FB59F3A00 /* BootSplash.storyboard */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = BootSplash.storyboard; path = domangaja/BootSplash.storyboard; sourceTree = "<group>"; };
+		C4A3B45F1AD04797A4A63B9C /* Colors.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = domangaja/Colors.xcassets; sourceTree = "<group>"; };
 		CF7CCD9DE8E944EBBBE11C6C /* Pretendard-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-Bold.otf"; path = "../src/assets/fonts/Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		CFBB1107ADB54085B41EF6D8 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-ExtraBold.otf"; path = "../src/assets/fonts/Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		EA2ACE29C1D84B079917D634 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pretendard-SemiBold.otf"; path = "../src/assets/fonts/Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -70,6 +74,8 @@
 				740FBD493028DBD60020DAD5 /* GoogleService-Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				B4F841A6EBED4D1FB59F3A00 /* BootSplash.storyboard */,
+				C4A3B45F1AD04797A4A63B9C /* Colors.xcassets */,
 			);
 			name = domangaja;
 			sourceTree = "<group>";
@@ -212,6 +218,8 @@
 				CC968C85FDA44968A05A7825 /* Pretendard-Thin.otf in Resources */,
 				8BA88B8FAC2945C082AB52A9 /* Pretendard-ExtraLight.otf in Resources */,
 				F0D71B24AB39420882004624 /* Pretendard-SemiBold.otf in Resources */,
+				E66C6DE460EE46028B287BA1 /* BootSplash.storyboard in Resources */,
+				47C137B6F19544F5842D116E /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
