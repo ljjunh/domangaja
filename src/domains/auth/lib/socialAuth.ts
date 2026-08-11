@@ -38,10 +38,6 @@ function isAppleAuthCancelled(error: unknown): boolean {
   );
 }
 
-// TODO(블로킹): 유료 Apple Developer Program($99/년) 결제 필요.
-// 무료 계정은 Sign in with Apple capability를 못 붙여서 error 1000으로 실패
-// 결제·승인 후: Xcode > 타겟 domangaja > Signing & Capabilities > + Capability
-// > "Sign in with Apple" 추가
 async function signInWithApple(): Promise<SocialAuthResult> {
   if (Platform.OS === 'android') {
     return { status: 'cancelled' }; // Android는 애플 버튼 미노출 — 도달하지 않는 경로
