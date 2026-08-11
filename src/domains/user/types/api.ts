@@ -48,3 +48,5 @@ export interface GetMeResponse {
   birthDate: string | null;
   locale: string;
 }
+
+export type ServerLocale = 'KO' | 'EN' | 'JP' | 'ZH_CN' | 'ZH_TW';

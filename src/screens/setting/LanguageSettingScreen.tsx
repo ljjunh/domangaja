@@ -1,13 +1,20 @@
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { changeAppLanguages } from '@/shared/i18n';
+import { useMutation } from '@tanstack/react-query';
 import { Layout, StackHeader } from '@/shared/components/layout';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
-import { LANGUAGES } from '@/shared/i18n/languages';
+import { LANGUAGES, type LanguageCode } from '@/shared/i18n/languages';
+import { userMutations } from '@/domains/user/api/queries';
 import { SettingSection, LanguageListItem } from './components';
 
 export default function LanguageSettingScreen() {
   const { t, i18n } = useTranslation();
+  const { mutate, isPending } = useMutation(userMutations.updateLocale());
+
+  const handlePressItem = (code: LanguageCode) => {
+    if (isPending) return;
+    mutate(code);
+  };
 
   return (
     <Layout>
@@ -20,7 +27,7 @@ export default function LanguageSettingScreen() {
               nativeName={language.nativeName}
               description={t(`language.names.${language.code}`)}
               selected={i18n.language === language.code}
-              onPress={() => changeAppLanguages(language.code)}
+              onPress={() => handlePressItem(language.code)}
             />
           ))}
         </SettingSection>
