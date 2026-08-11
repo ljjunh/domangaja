@@ -19,6 +19,7 @@ export { default as MessageOutlineIcon } from './message-outline.svg';
 export { default as MoreOutlineIcon } from './more-outline.svg';
 export { default as NotificationFillIcon } from './notification-fill.svg';
 export { default as NotificationOutlineIcon } from './notification-outline.svg';
+export { default as NotificationOffOutlineIcon } from './notifications-off-outline.svg';
 export { default as PlayFillIcon } from './play-fill.svg';
 export { default as ShieldSecurityFillIcon } from './shield-security-fill.svg';
 export { default as SunFogFillIcon } from './sun-fog-fill.svg';
