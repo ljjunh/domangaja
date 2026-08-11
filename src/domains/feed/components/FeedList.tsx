@@ -1,8 +1,10 @@
 import { FlatList, StyleSheet, View, type ImageSourcePropType } from 'react-native';
 import { Border } from '@/shared/components/ui';
+import { overlay } from '@/shared/overlay';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { example1Image, example2Image } from '@/assets/images';
 import FeedBanner from './FeedBanner';
+import FeedCommentBottomSheet from './FeedCommentBottomSheet';
 import FeedItem from './FeedItem';
 
 interface FeedPost {
@@ -53,6 +55,11 @@ function FeedItemSeparator() {
   return <Border style={styles.separator} />;
 }
 
+// 피드 카드가 리스트 어디서나 호출할 수 있도록 overlay로 댓글 시트를 띄운다 (WithdrawalSheet와 동일한 방식)
+function openComments(feedId: number) {
+  overlay.open(({ unmount }) => <FeedCommentBottomSheet feedId={feedId} onClose={unmount} />);
+}
+
 export default function FeedList({ bottomInset = 0 }: FeedListProps) {
   return (
     <FlatList
@@ -65,6 +72,7 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
       ListFooterComponent={<View style={{ height: bottomInset }} />}
       renderItem={({ item }) => (
         <FeedItem
+          id={item.id}
           nickname={item.nickname}
           timeAgo={item.timeAgo}
           locationLabel={item.locationLabel}
@@ -74,6 +82,7 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
           placeName={item.placeName}
           viewCount={item.viewCount}
           commentCount={item.commentCount}
+          onPressComment={openComments}
         />
       )}
     />

@@ -1,4 +1,6 @@
 export { default as FeedBanner } from './FeedBanner';
+export { default as FeedCommentBottomSheet } from './FeedCommentBottomSheet';
+export { default as FeedCommentItem, type FeedComment } from './FeedCommentItem';
 export { default as FeedItem } from './FeedItem';
 export { default as FeedList } from './FeedList';
 export { default as StoryCard } from './StoryCard';

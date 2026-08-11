@@ -22,7 +22,7 @@ export default function PostFormHeader({ title, onClose, onShare }: PostFormHead
       </View>
 
       <View style={styles.right}>
-        <TextButton typography="t5" weight="semiBold" color={colors.blue[500]} onPress={onShare}>
+        <TextButton typography="t6" weight="semiBold" color={colors.blue[500]} onPress={onShare}>
           공유하기
         </TextButton>
       </View>
