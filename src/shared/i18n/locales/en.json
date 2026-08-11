@@ -22,8 +22,14 @@
   },
   "myInfo": {
     "title": "My Info",
-    "submit": "Save",
-    "nicknameRule": "Korean letters, English letters, numbers, and underscores are allowed."
+    "submit": "Save"
+  },
+  "nickname": {
+    "rule": "Use 2–10 Korean or English letters and numbers."
+  },
+  "birthDate": {
+    "invalidDate": "Please check your date of birth.",
+    "tooYoung": "You must be at least 14 years old to sign up."
   },
   "notificationSetting": {
     "title": "Notifications",

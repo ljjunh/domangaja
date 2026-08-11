@@ -9,6 +9,7 @@ import { colors } from '@/shared/constants/colors';
 import { useMainTabBarSpace } from '@/shared/hooks/useMainTabBarSpace';
 import { useLogout } from '@/domains/auth/hooks/useLogout';
 import { useWithdrawal } from '@/domains/auth/hooks/useWithdrawal';
+import { useNotificationPermission } from '@/domains/notification/hooks/useNotificationPermission';
 import { MAIN_TAB_SCREEN_EDGES, SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { NotificationButton } from '@/domains/notification/components';
 import { userQueries } from '@/domains/user/api/queries';
@@ -25,6 +26,7 @@ import {
   ShieldSecurityFillIcon,
   TranslateFillIcon,
 } from '@/assets/icons/common';
+import { notificationQueries } from '@/domains/notification/api/queries';
 
 export default function SettingScreen() {
   const mainTabBarSpace = useMainTabBarSpace();
@@ -32,7 +34,9 @@ export default function SettingScreen() {
   const { navigate } = useNavigation();
   const { confirmLogout } = useLogout();
   const { confirmWithdrawal } = useWithdrawal();
+  const { isPermissionGranted } = useNotificationPermission();
   const { data: me } = useQuery(userQueries.getMe());
+  const { data: notificationSettings } = useQuery(notificationQueries.getNotificationSetting());
 
   return (
     <Layout edges={MAIN_TAB_SCREEN_EDGES}>
@@ -67,7 +71,13 @@ export default function SettingScreen() {
             icon={NotificationFillIcon}
             iconColor={colors.orange[500]}
             label={t('setting.notification')}
-            value={t('setting.on')}
+            value={
+              notificationSettings == null
+                ? undefined
+                : isPermissionGranted && notificationSettings?.pushEnabled
+                ? t('setting.on')
+                : t('setting.off')
+            }
             onPress={() => navigate('NotificationSetting')}
           />
           <SettingListItem

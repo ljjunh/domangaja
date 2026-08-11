@@ -8,8 +8,10 @@ import Animated, {
   type SharedValue,
 } from 'react-native-reanimated';
 import Svg, { Path } from 'react-native-svg';
-import { TextInput } from '@/shared/components/base';
+import { useTranslation } from 'react-i18next';
+import { Text, TextInput } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
+import { isValidNickname } from '@/domains/user/utils/validateNickname';
 import TypingTitle from './TypingTitle';
 import StepNextButton from './StepNextButton';
 import { stepEntering } from '../utils/stepEntering';
@@ -66,7 +68,12 @@ function CheckCompleteBorder({
     <View style={styles.checkBorder} pointerEvents="none">
       <Svg width={layout.width} height={layout.height}>
         <AnimatedPath
-          d={buildRoundedRectPath(layout.width, layout.height, INPUT_RADIUS, CHECK_STROKE_WIDTH / 2)}
+          d={buildRoundedRectPath(
+            layout.width,
+            layout.height,
+            INPUT_RADIUS,
+            CHECK_STROKE_WIDTH / 2,
+          )}
           fill="none"
           stroke={colors.blue[500]}
           strokeWidth={CHECK_STROKE_WIDTH}
@@ -88,6 +95,7 @@ interface NicknameStepProps {
 }
 
 export default function NicknameStep({ onNext }: NicknameStepProps) {
+  const { t } = useTranslation();
   const [isTitleDone, setIsTitleDone] = useState(false);
   const [nickname, setNickname] = useState('');
   const [status, setStatus] = useState<CheckStatus>('idle');
@@ -105,7 +113,7 @@ export default function NicknameStep({ onNext }: NicknameStepProps) {
 
   useEffect(
     function startCheckAfterTypingPause() {
-      if (status !== 'idle' || nickname.trim().length === 0) {
+      if (status !== 'idle' || !isValidNickname(nickname)) {
         return;
       }
       const id = setTimeout(() => setStatus('checking'), DEBOUNCE_MS);
@@ -139,30 +147,39 @@ export default function NicknameStep({ onNext }: NicknameStepProps) {
 
       {isTitleDone && (
         <>
-          <Animated.View entering={stepEntering()}>
-            <TextInput
-              typography="t6"
-              weight="semiBold"
-              value={nickname}
-              onChangeText={handleChangeText}
-              placeholder="닉네임"
-              autoFocus
-              onLayout={event => setInputLayout(event.nativeEvent.layout)}
-              style={styles.input}
-            />
-            {/* 중복 확인 중 표시 */}
-            {status === 'checking' && (
-              <View style={styles.checkingSpinner}>
-                <ActivityIndicator size="small" color={colors.grey[500]} />
-              </View>
+          <View style={styles.inputArea}>
+            <Animated.View entering={stepEntering()}>
+              <TextInput
+                typography="t6"
+                weight="semiBold"
+                value={nickname}
+                onChangeText={handleChangeText}
+                placeholder="닉네임"
+                autoFocus
+                onLayout={event => setInputLayout(event.nativeEvent.layout)}
+                style={styles.input}
+              />
+              {/* 중복 확인 중 표시 */}
+              {status === 'checking' && (
+                <View style={styles.checkingSpinner}>
+                  <ActivityIndicator size="small" color={colors.grey[500]} />
+                </View>
+              )}
+              {inputLayout != null && status === 'confirmed' && (
+                <CheckCompleteBorder layout={inputLayout} progress={checkProgress} />
+              )}
+              {/* <View style={styles.sticker}>
+                <EmojiSticker emoji="👋" />
+              </View> */}
+            </Animated.View>
+
+            {/* 규칙 안내 — 확인이 시작되면 스피너·테두리가 상태를 말하므로 숨긴다 */}
+            {status === 'idle' && (
+              <Text typography="t7" weight="semiBold" color={colors.grey[500]} style={styles.rule}>
+                {t('nickname.rule')}
+              </Text>
             )}
-            {inputLayout != null && status === 'confirmed' && (
-              <CheckCompleteBorder layout={inputLayout} progress={checkProgress} />
-            )}
-            {/* <View style={styles.sticker}>
-              <EmojiSticker emoji="👋" />
-            </View> */}
-          </Animated.View>
+          </View>
           <Animated.View entering={stepEntering(200)} style={styles.nextButtonArea}>
             <StepNextButton disabled={status !== 'confirmed'} onPress={() => onNext(nickname)} />
           </Animated.View>
@@ -182,13 +199,18 @@ const styles = StyleSheet.create({
   //   top: -35,
   //   right: -10,
   // },
+  inputArea: {
+    gap: 4,
+  },
   input: {
     paddingHorizontal: 16,
     paddingVertical: 15,
     borderRadius: INPUT_RADIUS,
     backgroundColor: colors.grey[100],
   },
-  // 입력창 오른쪽 안에 세로 중앙 정렬
+  rule: {
+    paddingHorizontal: 16,
+  },
   checkingSpinner: {
     position: 'absolute',
     right: 16,
@@ -196,7 +218,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: 'center',
   },
-  // 입력창과 같은 자리에 겹치는 테두리 레이어
   checkBorder: {
     position: 'absolute',
     top: 0,

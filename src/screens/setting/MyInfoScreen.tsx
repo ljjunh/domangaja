@@ -52,7 +52,7 @@ export default function MyInfoScreen() {
             {t('myInfo.submit')}
           </Button>
           <Text typography="t7" weight="semiBold" color={colors.grey[500]}>
-            {t('myInfo.nicknameRule')}
+            {t('nickname.rule')}
           </Text>
         </View>
       </View>

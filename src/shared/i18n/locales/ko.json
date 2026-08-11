@@ -22,8 +22,14 @@
   },
   "myInfo": {
     "title": "내 정보",
-    "submit": "수정완료",
-    "nicknameRule": "한글/영어/숫자/밑줄을 사용할 수 있습니다."
+    "submit": "수정완료"
+  },
+  "nickname": {
+    "rule": "한글/영어/숫자 2~10자로 입력해주세요."
+  },
+  "birthDate": {
+    "invalidDate": "생년월일을 다시 확인해주세요.",
+    "tooYoung": "만 14세 이상만 가입할 수 있어요."
   },
   "notificationSetting": {
     "title": "알림",

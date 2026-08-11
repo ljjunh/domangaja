@@ -22,8 +22,14 @@
   },
   "myInfo": {
     "title": "我的資訊",
-    "submit": "儲存",
-    "nicknameRule": "可使用韓文、英文、數字和底線。"
+    "submit": "儲存"
+  },
+  "nickname": {
+    "rule": "請輸入2~10位韓文、英文或數字。"
+  },
+  "birthDate": {
+    "invalidDate": "請重新確認您的出生日期。",
+    "tooYoung": "僅滿14歲以上可註冊。"
   },
   "notificationSetting": {
     "title": "通知",
