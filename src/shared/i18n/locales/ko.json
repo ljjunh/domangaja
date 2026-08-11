@@ -27,6 +27,10 @@
   },
   "notificationSetting": {
     "title": "알림",
+    "banner": {
+      "message": "기기 알림 설정이 꺼져있어요",
+      "action": "켜기"
+    },
     "push": {
       "title": "앱 푸시 알림",
       "description": "앱에서 보내는 푸시 알림을 받아요"

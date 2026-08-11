@@ -5,7 +5,7 @@ import type {
 } from '@/domains/notification/types/api';
 
 export const getNotificationSetting = async (): Promise<NotificationSettings> => {
-  const { data } = await apiClient.get<NotificationSettings>('/api/v1/notifications/settings');
+  const { data } = await apiClient.get<NotificationSettings>('/notifications/settings');
   return data;
 };
 
@@ -13,16 +13,16 @@ export const updateNotificationSettings = async (
   params: NotificationSettings,
 ): Promise<NotificationSettings> => {
   const { data } = await apiClient.put<NotificationSettings>(
-    '/api/v1/notifications/settings',
+    '/notifications/settings',
     params,
   );
   return data;
 };
 
 export const registerDeviceToken = async (params: RegisterDeviceTokenRequest): Promise<void> => {
-  await apiClient.post('/api/v1/notifications/devices', params);
+  await apiClient.post('/notifications/devices', params);
 };
 
 export const unregisterDeviceToken = async (params: RegisterDeviceTokenRequest): Promise<void> => {
-  await apiClient.delete('/api/v1/notifications/devices', { data: params });
+  await apiClient.delete('/notifications/devices', { data: params });
 };

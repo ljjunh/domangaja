@@ -27,6 +27,10 @@
   },
   "notificationSetting": {
     "title": "Notifications",
+    "banner": {
+      "message": "Device notifications are turned off",
+      "action": "Turn on"
+    },
     "push": {
       "title": "App Push Notifications",
       "description": "Receive push notifications from the app"

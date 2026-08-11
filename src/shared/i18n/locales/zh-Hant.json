@@ -27,6 +27,10 @@
   },
   "notificationSetting": {
     "title": "通知",
+    "banner": {
+      "message": "裝置通知設定已關閉",
+      "action": "開啟"
+    },
     "push": {
       "title": "應用程式推播通知",
       "description": "接收應用程式發送的推播通知"

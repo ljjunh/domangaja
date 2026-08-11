@@ -5,10 +5,11 @@ import {
   rejectInterceptor,
 } from '@/shared/api/interceptors';
 
-const BASE_URL = 'https://43-201-178-25.nip.io';
+const API_HOST = 'https://43-201-178-25.nip.io';
+const API_VERSION = 'v1';
 
 export const apiClient = axios.create({
-  baseURL: BASE_URL,
+  baseURL: `${API_HOST}/api/${API_VERSION}`,
   timeout: 10_000,
 });
 
