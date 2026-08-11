@@ -27,6 +27,10 @@
   },
   "notificationSetting": {
     "title": "通知",
+    "banner": {
+      "message": "设备通知设置已关闭",
+      "action": "开启"
+    },
     "push": {
       "title": "应用推送通知",
       "description": "接收应用发送的推送通知"

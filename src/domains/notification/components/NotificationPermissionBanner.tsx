@@ -1,4 +1,5 @@
 import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Text, Pressable } from '@/shared/components/base';
 import { enableNotificationPermission } from '@/domains/notification/lib/permission';
 import { colors } from '@/shared/constants/colors';
@@ -6,18 +7,20 @@ import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { NotificationOffOutlineIcon, ArrowRightIcon } from '@/assets/icons/common';
 
 export default function NotificationPermissionBanner() {
+  const { t } = useTranslation();
+
   return (
     <Pressable onPress={enableNotificationPermission} style={styles.container}>
       <View style={styles.message}>
         <NotificationOffOutlineIcon width={16} height={16} color={colors.white} />
         <Text typography="t7" weight="medium" color={colors.white}>
-          기기 알림 설정이 꺼져있어요
+          {t('notificationSetting.banner.message')}
         </Text>
       </View>
 
       <View style={styles.action}>
         <Text typography="t7" weight="medium" color={colors.white}>
-          켜기
+          {t('notificationSetting.banner.action')}
         </Text>
         <ArrowRightIcon width={16} height={16} color={colors.white} />
       </View>
