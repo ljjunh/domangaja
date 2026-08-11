@@ -3,6 +3,7 @@ import type {
   CompleteOnboardingRequest,
   CompleteOnboardingResponse,
   GetMeResponse,
+  NicknameAvailabilityResponse,
 } from '@/domains/user/types/api';
 import { LanguageCode } from '@/shared/i18n/languages';
 import { toServerLocale } from '@/domains/user/utils/serverLocale';
@@ -24,4 +25,19 @@ export const completeOnboarding = async (
 
 export const updateLocale = async (code: LanguageCode): Promise<void> => {
   await apiClient.put('/members/me/locale', { locale: toServerLocale(code) });
+};
+
+export const getNicknameAvailability = async (
+  nickname: string,
+  accessToken?: string,
+): Promise<NicknameAvailabilityResponse> => {
+  const { data } = await apiClient.get<NicknameAvailabilityResponse>(
+    '/members/nickname/availability',
+    {
+      params: { nickname },
+      headers: accessToken == null ? undefined : { Authorization: `Bearer ${accessToken}` },
+    },
+  );
+  console.log(data);
+  return data;
 };

@@ -22,8 +22,17 @@
   },
   "myInfo": {
     "title": "プロフィール",
-    "submit": "保存",
-    "nicknameRule": "ハングル、英字、数字、アンダーバーが使用できます。"
+    "submit": "保存"
+  },
+  "nickname": {
+    "rule": "ハングル・英字・数字で2〜10文字を入力してください。",
+    "duplicate": "このニックネームはすでに使用されています。",
+    "unavailable": "このニックネームは使用できません。",
+    "checkFailed": "確認に失敗しました。しばらくしてからもう一度お試しください。"
+  },
+  "birthDate": {
+    "invalidDate": "生年月日をもう一度ご確認ください。",
+    "tooYoung": "満14歳以上のみご登録いただけます。"
   },
   "notificationSetting": {
     "title": "通知",

@@ -12,10 +12,7 @@ export const getNotificationSetting = async (): Promise<NotificationSettings> =>
 export const updateNotificationSettings = async (
   params: NotificationSettings,
 ): Promise<NotificationSettings> => {
-  const { data } = await apiClient.put<NotificationSettings>(
-    '/notifications/settings',
-    params,
-  );
+  const { data } = await apiClient.put<NotificationSettings>('/notifications/settings', params);
   return data;
 };
 

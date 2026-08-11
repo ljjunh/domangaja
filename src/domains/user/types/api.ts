@@ -1,3 +1,5 @@
+import type { NotificationSettings } from '@/domains/notification/types/api';
+
 // 서버 enum — 선호 지역 6종
 export type PreferredRegion =
   | 'SEOUL'
@@ -35,6 +37,8 @@ export interface CompleteOnboardingResponse {
   preferredRegions: PreferredRegion[];
   birthDate: string | null;
   locale: string;
+  profileImageUrl: string | null;
+  notificationSettings: NotificationSettings;
 }
 
 export interface GetMeResponse {
@@ -47,6 +51,17 @@ export interface GetMeResponse {
   preferredRegions: PreferredRegion[];
   birthDate: string | null;
   locale: string;
+  profileImageUrl: string | null;
+  notificationSettings: NotificationSettings;
 }
 
 export type ServerLocale = 'KO' | 'EN' | 'JP' | 'ZH_CN' | 'ZH_TW';
+
+export type NicknameUnavailableReason = 'LENGTH' | 'FORMAT' | 'DUPLICATE';
+
+export interface NicknameAvailabilityResponse {
+  nickname: string;
+  available: boolean;
+  reason: NicknameUnavailableReason | null;
+  message: string;
+}
