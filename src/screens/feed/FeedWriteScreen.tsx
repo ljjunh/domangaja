@@ -46,7 +46,7 @@ export default function FeedWriteScreen() {
                 <Image key={index} source={photo} style={styles.photoTile} resizeMode="cover" />
               ))}
             </View>
-            <Text typography="st11" weight="semiBold" color={colors.grey[500]}>
+            <Text typography="st12" weight="semiBold" color={colors.grey[500]}>
               최대 {MAX_PHOTO_COUNT}장까지 추가할 수 있어요.
             </Text>
           </View>

@@ -4,6 +4,7 @@ import { colors } from '@/shared/constants/colors';
 import { ArchiveTickOutlineIcon, MoreOutlineIcon, LocationFillIcon } from '@/assets/icons/common';
 
 interface FeedItemProps {
+  id: number;
   nickname: string;
   timeAgo: string;
   locationLabel: string;
@@ -14,9 +15,11 @@ interface FeedItemProps {
   placeName: string;
   viewCount: number;
   commentCount: number;
+  onPressComment: (feedId: number) => void;
 }
 
 export default function FeedItem({
+  id,
   nickname,
   timeAgo,
   locationLabel,
@@ -26,6 +29,7 @@ export default function FeedItem({
   placeName,
   viewCount,
   commentCount,
+  onPressComment,
 }: FeedItemProps) {
   return (
     <Pressable
@@ -71,9 +75,16 @@ export default function FeedItem({
       </View>
 
       <View style={styles.statsRow}>
-        <Text typography="st13" weight="semiBold" color={colors.grey[500]}>
-          조회 {viewCount} · 댓글 {commentCount}
-        </Text>
+        <View style={styles.statsTextRow}>
+          <Text typography="st13" weight="semiBold" color={colors.grey[500]}>
+            조회 {viewCount} ·{' '}
+          </Text>
+          <Pressable hitSlop={4} onPress={() => onPressComment(id)}>
+            <Text typography="st13" weight="semiBold" color={colors.grey[500]}>
+              댓글 {commentCount}
+            </Text>
+          </Pressable>
+        </View>
         <Pressable hitSlop={8} onPress={() => console.log('TODO: 피드 저장 연동')}>
           <ArchiveTickOutlineIcon color={colors.grey[500]} />
         </Pressable>
@@ -120,6 +131,10 @@ const styles = StyleSheet.create({
   statsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  statsTextRow: {
+    flexDirection: 'row',
     alignItems: 'center',
   },
 });
