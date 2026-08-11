@@ -2,19 +2,20 @@ import { StyleSheet } from 'react-native';
 import { Image, Pressable } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { pickSquareImage } from '../lib/imagePicker';
+import type { UploadFile } from '@/shared/api/service';
 
 interface ProfileImagePickerProps {
   imageUri: string | null;
-  onChange: (uri: string) => void;
+  onChange: (image: UploadFile) => void;
 }
 
 const IMAGE_SIZE = 100;
 
 export default function ProfileImagePicker({ imageUri, onChange }: ProfileImagePickerProps) {
   const handlePress = async () => {
-    const uri = await pickSquareImage();
-    if (uri) {
-      onChange(uri);
+    const image = await pickSquareImage();
+    if (image != null) {
+      onChange(image);
     }
   };
 

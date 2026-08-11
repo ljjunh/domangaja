@@ -57,6 +57,14 @@ export interface GetMeResponse {
 
 export type ServerLocale = 'KO' | 'EN' | 'JP' | 'ZH_CN' | 'ZH_TW';
 
+export interface UpdateProfileRequest {
+  nickname?: string;
+  birthDate?: string;
+  preferredRegions?: PreferredRegion[];
+  preferredCategories?: PreferredCategory[];
+  profileImageUrl?: string;
+}
+
 export type NicknameUnavailableReason = 'LENGTH' | 'FORMAT' | 'DUPLICATE';
 
 export interface NicknameAvailabilityResponse {
