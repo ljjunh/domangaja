@@ -99,7 +99,9 @@ export default function OnboardingScreen({ route }: OnboardingScreenProps) {
       <IconButton icon={ArrowLeftIcon} onPress={goBackOneStep} color={colors.black} />
       <KeyboardAvoidingView style={styles.avoidingView} behavior="padding">
         <View style={styles.container}>
-          {step === 'nickname' && <NicknameStep onNext={handleNicknameNext} />}
+          {step === 'nickname' && (
+            <NicknameStep onNext={handleNicknameNext} accessToken={tokens?.accessToken} />
+          )}
           {step === 'birthDate' && <BirthDateStep onNext={handleBirthDateNext} />}
           {step === 'region' && <RegionStep onNext={completeOnboarding} isSubmitting={isPending} />}
         </View>

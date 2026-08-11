@@ -11,15 +11,12 @@ import Svg, { Path } from 'react-native-svg';
 import { useTranslation } from 'react-i18next';
 import { Text, TextInput } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
-import { isValidNickname } from '@/domains/user/utils/validateNickname';
+import { normalizeNickname } from '@/domains/user/utils/validateNickname';
+import { useNicknameAvailability } from '@/domains/user/hooks/useNicknameAvailability';
 import TypingTitle from './TypingTitle';
 import StepNextButton from './StepNextButton';
 import { stepEntering } from '../utils/stepEntering';
 
-// 입력이 이 시간 동안 멈추면 중복 확인 시작
-const DEBOUNCE_MS = 500;
-// TODO: 서버 중복 확인 API로 대체 — 지금은 타이머
-const MOCK_RESPONSE_MS = 1000;
 // 확인 완료 시 테두리가 채워지는 시간
 const BORDER_FILL_MS = 600;
 const INPUT_RADIUS = 12;
@@ -87,58 +84,36 @@ function CheckCompleteBorder({
   );
 }
 
-// idle: 입력 중/대기, checking: 중복 확인 중(스피너), confirmed: 사용 가능(테두리 + 버튼 활성)
-type CheckStatus = 'idle' | 'checking' | 'confirmed';
-
 interface NicknameStepProps {
   onNext: (nickname: string) => void;
+  // 온보딩 시점엔 tokenStorage가 비어있어서 중복 확인 요청에 직접 실어 보낸다
+  accessToken: string | undefined;
 }
 
-export default function NicknameStep({ onNext }: NicknameStepProps) {
+export default function NicknameStep({ onNext, accessToken }: NicknameStepProps) {
   const { t } = useTranslation();
   const [isTitleDone, setIsTitleDone] = useState(false);
   const [nickname, setNickname] = useState('');
-  const [status, setStatus] = useState<CheckStatus>('idle');
   const [inputLayout, setInputLayout] = useState<LayoutRectangle | null>(null);
+
+  const { status, reason } = useNicknameAvailability(nickname, accessToken);
 
   // 테두리 채움 진행률 (0 → 1)
   const checkProgress = useSharedValue(0);
 
-  const handleChangeText = (text: string) => {
-    setNickname(text);
-    // 다시 입력하면 확인 무효 — 테두리도 즉시 리셋
-    setStatus('idle');
-    checkProgress.value = 0;
-  };
-
   useEffect(
-    function startCheckAfterTypingPause() {
-      if (status !== 'idle' || !isValidNickname(nickname)) {
-        return;
-      }
-      const id = setTimeout(() => setStatus('checking'), DEBOUNCE_MS);
-      return () => clearTimeout(id);
-    },
-    [nickname, status],
-  );
-
-  useEffect(
-    function mockDuplicateCheck() {
-      if (status !== 'checking') {
-        return;
-      }
-      // TODO: 서버 중복 확인 API로 대체 — 응답 성공 시나리오만 흉내
-      const id = setTimeout(() => {
-        setStatus('confirmed');
-        checkProgress.value = withTiming(1, {
-          duration: BORDER_FILL_MS,
-          easing: Easing.out(Easing.quad),
-        });
-      }, MOCK_RESPONSE_MS);
-      return () => clearTimeout(id);
+    function fillBorderWhenAvailable() {
+      checkProgress.value =
+        status === 'available'
+          ? withTiming(1, { duration: BORDER_FILL_MS, easing: Easing.out(Easing.quad) })
+          : 0;
     },
     [status, checkProgress],
   );
+
+  // LENGTH/FORMAT은 클라이언트 검증을 통과했는데 서버가 거절한 경우 = 규칙 불일치.
+  // 유저에게 설명할 수 있는 사유는 중복뿐이다
+  const errorMessageKey = reason === 'DUPLICATE' ? 'nickname.duplicate' : 'nickname.unavailable';
 
   return (
     <View style={styles.container}>
@@ -153,7 +128,7 @@ export default function NicknameStep({ onNext }: NicknameStepProps) {
                 typography="t6"
                 weight="semiBold"
                 value={nickname}
-                onChangeText={handleChangeText}
+                onChangeText={setNickname}
                 placeholder="닉네임"
                 autoFocus
                 onLayout={event => setInputLayout(event.nativeEvent.layout)}
@@ -165,7 +140,7 @@ export default function NicknameStep({ onNext }: NicknameStepProps) {
                   <ActivityIndicator size="small" color={colors.grey[500]} />
                 </View>
               )}
-              {inputLayout != null && status === 'confirmed' && (
+              {inputLayout != null && status === 'available' && (
                 <CheckCompleteBorder layout={inputLayout} progress={checkProgress} />
               )}
               {/* <View style={styles.sticker}>
@@ -179,9 +154,22 @@ export default function NicknameStep({ onNext }: NicknameStepProps) {
                 {t('nickname.rule')}
               </Text>
             )}
+            {status === 'unavailable' && (
+              <Text typography="t7" weight="semiBold" color={colors.red[500]} style={styles.rule}>
+                {t(errorMessageKey)}
+              </Text>
+            )}
+            {status === 'failed' && (
+              <Text typography="t7" weight="semiBold" color={colors.red[500]} style={styles.rule}>
+                {t('nickname.checkFailed')}
+              </Text>
+            )}
           </View>
           <Animated.View entering={stepEntering(200)} style={styles.nextButtonArea}>
-            <StepNextButton disabled={status !== 'confirmed'} onPress={() => onNext(nickname)} />
+            <StepNextButton
+              disabled={status !== 'available'}
+              onPress={() => onNext(normalizeNickname(nickname))}
+            />
           </Animated.View>
         </>
       )}

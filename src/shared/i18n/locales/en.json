@@ -25,7 +25,10 @@
     "submit": "Save"
   },
   "nickname": {
-    "rule": "Use 2–10 Korean or English letters and numbers."
+    "rule": "Use 2–10 Korean or English letters and numbers.",
+    "duplicate": "This nickname is already taken.",
+    "unavailable": "This nickname can't be used.",
+    "checkFailed": "Check failed. Please try again in a moment."
   },
   "birthDate": {
     "invalidDate": "Please check your date of birth.",

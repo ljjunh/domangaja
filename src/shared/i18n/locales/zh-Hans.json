@@ -25,7 +25,10 @@
     "submit": "保存"
   },
   "nickname": {
-    "rule": "请输入2~10位韩文、英文或数字。"
+    "rule": "请输入2~10位韩文、英文或数字。",
+    "duplicate": "该昵称已被使用。",
+    "unavailable": "该昵称无法使用。",
+    "checkFailed": "检查失败，请稍后重试。"
   },
   "birthDate": {
     "invalidDate": "请重新确认您的出生日期。",

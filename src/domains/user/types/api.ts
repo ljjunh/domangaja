@@ -56,3 +56,12 @@ export interface GetMeResponse {
 }
 
 export type ServerLocale = 'KO' | 'EN' | 'JP' | 'ZH_CN' | 'ZH_TW';
+
+export type NicknameUnavailableReason = 'LENGTH' | 'FORMAT' | 'DUPLICATE';
+
+export interface NicknameAvailabilityResponse {
+  nickname: string;
+  available: boolean;
+  reason: NicknameUnavailableReason | null;
+  message: string;
+}
