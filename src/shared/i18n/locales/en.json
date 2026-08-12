@@ -25,6 +25,20 @@
     "submit": "Save",
     "saveError": "Failed to save. Please try again in a moment."
   },
+  "photoPermission": {
+    "title": "Photo access is off",
+    "description": "To change your profile photo, you need to allow photo access.\n You can turn it on in Settings.",
+    "ios": {
+      "step1": "Find <b>도망가자</b> in Settings",
+      "step2": "<b>Photos</b> > <b>All Photos</b>"
+    },
+    "android": {
+      "step1": "Find <b>도망가자</b> in Settings",
+      "step2": "<b>Permissions</b> > <b>Photos and videos</b> > <b>Allow</b>"
+    },
+    "later": "Later",
+    "openSettings": "Open Settings"
+  },
   "nickname": {
     "rule": "Use 2–10 Korean or English letters and numbers.",
     "duplicate": "This nickname is already taken.",

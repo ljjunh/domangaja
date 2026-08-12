@@ -2158,7 +2158,7 @@ PODS:
     - Yoga
   - RNDeviceInfo (15.0.2):
     - React-Core
-  - RNFBApp (26.1.0):
+  - RNFBApp (26.2.0):
     - Firebase/CoreOnly (= 12.17.0)
     - hermes-engine
     - RCTRequired
@@ -2206,7 +2206,7 @@ PODS:
     - ReactNativeDependencies
     - RNFBApp
     - Yoga
-  - RNFBMessaging (26.1.0):
+  - RNFBMessaging (26.2.0):
     - Firebase/Messaging (= 12.17.0)
     - FirebaseCoreExtension (= 12.17.0)
     - hermes-engine
@@ -3063,14 +3063,14 @@ SPEC CHECKSUMS:
   RNAppleAuthentication: a89c9804592b38ed4ab11f0aee68d05ba12ad432
   RNBootSplash: 896e77f6b01c459249d3259c052ac97a2403a576
   RNDeviceInfo: 4c852998208b60dc192ae3529e5867817719ad1e
-  RNFBApp: b66d017038ebaa6d873b94cbfa191380f2dda2c1
+  RNFBApp: 876001a8469437ecb0558f5fbb000543dd6a8f57
   RNFBCrashlytics: ccd9f5a093b109a0efcad17763c028933451d57e
-  RNFBMessaging: 54c47eb6c5018720486027d4d66d12b40333f6ea
+  RNFBMessaging: f68b51060468efa573be86c50441a99e23c1ded0
   RNGestureHandler: f07022ab7ca42692c1cd3364f4aab2eebe66dc0d
   RNGoogleSignin: 6fa1cf7f7fb24d68cc41a89bd6370f302bbe2dcc
   RNImageCropPicker: 5c9c8bef4c72d3f451b499aa0ecd90a644ea1bbd
   RNLocalize: 17bce0556e2d33fe1201c8cef53b3b7786e07612
-  RNPermissions: acaec9a5c663de127980054fa2a9b559669896f8
+  RNPermissions: 2b1bd98b9d08a7dceb39e1ab474e5fe66cfc2fa8
   RNReactNativeHapticFeedback: 9dc72312c12cb53ee240b5b7aae1e167f3d940a6
   RNReanimated: 43a0fcc841131459bdd3ba4261e5fc7a4ebc85c8
   RNScreens: 8d318eb8905fa1d3439a1ce5d567f82ae8245657
@@ -3079,6 +3079,6 @@ SPEC CHECKSUMS:
   TOCropViewController: 797deaf39c90e6e9ddd848d88817f6b9a8a09888
   Yoga: c30c859b7e9b75e547b600b486fe33165f60de00
 
-PODFILE CHECKSUM: 5924d69917a3eef3c78d95e22d8d94957495594e
+PODFILE CHECKSUM: 8d3f6d05cc5446df90fa365869d38594a942c372
 
 COCOAPODS: 1.16.2
