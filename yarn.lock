@@ -2233,24 +2233,24 @@
     prompts "^2.4.2"
     semver "^7.5.2"
 
-"@react-native-firebase/app@^26.1.0":
-  version "26.1.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-26.1.0.tgz#43317765b79127b3991fb9b1b094beda2223ad37"
-  integrity sha512-MymCFTvg/vvwJ+qsex6+5dhFGBq+czCUsXvG5a1eMw19puLrlzk6sh9+J/DnwBIRIj9m+5J9NLBi2I4S9iFrXg==
+"@react-native-firebase/app@26.2.0":
+  version "26.2.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-26.2.0.tgz#5ea7a3cd17129d0a13d8a25a9322ddc0fdfbb9c7"
+  integrity sha512-O1jpUgVyF8bbDVQ1s9dTEuCiw9I2OLoj6fEaIseT5REeXNP0sGMcTiI4JntSJeQ+EOv7w+j3RsU0WWta7V32YQ==
   dependencies:
     firebase "12.17.0"
 
-"@react-native-firebase/crashlytics@^26.1.0":
+"@react-native-firebase/crashlytics@26.2.0":
   version "26.2.0"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-26.2.0.tgz#32eab89ebadf1f6a58bf1f4b5f125e339922592a"
   integrity sha512-ip8gqvO+kNenO8S/n1OdueOQ7X45A7hfamSay8+lIxq/AMPDWjR6IUw1Qd8UxR+v4J5Py6SYB1vj3RCVXVoaJQ==
   dependencies:
     stacktrace-js "^2.0.2"
 
-"@react-native-firebase/messaging@^26.1.0":
-  version "26.1.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-26.1.0.tgz#aad49ba7c4b7923a45b8092ec4e0c3d583a5457e"
-  integrity sha512-9LW4GyxsVxyfK0MV4oYK2k0QYfboGgN81ogTC60XT27xRBOjUIpZYxjB8Nme7YL1u0/0UKz3eXV1GoS9DRqUwQ==
+"@react-native-firebase/messaging@26.2.0":
+  version "26.2.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-26.2.0.tgz#8dd3eca3ffd00552953612720d1bb97b607a77fd"
+  integrity sha512-/yy/l9OVXYlvyKtl5Hm26BcA/dcVDZLNlv9DhaCaWSOMTbWc/u1NRkP/8WOuRJ1B8n4/lYahPGppuhOaJhL7Zg==
 
 "@react-native-google-signin/google-signin@^16.1.2":
   version "16.1.2"

@@ -17,6 +17,7 @@ prepare_react_native_project!
 # 이 라이브러리로 확인/요청을 "실제로 하는" 권한만 등록 (추가 시 Info.plist 문구 + pod install 세트)
 setup_permissions([
   'Notifications',
+  'PhotoLibrary',
 ])
 
 linkage = ENV['USE_FRAMEWORKS']

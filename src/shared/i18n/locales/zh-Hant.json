@@ -25,6 +25,20 @@
     "submit": "儲存",
     "saveError": "儲存失敗，請稍後重試。"
   },
+  "photoPermission": {
+    "title": "照片存取已關閉",
+    "description": "若要更換大頭貼，需要允許存取照片。\n可在設定中開啟。",
+    "ios": {
+      "step1": "在設定中找到<b>도망가자</b>",
+      "step2": "<b>照片</b> > <b>所有照片</b>"
+    },
+    "android": {
+      "step1": "在設定中找到<b>도망가자</b>",
+      "step2": "<b>權限</b> > <b>相片和影片</b> > <b>允許</b>"
+    },
+    "later": "稍後",
+    "openSettings": "開啟設定"
+  },
   "nickname": {
     "rule": "請輸入2~10位韓文、英文或數字。",
     "duplicate": "該暱稱已被使用。",

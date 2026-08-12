@@ -119,7 +119,7 @@ export default function MapScreen() {
         </View>
       )}
       {selectedSpot != null && (
-        <BaseSheet avoidMainTabBar onClose={() => setSelectedSpot(null)}>
+        <BaseSheet avoidMainTabBar withBackdrop={false} onClose={() => setSelectedSpot(null)}>
           <SpotSheetContent
             name={selectedSpot.name}
             region={selectedSpot.region}

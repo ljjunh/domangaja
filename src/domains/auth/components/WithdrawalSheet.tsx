@@ -1,10 +1,7 @@
-import { useCallback, useRef, useState, type ComponentRef } from 'react';
+import { useRef, useState, type ComponentRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Trans, useTranslation } from 'react-i18next';
-import BottomSheet, {
-  BottomSheetBackdrop,
-  type BottomSheetBackdropProps,
-} from '@gorhom/bottom-sheet';
+import BottomSheet from '@gorhom/bottom-sheet';
 import { Pressable, Text } from '@/shared/components/base';
 import { Button } from '@/shared/components/ui';
 import { BaseSheet } from '@/shared/components/overlay';
@@ -26,15 +23,8 @@ export default function WithdrawalSheet({ onClose, onConfirm }: WithdrawalSheetP
     sheetRef.current?.close();
   };
 
-  const renderBackdrop = useCallback(
-    (backdropProps: BottomSheetBackdropProps) => (
-      <BottomSheetBackdrop {...backdropProps} appearsOnIndex={0} disappearsOnIndex={-1} />
-    ),
-    [],
-  );
-
   return (
-    <BaseSheet ref={sheetRef} onClose={onClose} backdropComponent={renderBackdrop}>
+    <BaseSheet ref={sheetRef} onClose={onClose}>
       <View style={styles.container}>
         <Text typography="t4" weight="bold" color={colors.grey[900]}>
           {t('withdrawal.message')}

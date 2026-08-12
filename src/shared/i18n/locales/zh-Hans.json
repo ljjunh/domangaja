@@ -25,6 +25,20 @@
     "submit": "保存",
     "saveError": "保存失败，请稍后重试。"
   },
+  "photoPermission": {
+    "title": "照片访问已关闭",
+    "description": "要更换头像，需要允许访问照片。\n可在设置中开启。",
+    "ios": {
+      "step1": "在设置中找到<b>도망가자</b>",
+      "step2": "<b>照片</b> > <b>所有照片</b>"
+    },
+    "android": {
+      "step1": "在设置中找到<b>도망가자</b>",
+      "step2": "<b>权限</b> > <b>照片和视频</b> > <b>允许</b>"
+    },
+    "later": "稍后",
+    "openSettings": "打开设置"
+  },
   "nickname": {
     "rule": "请输入2~10位韩文、英文或数字。",
     "duplicate": "该昵称已被使用。",

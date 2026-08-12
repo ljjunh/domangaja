@@ -1,24 +1,42 @@
 import { type ComponentRef, type ReactNode, type Ref } from 'react';
 import { StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import BottomSheet, { BottomSheetScrollView, type BottomSheetProps } from '@gorhom/bottom-sheet';
+import BottomSheet, {
+  BottomSheetBackdrop,
+  BottomSheetScrollView,
+  type BottomSheetBackdropProps,
+  type BottomSheetProps,
+} from '@gorhom/bottom-sheet';
 import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_BOTTOM, SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { useMainTabBarSpace } from '@/shared/hooks/useMainTabBarSpace';
 
+function SheetBackdrop(backdropProps: BottomSheetBackdropProps) {
+  return <BottomSheetBackdrop {...backdropProps} appearsOnIndex={0} disappearsOnIndex={-1} />;
+}
+
 interface BaseSheetProps
-  extends Omit<BottomSheetProps, 'children' | 'handleIndicatorStyle' | 'backgroundStyle'> {
+  extends Omit<
+    BottomSheetProps,
+    'children' | 'handleIndicatorStyle' | 'backgroundStyle' | 'backdropComponent'
+  > {
   /**
    * 메인탭 화면에서 하단 탭바 높이만큼 콘텐츠 아래 여백 확보(메인탭에서 사용할때만 명시적으로 true)
    * @default false
    */
   avoidMainTabBar?: boolean;
+  /**
+   * 뒤쪽을 어둡게 덮고 탭을 막는다. 지도처럼 뒤쪽을 계속 조작해야 하면 false
+   * @default true
+   */
+  withBackdrop?: boolean;
   children: ReactNode;
   ref?: Ref<ComponentRef<typeof BottomSheet>>;
 }
 
 export default function BaseSheet({
   avoidMainTabBar = false,
+  withBackdrop = true,
   children,
   ref,
   ...bottomSheetProps
@@ -34,6 +52,7 @@ export default function BaseSheet({
       handleStyle={styles.handleContainer}
       handleIndicatorStyle={styles.handle}
       backgroundStyle={styles.background}
+      backdropComponent={withBackdrop ? SheetBackdrop : undefined}
       {...bottomSheetProps}
     >
       {/* 콘텐츠가 시트 최대 높이(화면)를 넘으면 잘리는 대신 시트 안에서 스크롤 */}
