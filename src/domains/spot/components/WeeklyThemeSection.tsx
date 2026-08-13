@@ -1,5 +1,7 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
+import { spotQueries } from '@/domains/spot/api/queries';
 import { example1Image, example2Image } from '@/assets/images';
 import SectionHeader from './SectionHeader';
 import ThemeCard from './ThemeCard';
@@ -13,6 +15,8 @@ const MOCK_WEEKLY_THEME = [
 ];
 
 export default function WeeklyThemeSection() {
+  const { data: themes } = useSuspenseQuery(spotQueries.getWeeklyThemes({ limit: 5 }));
+  console.log('이번주 인기테마', themes);
   return (
     <View style={styles.container}>
       <SectionHeader

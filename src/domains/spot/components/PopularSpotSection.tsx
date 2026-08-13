@@ -1,5 +1,7 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
+import { spotQueries } from '@/domains/spot/api/queries';
 import { example1Image, example2Image } from '@/assets/images';
 import SectionHeader from './SectionHeader';
 import RankedSpotCard from './RankedSpotCard';
@@ -14,6 +16,9 @@ const MOCK_POPULAR_SPOTS = [
 ];
 
 export default function PopularSpotSection() {
+  const { data: spots } = useSuspenseQuery(spotQueries.getPopularSpots({ limit: 5 }));
+  console.log('지금 많이 찾는 도망지:', spots);
+
   return (
     <View style={styles.container}>
       <SectionHeader
