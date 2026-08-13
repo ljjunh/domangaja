@@ -38,3 +38,20 @@ export interface PopularSpot {
 }
 
 export type GetPopularSpotsResponse = PopularSpot[];
+
+export interface GetWeeklyThemesRequest {
+  // default 7
+  days?: number;
+  // default 10
+  limit?: number;
+}
+
+export interface WeeklyTheme {
+  theme: SpotTheme;
+  label: string;
+  spotCount: number;
+  viewCount: number;
+  imageUrl: string;
+}
+
+export type GetWeeklyThemesResponse = WeeklyTheme[];

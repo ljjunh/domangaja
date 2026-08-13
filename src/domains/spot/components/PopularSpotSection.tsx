@@ -16,7 +16,7 @@ const MOCK_POPULAR_SPOTS = [
 ];
 
 export default function PopularSpotSection() {
-  const { data: spots } = useSuspenseQuery(spotQueries.getPopularSpots({ limit: 6, days: 7 }));
+  const { data: spots } = useSuspenseQuery(spotQueries.getPopularSpots({ limit: 5 }));
   console.log('지금 많이 찾는 도망지:', spots);
 
   return (
