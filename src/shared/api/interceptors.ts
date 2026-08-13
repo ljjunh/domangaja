@@ -1,6 +1,7 @@
 import axios, { type AxiosResponse, type AxiosError, type InternalAxiosRequestConfig } from 'axios';
 import { useAuthStore } from '@/shared/store/authStore';
 import { tokenStorage } from '@/shared/api/tokenStorage';
+import { reportError } from '@/shared/lib/crashlytics';
 
 /**
  * Request Interceptor — 요청이 서버로 전송되기 전 실행
@@ -107,6 +108,12 @@ export async function rejectInterceptor(error: AxiosError) {
       break;
     default:
       console.error(`[${status}] 알 수 없는 오류: `, errorData);
+  }
+
+  // 5xx는 서버 장애 — 유저가 문의하지 않아도 발생 사실과 빈도를 알아야 한다.
+  // 4xx는 대부분 화면이 UX로 처리하는 예상된 실패라 기록하지 않는다(노이즈)
+  if (status >= 500) {
+    reportError(error, `api/${status} ${error.config?.url ?? ''}`);
   }
 
   throw error;

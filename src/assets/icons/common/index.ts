@@ -26,3 +26,4 @@ export { default as ShieldSecurityFillIcon } from './shield-security-fill.svg';
 export { default as SunFogFillIcon } from './sun-fog-fill.svg';
 export { default as TranslateFillIcon } from './translate-fill.svg';
 export { default as ViewOutlineIcon } from './view-outline.svg';
+export { default as WifiOffIcon } from './wifi-off.svg';

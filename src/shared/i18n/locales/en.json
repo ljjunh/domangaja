@@ -133,5 +133,16 @@
       "ja": "Japanese",
       "en": "English"
     }
+  },
+  "error": {
+    "network": {
+      "title": "No internet connection",
+      "description": "Try switching to Wi-Fi or mobile data, or move to an area with better signal."
+    },
+    "common": {
+      "title": "Something isn't working",
+      "description": "If the problem continues, close the app completely and open it again."
+    },
+    "retry": "Try again"
   }
 }

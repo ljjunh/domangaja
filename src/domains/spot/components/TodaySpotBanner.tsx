@@ -1,16 +1,16 @@
 import { ImageBackground, StyleSheet, View } from 'react-native';
 import { Text, Pressable } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { spotQueries } from '../api/queries';
 
 export default function TodaySpotBanner() {
-  const { data: spot } = useQuery(spotQueries.getTodaySpot());
+  const { data: spot } = useSuspenseQuery(spotQueries.getTodaySpot());
 
   return (
     <Pressable onPress={() => console.log('오늘의 추천 도망지 상세 페이지 이동')}>
       <ImageBackground
-        source={{ uri: spot?.imageUrl }}
+        source={{ uri: spot.imageUrl }}
         fadeDuration={0}
         style={styles.banner}
         imageStyle={styles.image}
@@ -19,7 +19,7 @@ export default function TodaySpotBanner() {
           오늘의 추천 도망지
         </Text>
         <Text typography="t5" weight="semiBold" color={colors.white} style={styles.textShadow}>
-          {spot?.title}
+          {spot.title}
         </Text>
         <Text
           typography="st12"
@@ -28,7 +28,7 @@ export default function TodaySpotBanner() {
           style={[styles.description, styles.textShadow]}
           numberOfLines={2}
         >
-          {spot?.description}
+          {spot.description}
         </Text>
         <View style={styles.detailChip}>
           <Text typography="st13" weight="medium" color={colors.white} style={styles.textShadow}>
