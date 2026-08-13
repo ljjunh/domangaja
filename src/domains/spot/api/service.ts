@@ -1,9 +1,18 @@
 import { apiClient } from '@/shared/api/client';
-import { GetTodaySpotResponse } from '@/domains/spot/types/api';
+import type {
+  GetTodaySpotResponse,
+  GetPopularSpotsRequest,
+  GetPopularSpotsResponse,
+} from '@/domains/spot/types/api';
 
-//  HTTP 호출 (axios) React를 모르는 순수 TS
 export const getTodaySpot = async (): Promise<GetTodaySpotResponse> => {
   const { data } = await apiClient.get<GetTodaySpotResponse>('/spots/today');
-  console.log('todayspot', data);
+  return data;
+};
+
+export const getPopularSpots = async (
+  params: GetPopularSpotsRequest,
+): Promise<GetPopularSpotsResponse> => {
+  const { data } = await apiClient.get<GetPopularSpotsResponse>('/spots/popular', { params });
   return data;
 };

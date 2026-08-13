@@ -19,3 +19,22 @@ export interface GetTodaySpotResponse {
   viewedAt: string;
   description: string;
 }
+
+export interface GetPopularSpotsRequest {
+  // default 7
+  days?: number;
+  // default 10
+  limit?: number;
+}
+
+export interface PopularSpot {
+  rank: number;
+  contentId: string;
+  title: string;
+  regionName: string;
+  imageUrl: string;
+  quietnessScore: number;
+  viewCount: number;
+}
+
+export type GetPopularSpotsResponse = PopularSpot[];
