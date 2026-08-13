@@ -1,29 +1,16 @@
-import { ImageBackground, StyleSheet, View, type ImageSourcePropType } from 'react-native';
+import { ImageBackground, StyleSheet, View } from 'react-native';
 import { Text, Pressable } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
-import { example1Image } from '@/assets/images';
-
-interface TodaySpot {
-  name: string;
-  description: string;
-  // 서버 연동 시 imageUrl(string)을 { uri: imageUrl }로 매핑
-  image: ImageSourcePropType;
-}
-
-const MOCK_TODAY_SPOT: TodaySpot = {
-  name: '제주 협재 해변',
-  description: '에메랄드 빛 바다에서 아무 생각 없이 멍 때리기 좋은 곳',
-  image: example1Image,
-};
+import { useQuery } from '@tanstack/react-query';
+import { spotQueries } from '../api/queries';
 
 export default function TodaySpotBanner() {
-  // TODO: 서버 연동 시 쿼리 결과로 교체
-  const spot = MOCK_TODAY_SPOT;
+  const { data: spot } = useQuery(spotQueries.getTodaySpot());
 
   return (
     <Pressable onPress={() => console.log('오늘의 추천 도망지 상세 페이지 이동')}>
       <ImageBackground
-        source={spot.image}
+        source={{ uri: spot?.imageUrl }}
         fadeDuration={0}
         style={styles.banner}
         imageStyle={styles.image}
@@ -32,15 +19,16 @@ export default function TodaySpotBanner() {
           오늘의 추천 도망지
         </Text>
         <Text typography="t5" weight="semiBold" color={colors.white} style={styles.textShadow}>
-          {spot.name}
+          {spot?.title}
         </Text>
         <Text
           typography="st12"
           weight="regular"
           color={colors.white}
           style={[styles.description, styles.textShadow]}
+          numberOfLines={2}
         >
-          {spot.description}
+          {spot?.description}
         </Text>
         <View style={styles.detailChip}>
           <Text typography="st13" weight="medium" color={colors.white} style={styles.textShadow}>
@@ -64,7 +52,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   description: {
-    maxWidth: '60%',
+    // maxWidth: '60%',
   },
   detailChip: {
     alignSelf: 'flex-start',
