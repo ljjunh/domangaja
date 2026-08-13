@@ -25,7 +25,7 @@ export default function TodaySpotBanner() {
           typography="st12"
           weight="regular"
           color={colors.white}
-          style={[styles.description, styles.textShadow]}
+          style={styles.textShadow}
           numberOfLines={2}
         >
           {spot.description}
@@ -50,9 +50,6 @@ const styles = StyleSheet.create({
   },
   image: {
     borderRadius: 12,
-  },
-  description: {
-    // maxWidth: '60%',
   },
   detailChip: {
     alignSelf: 'flex-start',
