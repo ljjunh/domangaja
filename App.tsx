@@ -1,3 +1,4 @@
+import { type ReactNode } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar, StyleSheet } from 'react-native';
@@ -8,6 +9,7 @@ import '@/shared/i18n';
 import { Navigation } from '@/shared/navigations/index';
 import { queryClient } from '@/shared/api/queryClient';
 import { OverlayProvider } from '@/shared/overlay';
+import { AppErrorBoundary } from '@/shared/components/error';
 import { useAppBootstrap } from '@/shared/hooks/useAppBootstrap';
 import { useDeviceTokenSync } from '@/domains/notification/hooks/useDeviceTokenSync';
 import {
@@ -18,25 +20,37 @@ import { useForegroundPush } from '@/domains/notification/hooks/useForegroundPus
 import { useNotificationPermissionRequest } from '@/domains/notification/hooks/useNotificationPermissionRequest';
 
 function App() {
+  return (
+    <GestureHandlerRootView style={styles.root}>
+      <SafeAreaProvider>
+        <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
+        <QueryClientProvider client={queryClient}>
+          <AppErrorBoundary>
+            <AppBootstrap>
+              <OverlayProvider>
+                <Navigation onReady={flushPendingPushNavigation} />
+              </OverlayProvider>
+            </AppBootstrap>
+          </AppErrorBoundary>
+        </QueryClientProvider>
+        <Toast config={toastConfig} position="bottom" bottomOffset={80} />
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
+  );
+}
+
+/**
+ * 앱 전역 부팅·구독 훅 모음.
+ * App 본문이 아니라 경계 안쪽에서 돌려야 여기서 던진 에러를 AppErrorBoundary가 잡음
+ */
+function AppBootstrap({ children }: { children: ReactNode }) {
   useAppBootstrap();
   useDeviceTokenSync();
   usePushNavigation();
   useForegroundPush();
   useNotificationPermissionRequest();
 
-  return (
-    <GestureHandlerRootView style={styles.root}>
-      <SafeAreaProvider>
-        <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
-        <QueryClientProvider client={queryClient}>
-          <OverlayProvider>
-            <Navigation onReady={flushPendingPushNavigation} />
-          </OverlayProvider>
-        </QueryClientProvider>
-        <Toast config={toastConfig} position="bottom" bottomOffset={80} />
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
-  );
+  return children;
 }
 
 const styles = StyleSheet.create({

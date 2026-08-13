@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Text } from '@/shared/components/base';
@@ -12,7 +13,7 @@ import {
   WeeklyThemeSection,
   RecentSpotSection,
 } from '@/domains/spot/components';
-import { QuickMenu, NearbySpotBanner } from './components';
+import { QuickMenu, NearbySpotBanner, HomeSkeleton } from './components';
 
 export default function HomeScreen() {
   const mainTabBarSpace = useMainTabBarSpace();
@@ -28,14 +29,16 @@ export default function HomeScreen() {
         }
         right={<NotificationButton />}
       />
-      <ScrollView contentContainerStyle={[styles.container, { paddingBottom: mainTabBarSpace }]}>
-        <TodaySpotBanner />
-        <QuickMenu />
-        <PopularSpotSection />
-        <NearbySpotBanner />
-        <WeeklyThemeSection />
-        <RecentSpotSection />
-      </ScrollView>
+      <Suspense fallback={<HomeSkeleton />}>
+        <ScrollView contentContainerStyle={[styles.container, { paddingBottom: mainTabBarSpace }]}>
+          <TodaySpotBanner />
+          <QuickMenu />
+          <PopularSpotSection />
+          <NearbySpotBanner />
+          <WeeklyThemeSection />
+          <RecentSpotSection />
+        </ScrollView>
+      </Suspense>
     </Layout>
   );
 }

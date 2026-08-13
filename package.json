@@ -27,6 +27,7 @@
     "axios": "^1.19.0",
     "i18next": "^26.3.1",
     "react": "19.2.3",
+    "react-error-boundary": "^6.1.2",
     "react-i18next": "^17.0.8",
     "react-native": "0.86.0",
     "react-native-bootsplash": "^7.3.2",

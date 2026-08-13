@@ -7,6 +7,7 @@ import {
   onTokenRefresh,
   type RemoteMessage,
 } from '@react-native-firebase/messaging';
+import { reportError } from '@/shared/lib/crashlytics';
 
 export type PushMessage = {
   title: string | null;
@@ -20,7 +21,9 @@ export const getFcmToken = async (): Promise<string | null> => {
   try {
     const res = await getToken(getMessaging());
     return res;
-  } catch {
+  } catch (error) {
+    // 호출부는 null로 조용히 넘어가므로, 여기서 기록
+    reportError(error, 'fcm/getToken');
     return null;
   }
 };
