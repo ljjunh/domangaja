@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import { Text } from '@/shared/components/base';
 import { useTranslation } from 'react-i18next';
-import { AppIcon } from '@/assets/logo';
+import { AppIcon } from '@/assets/icons/logo';
 
 export default function BrandIntro() {
   const { t } = useTranslation();
