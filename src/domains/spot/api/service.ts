@@ -5,6 +5,8 @@ import type {
   GetPopularSpotsResponse,
   GetWeeklyThemesRequest,
   GetWeeklyThemesResponse,
+  GetRecentSpotsRequest,
+  GetRecentSpotsResponse,
 } from '@/domains/spot/types/api';
 
 export const getTodaySpot = async (): Promise<GetTodaySpotResponse> => {
@@ -25,5 +27,12 @@ export const getWeeklyThemes = async (
   const { data } = await apiClient.get<GetWeeklyThemesResponse>('/spots/themes/popular', {
     params,
   });
+  return data;
+};
+
+export const getRecentSpots = async (
+  params: GetRecentSpotsRequest,
+): Promise<GetRecentSpotsResponse> => {
+  const { data } = await apiClient.get<GetRecentSpotsResponse>('/spots/recent', { params });
   return data;
 };

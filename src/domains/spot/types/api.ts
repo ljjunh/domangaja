@@ -55,3 +55,21 @@ export interface WeeklyTheme {
 }
 
 export type GetWeeklyThemesResponse = WeeklyTheme[];
+
+export interface GetRecentSpotsRequest {
+  // default 10
+  limit?: number;
+}
+
+export interface RecentSpot {
+  contentId: string;
+  title: string;
+  regionName: string;
+  imageUrl: string;
+  quietnessScore: number;
+  theme: SpotTheme;
+  viewedAt: string;
+  description: string;
+}
+
+export type GetRecentSpotsResponse = RecentSpot[];

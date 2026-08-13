@@ -1,8 +1,8 @@
 import { ImageBackground, StyleSheet, View } from 'react-native';
-import { Text, Pressable } from '@/shared/components/base';
-import { colors } from '@/shared/constants/colors';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { spotQueries } from '../api/queries';
+import { Text, Pressable } from '@/shared/components/base';
+import { spotQueries } from '@/domains/spot/api/queries';
+import { colors } from '@/shared/constants/colors';
 
 export default function TodaySpotBanner() {
   const { data: spot } = useSuspenseQuery(spotQueries.getTodaySpot());

@@ -1,10 +1,10 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
+import { spotQueries } from '@/domains/spot/api/queries';
 import { example1Image, example2Image } from '@/assets/images';
 import SectionHeader from './SectionHeader';
 import RankedSpotCard from './RankedSpotCard';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { spotQueries } from '@/domains/spot/api/queries';
 
 const MOCK_POPULAR_SPOTS = [
   { rank: 1, name: '강원 인제 자작나무숲', quietness: 92, image: example2Image },

@@ -1,4 +1,6 @@
 import { StyleSheet, View } from 'react-native';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { spotQueries } from '@/domains/spot/api/queries';
 import { example1Image, example2Image } from '@/assets/images';
 import SectionHeader from './SectionHeader';
 import SpotListItem from './SpotListItem';
@@ -31,6 +33,8 @@ const MOCK_RESENT_SPOT = [
 ];
 
 export default function RecentSpotSection() {
+  const { data: recentSpots } = useSuspenseQuery(spotQueries.getRecentSpots());
+  console.log('최근 본 도망지', recentSpots);
   return (
     <View style={styles.container}>
       <SectionHeader

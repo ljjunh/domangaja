@@ -1,10 +1,10 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
+import { spotQueries } from '@/domains/spot/api/queries';
 import { example1Image, example2Image } from '@/assets/images';
 import SectionHeader from './SectionHeader';
 import ThemeCard from './ThemeCard';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { spotQueries } from '@/domains/spot/api/queries';
 
 const MOCK_WEEKLY_THEME = [
   { id: 1, name: '여름 바다', spotCount: 32, image: example1Image },
