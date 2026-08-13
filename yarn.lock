@@ -6836,6 +6836,11 @@ react-devtools-core@^6.1.5:
     shell-quote "^1.6.1"
     ws "^7"
 
+react-error-boundary@^6.1.2:
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/react-error-boundary/-/react-error-boundary-6.1.2.tgz#d213780329ceb3678cec7813a76a00e2a7584f48"
+  integrity sha512-3DpCr5HVdZ0caUjYE/kIHBEJN0mNP3ZCgf16c48uJ5TbWjorKVp+YG8W3XqlJ7vJAVNw6wNIImyPXmFydwmyng==
+
 react-freeze@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-freeze/-/react-freeze-1.0.4.tgz#cbbea2762b0368b05cbe407ddc9d518c57c6f3ad"
