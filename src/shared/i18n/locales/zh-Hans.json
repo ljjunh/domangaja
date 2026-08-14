@@ -104,6 +104,12 @@
     "bestDaySubtitle": "预测清静度 {{score}} · 推荐这一天",
     "quietnessLevel": { "quiet": "清静", "normal": "一般", "crowded": "拥挤" }
   },
+  "spot": {
+    "empty": {
+      "title": "正在统计排名",
+      "description": "数据积累后将为您展示热门地点。"
+    }
+  },
   "setting": {
     "title": "设置",
     "sections": {

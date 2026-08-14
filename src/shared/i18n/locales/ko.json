@@ -104,6 +104,12 @@
     "bestDaySubtitle": "예측 한적도 {{score}} · 이날을 추천드려요",
     "quietnessLevel": { "quiet": "한적", "normal": "보통", "crowded": "혼잡" }
   },
+  "spot": {
+    "empty": {
+      "title": "순위를 집계하고 있어요",
+      "description": "데이터가 모이면 인기 있는 곳을 보여드릴게요."
+    }
+  },
   "setting": {
     "title": "설정",
     "sections": {

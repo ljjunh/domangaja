@@ -104,6 +104,12 @@
     "bestDaySubtitle": "Predicted quietness {{score}} · We recommend this day",
     "quietnessLevel": { "quiet": "Quiet", "normal": "Moderate", "crowded": "Crowded" }
   },
+  "spot": {
+    "empty": {
+      "title": "Tallying the rankings",
+      "description": "We'll show popular places once enough data is in."
+    }
+  },
   "setting": {
     "title": "Settings",
     "sections": {

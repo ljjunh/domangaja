@@ -104,6 +104,12 @@
     "bestDaySubtitle": "予測閑散度 {{score}} ・ この日がおすすめです",
     "quietnessLevel": { "quiet": "閑散", "normal": "普通", "crowded": "混雑" }
   },
+  "spot": {
+    "empty": {
+      "title": "順位を集計しています",
+      "description": "データが集まったら人気の場所をお見せします。"
+    }
+  },
   "setting": {
     "title": "設定",
     "sections": {
