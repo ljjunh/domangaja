@@ -14,7 +14,7 @@
     "description": "The information below will be <danger>deleted right away\nand cannot be restored.</danger>",
     "noticeTitle": "What gets deleted",
     "notice": {
-      "savedSpot": "saved places",
+      "scrap": "saved places",
       "post": "All of your posts and comments",
       "history": "Visit history and preference data"
     },
@@ -126,9 +126,9 @@
       "appInfo": "App Info",
       "accountManagement": "Account Management"
     },
-    "savedSpot": "Saved Places",
-    "savedSpotCount_one": "{{count}} place",
-    "savedSpotCount_other": "{{count}} places",
+    "scrap": "Saved Places",
+    "scrapCount_one": "{{count}} place",
+    "scrapCount_other": "{{count}} places",
     "notification": "Notifications",
     "version": "Version",
     "terms": "Terms of Service",

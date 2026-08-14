@@ -14,7 +14,7 @@
     "description": "注销后，以下信息将<danger>立即删除，\n且无法恢复。</danger>",
     "noticeTitle": "将被删除的信息",
     "notice": {
-      "savedSpot": "收藏的地点",
+      "scrap": "收藏的地点",
       "post": "发布的帖子和评论",
       "history": "访问记录与偏好数据"
     },
@@ -126,9 +126,9 @@
       "appInfo": "应用信息",
       "accountManagement": "账户管理"
     },
-    "savedSpot": "收藏的地点",
-    "savedSpotCount_one": "{{count}}个地点",
-    "savedSpotCount_other": "{{count}}个地点",
+    "scrap": "收藏的地点",
+    "scrapCount_one": "{{count}}个地点",
+    "scrapCount_other": "{{count}}个地点",
     "notification": "通知",
     "version": "版本信息",
     "terms": "服务条款",

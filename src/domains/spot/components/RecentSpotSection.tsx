@@ -15,7 +15,7 @@ const MOCK_RESENT_SPOT = [
     region: '전북 무주',
     quietness: 91,
     image: example1Image,
-    isBookmarked: true,
+    isScrapped: true,
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const MOCK_RESENT_SPOT = [
     region: '강원 양양',
     quietness: 87,
     image: example2Image,
-    isBookmarked: false,
+    isScrapped: false,
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ const MOCK_RESENT_SPOT = [
     region: '전북 무주',
     quietness: 85,
     image: example1Image,
-    isBookmarked: true,
+    isScrapped: true,
   },
 ];
 
@@ -61,9 +61,9 @@ export default function RecentSpotSection() {
               region={spot.region}
               quietness={spot.quietness}
               image={spot.image}
-              isBookmarked={spot.isBookmarked}
+              isScrapped={spot.isScrapped}
               onPressItem={() => console.log('도망지 상세 페이지로 이동')}
-              onPressBookmark={() => console.log('북마크 api 연동')}
+              onPressScrap={() => console.log('스크랩 api 연동')}
             />
           ))}
         </View>

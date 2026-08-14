@@ -11,5 +11,5 @@ export { default as StoryWriteScreen } from './feed/StoryWriteScreen';
 export { default as LanguageSettingScreen } from './setting/LanguageSettingScreen';
 export { default as MyInfoScreen } from './setting/MyInfoScreen';
 export { default as NotificationSettingScreen } from './setting/NotificationSettingScreen';
-export { default as SavedSpotScreen } from './setting/SavedSpotScreen';
+export { default as ScrapScreen } from './setting/ScrapScreen';
 export { default as PolicyScreen } from './legal/PolicyScreen';
