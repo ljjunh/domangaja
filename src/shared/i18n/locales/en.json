@@ -104,6 +104,20 @@
     "bestDaySubtitle": "Predicted quietness {{score}} · We recommend this day",
     "quietnessLevel": { "quiet": "Quiet", "normal": "Moderate", "crowded": "Crowded" }
   },
+  "spot": {
+    "popular": {
+      "empty": {
+        "title": "Tallying the rankings",
+        "description": "We'll show popular places once enough data is in."
+      }
+    },
+    "recent": {
+      "empty": {
+        "title": "You haven't viewed any places yet",
+        "description": "Places you view will show up here."
+      }
+    }
+  },
   "setting": {
     "title": "Settings",
     "sections": {
@@ -144,5 +158,15 @@
       "description": "If the problem continues, close the app completely and open it again."
     },
     "retry": "Try again"
+  },
+  "spotTheme": {
+    "SEA": "Sea & Beach",
+    "MOUNTAIN": "Forest & Mountain",
+    "ISLAND": "Island",
+    "FIELD": "Fields & Countryside",
+    "NIGHT_SKY": "Stars & Night Sky",
+    "VALLEY": "Valley & Waterfall",
+    "CITY": "City",
+    "ETC": "Others"
   }
 }

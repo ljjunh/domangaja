@@ -1,4 +1,5 @@
 import type { NotificationSettings } from '@/domains/notification/types/api';
+import type { SpotTheme } from '@/shared/types/spotTheme';
 
 // 서버 enum — 선호 지역 6종
 export type PreferredRegion =
@@ -9,22 +10,11 @@ export type PreferredRegion =
   | 'GYEONGSANG'
   | 'JEJU';
 
-// 서버 enum — 선호 카테고리 8종 (온보딩 화면엔 CITY, ETC 제외 6종만 노출)
-export type PreferredCategory =
-  | 'SEA'
-  | 'MOUNTAIN'
-  | 'ISLAND'
-  | 'FIELD'
-  | 'NIGHT_SKY'
-  | 'WATER'
-  | 'CITY'
-  | 'ETC';
-
 export interface CompleteOnboardingRequest {
   nickname: string;
   birthDate: string;
   preferredRegions: PreferredRegion[];
-  preferredCategories: PreferredCategory[];
+  preferredCategories: SpotTheme[];
 }
 
 export interface CompleteOnboardingResponse {
@@ -33,7 +23,7 @@ export interface CompleteOnboardingResponse {
   email: string | null;
   role: string;
   signupCompleted: boolean;
-  preferredCategories: PreferredCategory[];
+  preferredCategories: SpotTheme[];
   preferredRegions: PreferredRegion[];
   birthDate: string | null;
   locale: string;
@@ -47,7 +37,7 @@ export interface GetMeResponse {
   email: string | null;
   role: string;
   signupCompleted: boolean;
-  preferredCategories: PreferredCategory[];
+  preferredCategories: SpotTheme[];
   preferredRegions: PreferredRegion[];
   birthDate: string | null;
   locale: string;
@@ -61,7 +51,7 @@ export interface UpdateProfileRequest {
   nickname?: string;
   birthDate?: string;
   preferredRegions?: PreferredRegion[];
-  preferredCategories?: PreferredCategory[];
+  preferredCategories?: SpotTheme[];
   profileImageUrl?: string;
 }
 

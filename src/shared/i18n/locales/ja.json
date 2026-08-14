@@ -104,6 +104,20 @@
     "bestDaySubtitle": "予測閑散度 {{score}} ・ この日がおすすめです",
     "quietnessLevel": { "quiet": "閑散", "normal": "普通", "crowded": "混雑" }
   },
+  "spot": {
+    "popular": {
+      "empty": {
+        "title": "順位を集計しています",
+        "description": "データが集まったら人気の場所をお見せします。"
+      }
+    },
+    "recent": {
+      "empty": {
+        "title": "まだ見た場所がありません",
+        "description": "見た場所はここにまとめます。"
+      }
+    }
+  },
   "setting": {
     "title": "設定",
     "sections": {
@@ -144,5 +158,15 @@
       "description": "問題が続く場合は、アプリを完全に終了してから開き直してください。"
     },
     "retry": "再試行"
+  },
+  "spotTheme": {
+    "SEA": "海・ビーチ",
+    "MOUNTAIN": "森・山",
+    "ISLAND": "島",
+    "FIELD": "野原・田舎",
+    "NIGHT_SKY": "星・夜空",
+    "VALLEY": "渓谷・滝",
+    "CITY": "都市",
+    "ETC": "その他"
   }
 }

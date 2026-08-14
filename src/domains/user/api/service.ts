@@ -11,7 +11,6 @@ import { toServerLocale } from '@/domains/user/utils/serverLocale';
 
 export const getMe = async (): Promise<GetMeResponse> => {
   const { data } = await apiClient.get<GetMeResponse>('/members/me');
-  console.log('user', data);
   return data;
 };
 
@@ -22,6 +21,7 @@ export const completeOnboarding = async (
     '/members/me/onboarding',
     params,
   );
+  console.log('onboard', data);
   return data;
 };
 

@@ -104,6 +104,20 @@
     "bestDaySubtitle": "预测清静度 {{score}} · 推荐这一天",
     "quietnessLevel": { "quiet": "清静", "normal": "一般", "crowded": "拥挤" }
   },
+  "spot": {
+    "popular": {
+      "empty": {
+        "title": "正在统计排名",
+        "description": "数据积累后将为您展示热门地点。"
+      }
+    },
+    "recent": {
+      "empty": {
+        "title": "还没有浏览过的地点",
+        "description": "您浏览过的地点会显示在这里。"
+      }
+    }
+  },
   "setting": {
     "title": "设置",
     "sections": {
@@ -144,5 +158,15 @@
       "description": "如果问题持续，请完全关闭应用后重新打开。"
     },
     "retry": "重试"
+  },
+  "spotTheme": {
+    "SEA": "大海 · 海滩",
+    "MOUNTAIN": "森林 · 山",
+    "ISLAND": "岛屿",
+    "FIELD": "田野 · 乡村",
+    "NIGHT_SKY": "星空 · 夜空",
+    "VALLEY": "溪谷 · 瀑布",
+    "CITY": "城市",
+    "ETC": "其他"
   }
 }
