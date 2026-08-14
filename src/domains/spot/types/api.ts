@@ -64,3 +64,26 @@ export interface RecentSpot {
 }
 
 export type GetRecentSpotsResponse = RecentSpot[];
+
+export type ScrapType = 'SPOT' | 'COURSE';
+export interface GetScrapsRequest {
+  type: ScrapType;
+}
+export interface Scrap {
+  id: number;
+  contentId: string;
+  // default: SPOT
+  type?: ScrapType;
+  title: string;
+}
+
+export type GetScrapsResponse = Scrap[];
+
+export interface CreateScrapRequest {
+  contentId: string;
+  // default: SPOT
+  type?: ScrapType;
+  title: string;
+}
+
+export type CreateScrapResponse = Scrap;
