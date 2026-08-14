@@ -105,9 +105,17 @@
     "quietnessLevel": { "quiet": "閑散", "normal": "普通", "crowded": "混雑" }
   },
   "spot": {
-    "empty": {
-      "title": "順位を集計しています",
-      "description": "データが集まったら人気の場所をお見せします。"
+    "popular": {
+      "empty": {
+        "title": "順位を集計しています",
+        "description": "データが集まったら人気の場所をお見せします。"
+      }
+    },
+    "recent": {
+      "empty": {
+        "title": "まだ見た場所がありません",
+        "description": "見た場所はここにまとめます。"
+      }
     }
   },
   "setting": {

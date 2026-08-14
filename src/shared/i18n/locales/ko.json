@@ -105,9 +105,17 @@
     "quietnessLevel": { "quiet": "한적", "normal": "보통", "crowded": "혼잡" }
   },
   "spot": {
-    "empty": {
-      "title": "순위를 집계하고 있어요",
-      "description": "데이터가 모이면 인기 있는 곳을 보여드릴게요."
+    "popular": {
+      "empty": {
+        "title": "순위를 집계하고 있어요",
+        "description": "데이터가 모이면 인기 있는 곳을 보여드릴게요."
+      }
+    },
+    "recent": {
+      "empty": {
+        "title": "아직 둘러본 곳이 없어요",
+        "description": "본 곳은 여기에 모아둘게요."
+      }
     }
   },
   "setting": {

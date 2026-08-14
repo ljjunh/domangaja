@@ -22,8 +22,8 @@ export default function WeeklyThemeSection() {
       {themes.length === 0 ? (
         <EmptyState
           icon={ClockOutlineIcon}
-          title={t('spot.empty.title')}
-          description={t('spot.empty.description')}
+          title={t('spot.popular.empty.title')}
+          description={t('spot.popular.empty.description')}
         />
       ) : (
         <ScrollView

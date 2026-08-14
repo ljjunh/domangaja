@@ -105,9 +105,17 @@
     "quietnessLevel": { "quiet": "Quiet", "normal": "Moderate", "crowded": "Crowded" }
   },
   "spot": {
-    "empty": {
-      "title": "Tallying the rankings",
-      "description": "We'll show popular places once enough data is in."
+    "popular": {
+      "empty": {
+        "title": "Tallying the rankings",
+        "description": "We'll show popular places once enough data is in."
+      }
+    },
+    "recent": {
+      "empty": {
+        "title": "You haven't viewed any places yet",
+        "description": "Places you view will show up here."
+      }
     }
   },
   "setting": {

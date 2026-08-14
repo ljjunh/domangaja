@@ -105,9 +105,17 @@
     "quietnessLevel": { "quiet": "清靜", "normal": "一般", "crowded": "擁擠" }
   },
   "spot": {
-    "empty": {
-      "title": "正在統計排名",
-      "description": "資料累積後將為您顯示熱門地點。"
+    "popular": {
+      "empty": {
+        "title": "正在統計排名",
+        "description": "資料累積後將為您顯示熱門地點。"
+      }
+    },
+    "recent": {
+      "empty": {
+        "title": "還沒有瀏覽過的地點",
+        "description": "您瀏覽過的地點會顯示在這裡。"
+      }
     }
   },
   "setting": {
