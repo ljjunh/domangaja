@@ -158,5 +158,15 @@
       "description": "如果问题持续，请完全关闭应用后重新打开。"
     },
     "retry": "重试"
+  },
+  "spotTheme": {
+    "SEA": "大海 · 海滩",
+    "MOUNTAIN": "森林 · 山",
+    "ISLAND": "岛屿",
+    "FIELD": "田野 · 乡村",
+    "NIGHT_SKY": "星空 · 夜空",
+    "VALLEY": "溪谷 · 瀑布",
+    "CITY": "城市",
+    "ETC": "其他"
   }
 }

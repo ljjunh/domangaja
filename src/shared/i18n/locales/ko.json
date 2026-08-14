@@ -158,5 +158,15 @@
       "description": "문제가 계속되면 앱을 완전히 종료한 뒤 다시 열어보세요."
     },
     "retry": "다시 시도하기"
+  },
+  "spotTheme": {
+    "SEA": "바다 · 해변",
+    "MOUNTAIN": "숲 · 산",
+    "ISLAND": "섬",
+    "FIELD": "들판 · 시골",
+    "NIGHT_SKY": "별 · 밤하늘",
+    "VALLEY": "계곡 · 폭포",
+    "CITY": "도시",
+    "ETC": "기타"
   }
 }

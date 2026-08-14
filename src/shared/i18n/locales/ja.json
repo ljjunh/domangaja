@@ -158,5 +158,15 @@
       "description": "問題が続く場合は、アプリを完全に終了してから開き直してください。"
     },
     "retry": "再試行"
+  },
+  "spotTheme": {
+    "SEA": "海・ビーチ",
+    "MOUNTAIN": "森・山",
+    "ISLAND": "島",
+    "FIELD": "野原・田舎",
+    "NIGHT_SKY": "星・夜空",
+    "VALLEY": "渓谷・滝",
+    "CITY": "都市",
+    "ETC": "その他"
   }
 }

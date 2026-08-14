@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { ImageBackground, StyleSheet, View, type ImageSourcePropType } from 'react-native';
+import {
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  View,
+  type ImageSourcePropType,
+} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -8,11 +14,13 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { Pressable, Text } from '@/shared/components/base';
-import type { PreferredCategory, PreferredRegion } from '@/domains/user/types/api';
+import { useTranslation } from 'react-i18next';
+import type { PreferredRegion } from '@/domains/user/types/api';
+import { ONBOARDING_SPOT_THEMES, type SpotTheme } from '@/shared/types/spotTheme';
 import { colors } from '@/shared/constants/colors';
 import { SPRING } from '@/shared/constants/springs';
 import { DoneIcon } from '@/assets/icons/common';
-import { example1Image, example2Image } from '@/assets/images';
+import { SPOT_THEME_IMAGES } from '@/assets/images/spotTheme';
 import TypingTitle from './TypingTitle';
 import { stepEntering } from '../utils/stepEntering';
 import { Button } from '@/shared/components/ui';
@@ -25,17 +33,6 @@ const REGIONS: { value: PreferredRegion; label: string }[] = [
   { value: 'JEOLLA', label: '전라' },
   { value: 'GYEONGSANG', label: '경상' },
   { value: 'JEJU', label: '제주' },
-];
-
-// TODO: 디자인 확정 시 풍경별 실제 이미지로 교체
-// 서버 카테고리 8종 중 온보딩 노출은 6종 (CITY, ETC는 피드 전용)
-const LANDSCAPES: { value: PreferredCategory; label: string; image: ImageSourcePropType }[] = [
-  { value: 'SEA', label: '바다 · 해변', image: example1Image },
-  { value: 'MOUNTAIN', label: '숲 · 산', image: example2Image },
-  { value: 'ISLAND', label: '섬', image: example1Image },
-  { value: 'FIELD', label: '들판 · 시골', image: example2Image },
-  { value: 'NIGHT_SKY', label: '별 · 밤하늘', image: example1Image },
-  { value: 'WATER', label: '계곡 · 물', image: example2Image },
 ];
 
 // 있으면 빼고, 없으면 넣는 다중 선택 토글
@@ -99,7 +96,6 @@ interface LandscapeCardProps {
 }
 
 function LandscapeCard({ label, image, isSelected, onPress }: LandscapeCardProps) {
-  // 카드는 면적이 커서 팝을 얕게
   const { popStyle, pop } = usePressPop(1.04);
 
   return (
@@ -117,9 +113,11 @@ function LandscapeCard({ label, image, isSelected, onPress }: LandscapeCardProps
               <DoneIcon width={12} height={12} color={colors.white} />
             </View>
           )}
-          <Text typography="t6" weight="semiBold" color={colors.white}>
-            {label}
-          </Text>
+          <View style={styles.labelPill}>
+            <Text typography="t6" weight="semiBold" color={colors.white}>
+              {label}
+            </Text>
+          </View>
         </ImageBackground>
         {isSelected && <View style={styles.selectedBorder} pointerEvents="none" />}
       </Pressable>
@@ -129,7 +127,7 @@ function LandscapeCard({ label, image, isSelected, onPress }: LandscapeCardProps
 
 export type RegionSelection = {
   regions: PreferredRegion[];
-  landscapes: PreferredCategory[];
+  landscapes: SpotTheme[];
 };
 
 interface RegionStepProps {
@@ -142,9 +140,13 @@ interface RegionStepProps {
 }
 
 export default function RegionStep({ onNext, isSubmitting = false }: RegionStepProps) {
+  const { t } = useTranslation();
   const [isTitleDone, setIsTitleDone] = useState(false);
   const [regions, setRegions] = useState<PreferredRegion[]>([]);
-  const [landscapes, setLandscapes] = useState<PreferredCategory[]>([]);
+  const [landscapes, setLandscapes] = useState<SpotTheme[]>([]);
+
+  // 지역과 풍경을 각각 하나 이상 골라야 시작할 수 있음
+  const canSubmit = regions.length > 0 && landscapes.length > 0;
 
   return (
     <View style={styles.container}>
@@ -153,42 +155,48 @@ export default function RegionStep({ onNext, isSubmitting = false }: RegionStepP
 
       {isTitleDone && (
         <>
-          <Animated.View entering={stepEntering()} style={styles.section}>
-            <Text typography="t6" weight="medium" color={colors.grey[600]}>
-              관심지역을 골라두면 먼저 보여드려요.
-            </Text>
-            <View style={styles.chipRow}>
-              {REGIONS.map(region => (
-                <RegionChip
-                  key={region.value}
-                  label={region.label}
-                  isSelected={regions.includes(region.value)}
-                  onPress={() => setRegions(prev => toggleSelection(prev, region.value))}
-                />
-              ))}
-            </View>
-          </Animated.View>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.scrollContent}
+          >
+            <Animated.View entering={stepEntering()} style={styles.section}>
+              <Text typography="t6" weight="medium" color={colors.grey[600]}>
+                관심지역을 골라두면 먼저 보여드려요.
+              </Text>
+              <View style={styles.chipRow}>
+                {REGIONS.map(region => (
+                  <RegionChip
+                    key={region.value}
+                    label={region.label}
+                    isSelected={regions.includes(region.value)}
+                    onPress={() => setRegions(prev => toggleSelection(prev, region.value))}
+                  />
+                ))}
+              </View>
+            </Animated.View>
 
-          <Animated.View entering={stepEntering(100)} style={styles.section}>
-            <Text typography="t5" weight="semiBold">
-              어떤 풍경을 좋아하세요?
-            </Text>
-            <View style={styles.cardGrid}>
-              {LANDSCAPES.map(landscape => (
-                <LandscapeCard
-                  key={landscape.value}
-                  label={landscape.label}
-                  image={landscape.image}
-                  isSelected={landscapes.includes(landscape.value)}
-                  onPress={() => setLandscapes(prev => toggleSelection(prev, landscape.value))}
-                />
-              ))}
-            </View>
-          </Animated.View>
+            <Animated.View entering={stepEntering(100)} style={styles.section}>
+              <Text typography="t5" weight="semiBold">
+                어떤 풍경을 좋아하세요?
+              </Text>
+              <View style={styles.cardGrid}>
+                {ONBOARDING_SPOT_THEMES.map(theme => (
+                  <LandscapeCard
+                    key={theme}
+                    label={t(`spotTheme.${theme}`)}
+                    image={SPOT_THEME_IMAGES[theme]}
+                    isSelected={landscapes.includes(theme)}
+                    onPress={() => setLandscapes(prev => toggleSelection(prev, theme))}
+                  />
+                ))}
+              </View>
+            </Animated.View>
+          </ScrollView>
 
-          <Animated.View entering={stepEntering(200)} style={styles.startButtonArea}>
+          <Animated.View entering={stepEntering(200)}>
             <Button
               display="block"
+              disabled={!canSubmit}
               loading={isSubmitting}
               onPress={() => onNext({ regions, landscapes })}
             >
@@ -204,6 +212,9 @@ export default function RegionStep({ onNext, isSubmitting = false }: RegionStepP
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    gap: 10,
+  },
+  scrollContent: {
     gap: 20,
   },
   section: {
@@ -229,11 +240,11 @@ const styles = StyleSheet.create({
   cardGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 10,
+    justifyContent: 'space-between',
+    rowGap: 10,
   },
   cardWrapper: {
-    flexBasis: '48%',
-    flexGrow: 1,
+    width: '48%',
   },
   card: {
     aspectRatio: 1.6,
@@ -251,6 +262,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     padding: 8,
   },
+  labelPill: {
+    alignSelf: 'flex-start',
+    paddingVertical: 3,
+    paddingHorizontal: 8,
+    borderRadius: 10,
+    backgroundColor: colors.greyOpacity[600],
+  },
   checkBadge: {
     position: 'absolute',
     top: 6,
@@ -261,8 +279,5 @@ const styles = StyleSheet.create({
     backgroundColor: colors.blue[500],
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  startButtonArea: {
-    marginTop: 'auto',
   },
 });

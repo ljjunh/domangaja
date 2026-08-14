@@ -1,14 +1,5 @@
 // DTO (서버 계약: Request/Response)
-
-export type SpotTheme =
-  | 'SEA'
-  | 'MOUNTAIN'
-  | 'ISLAND'
-  | 'FIELD'
-  | 'NIGHT_SKY'
-  | 'WATER'
-  | 'CITY'
-  | 'ETC';
+import type { SpotTheme } from '@/shared/types/spotTheme';
 export interface GetTodaySpotResponse {
   contentId: string;
   title: string;
