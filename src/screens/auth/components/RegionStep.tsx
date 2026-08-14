@@ -184,7 +184,7 @@ export default function RegionStep({ onNext, isSubmitting = false }: RegionStepP
                   <LandscapeCard
                     key={theme}
                     label={t(`spotTheme.${theme}`)}
-                    image={SPOT_THEME_IMAGES[theme]}
+                    image={SPOT_THEME_IMAGES.wide[theme]}
                     isSelected={landscapes.includes(theme)}
                     onPress={() => setLandscapes(prev => toggleSelection(prev, theme))}
                   />

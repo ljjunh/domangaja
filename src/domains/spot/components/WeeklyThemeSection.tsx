@@ -5,6 +5,7 @@ import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { EmptyState } from '@/shared/components/ui';
 import { spotQueries } from '@/domains/spot/api/queries';
 import { ClockOutlineIcon } from '@/assets/icons/common';
+import { SPOT_THEME_IMAGES } from '@/assets/images/spotTheme';
 import SectionHeader from './SectionHeader';
 import ThemeCard from './ThemeCard';
 
@@ -35,9 +36,9 @@ export default function WeeklyThemeSection() {
           {themes.map(theme => (
             <ThemeCard
               key={theme.theme}
-              name={theme.label}
+              name={t(`spotTheme.${theme.theme}`)}
               spotCount={theme.spotCount}
-              image={{ uri: theme.imageUrl }}
+              image={SPOT_THEME_IMAGES.square[theme.theme]}
               onPress={() => console.log('테마 페이지로 이동')}
             />
           ))}
