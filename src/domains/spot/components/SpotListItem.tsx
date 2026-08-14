@@ -10,9 +10,9 @@ interface SpotListItemProps {
   quietness: number;
   // 서버 연동 시 imageUrl(string)을 { uri: imageUrl }로 매핑
   image: ImageSourcePropType;
-  isBookmarked: boolean;
+  isScrapped: boolean;
   onPressItem: () => void;
-  onPressBookmark: () => void;
+  onPressScrap: () => void;
 }
 
 export default function SpotListItem({
@@ -20,9 +20,9 @@ export default function SpotListItem({
   region,
   quietness,
   image,
-  isBookmarked,
+  isScrapped,
   onPressItem,
-  onPressBookmark,
+  onPressScrap,
 }: SpotListItemProps) {
   return (
     <Pressable onPress={onPressItem} style={styles.container}>
@@ -38,10 +38,10 @@ export default function SpotListItem({
           </Text>
         </View>
         <IconButton
-          onPress={onPressBookmark}
-          icon={isBookmarked ? ArchiveTickFillIcon : ArchiveTickOutlineIcon}
-          color={isBookmarked ? colors.blue[500] : colors.black}
-          style={styles.bookmarkButton}
+          onPress={onPressScrap}
+          icon={isScrapped ? ArchiveTickFillIcon : ArchiveTickOutlineIcon}
+          color={isScrapped ? colors.blue[500] : colors.black}
+          style={styles.scrapButton}
         />
       </View>
     </Pressable>
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   info: {
     gap: 4,
   },
-  bookmarkButton: {
+  scrapButton: {
     alignSelf: 'center',
   },
 });

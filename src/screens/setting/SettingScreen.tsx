@@ -60,9 +60,9 @@ export default function SettingScreen() {
           <SettingListItem
             icon={ArchiveTickFillIcon}
             iconColor={colors.red[300]}
-            label={t('setting.savedSpot')}
-            value={t('setting.savedSpotCount', { count: 4 })}
-            onPress={() => navigate('SavedSpot')}
+            label={t('setting.scrap')}
+            value={t('setting.scrapCount', { count: 4 })}
+            onPress={() => navigate('Scrap')}
           />
         </SettingSection>
 

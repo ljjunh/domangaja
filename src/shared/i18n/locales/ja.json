@@ -14,7 +14,7 @@
     "description": "退会すると以下の情報が<danger>すぐに削除され、\n元に戻せません。</danger>",
     "noticeTitle": "削除される情報",
     "notice": {
-      "savedSpot": "保存した場所",
+      "scrap": "保存した場所",
       "post": "投稿とコメント",
       "history": "訪問履歴と好みのデータ"
     },
@@ -126,9 +126,9 @@
       "appInfo": "アプリ情報",
       "accountManagement": "アカウント管理"
     },
-    "savedSpot": "保存した場所",
-    "savedSpotCount_one": "{{count}}か所",
-    "savedSpotCount_other": "{{count}}か所",
+    "scrap": "保存した場所",
+    "scrapCount_one": "{{count}}か所",
+    "scrapCount_other": "{{count}}か所",
     "notification": "通知",
     "version": "バージョン情報",
     "terms": "利用規約",

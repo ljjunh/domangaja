@@ -7,6 +7,11 @@ import type {
   GetWeeklyThemesResponse,
   GetRecentSpotsRequest,
   GetRecentSpotsResponse,
+  GetScrapsRequest,
+  GetScrapsResponse,
+  CreateScrapRequest,
+  CreateScrapResponse,
+  Scrap,
 } from '@/domains/spot/types/api';
 
 export const getTodaySpot = async (): Promise<GetTodaySpotResponse> => {
@@ -35,4 +40,18 @@ export const getRecentSpots = async (
 ): Promise<GetRecentSpotsResponse> => {
   const { data } = await apiClient.get<GetRecentSpotsResponse>('/spots/recent', { params });
   return data;
+};
+
+export const getScraps = async (params: GetScrapsRequest): Promise<GetScrapsResponse> => {
+  const { data } = await apiClient.get<GetScrapsResponse>('/scraps', { params });
+  return data;
+};
+
+export const createScrap = async (params: CreateScrapRequest): Promise<CreateScrapResponse> => {
+  const { data } = await apiClient.post<CreateScrapResponse>('/scraps', params);
+  return data;
+};
+
+export const deleteScrap = async (id: Scrap['id']): Promise<void> => {
+  await apiClient.delete(`/scraps/${id}`);
 };

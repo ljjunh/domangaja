@@ -12,7 +12,7 @@ import {
   LanguageSettingScreen,
   MyInfoScreen,
   NotificationSettingScreen,
-  SavedSpotScreen,
+  ScrapScreen,
   PolicyScreen,
 } from '@/screens';
 
@@ -56,7 +56,7 @@ export const RootStack = createNativeStackNavigator({
         LanguageSetting: { screen: LanguageSettingScreen },
         MyInfo: { screen: MyInfoScreen },
         NotificationSetting: { screen: NotificationSettingScreen },
-        SavedSpot: { screen: SavedSpotScreen },
+        Scrap: { screen: ScrapScreen },
       },
     },
     // 로그인 여부와 무관한 공통 화면

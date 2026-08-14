@@ -46,7 +46,7 @@ export default function WithdrawalSheet({ onClose, onConfirm }: WithdrawalSheetP
               {t('withdrawal.noticeTitle')}
             </Text>
           </View>
-          <NoticeItem i18nKey="withdrawal.notice.savedSpot" />
+          <NoticeItem i18nKey="withdrawal.notice.scrap" />
           <NoticeItem i18nKey="withdrawal.notice.post" />
           <NoticeItem i18nKey="withdrawal.notice.history" />
         </View>

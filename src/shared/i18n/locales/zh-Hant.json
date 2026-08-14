@@ -14,7 +14,7 @@
     "description": "刪除後，以下資訊將<danger>立即刪除，\n且無法復原。</danger>",
     "noticeTitle": "將被刪除的資訊",
     "notice": {
-      "savedSpot": "收藏的地點",
+      "scrap": "收藏的地點",
       "post": "發布的貼文與留言",
       "history": "造訪紀錄與偏好資料"
     },
@@ -126,9 +126,9 @@
       "appInfo": "應用程式資訊",
       "accountManagement": "帳戶管理"
     },
-    "savedSpot": "收藏的地點",
-    "savedSpotCount_one": "{{count}}個地點",
-    "savedSpotCount_other": "{{count}}個地點",
+    "scrap": "收藏的地點",
+    "scrapCount_one": "{{count}}個地點",
+    "scrapCount_other": "{{count}}個地點",
     "notification": "通知",
     "version": "版本資訊",
     "terms": "服務條款",
