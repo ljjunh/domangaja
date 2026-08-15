@@ -75,6 +75,9 @@ export interface Scrap {
   // default: SPOT
   type?: ScrapType;
   title: string;
+  regionName: string;
+  imageUrl: string;
+  quietnessScore: number;
 }
 
 export type GetScrapsResponse = Scrap[];
