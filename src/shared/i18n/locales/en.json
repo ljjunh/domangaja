@@ -168,5 +168,24 @@
     "VALLEY": "Valley & Waterfall",
     "CITY": "City",
     "ETC": "Others"
+  },
+  "forceUpdate": {
+    "title": "Please update to the new version",
+    "description": "This version is no longer supported. Update to keep using the app.",
+    "ios": {
+      "action": "Update on the App Store"
+    },
+    "android": {
+      "action": "Update on Google Play"
+    }
+  },
+  "maintenance": {
+    "title": "We're closed for a moment",
+    "description": "We're doing maintenance to bring you better places to escape to.",
+    "untilLabel": "Expected to finish",
+    "untilToday": "Today at {{time}}",
+    "untilTomorrow": "Tomorrow at {{time}}",
+    "untilDate": "{{date}} at {{time}}",
+    "refresh": "Refresh"
   }
 }

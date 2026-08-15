@@ -168,5 +168,24 @@
     "VALLEY": "계곡 · 폭포",
     "CITY": "도시",
     "ETC": "그 외"
+  },
+  "forceUpdate": {
+    "title": "새 버전으로 업데이트해 주세요",
+    "description": "지금 버전은 더 이상 지원되지 않아요. 업데이트하면 계속 쓸 수 있어요.",
+    "ios": {
+      "action": "App Store에서 업데이트"
+    },
+    "android": {
+      "action": "Play 스토어에서 업데이트"
+    }
+  },
+  "maintenance": {
+    "title": "잠시 문을 닫았어요",
+    "description": "더 좋은 도망지를 준비하려고 점검하고 있어요.",
+    "untilLabel": "점검 종료 예정",
+    "untilToday": "오늘 {{time}}",
+    "untilTomorrow": "내일 {{time}}",
+    "untilDate": "{{date}} {{time}}",
+    "refresh": "새로고침"
   }
 }

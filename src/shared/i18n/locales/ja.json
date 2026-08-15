@@ -168,5 +168,24 @@
     "VALLEY": "渓谷・滝",
     "CITY": "都市",
     "ETC": "その他"
+  },
+  "forceUpdate": {
+    "title": "新しいバージョンに更新してください",
+    "description": "現在のバージョンはサポートが終了しました。更新すると引き続きご利用いただけます。",
+    "ios": {
+      "action": "App Storeで更新"
+    },
+    "android": {
+      "action": "Google Playで更新"
+    }
+  },
+  "maintenance": {
+    "title": "しばらくお休みしています",
+    "description": "より良い逃避先をご用意するためメンテナンス中です。",
+    "untilLabel": "メンテナンス終了予定",
+    "untilToday": "本日 {{time}}",
+    "untilTomorrow": "明日 {{time}}",
+    "untilDate": "{{date}} {{time}}",
+    "refresh": "再読み込み"
   }
 }
