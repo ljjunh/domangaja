@@ -34,7 +34,7 @@ export default function ErrorView({
           <View style={[styles.iconBadge, { backgroundColor: iconBadgeColor }]}>
             <Icon width={36} height={36} color={iconColor} />
           </View>
-          <Text typography="t4" weight="semiBold" textAlign="center">
+          <Text typography="t3" weight="bold" textAlign="center">
             {title}
           </Text>
           <Text typography="t5" weight="medium" color={colors.grey[600]} textAlign="center">

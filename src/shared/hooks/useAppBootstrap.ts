@@ -6,6 +6,8 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { restoreLanguage } from '@/shared/i18n';
 import { tokenStorage } from '@/shared/api/tokenStorage';
 import { useAuthStore } from '@/shared/store/authStore';
+import { useAppStatusStore } from '@/shared/store/appStatusStore';
+import { fetchAppStatus } from '@/shared/api/appConfig';
 
 export const useAppBootstrap = () => {
   useEffect(function bootstrapApp() {
@@ -25,7 +27,21 @@ export const useAppBootstrap = () => {
       })
       .catch(() => {});
 
-    Promise.all([languageReady, authReady]).finally(() => BootSplash.hide({ fade: true }));
+    // 점검·강제 업데이트 판정. 스플래시가 내려가기 전에 끝나야 앱이 잠깐 보였다 덮이지 않는다
+    // 실패하면 그냥 통과 — 오프라인에서 앱이 아예 안 켜지면 안 된다
+    const statusReady = fetchAppStatus()
+      .then(status => {
+        const { enterMaintenance, setUpdateRequired } = useAppStatusStore.getState();
+        if (status.isUnderMaintenance) {
+          enterMaintenance(status.maintenanceUntil);
+        }
+        setUpdateRequired(status.isUpdateRequired);
+      })
+      .catch(() => {});
+
+    Promise.all([languageReady, authReady, statusReady]).finally(() =>
+      BootSplash.hide({ fade: true }),
+    );
 
     // RN에는 웹의 window focus 이벤트가 없어서, 백그라운드 -> 포그라운드 복귀를
     // TanStack Query에 focus로 알려줘야 refetchOnWindowFocus(복귀 시 stale 쿼리 갱신)가 동작한다

@@ -10,6 +10,8 @@ import { Navigation } from '@/shared/navigations/index';
 import { queryClient } from '@/shared/api/queryClient';
 import { OverlayProvider } from '@/shared/overlay';
 import { AppErrorBoundary } from '@/shared/components/error';
+import { useAppStatusStore } from '@/shared/store/appStatusStore';
+import { ForceUpdateScreen, MaintenanceScreen } from '@/screens';
 import { useAppBootstrap } from '@/shared/hooks/useAppBootstrap';
 import { useDeviceTokenSync } from '@/domains/notification/hooks/useDeviceTokenSync';
 import {
@@ -49,6 +51,18 @@ function AppBootstrap({ children }: { children: ReactNode }) {
   usePushNavigation();
   useForegroundPush();
   useNotificationPermissionRequest();
+
+  const isUnderMaintenance = useAppStatusStore(state => state.isUnderMaintenance);
+  const isUpdateRequired = useAppStatusStore(state => state.isUpdateRequired);
+
+  // 네비게이션 자체를 대체한다 — 스택 안에 두면 뒤로가기로 빠져나감
+  // 점검이 바깥 조건: 점검 중엔 어떤 버전이든 서비스를 못 쓴다
+  if (isUnderMaintenance) {
+    return <MaintenanceScreen />;
+  }
+  if (isUpdateRequired) {
+    return <ForceUpdateScreen />;
+  }
 
   return children;
 }
