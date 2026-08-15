@@ -9,6 +9,7 @@ import { CommunityFab, CommunityTabs, type CommunityTabValue } from './component
 export default function FeedScreen() {
   const navigation = useNavigation();
   const mainTabBarSpace = useMainTabBarSpace();
+  const fabBottomSpace = useMainTabBarSpace({ fromPhysicalBottom: true });
   const [tab, setTab] = useState<CommunityTabValue>('story');
 
   const handlePressFab = () => {
@@ -27,7 +28,7 @@ export default function FeedScreen() {
       ) : (
         <FeedList bottomInset={mainTabBarSpace} />
       )}
-      <CommunityFab onPress={handlePressFab} bottomOffset={mainTabBarSpace + 12} />
+      <CommunityFab onPress={handlePressFab} bottomOffset={fabBottomSpace + 12} />
     </Layout>
   );
 }

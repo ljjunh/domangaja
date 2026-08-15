@@ -1,0 +1,129 @@
+import { useRef, type ComponentRef } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Trans, useTranslation } from 'react-i18next';
+import BottomSheet from '@gorhom/bottom-sheet';
+import { Text } from '@/shared/components/base';
+import { Button } from '@/shared/components/ui';
+import { BaseSheet } from '@/shared/components/overlay';
+import { colors } from '@/shared/constants/colors';
+import { IS_IOS } from '@/shared/constants/platform';
+import { openLocationSettings } from '@/domains/feed/lib/locationPermission';
+
+const PLATFORM_KEY = IS_IOS ? 'ios' : 'android';
+
+interface LocationPermissionSheetProps {
+  onClose: () => void;
+}
+
+export default function LocationPermissionSheet({ onClose }: LocationPermissionSheetProps) {
+  const { t } = useTranslation();
+  const sheetRef = useRef<ComponentRef<typeof BottomSheet>>(null);
+
+  const handleOpenSettings = () => {
+    openLocationSettings();
+    sheetRef.current?.close();
+  };
+
+  return (
+    <BaseSheet ref={sheetRef} onClose={onClose}>
+      <View style={styles.container}>
+        <Text typography="t4" weight="bold" color={colors.grey[900]}>
+          {t('locationPermission.title')}
+        </Text>
+
+        <Text typography="t6" weight="semiBold" color={colors.grey[500]}>
+          {t('locationPermission.description')}
+        </Text>
+
+        <View style={styles.stepBox}>
+          <StepItem order={1} i18nKey={`locationPermission.${PLATFORM_KEY}.step1`} />
+          <StepItem order={2} i18nKey={`locationPermission.${PLATFORM_KEY}.step2`} />
+        </View>
+
+        <View style={styles.actions}>
+          <View style={styles.actionItem}>
+            <Button
+              type="light"
+              size="large"
+              display="block"
+              onPress={() => sheetRef.current?.close()}
+              containerStyle={styles.actionButton}
+            >
+              {t('locationPermission.later')}
+            </Button>
+          </View>
+          <View style={styles.actionItem}>
+            <Button
+              type="primary"
+              size="large"
+              display="block"
+              onPress={handleOpenSettings}
+              containerStyle={styles.actionButton}
+            >
+              {t('locationPermission.openSettings')}
+            </Button>
+          </View>
+        </View>
+      </View>
+    </BaseSheet>
+  );
+}
+
+function StepItem({ order, i18nKey }: { order: number; i18nKey: string }) {
+  return (
+    <View style={styles.stepItem}>
+      <View style={styles.stepBadge}>
+        <Text typography="st13" weight="medium" color={colors.white}>
+          {order}
+        </Text>
+      </View>
+      <Text typography="t7" weight="medium" color={colors.black} style={styles.stepText}>
+        <Trans
+          i18nKey={i18nKey}
+          components={{
+            b: <Text typography="t7" weight="bold" color={colors.black} />,
+          }}
+        />
+      </Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    gap: 12,
+  },
+  stepBox: {
+    padding: 12,
+    borderRadius: 10,
+    backgroundColor: colors.grey[100],
+    gap: 6,
+  },
+  stepItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  stepBadge: {
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    backgroundColor: colors.blue[500],
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  stepText: {
+    flexShrink: 1,
+  },
+  actions: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 4,
+  },
+  actionItem: {
+    flex: 1,
+  },
+  actionButton: {
+    paddingVertical: 14,
+  },
+});

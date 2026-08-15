@@ -18,6 +18,7 @@ prepare_react_native_project!
 setup_permissions([
   'Notifications',
   'PhotoLibrary',
+  'LocationWhenInUse',
 ])
 
 linkage = ENV['USE_FRAMEWORKS']

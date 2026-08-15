@@ -7,6 +7,9 @@ import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { example1Image } from '@/assets/images';
 import { AddIcon } from '@/assets/icons/common';
+import { overlay } from '@/shared/overlay';
+import { requestLocationPermission } from '@/domains/feed/lib/locationPermission';
+import { LocationPermissionSheet } from '@/domains/feed/components';
 import { FormSectionLabel, PostFormHeader, PostLocationField } from './components';
 
 // TODO: GPS 연동 시 실제 위치 값으로 교체
@@ -22,12 +25,30 @@ export default function FeedWriteScreen() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
+  // 시트는 스스로 퇴장 애니메이션을 돌린 뒤 onClose를 부르므로 unmount만 연결
+  const openPermissionSheet = () => {
+    overlay.open(({ unmount }) => <LocationPermissionSheet onClose={unmount} />);
+  };
+
+  const handleShare = async () => {
+    const permission = await requestLocationPermission();
+    if (permission === 'blocked') {
+      openPermissionSheet();
+      return;
+    }
+    // retriable(안드로이드 1회 거절)은 조용히 종료 — 다시 탭하면 시스템이 한 번 더 물어본다
+    if (permission !== 'granted') {
+      return;
+    }
+    console.log('TODO: 피드 등록 API 연동');
+  };
+
   return (
     <Layout>
       <PostFormHeader
         title="피드 올리기"
         onClose={() => navigation.goBack()}
-        onShare={() => console.log('TODO: 피드 등록 API 연동')}
+        onShare={handleShare}
       />
       <KeyboardAvoidingView style={styles.avoidingView} behavior="padding">
         <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
