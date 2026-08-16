@@ -83,19 +83,20 @@ export interface Scrap {
 
 export type GetScrapsResponse = Scrap[];
 
+// TODO: nullable 필드 확인 필요
 export interface GetSpotDetailResponse {
   contentId: string;
   contentTypeId: string;
   title: string;
-  overview: string;
-  homepage: string;
-  tel: string;
-  address: string;
-  zipcode: string;
+  overview: string | null;
+  homepage: string | null;
+  tel: string | null;
+  address: string | null;
+  zipcode: string | null;
   latitude: number;
   longitude: number;
-  imageUrl: string;
-  thumbnailUrl: string;
+  imageUrl: string | null;
+  thumbnailUrl: string | null;
 }
 
 export interface CreateScrapRequest {
