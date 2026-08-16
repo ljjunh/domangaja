@@ -182,5 +182,24 @@
     "VALLEY": "溪谷 · 瀑布",
     "CITY": "城市",
     "ETC": "其他"
+  },
+  "forceUpdate": {
+    "title": "請更新至新版本",
+    "description": "目前版本已不再支援。更新後即可繼續使用。",
+    "ios": {
+      "action": "在 App Store 更新"
+    },
+    "android": {
+      "action": "在 Google Play 更新"
+    }
+  },
+  "maintenance": {
+    "title": "暫時休息一下",
+    "description": "我們正在維護，為您準備更好的去處。",
+    "untilLabel": "預計結束時間",
+    "untilToday": "今天 {{time}}",
+    "untilTomorrow": "明天 {{time}}",
+    "untilDate": "{{date}} {{time}}",
+    "refresh": "重新整理"
   }
 }

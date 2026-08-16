@@ -1,5 +1,6 @@
 import axios, { type AxiosResponse, type AxiosError, type InternalAxiosRequestConfig } from 'axios';
 import { useAuthStore } from '@/shared/store/authStore';
+import { useAppStatusStore } from '@/shared/store/appStatusStore';
 import { tokenStorage } from '@/shared/api/tokenStorage';
 import { reportError } from '@/shared/lib/crashlytics';
 
@@ -47,6 +48,29 @@ async function refreshAccessToken(baseURL: string): Promise<string> {
 }
 
 type RetriableConfig = InternalAxiosRequestConfig & { retried?: boolean };
+
+const MAINTENANCE_CODE = 'MAINTENANCE';
+
+interface MaintenanceBody {
+  code?: unknown;
+  until?: unknown;
+}
+
+function toMaintenanceBody(errorData: unknown): MaintenanceBody | null {
+  return typeof errorData === 'object' && errorData !== null
+    ? (errorData as MaintenanceBody)
+    : null;
+}
+
+function isMaintenanceResponse(errorData: unknown): boolean {
+  return toMaintenanceBody(errorData)?.code === MAINTENANCE_CODE;
+}
+
+// 종료 예정 시각은 있으면 화면에 쓰고, 없으면 안내 박스만 숨김
+function readMaintenanceUntil(errorData: unknown): string | null {
+  const until = toMaintenanceBody(errorData)?.until;
+  return typeof until === 'string' ? until : null;
+}
 
 /**
  * Reject Interceptor — 에러 응답(네트워크/4xx/5xx) 공통 처리
@@ -105,6 +129,11 @@ export async function rejectInterceptor(error: AxiosError) {
       break;
     case 503:
       console.error('[503] 서비스를 사용할 수 없습니다: ', errorData);
+      // 사용 중에 점검이 시작된 경우 — 시작 시 조회만으로는 못 잡음
+      // 과부하 503으로 점검 화면에 갇히지 않도록 code로 구분한다
+      if (isMaintenanceResponse(errorData)) {
+        useAppStatusStore.getState().enterMaintenance(readMaintenanceUntil(errorData));
+      }
       break;
     default:
       console.error(`[${status}] 알 수 없는 오류: `, errorData);
