@@ -61,6 +61,8 @@ export interface RecentSpot {
   theme: SpotTheme;
   viewedAt: string;
   description: string;
+  scrapped: boolean;
+  scrapId: number;
 }
 
 export type GetRecentSpotsResponse = RecentSpot[];
