@@ -66,12 +66,15 @@ export default function SpotDetailScreen({ route }: Props) {
 
   const detail = toSpotDetailViewData(spot);
   // TODO: 상세 조회시 response에 스크랩 여부 확인 불가 서버에 요청하기
-  const shareSpot = () =>
-    Share.share({
+  const shareSpot = () => {
+    const shareUrl = `domanggaja://spots/${encodeURIComponent(detail.contentId)}`;
+
+    return Share.share({
       title: detail.title,
-      message: [detail.title, detail.address, detail.homepageUrl].filter(Boolean).join('\n'),
-      ...(detail.homepageUrl ? { url: detail.homepageUrl } : null),
+      message: [detail.title, detail.address, shareUrl].filter(Boolean).join('\n'),
+      url: shareUrl,
     });
+  };
 
   return (
     <Layout edges={['top']}>

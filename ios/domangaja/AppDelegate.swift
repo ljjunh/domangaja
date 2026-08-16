@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     if AuthApi.isKakaoTalkLoginUrl(url) {
       return AuthController.handleOpenUrl(url: url)
     }
-    return false
+    return RCTLinkingManager.application(app, open: url, options: options)
   }
 }
 

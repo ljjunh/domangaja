@@ -58,13 +58,16 @@ export const RootStack = createNativeStackNavigator({
         MyInfo: { screen: MyInfoScreen },
         NotificationSetting: { screen: NotificationSettingScreen },
         Scrap: { screen: ScrapScreen },
-        SpotDetail: { screen: SpotDetailScreen },
       },
     },
     // 로그인 여부와 무관한 공통 화면
     Common: {
       screens: {
         Policy: { screen: PolicyScreen },
+        SpotDetail: {
+          screen: SpotDetailScreen,
+          linking: 'spots/:contentId',
+        },
       },
     },
   },
