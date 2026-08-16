@@ -14,6 +14,7 @@ import {
   NotificationSettingScreen,
   ScrapScreen,
   PolicyScreen,
+  SpotDetailScreen,
 } from '@/screens';
 
 const useIsSignedIn = () => useAuthStore(state => state.isLogin);
@@ -57,6 +58,7 @@ export const RootStack = createNativeStackNavigator({
         MyInfo: { screen: MyInfoScreen },
         NotificationSetting: { screen: NotificationSettingScreen },
         Scrap: { screen: ScrapScreen },
+        SpotDetail: { screen: SpotDetailScreen },
       },
     },
     // 로그인 여부와 무관한 공통 화면
