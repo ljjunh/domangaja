@@ -54,8 +54,8 @@ export const createScrap = async (params: CreateScrapRequest): Promise<CreateScr
   return data;
 };
 
-export const deleteScrap = async ({ contentId, type }: DeleteScrapRequest): Promise<void> => {
-  await apiClient.delete(`/scraps/${contentId}`, { params: { type } });
+export const deleteScrap = async (params: DeleteScrapRequest): Promise<void> => {
+  await apiClient.delete('/scraps', { params });
 };
 
 export const createSpotView = async (

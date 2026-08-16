@@ -1,8 +1,9 @@
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { EmptyState } from '@/shared/components/ui';
-import { spotQueries } from '@/domains/spot/api/queries';
+import { spotMutations, spotQueries } from '@/domains/spot/api/queries';
+import type { RecentSpot } from '@/domains/spot/types/api';
 import { ClockOutlineIcon } from '@/assets/icons/common';
 import SectionHeader from './SectionHeader';
 import SpotListItem from './SpotListItem';
@@ -10,7 +11,22 @@ import SpotListItem from './SpotListItem';
 export default function RecentSpotSection() {
   const { t } = useTranslation();
   const { data: recentSpots } = useSuspenseQuery(spotQueries.getRecentSpots());
-  console.log(recentSpots);
+  const { mutate: createScrap } = useMutation(spotMutations.createScrap());
+  const { mutate: deleteScrap } = useMutation(spotMutations.deleteScrap());
+
+  const handlePressScrap = (spot: RecentSpot) => {
+    if (spot.scrapped) {
+      deleteScrap({ contentId: spot.contentId });
+      return;
+    }
+    createScrap({
+      contentId: spot.contentId,
+      title: spot.title,
+      regionName: spot.regionName,
+      imageUrl: spot.imageUrl,
+      quietnessScore: spot.quietnessScore,
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -36,7 +52,7 @@ export default function RecentSpotSection() {
               image={{ uri: spot.imageUrl }}
               isScrapped={spot.scrapped}
               onPressItem={() => console.log('도망지 상세 페이지로 이동')}
-              onPressScrap={() => console.log('스크랩 api 연동')}
+              onPressScrap={() => handlePressScrap(spot)}
             />
           ))}
         </View>
