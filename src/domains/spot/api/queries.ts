@@ -15,6 +15,7 @@ import {
   type GetRecentSpotsRequest,
   type GetScrapsRequest,
   type GetScrapsResponse,
+  type DeleteScrapRequest,
 } from '@/domains/spot/types/api';
 import { queryClient } from '@/shared/api/queryClient';
 
@@ -74,17 +75,17 @@ export const spotMutations = {
   deleteScrap: () =>
     mutationOptions({
       mutationFn: deleteScrap,
-      onMutate: async (id: number) => {
+      onMutate: async ({ contentId }: DeleteScrapRequest) => {
         await queryClient.cancelQueries({ queryKey: spotQueryKeys.scrapsAll });
         const previous = queryClient.getQueriesData<GetScrapsResponse>({
           queryKey: spotQueryKeys.scrapsAll,
         });
         queryClient.setQueriesData<GetScrapsResponse>({ queryKey: spotQueryKeys.scrapsAll }, prev =>
-          prev?.filter(scrap => scrap.id !== id),
+          prev?.filter(scrap => scrap.contentId !== contentId),
         );
         return { previous };
       },
-      onError: (_error, _id, context) => {
+      onError: (_error, _variables, context) => {
         context?.previous.forEach(([key, data]) => queryClient.setQueryData(key, data));
         queryClient.invalidateQueries({ queryKey: spotQueryKeys.scrapsAll });
       },

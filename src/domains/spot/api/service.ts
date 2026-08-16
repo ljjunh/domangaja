@@ -11,7 +11,7 @@ import type {
   GetScrapsResponse,
   CreateScrapRequest,
   CreateScrapResponse,
-  Scrap,
+  DeleteScrapRequest,
 } from '@/domains/spot/types/api';
 
 export const getTodaySpot = async (): Promise<GetTodaySpotResponse> => {
@@ -52,6 +52,6 @@ export const createScrap = async (params: CreateScrapRequest): Promise<CreateScr
   return data;
 };
 
-export const deleteScrap = async (id: Scrap['id']): Promise<void> => {
-  await apiClient.delete(`/scraps/${id}`);
+export const deleteScrap = async ({ contentId, type }: DeleteScrapRequest): Promise<void> => {
+  await apiClient.delete(`/scraps/${contentId}`, { params: { type } });
 };

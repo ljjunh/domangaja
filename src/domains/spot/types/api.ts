@@ -86,7 +86,12 @@ export interface CreateScrapRequest {
   contentId: string;
   // default: SPOT
   type?: ScrapType;
-  title: string;
 }
 
 export type CreateScrapResponse = Scrap;
+
+export interface DeleteScrapRequest {
+  contentId: string;
+  // default: SPOT
+  type?: ScrapType;
+}
