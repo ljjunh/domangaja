@@ -19,6 +19,7 @@ export { default as InfoCircleFillIcon } from './info-circle-fill.svg';
 export { default as LocationFillIcon } from './location-fill.svg';
 export { default as LogoutFillIcon } from './logout-fill.svg';
 export { default as MessageOutlineIcon } from './message-outline.svg';
+export { default as MonitorIcon } from './monitor.svg';
 export { default as MoreOutlineIcon } from './more-outline.svg';
 export { default as NotificationFillIcon } from './notification-fill.svg';
 export { default as NotificationOutlineIcon } from './notification-outline.svg';
