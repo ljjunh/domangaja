@@ -20,7 +20,7 @@ export const MOCK_STORIES: StoryPost[] = [
   {
     id: 1,
     nickname: 'axx_xx',
-    locationLabel: '강원 속초 부근 · 1.2km',
+    locationLabel: '강원 속초 부근',
     quietness: 5,
     placeName: '***도 **시',
     viewCount: 52,
@@ -29,7 +29,7 @@ export const MOCK_STORIES: StoryPost[] = [
   {
     id: 2,
     nickname: 'axx_xx',
-    locationLabel: '강원 속초 부근 · 1.2km',
+    locationLabel: '강원 속초 부근',
     quietness: 5,
     placeName: '***도 **시',
     viewCount: 52,
@@ -38,7 +38,7 @@ export const MOCK_STORIES: StoryPost[] = [
   {
     id: 3,
     nickname: 'axx_xx',
-    locationLabel: '강원 속초 부근 · 1.2km',
+    locationLabel: '강원 속초 부근',
     quietness: 5,
     placeName: '***도 **시',
     viewCount: 52,
@@ -47,7 +47,7 @@ export const MOCK_STORIES: StoryPost[] = [
   {
     id: 4,
     nickname: 'axx_xx',
-    locationLabel: '강원 속초 부근 · 1.2km',
+    locationLabel: '강원 속초 부근',
     quietness: 5,
     placeName: '***도 **시',
     viewCount: 52,
@@ -56,7 +56,7 @@ export const MOCK_STORIES: StoryPost[] = [
   {
     id: 5,
     nickname: 'axx_xx',
-    locationLabel: '강원 속초 부근 · 1.2km',
+    locationLabel: '강원 속초 부근',
     quietness: 5,
     placeName: '***도 **시',
     viewCount: 52,
@@ -65,7 +65,7 @@ export const MOCK_STORIES: StoryPost[] = [
   {
     id: 6,
     nickname: 'axx_xx',
-    locationLabel: '강원 속초 부근 · 1.2km',
+    locationLabel: '강원 속초 부근',
     quietness: 5,
     placeName: '***도 **시',
     viewCount: 52,

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 import { Pressable } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { AddIcon } from '@/assets/icons/common';
@@ -9,18 +9,25 @@ interface CommunityFabProps {
    * 메인 탭바 위로 얼마나 띄울지 (useMainTabBarSpace 값 + 여백)
    */
   bottomOffset: number;
+  /**
+   * 위치 권한/좌표 확인 중일 때 스피너로 바꾸고 탭을 막는다
+   * @default false
+   */
+  loading?: boolean;
 }
 
-export default function CommunityFab({ onPress, bottomOffset }: CommunityFabProps) {
+export default function CommunityFab({ onPress, bottomOffset, loading = false }: CommunityFabProps) {
   return (
     <Pressable
       onPress={onPress}
+      disabled={loading}
       hitSlop={8}
       accessibilityRole="button"
+      accessibilityState={{ disabled: loading, busy: loading }}
       accessibilityLabel="등록하기"
-      style={[styles.fab, { bottom: bottomOffset }]}
+      style={[styles.fab, { bottom: bottomOffset }, loading && styles.disabled]}
     >
-      <AddIcon color={colors.white} />
+      {loading ? <ActivityIndicator color={colors.white} /> : <AddIcon color={colors.white} />}
     </Pressable>
   );
 }
@@ -40,6 +47,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 8,
     elevation: 8,
+  },
+  disabled: {
+    opacity: 0.7,
   },
   icon: {
     borderColor: colors.white,

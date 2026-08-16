@@ -1,37 +1,33 @@
 import { StyleSheet, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { type StaticScreenProps, useNavigation } from '@react-navigation/native';
 import { Layout } from '@/shared/components/layout';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { GalleryIcon } from '@/assets/icons/common';
-import { overlay } from '@/shared/overlay';
-import { requestLocationPermission } from '@/domains/feed/lib/locationPermission';
-import { LocationPermissionSheet } from '@/domains/feed/components';
+import { showToast } from '@/shared/lib/toast';
+import { checkLocationPermission } from '@/domains/feed/lib/locationPermission';
 import { FormSectionLabel, PostFormHeader, PostLocationField } from './components';
 
 // TODO: GPS 연동 시 실제 위치 값으로 교체
 const MOCK_ADDRESS = '서울특별시 종로구 사직로 161';
 
-export default function StoryWriteScreen() {
-  const navigation = useNavigation();
+// 최초 위치 권한 요청/좌표 확보는 Community 리스트 화면의 + 버튼이 이미 끝내고 들어온다 —
+// 이 화면은 그 결과(좌표)를 params로 받기만 한다
+type StoryWriteScreenProps = StaticScreenProps<{ latitude: number; longitude: number }>;
 
-  // 시트는 스스로 퇴장 애니메이션을 돌린 뒤 onClose를 부르므로 unmount만 연결
-  const openPermissionSheet = () => {
-    overlay.open(({ unmount }) => <LocationPermissionSheet onClose={unmount} />);
-  };
+export default function StoryWriteScreen({ route }: StoryWriteScreenProps) {
+  const navigation = useNavigation();
+  const { latitude, longitude } = route.params;
 
   const handleShare = async () => {
-    const permission = await requestLocationPermission();
-    if (permission === 'blocked') {
-      openPermissionSheet();
-      return;
-    }
-    // retriable(안드로이드 1회 거절)은 조용히 종료 — 다시 탭하면 시스템이 한 번 더 물어본다
+    // 최초 요청은 + 버튼에서 이미 끝났다 — 여기서는 그 사이 설정에서 꺼졌는지만 조용히 재확인
+    const permission = await checkLocationPermission();
     if (permission !== 'granted') {
+      showToast('error', '위치 접근이 꺼져 있어요. 설정에서 위치 권한을 확인해주세요.');
       return;
     }
-    console.log('TODO: 스토리 등록 API 연동');
+    console.log('TODO: 스토리 등록 API 연동', { latitude, longitude });
   };
 
   return (

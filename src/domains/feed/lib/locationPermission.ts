@@ -1,6 +1,7 @@
 import {
   PERMISSIONS,
   RESULTS,
+  check,
   openSettings,
   request,
   type Permission,
@@ -25,6 +26,19 @@ export const requestLocationPermission = async (): Promise<LocationPermissionRes
     return 'granted';
   }
 
+  if (status === RESULTS.DENIED) {
+    return 'retriable';
+  }
+  return 'blocked';
+};
+
+// 팝업을 띄우지 않고 현재 상태만 읽는다 — 작성 화면 진입 후 재검증용
+export const checkLocationPermission = async (): Promise<LocationPermissionResult> => {
+  const status = await check(resolveLocationPermission());
+
+  if (status === RESULTS.GRANTED) {
+    return 'granted';
+  }
   if (status === RESULTS.DENIED) {
     return 'retriable';
   }
