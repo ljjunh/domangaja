@@ -1,5 +1,6 @@
 // DTO (서버 계약: Request/Response)
 import type { SpotTheme } from '@/shared/types/spotTheme';
+
 export interface GetTodaySpotResponse {
   contentId: string;
   title: string;
@@ -81,6 +82,21 @@ export interface Scrap {
 }
 
 export type GetScrapsResponse = Scrap[];
+
+export interface GetSpotDetailResponse {
+  contentId: string;
+  contentTypeId: string;
+  title: string;
+  overview: string;
+  homepage: string;
+  tel: string;
+  address: string;
+  zipcode: string;
+  latitude: number;
+  longitude: number;
+  imageUrl: string;
+  thumbnailUrl: string;
+}
 
 export interface CreateScrapRequest {
   contentId: string;
