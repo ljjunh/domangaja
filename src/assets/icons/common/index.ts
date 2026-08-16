@@ -10,6 +10,7 @@ export { default as CloseIcon } from './close.svg';
 export { default as CrownFillIcon } from './crown-fill.svg';
 export { default as DocumentTextFillIcon } from './document-text-fill.svg';
 export { default as DoneIcon } from './done.svg';
+export { default as ExportIcon } from './export.svg';
 export { default as FileUploadOutlineIcon } from './file-upload-outline.svg';
 export { default as GalleryIcon } from './gallery.svg';
 export { default as GiftFillIcon } from './gift-fill.svg';
