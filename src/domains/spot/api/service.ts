@@ -1,17 +1,19 @@
 import { apiClient } from '@/shared/api/client';
-import type {
-  GetTodaySpotResponse,
-  GetPopularSpotsRequest,
-  GetPopularSpotsResponse,
-  GetWeeklyThemesRequest,
-  GetWeeklyThemesResponse,
-  GetRecentSpotsRequest,
-  GetRecentSpotsResponse,
-  GetScrapsRequest,
-  GetScrapsResponse,
-  CreateScrapRequest,
-  CreateScrapResponse,
-  DeleteScrapRequest,
+import {
+  type GetTodaySpotResponse,
+  type GetPopularSpotsRequest,
+  type GetPopularSpotsResponse,
+  type GetWeeklyThemesRequest,
+  type GetWeeklyThemesResponse,
+  type GetRecentSpotsRequest,
+  type GetRecentSpotsResponse,
+  type GetScrapsRequest,
+  type GetScrapsResponse,
+  type CreateScrapRequest,
+  type CreateScrapResponse,
+  type DeleteScrapRequest,
+  type CreateSpotViewRequest,
+  CreateSpotViewResponse,
 } from '@/domains/spot/types/api';
 
 export const getTodaySpot = async (): Promise<GetTodaySpotResponse> => {
@@ -54,4 +56,11 @@ export const createScrap = async (params: CreateScrapRequest): Promise<CreateScr
 
 export const deleteScrap = async ({ contentId, type }: DeleteScrapRequest): Promise<void> => {
   await apiClient.delete(`/scraps/${contentId}`, { params: { type } });
+};
+
+export const createSpotView = async (
+  params: CreateSpotViewRequest,
+): Promise<CreateSpotViewResponse> => {
+  const { data } = await apiClient.post<CreateSpotViewResponse>('/spots/views', params);
+  return data;
 };

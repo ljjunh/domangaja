@@ -8,6 +8,7 @@ import {
   getScraps,
   deleteScrap,
   createScrap,
+  createSpotView,
 } from '@/domains/spot/api/service';
 import {
   type GetPopularSpotsRequest,
@@ -88,6 +89,14 @@ export const spotMutations = {
       onError: (_error, _variables, context) => {
         context?.previous.forEach(([key, data]) => queryClient.setQueryData(key, data));
         queryClient.invalidateQueries({ queryKey: spotQueryKeys.scrapsAll });
+      },
+    }),
+
+  createSpotView: () =>
+    mutationOptions({
+      mutationFn: createSpotView,
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: spotQueryKeys.all });
       },
     }),
 };

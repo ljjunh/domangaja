@@ -95,3 +95,25 @@ export interface DeleteScrapRequest {
   // default: SPOT
   type?: ScrapType;
 }
+
+export interface CreateSpotViewRequest {
+  contentId: string;
+  title: string;
+  regionName?: string;
+  imageUrl?: string;
+  quietnessScore?: number;
+  theme?: SpotTheme;
+}
+
+export interface CreateSpotViewResponse {
+  contentId: string;
+  title: string;
+  regionName: string;
+  imageUrl: string;
+  quietnessScore: number;
+  theme: SpotTheme;
+  viewedAt: string;
+  description: string;
+  scrapped: boolean;
+  scrapId: number | null;
+}
