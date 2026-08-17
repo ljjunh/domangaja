@@ -1,8 +1,26 @@
 import { apiClient } from '@/shared/api/client';
 import type {
+  GetNotificationsRequest,
+  GetNotificationsResponse,
+  Notification,
   NotificationSettings,
   RegisterDeviceTokenRequest,
 } from '@/domains/notification/types/api';
+
+export const getNotifications = async (
+  params: GetNotificationsRequest,
+): Promise<GetNotificationsResponse> => {
+  const { data } = await apiClient.get<GetNotificationsResponse>('/notifications', { params });
+  return data;
+};
+
+export const readNotification = async (id: Notification['id']): Promise<void> => {
+  await apiClient.post(`/notifications/${id}/read`);
+};
+
+export const readAllNotifications = async (): Promise<void> => {
+  await apiClient.post('/notifications/read-all');
+};
 
 export const getNotificationSetting = async (): Promise<NotificationSettings> => {
   const { data } = await apiClient.get<NotificationSettings>('/notifications/settings');

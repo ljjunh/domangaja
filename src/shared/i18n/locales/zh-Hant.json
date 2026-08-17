@@ -49,6 +49,27 @@
     "invalidDate": "請重新確認您的出生日期。",
     "tooYoung": "僅滿14歲以上可註冊。"
   },
+  "notification": {
+    "markAllRead": "全部已讀",
+    "setting": "通知設定",
+    "unreadCount_one": "{{count}} 則未讀通知",
+    "unreadCount_other": "{{count}} 則未讀通知",
+    "past": "較早的通知",
+    "timeAgo": {
+      "now": "剛剛",
+      "minute_one": "{{count}} 分鐘前",
+      "minute_other": "{{count}} 分鐘前",
+      "hour_one": "{{count}} 小時前",
+      "hour_other": "{{count}} 小時前",
+      "day_one": "{{count}} 天前",
+      "day_other": "{{count}} 天前"
+    },
+    "empty": {
+      "title": "還沒有收到通知",
+      "description": "收藏的地點變清靜時，我們會第一時間通知您",
+      "action": "設定通知"
+    }
+  },
   "notificationSetting": {
     "title": "通知",
     "banner": {

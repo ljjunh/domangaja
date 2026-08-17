@@ -49,6 +49,27 @@
     "invalidDate": "Please check your date of birth.",
     "tooYoung": "You must be at least 14 years old to sign up."
   },
+  "notification": {
+    "markAllRead": "Mark all read",
+    "setting": "Settings",
+    "unreadCount_one": "{{count}} unread notification",
+    "unreadCount_other": "{{count}} unread notifications",
+    "past": "Earlier",
+    "timeAgo": {
+      "now": "Just now",
+      "minute_one": "{{count}} minute ago",
+      "minute_other": "{{count}} minutes ago",
+      "hour_one": "{{count}} hour ago",
+      "hour_other": "{{count}} hours ago",
+      "day_one": "{{count}} day ago",
+      "day_other": "{{count}} days ago"
+    },
+    "empty": {
+      "title": "No notifications yet",
+      "description": "We'll tell you first when a saved place gets quiet.",
+      "action": "Set up notifications"
+    }
+  },
   "notificationSetting": {
     "title": "Notifications",
     "banner": {

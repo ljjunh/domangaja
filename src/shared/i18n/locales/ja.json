@@ -49,6 +49,27 @@
     "invalidDate": "生年月日をもう一度ご確認ください。",
     "tooYoung": "満14歳以上のみご登録いただけます。"
   },
+  "notification": {
+    "markAllRead": "すべて既読",
+    "setting": "通知設定",
+    "unreadCount_one": "未読の通知 {{count}}件",
+    "unreadCount_other": "未読の通知 {{count}}件",
+    "past": "以前の通知",
+    "timeAgo": {
+      "now": "たった今",
+      "minute_one": "{{count}}分前",
+      "minute_other": "{{count}}分前",
+      "hour_one": "{{count}}時間前",
+      "hour_other": "{{count}}時間前",
+      "day_one": "{{count}}日前",
+      "day_other": "{{count}}日前"
+    },
+    "empty": {
+      "title": "まだ届いた通知がありません",
+      "description": "保存した場所が空いてきたら、まっさきにお知らせします",
+      "action": "通知を設定する"
+    }
+  },
   "notificationSetting": {
     "title": "通知",
     "banner": {
