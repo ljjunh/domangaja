@@ -6,7 +6,7 @@ export interface CreateStoryRequest {
   imageUrl: string;
 }
 
-export interface CreateStoryResponse {
+export interface Story {
   id: number;
   userId: number;
   authorNickname: string;
@@ -20,4 +20,21 @@ export interface CreateStoryResponse {
   likeCount: number;
   likedByMe: boolean;
   createdAt: string;
+}
+
+export type CreateStoryResponse = Story;
+
+export interface GetStoriesRequest {
+  page: number;
+  size: number;
+  sort?: string[];
+}
+
+export interface GetStoriesResponse {
+  content: Story[];
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  hasNext: boolean;
 }

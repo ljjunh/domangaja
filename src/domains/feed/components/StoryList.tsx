@@ -1,7 +1,11 @@
 import { FlatList, StyleSheet, View, type ImageSourcePropType } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
+import { toImageUrl } from '@/shared/api/service';
 import { example1Image, example2Image } from '@/assets/images';
+import { feedQueries } from '@/domains/feed/api/queries';
+import type { Story } from '@/domains/feed/types/api';
 import StoryHeader from './StoryHeader';
 import StoryCard from './StoryCard';
 
@@ -15,7 +19,8 @@ export interface StoryPost {
   image: ImageSourcePropType;
 }
 
-// Story 상세 화면(StoryDetailScreen)에서도 storyId로 같은 배열을 참조한다
+// storyId만 갖고 상세 화면에 진입하는 경우를 위한 목업 — 상세 조회 API 연동 전까지
+// StoryDetailScreen이 계속 참조한다 (이 화면의 실제 목록 렌더링에는 더 이상 쓰이지 않음)
 export const MOCK_STORIES: StoryPost[] = [
   {
     id: 1,
@@ -80,25 +85,46 @@ interface StoryListProps {
 export default function StoryList({ bottomInset = 0 }: StoryListProps) {
   const navigation = useNavigation();
 
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
+    feedQueries.storyList(),
+  );
+  const stories = data?.pages.flatMap(page => page.content) ?? [];
+  const isOddCount = stories.length % 2 === 1;
+  const rows: (Story | null)[] = isOddCount ? [...stories, null] : stories;
+
+  const handleEndReached = () => {
+    // hasNextPage가 false면 요청하지 않고, 이미 다음 페이지를 불러오는 중이면 중복 요청하지 않는다
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  };
+
   return (
     <FlatList
-      data={MOCK_STORIES}
-      keyExtractor={item => String(item.id)}
+      data={rows}
+      keyExtractor={(item, index) => (item == null ? `filler-${index}` : String(item.id))}
       numColumns={2}
       columnWrapperStyle={styles.row}
       contentContainerStyle={styles.list}
       ListHeaderComponent={<StoryHeader />}
       ListHeaderComponentStyle={styles.header}
       ListFooterComponent={<View style={{ height: bottomInset }} />}
-      renderItem={({ item }) => (
-        <StoryCard
-          quietness={item.quietness}
-          placeName={item.placeName}
-          viewCount={item.viewCount}
-          image={item.image}
-          onPress={() => navigation.navigate('StoryDetail', { storyId: item.id })}
-        />
-      )}
+      onEndReached={handleEndReached}
+      onEndReachedThreshold={0.5}
+      renderItem={({ item }) =>
+        item == null ? (
+          <View style={styles.filler} />
+        ) : (
+          <StoryCard
+            quietness={item.quietnessScore}
+            placeName={item.spotName}
+            viewCount={item.viewCount}
+            liked={item.likedByMe}
+            image={{ uri: toImageUrl(item.imageUrl) ?? item.imageUrl }}
+            onPress={() => navigation.navigate('StoryDetail', { storyId: item.id })}
+          />
+        )
+      }
     />
   );
 }
@@ -114,5 +140,8 @@ const styles = StyleSheet.create({
   },
   row: {
     gap: 12,
+  },
+  filler: {
+    flex: 1,
   },
 });
