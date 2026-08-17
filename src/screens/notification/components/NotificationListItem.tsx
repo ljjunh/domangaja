@@ -57,7 +57,7 @@ export default function NotificationListItem({
         <Text typography="t6" weight="bold">
           {title}
         </Text>
-        {!!body && (
+        {body != null && (
           <Text typography="t7" weight="medium" color={colors.grey[500]}>
             {body}
           </Text>
