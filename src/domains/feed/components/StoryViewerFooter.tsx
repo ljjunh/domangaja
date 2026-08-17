@@ -1,14 +1,19 @@
 import { StyleSheet, View } from 'react-native';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
-import { HeartOutlineIcon, ViewOutlineIcon } from '@/assets/icons/common';
+import { HeartFillIcon, HeartOutlineIcon, ViewOutlineIcon } from '@/assets/icons/common';
 
 interface StoryViewerFooterProps {
   viewCount: number;
+  liked: boolean;
   onPressLike: () => void;
 }
 
-export default function StoryViewerFooter({ viewCount, onPressLike }: StoryViewerFooterProps) {
+export default function StoryViewerFooter({
+  viewCount,
+  liked,
+  onPressLike,
+}: StoryViewerFooterProps) {
   return (
     <View style={styles.container}>
       <View style={styles.stat}>
@@ -18,7 +23,11 @@ export default function StoryViewerFooter({ viewCount, onPressLike }: StoryViewe
         </Text>
       </View>
       <Pressable hitSlop={8} onPress={onPressLike}>
-        <HeartOutlineIcon color={colors.white} />
+        {liked ? (
+          <HeartFillIcon color={colors.red[500]} />
+        ) : (
+          <HeartOutlineIcon color={colors.white} />
+        )}
       </Pressable>
     </View>
   );

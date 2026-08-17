@@ -1,17 +1,27 @@
 import { StyleSheet, View } from 'react-native';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
-import { CloseIcon } from '@/assets/icons/common';
+import { CloseIcon, MoreOutlineIcon } from '@/assets/icons/common';
 
 interface StoryViewerHeaderProps {
   nickname: string;
   locationLabel: string;
+  isMine: boolean;
+  isMenuOpen: boolean;
+  onPressMore: () => void;
+  onPressDelete: () => void;
+  onPressReport: () => void;
   onClose: () => void;
 }
 
 export default function StoryViewerHeader({
   nickname,
   locationLabel,
+  isMine,
+  isMenuOpen,
+  onPressMore,
+  onPressDelete,
+  onPressReport,
   onClose,
 }: StoryViewerHeaderProps) {
   return (
@@ -32,9 +42,36 @@ export default function StoryViewerHeader({
           </Text>
         </View>
       </View>
-      <Pressable hitSlop={8} onPress={onClose}>
-        <CloseIcon color={colors.white} />
-      </Pressable>
+
+      <View style={styles.actions}>
+        <View style={styles.moreWrapper}>
+          <Pressable hitSlop={8} onPress={onPressMore}>
+            <MoreOutlineIcon color={colors.white} />
+          </Pressable>
+
+          {isMenuOpen && (
+            <View style={styles.menu}>
+              {isMine ? (
+                <Pressable onPress={onPressDelete} style={styles.menuItem}>
+                  <Text typography="t7" weight="semiBold" color={colors.red[500]}>
+                    스토리 삭제
+                  </Text>
+                </Pressable>
+              ) : (
+                <Pressable onPress={onPressReport} style={styles.menuItem}>
+                  <Text typography="t7" weight="semiBold" color={colors.red[500]}>
+                    신고
+                  </Text>
+                </Pressable>
+              )}
+            </View>
+          )}
+        </View>
+
+        <Pressable hitSlop={8} onPress={onClose}>
+          <CloseIcon color={colors.white} />
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -55,6 +92,33 @@ const styles = StyleSheet.create({
     height: 36,
     borderRadius: 18,
     backgroundColor: colors.grey[200],
+  },
+  actions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+  },
+  moreWrapper: {
+    position: 'relative',
+  },
+  menu: {
+    position: 'absolute',
+    top: '100%',
+    right: 0,
+    marginTop: 8,
+    minWidth: 120,
+    borderRadius: 14,
+    backgroundColor: colors.white,
+    shadowColor: colors.black,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 8,
+    zIndex: 100,
+  },
+  menuItem: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
   textShadow: {
     textShadowColor: colors.greyOpacity[600],

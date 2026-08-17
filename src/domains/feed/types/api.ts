@@ -38,3 +38,22 @@ export interface GetStoriesResponse {
   totalPages: number;
   hasNext: boolean;
 }
+
+export interface StoryLikeResponse {
+  active: boolean;
+  count: number;
+}
+
+export type ReportTargetType = 'STORY';
+
+export interface CreateReportRequest {
+  targetType: ReportTargetType;
+  targetId: number;
+  reason: string;
+}
+
+export interface CreateReportResponse {
+  id: number;
+  targetType: ReportTargetType;
+  targetId: number;
+}

@@ -1,7 +1,7 @@
 import { ImageBackground, StyleSheet, View, type ImageSourcePropType } from 'react-native';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
-import { HeartOutlineIcon, ViewOutlineIcon } from '@/assets/icons/common';
+import { HeartFillIcon, HeartOutlineIcon, ViewOutlineIcon } from '@/assets/icons/common';
 
 interface StoryCardProps {
   quietness: number | null;
@@ -10,6 +10,7 @@ interface StoryCardProps {
   liked: boolean;
   image: ImageSourcePropType;
   onPress: () => void;
+  onPressLike: () => void;
 }
 
 export default function StoryCard({
@@ -19,6 +20,7 @@ export default function StoryCard({
   liked,
   image,
   onPress,
+  onPressLike,
 }: StoryCardProps) {
   return (
     <Pressable style={styles.card} onPress={onPress}>
@@ -55,12 +57,12 @@ export default function StoryCard({
               </Text>
             </View>
 
-            <Pressable hitSlop={8} onPress={() => console.log('TODO: 스토리 좋아요 연동')}>
-              <HeartOutlineIcon
-                width={20}
-                height={20}
-                color={liked ? colors.red[500] : colors.white}
-              />
+            <Pressable hitSlop={8} onPress={onPressLike}>
+              {liked ? (
+                <HeartFillIcon width={20} height={20} color={colors.red[500]} />
+              ) : (
+                <HeartOutlineIcon width={20} height={20} color={colors.white} />
+              )}
             </Pressable>
           </View>
         </View>
