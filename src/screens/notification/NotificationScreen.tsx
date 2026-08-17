@@ -111,7 +111,7 @@ function NotificationList() {
           }
           renderSectionHeader={({ section }) => (
             <View style={styles.sectionHeader}>
-              <Text typography="t7" weight="medium" color={colors.grey[500]}>
+              <Text typography="t7" weight="semiBold" color={colors.grey[600]}>
                 {section.title}
               </Text>
             </View>

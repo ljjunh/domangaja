@@ -57,7 +57,7 @@ export default function NotificationListItem({
         <Text typography="t6" weight="bold">
           {title}
         </Text>
-        {body != null && (
+        {!!body && (
           <Text typography="t7" weight="medium" color={colors.grey[500]}>
             {body}
           </Text>
@@ -93,6 +93,5 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    gap: 2,
   },
 });
