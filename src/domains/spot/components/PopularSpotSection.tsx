@@ -7,8 +7,10 @@ import { spotQueries } from '@/domains/spot/api/queries';
 import { ClockOutlineIcon } from '@/assets/icons/common';
 import SectionHeader from './SectionHeader';
 import RankedSpotCard from './RankedSpotCard';
+import { useNavigation } from '@react-navigation/native';
 
 export default function PopularSpotSection() {
+  const navigation = useNavigation();
   const { t } = useTranslation();
   const { data: spots } = useSuspenseQuery(spotQueries.getPopularSpots({ limit: 5 }));
 
@@ -39,7 +41,11 @@ export default function PopularSpotSection() {
               name={spot.title}
               quietness={spot.quietnessScore}
               image={{ uri: spot.imageUrl }}
-              onPress={() => console.log('도망지 상세페이지로 이동')}
+              onPress={() =>
+                navigation.navigate('SpotDetail', {
+                  contentId: spot.contentId,
+                })
+              }
             />
           ))}
         </ScrollView>
