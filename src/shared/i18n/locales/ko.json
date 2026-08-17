@@ -116,6 +116,12 @@
         "title": "아직 둘러본 곳이 없어요",
         "description": "본 곳은 여기에 모아둘게요."
       }
+    },
+    "scrap": {
+      "empty": {
+        "title": "아직 저장한 곳이 없어요",
+        "description": "마음에 드는 도망지를 저장해보세요."
+      }
     }
   },
   "setting": {

@@ -116,6 +116,12 @@
         "title": "还没有浏览过的地点",
         "description": "您浏览过的地点会显示在这里。"
       }
+    },
+    "scrap": {
+      "empty": {
+        "title": "还没有收藏的地点",
+        "description": "把喜欢的地点收藏起来吧。"
+      }
     }
   },
   "setting": {

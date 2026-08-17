@@ -116,6 +116,12 @@
         "title": "You haven't viewed any places yet",
         "description": "Places you view will show up here."
       }
+    },
+    "scrap": {
+      "empty": {
+        "title": "You haven't saved any places yet",
+        "description": "Save the places you like and find them here."
+      }
     }
   },
   "setting": {
