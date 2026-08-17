@@ -12,6 +12,8 @@ import { useTranslation } from 'react-i18next';
 
 import { LocationFillIcon, ExportIcon } from '@/assets/icons/common';
 import { example1Image } from '@/assets/images';
+import { audioGuideQueries } from '@/domains/audioGuide/api/queries';
+import { matchAudioGuides } from '@/domains/audioGuide/utils/matchAudioGuide';
 import { spotQueries } from '@/domains/spot/api/queries';
 import { toSpotDetailViewData } from '@/domains/spot/utils/spotDetail';
 import { Pressable, Text } from '@/shared/components/base';
@@ -34,6 +36,15 @@ export default function SpotDetailScreen({ route }: Props) {
     isError,
     refetch,
   } = useQuery(spotQueries.getSpotDetail(route.params.contentId, toServerLocale(i18n.language)));
+  const { data: audioGuides = [] } = useQuery({
+    ...audioGuideQueries.getNearby({
+      lat: spot?.latitude ?? 0,
+      lng: spot?.longitude ?? 0,
+      radius: 500,
+      langCode: i18n.language,
+    }),
+    enabled: spot != null,
+  });
 
   if (isPending) {
     return (
@@ -65,6 +76,8 @@ export default function SpotDetailScreen({ route }: Props) {
   }
 
   const detail = toSpotDetailViewData(spot);
+  const matchedAudioGuides = matchAudioGuides(detail, audioGuides);
+
   // TODO: 상세 조회시 response에 스크랩 여부 확인 불가 서버에 요청하기
   const shareSpot = () => {
     const shareUrl = `domanggaja://spots/${encodeURIComponent(detail.contentId)}`;
@@ -79,14 +92,12 @@ export default function SpotDetailScreen({ route }: Props) {
   return (
     <Layout edges={['top']}>
       <StackHeader right={<IconButton icon={ExportIcon} label="공유" onPress={shareSpot} />} />
-
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         <ImageBackground
           source={detail.imageUrl ? { uri: detail.imageUrl } : example1Image}
           style={styles.hero}
           imageStyle={styles.heroImage}
         />
-
         <View style={styles.content}>
           <View style={styles.titleSection}>
             <View style={styles.titleRow}>
@@ -106,8 +117,7 @@ export default function SpotDetailScreen({ route }: Props) {
               </View>
             )}
           </View>
-
-          <SpotAudioGuide />
+          {matchedAudioGuides.length > 0 && <SpotAudioGuide guides={matchedAudioGuides} />}
           {detail.overview && (
             <ExpandableOverview key={detail.overview} overview={detail.overview} />
           )}
