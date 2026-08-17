@@ -35,7 +35,12 @@ export default function SpotDetailScreen({ route }: Props) {
     isPending,
     isError,
     refetch,
-  } = useQuery(spotQueries.getSpotDetail(route.params.contentId, toServerLocale(i18n.language)));
+  } = useQuery(
+    spotQueries.getSpotDetail({
+      contentId: route.params.contentId,
+      lang: toServerLocale(i18n.language),
+    }),
+  );
   const { data: audioGuides = [] } = useQuery({
     ...audioGuideQueries.getNearby({
       lat: spot?.latitude ?? 0,

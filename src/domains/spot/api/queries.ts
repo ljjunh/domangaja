@@ -16,9 +16,9 @@ import {
   type GetRecentSpotsRequest,
   type GetScrapsRequest,
   type GetScrapsResponse,
+  type GetSpotDetailRequest,
 } from '@/domains/spot/types/api';
 import { queryClient } from '@/shared/api/queryClient';
-import type { ServerLocale } from '@/domains/user/types/api';
 
 const all = ['spot'] as const;
 
@@ -30,7 +30,7 @@ export const spotQueryKeys = {
   recent: (params: GetRecentSpotsRequest) => [...all, 'recent', params] as const,
   scrapsAll: [...all, 'scraps'] as const,
   scraps: (params: GetScrapsRequest) => [...all, 'scraps', params] as const,
-  detail: (contentId: string, lang: ServerLocale) => [...all, 'detail', contentId, lang] as const,
+  detail: (params: GetSpotDetailRequest) => [...all, 'detail', params] as const,
 };
 
 export const spotQueries = {
@@ -64,10 +64,10 @@ export const spotQueries = {
       queryFn: () => getScraps(params),
     }),
 
-  getSpotDetail: (contentId: string, lang: ServerLocale) =>
+  getSpotDetail: (params: GetSpotDetailRequest) =>
     queryOptions({
-      queryKey: spotQueryKeys.detail(contentId, lang),
-      queryFn: () => getSpotDetail(contentId, lang),
+      queryKey: spotQueryKeys.detail(params),
+      queryFn: () => getSpotDetail(params),
     }),
 };
 

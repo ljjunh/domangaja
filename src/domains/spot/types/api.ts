@@ -1,5 +1,7 @@
 // DTO (서버 계약: Request/Response)
 import type { SpotTheme } from '@/shared/types/spotTheme';
+// TODO: 서버 로케일 타입 전역 관리 검토하기
+import type { ServerLocale } from '@/domains/user/types/api';
 
 export interface GetTodaySpotResponse {
   contentId: string;
@@ -82,6 +84,11 @@ export interface Scrap {
 }
 
 export type GetScrapsResponse = Scrap[];
+
+export interface GetSpotDetailRequest {
+  contentId: string;
+  lang: ServerLocale;
+}
 
 // TODO: nullable 필드 확인 필요
 export interface GetSpotDetailResponse {

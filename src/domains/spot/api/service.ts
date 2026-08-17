@@ -9,13 +9,12 @@ import type {
   GetRecentSpotsResponse,
   GetScrapsRequest,
   GetScrapsResponse,
+  GetSpotDetailRequest,
   GetSpotDetailResponse,
   CreateScrapRequest,
   CreateScrapResponse,
   Scrap,
 } from '@/domains/spot/types/api';
-// TODO: 서버 로케일 타입 전역 관리 검토하기
-import type { ServerLocale } from '@/domains/user/types/api';
 
 export const getTodaySpot = async (): Promise<GetTodaySpotResponse> => {
   const { data } = await apiClient.get<GetTodaySpotResponse>('/spots/today');
@@ -50,10 +49,10 @@ export const getScraps = async (params: GetScrapsRequest): Promise<GetScrapsResp
   return data;
 };
 
-export const getSpotDetail = async (
-  contentId: string,
-  lang: ServerLocale,
-): Promise<GetSpotDetailResponse> => {
+export const getSpotDetail = async ({
+  contentId,
+  lang,
+}: GetSpotDetailRequest): Promise<GetSpotDetailResponse> => {
   const { data } = await apiClient.get<GetSpotDetailResponse>(`/tourism/${contentId}`, {
     params: { lang },
   });
