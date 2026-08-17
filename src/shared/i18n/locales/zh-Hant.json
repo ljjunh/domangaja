@@ -124,6 +124,14 @@
       }
     }
   },
+  "home": {
+    "quickMenu": {
+      "region": "按地區",
+      "theme": "按主題",
+      "popular": "熱門",
+      "scrap": "已收藏"
+    }
+  },
   "setting": {
     "title": "設定",
     "sections": {

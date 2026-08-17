@@ -124,6 +124,14 @@
       }
     }
   },
+  "home": {
+    "quickMenu": {
+      "region": "지역별 찾기",
+      "theme": "테마별 찾기",
+      "popular": "인기 도망지",
+      "scrap": "저장한 곳"
+    }
+  },
   "setting": {
     "title": "설정",
     "sections": {

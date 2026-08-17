@@ -124,6 +124,14 @@
       }
     }
   },
+  "home": {
+    "quickMenu": {
+      "region": "Region",
+      "theme": "Theme",
+      "popular": "Popular",
+      "scrap": "Saved"
+    }
+  },
   "setting": {
     "title": "Settings",
     "sections": {
