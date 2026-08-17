@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { KeyboardAvoidingView, ScrollView, StyleSheet, View } from 'react-native';
 import { type StaticScreenProps, useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 import { Layout } from '@/shared/components/layout';
 import { Image, Pressable, Text, TextInput } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
@@ -8,6 +9,7 @@ import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { example1Image } from '@/assets/images';
 import { AddIcon } from '@/assets/icons/common';
 import { showToast } from '@/shared/lib/toast';
+import { toastConfig } from '@/shared/lib/toastConfig';
 import { checkLocationPermission } from '@/domains/feed/lib/locationPermission';
 import { FormSectionLabel, PostFormHeader, PostLocationField } from './components';
 
@@ -93,6 +95,8 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
+
+      <Toast config={toastConfig} position="bottom" bottomOffset={80} />
     </Layout>
   );
 }

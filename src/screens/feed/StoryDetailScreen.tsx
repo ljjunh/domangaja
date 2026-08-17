@@ -1,17 +1,47 @@
-import { StatusBar, StyleSheet, View } from 'react-native';
+import { StatusBar, StyleSheet, View, type ImageSourcePropType } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { type StaticScreenProps, useNavigation } from '@react-navigation/native';
 import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
+import { toImageUrl } from '@/shared/api/service';
 import {
   StoryMedia,
   StoryProgressBar,
   StoryViewerFooter,
   StoryViewerHeader,
 } from '@/domains/feed/components';
-import { MOCK_STORIES } from '@/domains/feed/components/StoryList';
+import { MOCK_STORIES, type StoryPost } from '@/domains/feed/components/StoryList';
+import type { CreateStoryResponse } from '@/domains/feed/types/api';
 
-type StoryDetailScreenProps = StaticScreenProps<{ storyId: number }>;
+// 등록 직후에는 서버 응답(story)을 그대로 받고, 목록에서 진입할 때는 storyId만 받는다 —
+// storyId 케이스는 아직 상세 조회 API가 없어 MOCK_STORIES에서 찾아 대신 쓴다 (TODO: 상세 조회 API 연동 시 교체)
+type StoryDetailScreenProps = StaticScreenProps<
+  { storyId: number } | { story: CreateStoryResponse }
+>;
+
+interface StoryDetailData {
+  nickname: string;
+  locationLabel: string;
+  image: ImageSourcePropType;
+  viewCount: number;
+}
+
+function toStoryDetailData(story: StoryPost | CreateStoryResponse): StoryDetailData {
+  if ('locationLabel' in story) {
+    return {
+      nickname: story.nickname,
+      locationLabel: story.locationLabel,
+      image: story.image,
+      viewCount: story.viewCount,
+    };
+  }
+  return {
+    nickname: story.authorNickname,
+    locationLabel: story.regionName,
+    image: { uri: toImageUrl(story.imageUrl) ?? story.imageUrl },
+    viewCount: story.viewCount,
+  };
+}
 
 // TODO: 자동 재생 붙일 때 실제 진행률로 교체
 const TEMP_PROGRESS = 0.35;
@@ -19,8 +49,12 @@ const TEMP_PROGRESS = 0.35;
 export default function StoryDetailScreen({ route }: StoryDetailScreenProps) {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
-  const { storyId } = route.params;
-  const story = MOCK_STORIES.find(item => item.id === storyId) ?? MOCK_STORIES[0];
+  const params = route.params;
+  const rawStory =
+    'story' in params
+      ? params.story
+      : MOCK_STORIES.find(item => item.id === params.storyId) ?? MOCK_STORIES[0];
+  const story = toStoryDetailData(rawStory);
 
   return (
     // 미디어를 노치/상태바 뒤까지 완전히 채우기 위해 SafeAreaView(Layout) 대신 일반 View를 쓰고,
@@ -52,7 +86,7 @@ export default function StoryDetailScreen({ route }: StoryDetailScreenProps) {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: colors.grey[900],
+    backgroundColor: colors.black,
   },
   topOverlay: {
     position: 'absolute',

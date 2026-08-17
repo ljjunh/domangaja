@@ -7,7 +7,7 @@ interface StoryMediaProps {
 }
 
 export default function StoryMedia({ image }: StoryMediaProps) {
-  return <Image source={image} style={styles.media} resizeMode="cover" />;
+  return <Image source={image} style={styles.media} resizeMode="contain" />;
 }
 
 const styles = StyleSheet.create({
