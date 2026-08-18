@@ -1,33 +1,14 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useQuery } from '@tanstack/react-query';
 import { Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { IconButton } from '@/shared/components/ui';
 import { ArrowLeftIcon, ArrowRightIcon } from '@/assets/icons/common';
 import { useTranslation } from 'react-i18next';
 import { getQuietnessLevel, QUIETNESS_LEVEL_COLORS, QuietnessLevel } from '../constants/quietness';
-
-// 서버 연동 시 월별 한적도 조회 응답으로 대체
-const MOCK_DAILY_QUIETNESS: Record<number, number> = {
-  1: 85,
-  2: 55,
-  3: 20,
-  4: 25,
-  5: 15,
-  6: 80,
-  7: 88,
-  8: 99,
-  9: 50,
-  10: 30,
-  11: 20,
-  12: 25,
-  13: 75,
-  14: 82,
-  15: 90,
-  16: 45,
-  17: 30,
-  // ...31일까지 적당히
-};
+import { spotQueries } from '@/domains/spot/api/queries';
+import { canGoNextMonth, canGoPrevMonth, toDailyQuietness } from '@/domains/spot/utils/congestion';
 
 // 범례 표시 순서
 const QUIETNESS_LEVELS: QuietnessLevel[] = ['quiet', 'normal', 'crowded'];
@@ -80,9 +61,9 @@ function getWeekdayColor(index: number): string {
   return colors.grey[500];
 }
 
-// 날짜 글자색, 데이ㅓㅌ 없는 날은 회색
-function getDayTextColor(day: number): string {
-  const quietness = MOCK_DAILY_QUIETNESS[day];
+// 날짜 글자색, 데이터 없는 날은 회색
+function getDayTextColor(day: number, dailyQuietness: Record<number, number>): string {
+  const quietness = dailyQuietness[day];
   if (quietness == null) {
     return colors.grey[500];
   }
@@ -128,13 +109,37 @@ function BestDayBanner({ date, score }: { date: Date; score: number }) {
   );
 }
 
-export default function QuietnessCalendar() {
+interface QuietnessCalendarProps {
+  areaCode: string;
+  sigunguCode: string;
+  /** 관광지명으로 좁힌다. 없으면 시군구 전체 평균이 온다 */
+  touristSpot: string;
+}
+
+export default function QuietnessCalendar({
+  areaCode,
+  sigunguCode,
+  touristSpot,
+}: QuietnessCalendarProps) {
   const { t, i18n } = useTranslation();
   // 항상 '그 달의 1일'이 기본값(31일에서 월 이동하면 달을 건너뛰는 이월 버그 방지)
   const [visibleMonth, setVisibleMonth] = useState(() => {
     const today = new Date();
     return new Date(today.getFullYear(), today.getMonth(), 1);
   });
+
+  // 시트 안이라 Suspense 경계가 없다 — 도착 전에는 날짜가 회색으로 보이고 배너만 빠진다.
+  // 보이는 달이 바뀌면 쿼리키가 바뀌어 그 달만 다시 받는다
+  const { data: congestion } = useQuery(
+    spotQueries.getCongestion({
+      areaCode,
+      sigunguCode,
+      touristSpot,
+      year: visibleMonth.getFullYear(),
+      month: visibleMonth.getMonth() + 1,
+    }),
+  );
+  const dailyQuietness = useMemo(() => toDailyQuietness(congestion), [congestion]);
 
   const weeks = buildMonthGrid(visibleMonth);
   const weekdayLabels = getWeekdayLabels(i18n.language);
@@ -147,7 +152,7 @@ export default function QuietnessCalendar() {
     setVisibleMonth(prev => new Date(prev.getFullYear(), prev.getMonth() + diff, 1));
   };
 
-  const bestDay = findBestDay(MOCK_DAILY_QUIETNESS);
+  const bestDay = findBestDay(dailyQuietness);
 
   return (
     <View style={styles.container}>
@@ -161,11 +166,21 @@ export default function QuietnessCalendar() {
 
       {/* 월 조정 */}
       <View style={styles.monthHeader}>
-        <IconButton icon={ArrowLeftIcon} onPress={() => moveMonth(-1)} color={colors.black} />
+        <IconButton
+          icon={ArrowLeftIcon}
+          onPress={() => moveMonth(-1)}
+          disabled={!canGoPrevMonth(visibleMonth, congestion)}
+          color={canGoPrevMonth(visibleMonth, congestion) ? colors.black : colors.grey[300]}
+        />
         <Text typography="t5" weight="semiBold">
           {monthLabel}
         </Text>
-        <IconButton icon={ArrowRightIcon} onPress={() => moveMonth(1)} color={colors.black} />
+        <IconButton
+          icon={ArrowRightIcon}
+          onPress={() => moveMonth(1)}
+          disabled={!canGoNextMonth(visibleMonth, congestion)}
+          color={canGoNextMonth(visibleMonth, congestion) ? colors.black : colors.grey[300]}
+        />
       </View>
 
       {/* 요일 헤더 */}
@@ -186,7 +201,11 @@ export default function QuietnessCalendar() {
             {week.map((day, dayIndex) => (
               <View key={dayIndex} style={styles.dayCell}>
                 {day != null && (
-                  <Text typography="st12" weight="semiBold" color={getDayTextColor(day)}>
+                  <Text
+                    typography="st12"
+                    weight="semiBold"
+                    color={getDayTextColor(day, dailyQuietness)}
+                  >
                     {day}
                   </Text>
                 )}

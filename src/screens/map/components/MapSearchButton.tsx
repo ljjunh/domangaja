@@ -21,7 +21,7 @@ export default function MapSearchButton({ isSearching, onPress }: MapSearchButto
       ) : (
         <RotateLeftIcon width={ICON_SIZE} height={ICON_SIZE} color={colors.blue[500]} />
       )}
-      <Text typography="t7" weight="semiBold" color={colors.grey[900]}>
+      <Text typography="t7" weight="semiBold" color={colors.blue[500]}>
         {t('map.searchThisArea')}
       </Text>
     </Pressable>
@@ -33,10 +33,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderRadius: 20,
+    gap: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderRadius: 25,
     backgroundColor: colors.white,
     boxShadow: '0 2 8 0 rgba(0, 0, 0, 0.15)',
   },

@@ -1,6 +1,7 @@
 import { ImageBackground, StyleSheet, View, type ImageSourcePropType } from 'react-native';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
+import { formatQuietness } from '@/shared/utils/formatQuietness';
 import { HeartFillIcon, HeartOutlineIcon, ViewOutlineIcon } from '@/assets/icons/common';
 
 interface StoryCardProps {
@@ -28,7 +29,7 @@ export default function StoryCard({
         {quietness != null && (
           <View style={styles.badge}>
             <Text typography="st12" weight="semiBold">
-              한적도 {quietness}%
+              한적도 {formatQuietness(quietness)}%
             </Text>
           </View>
         )}

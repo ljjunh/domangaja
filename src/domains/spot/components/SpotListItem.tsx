@@ -1,6 +1,7 @@
 import { StyleSheet, View, type ImageSourcePropType } from 'react-native';
 import { Image, Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
+import { formatQuietness } from '@/shared/utils/formatQuietness';
 import { IconButton } from '@/shared/components/ui';
 import { ArchiveTickFillIcon, ArchiveTickOutlineIcon } from '@/assets/icons/common';
 
@@ -45,7 +46,7 @@ export default function SpotListItem({
           </Text>
           <Text typography="st13" weight="semiBold" color={colors.grey[500]}>
             {region}
-            {' · '}한적도 {quietness}%
+            {' · '}한적도 {formatQuietness(quietness)}%
           </Text>
         </View>
         <IconButton
