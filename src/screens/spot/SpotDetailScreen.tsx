@@ -1,15 +1,20 @@
 import { Suspense } from 'react';
 import { ImageBackground, Share, ScrollView, StyleSheet, View } from 'react-native';
 import { type StaticScreenProps } from '@react-navigation/native';
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 
-import { LocationFillIcon, ExportIcon } from '@/assets/icons/common';
+import {
+  ArchiveTickFillIcon,
+  ArchiveTickOutlineIcon,
+  ExportIcon,
+  LocationFillIcon,
+} from '@/assets/icons/common';
 import { example1Image } from '@/assets/images';
 import { audioGuideQueries } from '@/domains/audioGuide/api/queries';
 import { SpotAudioGuide } from '@/domains/audioGuide/components';
 import { matchAudioGuides } from '@/domains/audioGuide/utils/matchAudioGuide';
-import { spotQueries } from '@/domains/spot/api/queries';
+import { spotMutations, spotQueries } from '@/domains/spot/api/queries';
 import { toSpotDetailViewData } from '@/domains/spot/utils/spotDetail';
 import { Text } from '@/shared/components/base';
 import { Layout, StackHeader } from '@/shared/components/layout';
@@ -46,11 +51,27 @@ function SpotDetailContent({ contentId }: { contentId: GetSpotDetailResponse['co
       langCode: i18n.language,
     }),
   });
+  // TODO: useSpotScrap, SpotScrapButton으로 추출 후 재사용 검토
+  const { mutate: createScrap, isPending: isCreatingScrap } = useMutation(
+    spotMutations.createScrap(),
+  );
+  const { mutate: deleteScrap, isPending: isDeletingScrap } = useMutation(
+    spotMutations.deleteScrap(),
+  );
 
   const detail = toSpotDetailViewData(spot);
   const matchedAudioGuides = matchAudioGuides(detail, audioGuides);
+  const isScrapPending = isCreatingScrap || isDeletingScrap;
 
-  // TODO: 상세 조회시 response에 스크랩 여부 확인 불가 서버에 요청하기
+  const toggleScrap = () => {
+    if (spot.scrapped) {
+      deleteScrap({ contentId: detail.contentId });
+      return;
+    }
+
+    createScrap({ contentId: detail.contentId });
+  };
+
   const shareSpot = () => {
     const shareUrl = `domangaja://spots/${encodeURIComponent(detail.contentId)}`;
 
@@ -63,7 +84,20 @@ function SpotDetailContent({ contentId }: { contentId: GetSpotDetailResponse['co
 
   return (
     <Layout edges={['top']}>
-      <StackHeader right={<IconButton icon={ExportIcon} label="공유" onPress={shareSpot} />} />
+      <StackHeader
+        right={
+          <>
+            <IconButton
+              icon={spot.scrapped ? ArchiveTickFillIcon : ArchiveTickOutlineIcon}
+              color={spot.scrapped ? colors.blue[500] : colors.black}
+              label={spot.scrapped ? '스크랩 해제' : '스크랩'}
+              disabled={isScrapPending}
+              onPress={toggleScrap}
+            />
+            <IconButton icon={ExportIcon} label="공유" onPress={shareSpot} />
+          </>
+        }
+      />
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         <ImageBackground
           source={detail.imageUrl ? { uri: detail.imageUrl } : example1Image}

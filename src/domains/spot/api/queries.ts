@@ -25,6 +25,7 @@ import {
   type GetMapSpotsRequest,
   type GetScrapsResponse,
   type GetSpotDetailRequest,
+  type GetSpotDetailResponse,
   type CreateScrapRequest,
   type DeleteScrapRequest,
 } from '@/domains/spot/types/api';
@@ -46,6 +47,7 @@ export const spotQueryKeys = {
   map: (params: GetMapSpotsRequest) => [...all, 'map', params] as const,
   scrapsAll: [...all, 'scraps'] as const,
   scraps: (params: GetScrapsRequest) => [...all, 'scraps', params] as const,
+  detailAll: [...all, 'detail'] as const,
   detail: (params: GetSpotDetailRequest) => [...all, 'detail', params] as const,
 };
 
@@ -124,6 +126,24 @@ async function cancelSpotListQueries() {
   await Promise.all(SCRAPPABLE_LIST_KEYS.map(queryKey => queryClient.cancelQueries({ queryKey })));
 }
 
+function snapshotSpotDetails() {
+  return queryClient.getQueriesData<GetSpotDetailResponse>({ queryKey: spotQueryKeys.detailAll });
+}
+
+function setSpotDetailScrapped(contentId: string, scrapped: boolean, scrapId: number | null) {
+  queryClient.setQueriesData<GetSpotDetailResponse>(
+    { queryKey: spotQueryKeys.detailAll },
+    prev =>
+      prev?.contentId === contentId
+        ? {
+            ...prev,
+            scrapped,
+            scrapId,
+          }
+        : prev,
+  );
+}
+
 function setSpotListScrapped(contentId: string, scrapped: boolean) {
   const patch = (spots: ScrappableSpot[]) =>
     spots.map(spot => (spot.contentId === contentId ? { ...spot, scrapped } : spot));
@@ -145,15 +165,22 @@ export const spotMutations = {
       // 스크랩 목록은 서버가 준 id가 있어야 만들 수 있어서 낙관적으로 못 넣음
       // 목록들의 아이콘만 먼저 뒤집고, 스크랩 목록 자체는 성공 후 무효화
       onMutate: async ({ contentId }: CreateScrapRequest) => {
-        await cancelSpotListQueries();
+        await Promise.all([
+          cancelSpotListQueries(),
+          queryClient.cancelQueries({ queryKey: spotQueryKeys.detailAll }),
+        ]);
         const previousLists = snapshotSpotLists();
+        const previousDetails = snapshotSpotDetails();
         setSpotListScrapped(contentId, true);
-        return { previousLists };
+        setSpotDetailScrapped(contentId, true, null);
+        return { previousLists, previousDetails };
       },
       onError: (_error, _variables, context) => {
         context?.previousLists.forEach(([key, data]) => queryClient.setQueryData(key, data));
+        context?.previousDetails.forEach(([key, data]) => queryClient.setQueryData(key, data));
       },
-      onSuccess: () => {
+      onSuccess: (scrap, { contentId }) => {
+        setSpotDetailScrapped(contentId, true, scrap.id);
         queryClient.invalidateQueries({ queryKey: spotQueryKeys.scrapsAll });
       },
     }),
@@ -163,23 +190,29 @@ export const spotMutations = {
       mutationFn: deleteScrap,
       onMutate: async ({ contentId }: DeleteScrapRequest) => {
         await queryClient.cancelQueries({ queryKey: spotQueryKeys.scrapsAll });
-        await cancelSpotListQueries();
+        await Promise.all([
+          cancelSpotListQueries(),
+          queryClient.cancelQueries({ queryKey: spotQueryKeys.detailAll }),
+        ]);
 
         const previousScraps = queryClient.getQueriesData<GetScrapsResponse>({
           queryKey: spotQueryKeys.scrapsAll,
         });
         const previousLists = snapshotSpotLists();
+        const previousDetails = snapshotSpotDetails();
 
         queryClient.setQueriesData<GetScrapsResponse>({ queryKey: spotQueryKeys.scrapsAll }, prev =>
           prev?.filter(scrap => scrap.contentId !== contentId),
         );
         setSpotListScrapped(contentId, false);
+        setSpotDetailScrapped(contentId, false, null);
 
-        return { previousScraps, previousLists };
+        return { previousScraps, previousLists, previousDetails };
       },
       onError: (_error, _variables, context) => {
         context?.previousScraps.forEach(([key, data]) => queryClient.setQueryData(key, data));
         context?.previousLists.forEach(([key, data]) => queryClient.setQueryData(key, data));
+        context?.previousDetails.forEach(([key, data]) => queryClient.setQueryData(key, data));
         queryClient.invalidateQueries({ queryKey: spotQueryKeys.scrapsAll });
       },
     }),

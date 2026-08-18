@@ -111,6 +111,8 @@ export interface GetSpotDetailResponse {
   longitude: number;
   imageUrl: string | null;
   thumbnailUrl: string | null;
+  scrapped: boolean;
+  scrapId: number | null;
 }
 
 export interface CreateScrapRequest {
@@ -118,9 +120,9 @@ export interface CreateScrapRequest {
   // default: SPOT
   type?: ScrapType;
   title?: string;
-  regionName: string;
-  imageUrl: string;
-  quietnessScore: number;
+  regionName?: string;
+  imageUrl?: string;
+  quietnessScore?: number;
 }
 
 export type CreateScrapResponse = Scrap;
