@@ -11,7 +11,7 @@ import { uploadImage, type UploadFile } from '@/shared/api/service';
 import type { UpdateProfileRequest } from '@/domains/user/types/api';
 import { changeAppLanguages } from '@/shared/i18n';
 import type { GetMeResponse } from '@/domains/user/types/api';
-import { toServerLocale } from '@/domains/user/utils/serverLocale';
+import { toServerLocale } from '@/shared/i18n/serverLocale';
 
 const all = ['user'] as const;
 

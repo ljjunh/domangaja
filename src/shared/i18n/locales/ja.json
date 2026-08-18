@@ -1,7 +1,8 @@
 {
   "common": {
     "cancel": "キャンセル",
-    "confirm": "確認"
+    "confirm": "確認",
+    "all": "すべて"
   },
   "logout": {
     "title": "ログアウト",
@@ -63,6 +64,27 @@
     "invalidDate": "生年月日をもう一度ご確認ください。",
     "tooYoung": "満14歳以上のみご登録いただけます。"
   },
+  "notification": {
+    "markAllRead": "すべて既読",
+    "setting": "通知設定",
+    "unreadCount_one": "未読の通知 {{count}}件",
+    "unreadCount_other": "未読の通知 {{count}}件",
+    "past": "以前の通知",
+    "timeAgo": {
+      "now": "たった今",
+      "minute_one": "{{count}}分前",
+      "minute_other": "{{count}}分前",
+      "hour_one": "{{count}}時間前",
+      "hour_other": "{{count}}時間前",
+      "day_one": "{{count}}日前",
+      "day_other": "{{count}}日前"
+    },
+    "empty": {
+      "title": "まだ届いた通知がありません",
+      "description": "保存した場所が空いてきたら、まっさきにお知らせします",
+      "action": "通知を設定する"
+    }
+  },
   "notificationSetting": {
     "title": "通知",
     "banner": {
@@ -116,21 +138,58 @@
     "audioGuide": "オーディオガイド",
     "bestDayTitle": "{{date}}が最も空いています",
     "bestDaySubtitle": "予測閑散度 {{score}} ・ この日がおすすめです",
-    "quietnessLevel": { "quiet": "閑散", "normal": "普通", "crowded": "混雑" }
+    "quietnessLevel": {
+      "quiet": "閑散",
+      "normal": "普通",
+      "crowded": "混雑"
+    }
   },
   "spot": {
     "popular": {
       "empty": {
         "title": "順位を集計しています",
         "description": "データが集まったら人気の場所をお見せします。"
+      },
+      "title": "今よく見られている場所",
+      "emptyTheme": {
+        "title": "このテーマにはまだありません",
+        "description": "別のテーマを選んでみてください。"
       }
     },
     "recent": {
       "empty": {
         "title": "まだ見た場所がありません",
         "description": "見た場所はここにまとめます。"
+      },
+      "title": "最近見た場所"
+    },
+    "scrap": {
+      "empty": {
+        "title": "まだ保存した場所がありません",
+        "description": "気に入った場所を保存しておきましょう。"
+      }
+    },
+    "theme": {
+      "title": "今週の人気テーマ",
+      "count": "全{{count}}テーマ",
+      "spotCount_one": "{{count}}件の場所",
+      "spotCount_other": "{{count}}件の場所",
+      "empty": {
+        "title": "まだ人気テーマがありません",
+        "description": "データが集まったら今週の人気テーマをお見せします。"
       }
     }
+  },
+  "home": {
+    "quickMenu": {
+      "region": "地域別",
+      "theme": "テーマ別",
+      "popular": "人気",
+      "scrap": "保存済み"
+    }
+  },
+  "map": {
+    "searchThisArea": "この地図で検索"
   },
   "setting": {
     "title": "設定",

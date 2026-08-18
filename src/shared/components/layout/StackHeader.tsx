@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { IconButton } from '@/shared/components/ui';
 import { ArrowLeftIcon } from '@/assets/icons/common';
 import { Text } from '@/shared/components/base';
+import { colors } from '@/shared/constants/colors';
 
 interface StackHeaderProps {
   title?: string;
@@ -17,7 +18,12 @@ export default function StackHeader({ title, left, right }: StackHeaderProps) {
   return (
     <View style={styles.container}>
       <View style={styles.side}>
-        <IconButton icon={ArrowLeftIcon} label="뒤로가기" onPress={navigation.goBack} />
+        <IconButton
+          icon={ArrowLeftIcon}
+          label="뒤로가기"
+          onPress={navigation.goBack}
+          color={colors.black}
+        />
         {!!left && (
           <Text typography="t4" weight="semiBold" numberOfLines={1}>
             {left}

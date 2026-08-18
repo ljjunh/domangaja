@@ -4,7 +4,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useAuthStore } from '@/shared/store/authStore';
 import { userMutations, userQueries } from '@/domains/user/api/queries';
 import type { LanguageCode } from '@/shared/i18n/languages';
-import { toServerLocale } from '@/domains/user/utils/serverLocale';
+import { toServerLocale } from '@/shared/i18n/serverLocale';
 import { identifyUser } from '@/shared/lib/crashlytics';
 
 export const useLocaleSync = () => {

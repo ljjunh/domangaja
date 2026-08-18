@@ -45,8 +45,6 @@ export interface GetMeResponse {
   notificationSettings: NotificationSettings;
 }
 
-export type ServerLocale = 'KO' | 'EN' | 'JP' | 'ZH_CN' | 'ZH_TW';
-
 export interface UpdateProfileRequest {
   nickname?: string;
   birthDate?: string;
