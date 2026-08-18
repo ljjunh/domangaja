@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import { KeyboardAvoidingView, ScrollView, StyleSheet, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { type StaticScreenProps, useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 import { Layout } from '@/shared/components/layout';
 import { Image, Pressable, Text, TextInput } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { example1Image } from '@/assets/images';
 import { AddIcon } from '@/assets/icons/common';
+import { showToast } from '@/shared/lib/toast';
+import { toastConfig } from '@/shared/lib/toastConfig';
+import { checkLocationPermission } from '@/domains/feed/lib/locationPermission';
 import { FormSectionLabel, PostFormHeader, PostLocationField } from './components';
 
 // TODO: GPS 연동 시 실제 위치 값으로 교체
@@ -17,17 +21,32 @@ const MAX_PHOTO_COUNT = 4;
 // TODO: 실제 이미지 picker 연동 시 선택된 이미지 배열로 교체 (등록 조건: 최소 1장)
 const MOCK_SELECTED_PHOTOS = [example1Image];
 
-export default function FeedWriteScreen() {
+// 최초 위치 권한 요청/좌표 확보는 Community 리스트 화면의 + 버튼이 이미 끝내고 들어온다 —
+// 이 화면은 그 결과(좌표)를 params로 받기만 한다
+type FeedWriteScreenProps = StaticScreenProps<{ latitude: number; longitude: number }>;
+
+export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
   const navigation = useNavigation();
+  const { latitude, longitude } = route.params;
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+
+  const handleShare = async () => {
+    // 최초 요청은 + 버튼에서 이미 끝났다 — 여기서는 그 사이 설정에서 꺼졌는지만 조용히 재확인
+    const permission = await checkLocationPermission();
+    if (permission !== 'granted') {
+      showToast('error', '위치 접근이 꺼져 있어요. 설정에서 위치 권한을 확인해주세요.');
+      return;
+    }
+    console.log('TODO: 피드 등록 API 연동', { latitude, longitude });
+  };
 
   return (
     <Layout>
       <PostFormHeader
         title="피드 올리기"
         onClose={() => navigation.goBack()}
-        onShare={() => console.log('TODO: 피드 등록 API 연동')}
+        onShare={handleShare}
       />
       <KeyboardAvoidingView style={styles.avoidingView} behavior="padding">
         <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
@@ -76,6 +95,8 @@ export default function FeedWriteScreen() {
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
+
+      <Toast config={toastConfig} position="bottom" bottomOffset={80} />
     </Layout>
   );
 }

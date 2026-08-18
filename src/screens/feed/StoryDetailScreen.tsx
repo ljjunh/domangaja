@@ -1,17 +1,24 @@
-import { StatusBar, StyleSheet, View } from 'react-native';
+import { useState } from 'react';
+import { ActivityIndicator, StatusBar, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { type StaticScreenProps, useNavigation } from '@react-navigation/native';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { Pressable } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
+import { toImageUrl } from '@/shared/api/service';
+import { showToast } from '@/shared/lib/toast';
 import {
   StoryMedia,
   StoryProgressBar,
   StoryViewerFooter,
   StoryViewerHeader,
 } from '@/domains/feed/components';
-import { MOCK_STORIES } from '@/domains/feed/components/StoryList';
+import { feedMutations, feedQueries } from '@/domains/feed/api/queries';
+import type { Story } from '@/domains/feed/types/api';
+import { userQueries } from '@/domains/user/api/queries';
 
-type StoryDetailScreenProps = StaticScreenProps<{ storyId: number }>;
+type StoryDetailScreenProps = StaticScreenProps<{ storyId: number } | { story: Story }>;
 
 // TODO: 자동 재생 붙일 때 실제 진행률로 교체
 const TEMP_PROGRESS = 0.35;
@@ -19,22 +26,94 @@ const TEMP_PROGRESS = 0.35;
 export default function StoryDetailScreen({ route }: StoryDetailScreenProps) {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
-  const { storyId } = route.params;
-  const story = MOCK_STORIES.find(item => item.id === storyId) ?? MOCK_STORIES[0];
+  const params = route.params;
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const storyId = 'storyId' in params ? params.storyId : params.story.id;
+  const initialStory = 'story' in params ? params.story : undefined;
+  const { data: story } = useQuery({
+    ...feedQueries.storyDetail(storyId),
+    initialData: initialStory,
+    enabled: initialStory == null,
+  });
+
+  const { data: me } = useQuery(userQueries.getMe());
+  const isMine = me != null && story != null && me.id === story.userId;
+
+  const { mutate: deleteStory, isPending: isDeleting } = useMutation(feedMutations.deleteStory());
+  const { mutate: reportStory, isPending: isReporting } = useMutation(feedMutations.reportStory());
+  const { mutate: likeStory, isPending: isLiking } = useMutation(feedMutations.likeStory());
+  const { mutate: unlikeStory, isPending: isUnliking } = useMutation(feedMutations.unlikeStory());
+
+  const handlePressMore = () => setIsMenuOpen(prev => !prev);
+  const closeMenu = () => setIsMenuOpen(false);
+
+  const goBackToList = () => navigation.goBack();
+
+  const handlePressDelete = () => {
+    closeMenu();
+    if (isDeleting || story == null) {
+      return;
+    }
+    deleteStory(story.id, {
+      onSuccess: goBackToList,
+      onError: () => showToast('error', '스토리 삭제에 실패했어요. 잠시 후 다시 시도해주세요.'),
+    });
+  };
+
+  const handlePressReport = () => {
+    closeMenu();
+    if (isReporting || story == null) {
+      return;
+    }
+    reportStory(story.id, {
+      onSuccess: goBackToList,
+      onError: () => showToast('error', '신고에 실패했어요. 잠시 후 다시 시도해주세요.'),
+    });
+  };
+
+  const handlePressLike = () => {
+    if (isLiking || isUnliking || story == null) {
+      return;
+    }
+    if (story.likedByMe) {
+      unlikeStory(story.id, {
+        onError: () => showToast('error', '좋아요 취소에 실패했어요. 잠시 후 다시 시도해주세요.'),
+      });
+    } else {
+      likeStory(story.id, {
+        onError: () => showToast('error', '좋아요에 실패했어요. 잠시 후 다시 시도해주세요.'),
+      });
+    }
+  };
+
+  if (story == null) {
+    return (
+      <View style={[styles.root, styles.center]}>
+        <StatusBar barStyle="light-content" />
+        <ActivityIndicator color={colors.white} />
+      </View>
+    );
+  }
 
   return (
-    // 미디어를 노치/상태바 뒤까지 완전히 채우기 위해 SafeAreaView(Layout) 대신 일반 View를 쓰고,
-    // 오버레이(헤더/푸터) 쪽에서 직접 insets를 더해 안전영역을 피한다.
     <View style={styles.root}>
       <StatusBar barStyle="light-content" />
 
-      <StoryMedia image={story.image} />
+      <StoryMedia image={{ uri: toImageUrl(story.imageUrl) ?? story.imageUrl }} />
+
+      {isMenuOpen && <Pressable style={StyleSheet.absoluteFill} onPress={closeMenu} />}
 
       <View style={[styles.topOverlay, { paddingTop: insets.top + 10 }]}>
         <StoryProgressBar progress={TEMP_PROGRESS} />
         <StoryViewerHeader
-          nickname={story.nickname}
-          locationLabel={story.locationLabel}
+          nickname={story.authorNickname}
+          locationLabel={story.regionName}
+          isMine={isMine}
+          isMenuOpen={isMenuOpen}
+          onPressMore={handlePressMore}
+          onPressDelete={handlePressDelete}
+          onPressReport={handlePressReport}
           onClose={() => navigation.goBack()}
         />
       </View>
@@ -42,7 +121,8 @@ export default function StoryDetailScreen({ route }: StoryDetailScreenProps) {
       <View style={[styles.bottomOverlay, { paddingBottom: insets.bottom + 16 }]}>
         <StoryViewerFooter
           viewCount={story.viewCount}
-          onPressLike={() => console.log('TODO: 스토리 좋아요 연동')}
+          liked={story.likedByMe}
+          onPressLike={handlePressLike}
         />
       </View>
     </View>
@@ -52,7 +132,11 @@ export default function StoryDetailScreen({ route }: StoryDetailScreenProps) {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: colors.grey[900],
+    backgroundColor: colors.black,
+  },
+  center: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   topOverlay: {
     position: 'absolute',

@@ -40,6 +40,20 @@
     "later": "稍后",
     "openSettings": "打开设置"
   },
+  "locationPermission": {
+    "title": "位置访问已关闭",
+    "description": "要获取当前位置，需要允许访问位置信息。\n可在设置中开启。",
+    "ios": {
+      "step1": "在设置中找到<b>도망가자</b>",
+      "step2": "<b>位置</b> > <b>使用App期间允许</b>"
+    },
+    "android": {
+      "step1": "在设置中找到<b>도망가자</b>",
+      "step2": "<b>权限</b> > <b>位置信息</b> > <b>允许</b>"
+    },
+    "later": "稍后",
+    "openSettings": "打开设置"
+  },
   "nickname": {
     "rule": "请输入2~10位韩文、英文或数字。",
     "duplicate": "该昵称已被使用。",

@@ -40,6 +40,20 @@
     "later": "Later",
     "openSettings": "Open Settings"
   },
+  "locationPermission": {
+    "title": "Location access is off",
+    "description": "To get your current location, you need to allow location access.\n You can turn it on in Settings.",
+    "ios": {
+      "step1": "Find <b>도망가자</b> in Settings",
+      "step2": "<b>Location</b> > <b>Allow While Using App</b>"
+    },
+    "android": {
+      "step1": "Find <b>도망가자</b> in Settings",
+      "step2": "<b>Permissions</b> > <b>Location</b> > <b>Allow</b>"
+    },
+    "later": "Later",
+    "openSettings": "Open Settings"
+  },
   "nickname": {
     "rule": "Use 2–10 Korean or English letters and numbers.",
     "duplicate": "This nickname is already taken.",

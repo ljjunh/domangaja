@@ -86,7 +86,7 @@ export default function FeedItem({
           </Pressable>
         </View>
         <Pressable hitSlop={8} onPress={() => console.log('TODO: 피드 저장 연동')}>
-          <ArchiveTickOutlineIcon color={colors.grey[500]} />
+          <ArchiveTickOutlineIcon width={20} height={20} color={colors.grey[500]} />
         </Pressable>
       </View>
     </Pressable>
