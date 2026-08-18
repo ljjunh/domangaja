@@ -3,12 +3,20 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { Text, Pressable } from '@/shared/components/base';
 import { spotQueries } from '@/domains/spot/api/queries';
 import { colors } from '@/shared/constants/colors';
+import { useNavigation } from '@react-navigation/native';
 
 export default function TodaySpotBanner() {
+  const { navigate } = useNavigation();
   const { data: spot } = useSuspenseQuery(spotQueries.getTodaySpot());
 
   return (
-    <Pressable onPress={() => console.log('오늘의 추천 도망지 상세 페이지 이동')}>
+    <Pressable
+      onPress={() =>
+        navigate('SpotDetail', {
+          contentId: spot.contentId,
+        })
+      }
+    >
       <ImageBackground
         source={{ uri: spot.imageUrl }}
         fadeDuration={0}
