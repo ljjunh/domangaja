@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { LocationFillIcon, ExportIcon } from '@/assets/icons/common';
 import { example1Image } from '@/assets/images';
 import { audioGuideQueries } from '@/domains/audioGuide/api/queries';
+import { SpotAudioGuide } from '@/domains/audioGuide/components';
 import { matchAudioGuides } from '@/domains/audioGuide/utils/matchAudioGuide';
 import { spotQueries } from '@/domains/spot/api/queries';
 import { toSpotDetailViewData } from '@/domains/spot/utils/spotDetail';
@@ -22,7 +23,7 @@ import { IconButton } from '@/shared/components/ui';
 import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { toServerLocale } from '@/shared/i18n/serverLocale';
-import { ExpandableOverview, SpotAudioGuide, SpotContactActions } from './components';
+import { ExpandableOverview, SpotContactActions } from './components';
 import { GetSpotDetailResponse } from '@/domains/spot/types/api';
 
 type Props = StaticScreenProps<{ contentId: GetSpotDetailResponse['contentId'] }>;
