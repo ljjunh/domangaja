@@ -153,6 +153,9 @@
       "scrap": "Saved"
     }
   },
+  "map": {
+    "searchThisArea": "Search this area"
+  },
   "setting": {
     "title": "Settings",
     "sections": {

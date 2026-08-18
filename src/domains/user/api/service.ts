@@ -7,7 +7,7 @@ import type {
   UpdateProfileRequest,
 } from '@/domains/user/types/api';
 import { LanguageCode } from '@/shared/i18n/languages';
-import { toServerLocale } from '@/domains/user/utils/serverLocale';
+import { toServerLocale } from '@/shared/i18n/serverLocale';
 
 export const getMe = async (): Promise<GetMeResponse> => {
   const { data } = await apiClient.get<GetMeResponse>('/members/me');

@@ -153,6 +153,9 @@
       "scrap": "保存済み"
     }
   },
+  "map": {
+    "searchThisArea": "この地図で検索"
+  },
   "setting": {
     "title": "設定",
     "sections": {

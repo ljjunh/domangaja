@@ -153,6 +153,9 @@
       "scrap": "저장한 곳"
     }
   },
+  "map": {
+    "searchThisArea": "현 지도에서 검색"
+  },
   "setting": {
     "title": "설정",
     "sections": {

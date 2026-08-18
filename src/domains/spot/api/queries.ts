@@ -6,6 +6,7 @@ import {
   getWeeklyThemes,
   getRecentSpots,
   getScraps,
+  getMapSpots,
   deleteScrap,
   createScrap,
   createSpotView,
@@ -15,6 +16,7 @@ import {
   type GetWeeklyThemesRequest,
   type GetRecentSpotsRequest,
   type GetScrapsRequest,
+  type GetMapSpotsRequest,
   type GetScrapsResponse,
   type GetRecentSpotsResponse,
   type CreateScrapRequest,
@@ -31,6 +33,8 @@ export const spotQueryKeys = {
   themes: (params: GetWeeklyThemesRequest) => [...all, 'themes', params] as const,
   recentAll: [...all, 'recent'] as const,
   recent: (params: GetRecentSpotsRequest) => [...all, 'recent', params] as const,
+  mapAll: [...all, 'map'] as const,
+  map: (params: GetMapSpotsRequest) => [...all, 'map', params] as const,
   scrapsAll: [...all, 'scraps'] as const,
   scraps: (params: GetScrapsRequest) => [...all, 'scraps', params] as const,
 };
@@ -58,6 +62,12 @@ export const spotQueries = {
     queryOptions({
       queryKey: spotQueryKeys.recent(params),
       queryFn: () => getRecentSpots(params),
+    }),
+
+  getMapSpots: (params: GetMapSpotsRequest) =>
+    queryOptions({
+      queryKey: spotQueryKeys.map(params),
+      queryFn: () => getMapSpots(params),
     }),
 
   getScraps: (params: GetScrapsRequest) =>

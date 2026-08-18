@@ -1,5 +1,6 @@
 // DTO (서버 계약: Request/Response)
 import type { SpotTheme } from '@/shared/types/spotTheme';
+import type { ServerLocale } from '@/shared/i18n/serverLocale';
 export interface GetTodaySpotResponse {
   contentId: string;
   title: string;
@@ -123,3 +124,28 @@ export interface CreateSpotViewResponse {
   scrapped: boolean;
   scrapId: number | null;
 }
+
+// 지도 카메라의 region 값을 그대로 보낸다 (react-native-maps의 Region과 같은 모양)
+export interface GetMapSpotsRequest {
+  lat: number;
+  lng: number;
+  // 화면에 보이는 위/경도의 전체 폭. 경계는 중심 ± delta / 2
+  latitudeDelta: number;
+  longitudeDelta: number;
+  contentTypeId?: number;
+  lang?: ServerLocale;
+}
+
+export interface MapSpot {
+  contentId: string;
+  contentTypeId: string;
+  title: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  distanceMeters: number;
+  imageUrl: string;
+  tel: string;
+}
+
+export type GetMapSpotsResponse = MapSpot[];

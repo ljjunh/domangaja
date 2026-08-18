@@ -153,6 +153,9 @@
       "scrap": "已收藏"
     }
   },
+  "map": {
+    "searchThisArea": "在此區域搜尋"
+  },
   "setting": {
     "title": "設定",
     "sections": {
