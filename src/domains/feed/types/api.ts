@@ -79,7 +79,40 @@ export interface Feed {
 
 export type CreateFeedResponse = Feed;
 
-export type ReportTargetType = 'STORY';
+export interface FeedBookmarkResponse {
+  active: boolean;
+  count: number;
+}
+
+export type FeedCategory =
+  | 'SEA'
+  | 'MOUNTAIN'
+  | 'ISLAND'
+  | 'FIELD'
+  | 'NIGHT_SKY'
+  | 'VALLEY'
+  | 'CITY'
+  | 'ETC';
+
+export type FeedSort = 'LATEST' | 'VIEWS' | 'POPULAR';
+
+export interface GetFeedsRequest {
+  category?: FeedCategory;
+  page?: number;
+  size?: number;
+  sort?: FeedSort;
+}
+
+export interface GetFeedsResponse {
+  content: Feed[];
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  hasNext: boolean;
+}
+
+export type ReportTargetType = 'STORY' | 'FEED';
 
 export interface CreateReportRequest {
   targetType: ReportTargetType;
