@@ -30,16 +30,6 @@ const EXPANSION_DURATION = 300;
 const CLUSTER_ANCHOR = { x: 0.5, y: 0.5 };
 const PIN_ANCHOR = { x: 0.5, y: 1 };
 
-// TODO: 서버 응답에 quietnessScore가 추가되면 삭제하고 spot.quietnessScore로 교체
-// 렌더마다 값이 흔들리지 않게 contentId에서 결정적으로 뽑는다
-function mockQuietness(contentId: string): number {
-  let hash = 0;
-  for (let index = 0; index < contentId.length; index++) {
-    hash = (hash * 31 + contentId.charCodeAt(index)) % 101;
-  }
-  return hash;
-}
-
 export default function MapScreen() {
   const { i18n } = useTranslation();
   const mapRef = useRef<MapView>(null);
@@ -110,7 +100,7 @@ export default function MapScreen() {
             {item.spot == null ? (
               <ClusterMarker count={item.count} />
             ) : (
-              <SpotMarker quietness={mockQuietness(item.spot.contentId)} />
+              <SpotMarker quietness={item.spot.quietnessScore} />
             )}
           </Marker>
         ))}

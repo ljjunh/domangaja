@@ -148,6 +148,7 @@ export interface MapSpot {
   distanceMeters: number;
   imageUrl: string;
   tel: string;
+  quietnessScore: number;
 }
 
 export type GetMapSpotsResponse = MapSpot[];
