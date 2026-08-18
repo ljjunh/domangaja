@@ -49,8 +49,10 @@ export interface WeeklyTheme {
 export type GetWeeklyThemesResponse = WeeklyTheme[];
 
 export interface GetRecentSpotsRequest {
-  // default 10
+  // default 10 (1~50)
   limit?: number;
+  // default 0. 받은 개수가 limit보다 작으면 마지막 페이지
+  page?: number;
 }
 
 export interface RecentSpot {

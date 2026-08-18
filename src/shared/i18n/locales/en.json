@@ -123,7 +123,11 @@
     "audioGuide": "Audio Guide",
     "bestDayTitle": "{{date}} is the quietest",
     "bestDaySubtitle": "Predicted quietness {{score}} · We recommend this day",
-    "quietnessLevel": { "quiet": "Quiet", "normal": "Moderate", "crowded": "Crowded" }
+    "quietnessLevel": {
+      "quiet": "Quiet",
+      "normal": "Moderate",
+      "crowded": "Crowded"
+    }
   },
   "spot": {
     "popular": {
@@ -136,7 +140,8 @@
       "empty": {
         "title": "You haven't viewed any places yet",
         "description": "Places you view will show up here."
-      }
+      },
+      "title": "Recently viewed"
     },
     "scrap": {
       "empty": {

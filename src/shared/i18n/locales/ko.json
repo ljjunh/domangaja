@@ -123,7 +123,11 @@
     "audioGuide": "오디오 가이드",
     "bestDayTitle": "{{date}}이 가장 한적해요",
     "bestDaySubtitle": "예측 한적도 {{score}} · 이날을 추천드려요",
-    "quietnessLevel": { "quiet": "한적", "normal": "보통", "crowded": "혼잡" }
+    "quietnessLevel": {
+      "quiet": "한적",
+      "normal": "보통",
+      "crowded": "혼잡"
+    }
   },
   "spot": {
     "popular": {
@@ -136,7 +140,8 @@
       "empty": {
         "title": "아직 둘러본 곳이 없어요",
         "description": "본 곳은 여기에 모아둘게요."
-      }
+      },
+      "title": "최근 본 도망지"
     },
     "scrap": {
       "empty": {

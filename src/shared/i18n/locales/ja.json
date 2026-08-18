@@ -123,7 +123,11 @@
     "audioGuide": "オーディオガイド",
     "bestDayTitle": "{{date}}が最も空いています",
     "bestDaySubtitle": "予測閑散度 {{score}} ・ この日がおすすめです",
-    "quietnessLevel": { "quiet": "閑散", "normal": "普通", "crowded": "混雑" }
+    "quietnessLevel": {
+      "quiet": "閑散",
+      "normal": "普通",
+      "crowded": "混雑"
+    }
   },
   "spot": {
     "popular": {
@@ -136,7 +140,8 @@
       "empty": {
         "title": "まだ見た場所がありません",
         "description": "見た場所はここにまとめます。"
-      }
+      },
+      "title": "最近見た場所"
     },
     "scrap": {
       "empty": {

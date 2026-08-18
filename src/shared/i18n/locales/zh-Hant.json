@@ -123,7 +123,11 @@
     "audioGuide": "語音導覽",
     "bestDayTitle": "{{date}}最清靜",
     "bestDaySubtitle": "預測清靜度 {{score}} · 推薦這一天",
-    "quietnessLevel": { "quiet": "清靜", "normal": "一般", "crowded": "擁擠" }
+    "quietnessLevel": {
+      "quiet": "清靜",
+      "normal": "一般",
+      "crowded": "擁擠"
+    }
   },
   "spot": {
     "popular": {
@@ -136,7 +140,8 @@
       "empty": {
         "title": "還沒有瀏覽過的地點",
         "description": "您瀏覽過的地點會顯示在這裡。"
-      }
+      },
+      "title": "最近瀏覽"
     },
     "scrap": {
       "empty": {
