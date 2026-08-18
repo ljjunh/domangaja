@@ -14,6 +14,9 @@ import {
   NotificationSettingScreen,
   NotificationScreen,
   ScrapScreen,
+  RecentSpotScreen,
+  PopularSpotScreen,
+  WeeklyThemeScreen,
   PolicyScreen,
 } from '@/screens';
 
@@ -59,6 +62,9 @@ export const RootStack = createNativeStackNavigator({
         NotificationSetting: { screen: NotificationSettingScreen },
         Notification: { screen: NotificationScreen },
         Scrap: { screen: ScrapScreen },
+        RecentSpot: { screen: RecentSpotScreen },
+        PopularSpot: { screen: PopularSpotScreen },
+        WeeklyTheme: { screen: WeeklyThemeScreen },
       },
     },
     // 로그인 여부와 무관한 공통 화면

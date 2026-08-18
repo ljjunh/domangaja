@@ -1,7 +1,8 @@
 {
   "common": {
     "cancel": "Cancel",
-    "confirm": "OK"
+    "confirm": "OK",
+    "all": "All"
   },
   "logout": {
     "title": "Log Out",
@@ -123,25 +124,45 @@
     "audioGuide": "Audio Guide",
     "bestDayTitle": "{{date}} is the quietest",
     "bestDaySubtitle": "Predicted quietness {{score}} · We recommend this day",
-    "quietnessLevel": { "quiet": "Quiet", "normal": "Moderate", "crowded": "Crowded" }
+    "quietnessLevel": {
+      "quiet": "Quiet",
+      "normal": "Moderate",
+      "crowded": "Crowded"
+    }
   },
   "spot": {
     "popular": {
       "empty": {
         "title": "Tallying the rankings",
         "description": "We'll show popular places once enough data is in."
+      },
+      "title": "Trending now",
+      "emptyTheme": {
+        "title": "Nothing here yet",
+        "description": "Try another theme."
       }
     },
     "recent": {
       "empty": {
         "title": "You haven't viewed any places yet",
         "description": "Places you view will show up here."
-      }
+      },
+      "title": "Recently viewed"
     },
     "scrap": {
       "empty": {
         "title": "You haven't saved any places yet",
         "description": "Save the places you like and find them here."
+      }
+    },
+    "theme": {
+      "title": "Trending themes",
+      "count": "{{count}} themes",
+      "spotCount_one": "{{count}} place",
+      "spotCount_other": "{{count}} places",
+      "empty": {
+        "title": "No trending themes yet",
+        "description": "We'll show trending themes once enough data is in."
       }
     }
   },
@@ -152,6 +173,9 @@
       "popular": "Popular",
       "scrap": "Saved"
     }
+  },
+  "map": {
+    "searchThisArea": "Search this area"
   },
   "setting": {
     "title": "Settings",

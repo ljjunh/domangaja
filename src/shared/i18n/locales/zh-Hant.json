@@ -1,7 +1,8 @@
 {
   "common": {
     "cancel": "取消",
-    "confirm": "確認"
+    "confirm": "確認",
+    "all": "全部"
   },
   "logout": {
     "title": "登出",
@@ -123,25 +124,45 @@
     "audioGuide": "語音導覽",
     "bestDayTitle": "{{date}}最清靜",
     "bestDaySubtitle": "預測清靜度 {{score}} · 推薦這一天",
-    "quietnessLevel": { "quiet": "清靜", "normal": "一般", "crowded": "擁擠" }
+    "quietnessLevel": {
+      "quiet": "清靜",
+      "normal": "一般",
+      "crowded": "擁擠"
+    }
   },
   "spot": {
     "popular": {
       "empty": {
         "title": "正在統計排名",
         "description": "資料累積後將為您顯示熱門地點。"
+      },
+      "title": "目前熱門",
+      "emptyTheme": {
+        "title": "此主題下暫無地點",
+        "description": "換個主題看看吧。"
       }
     },
     "recent": {
       "empty": {
         "title": "還沒有瀏覽過的地點",
         "description": "您瀏覽過的地點會顯示在這裡。"
-      }
+      },
+      "title": "最近瀏覽"
     },
     "scrap": {
       "empty": {
         "title": "還沒有收藏的地點",
         "description": "把喜歡的地點收藏起來吧。"
+      }
+    },
+    "theme": {
+      "title": "本週熱門主題",
+      "count": "共{{count}}個主題",
+      "spotCount_one": "{{count}}個地點",
+      "spotCount_other": "{{count}}個地點",
+      "empty": {
+        "title": "暫無熱門主題",
+        "description": "資料累積後將為您顯示本週熱門主題。"
       }
     }
   },
@@ -152,6 +173,9 @@
       "popular": "熱門",
       "scrap": "已收藏"
     }
+  },
+  "map": {
+    "searchThisArea": "在此區域搜尋"
   },
   "setting": {
     "title": "設定",

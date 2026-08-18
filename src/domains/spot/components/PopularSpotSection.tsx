@@ -1,5 +1,6 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { EmptyState } from '@/shared/components/ui';
@@ -10,13 +11,14 @@ import RankedSpotCard from './RankedSpotCard';
 
 export default function PopularSpotSection() {
   const { t } = useTranslation();
+  const { navigate } = useNavigation();
   const { data: spots } = useSuspenseQuery(spotQueries.getPopularSpots({ limit: 5 }));
 
   return (
     <View style={styles.container}>
       <SectionHeader
-        title="지금 많이 찾는 도망지"
-        onPressSeeAll={() => console.log('지금 많이 찾는 도망지 상세페이지로 이동')}
+        title={t('spot.popular.title')}
+        onPressSeeAll={() => navigate('PopularSpot')}
       />
 
       {spots.length === 0 ? (

@@ -14,10 +14,17 @@ import {
   type DeleteScrapRequest,
   type CreateSpotViewRequest,
   CreateSpotViewResponse,
+  type GetMapSpotsRequest,
+  type GetMapSpotsResponse,
 } from '@/domains/spot/types/api';
 
 export const getTodaySpot = async (): Promise<GetTodaySpotResponse> => {
   const { data } = await apiClient.get<GetTodaySpotResponse>('/spots/today');
+  return data;
+};
+
+export const getMapSpots = async (params: GetMapSpotsRequest): Promise<GetMapSpotsResponse> => {
+  const { data } = await apiClient.get<GetMapSpotsResponse>('/tourism/map', { params });
   return data;
 };
 

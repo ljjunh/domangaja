@@ -1,5 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { EmptyState } from '@/shared/components/ui';
 import { spotMutations, spotQueries } from '@/domains/spot/api/queries';
@@ -10,6 +11,7 @@ import SpotListItem from './SpotListItem';
 
 export default function RecentSpotSection() {
   const { t } = useTranslation();
+  const { navigate } = useNavigation();
   const { data: recentSpots } = useSuspenseQuery(spotQueries.getRecentSpots());
   const { mutate: createScrap } = useMutation(spotMutations.createScrap());
   const { mutate: deleteScrap } = useMutation(spotMutations.deleteScrap());
@@ -30,10 +32,7 @@ export default function RecentSpotSection() {
 
   return (
     <View style={styles.container}>
-      <SectionHeader
-        title="최근 본 도망지"
-        onPressSeeAll={() => console.log('최근 본 스팟으로 이동')}
-      />
+      <SectionHeader title={t('spot.recent.title')} onPressSeeAll={() => navigate('RecentSpot')} />
 
       {recentSpots.length === 0 ? (
         <EmptyState
