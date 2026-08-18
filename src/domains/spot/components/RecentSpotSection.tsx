@@ -1,8 +1,8 @@
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { EmptyState } from '@/shared/components/ui';
+import { useNavigation } from '@react-navigation/native';
 import { spotMutations, spotQueries } from '@/domains/spot/api/queries';
 import type { RecentSpot } from '@/domains/spot/types/api';
 import { ClockOutlineIcon } from '@/assets/icons/common';
@@ -50,7 +50,11 @@ export default function RecentSpotSection() {
               quietness={spot.quietnessScore}
               image={{ uri: spot.imageUrl }}
               isScrapped={spot.scrapped}
-              onPressItem={() => console.log('도망지 상세 페이지로 이동')}
+              onPressItem={() =>
+                navigate('SpotDetail', {
+                  contentId: spot.contentId,
+                })
+              }
               onPressScrap={() => handlePressScrap(spot)}
             />
           ))}

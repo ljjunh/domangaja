@@ -1,6 +1,7 @@
 // DTO (서버 계약: Request/Response)
 import type { SpotTheme } from '@/shared/types/spotTheme';
 import type { ServerLocale } from '@/shared/i18n/serverLocale';
+
 export interface GetTodaySpotResponse {
   contentId: string;
   title: string;
@@ -91,14 +92,37 @@ export interface Scrap {
 
 export type GetScrapsResponse = Scrap[];
 
+export interface GetSpotDetailRequest {
+  contentId: string;
+  lang: ServerLocale;
+}
+
+// TODO: nullable 필드 확인 필요
+export interface GetSpotDetailResponse {
+  contentId: string;
+  contentTypeId: string;
+  title: string;
+  overview: string | null;
+  homepage: string | null;
+  tel: string | null;
+  address: string | null;
+  zipcode: string | null;
+  latitude: number;
+  longitude: number;
+  imageUrl: string | null;
+  thumbnailUrl: string | null;
+  scrapped: boolean;
+  scrapId: number | null;
+}
+
 export interface CreateScrapRequest {
   contentId: string;
   // default: SPOT
   type?: ScrapType;
   title?: string;
-  regionName: string;
-  imageUrl: string;
-  quietnessScore: number;
+  regionName?: string;
+  imageUrl?: string;
+  quietnessScore?: number;
 }
 
 export type CreateScrapResponse = Scrap;

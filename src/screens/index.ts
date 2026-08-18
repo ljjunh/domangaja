@@ -19,3 +19,4 @@ export { default as WeeklyThemeScreen } from './spot/WeeklyThemeScreen';
 export { default as PolicyScreen } from './legal/PolicyScreen';
 export { default as ForceUpdateScreen } from './appStatus/ForceUpdateScreen';
 export { default as MaintenanceScreen } from './appStatus/MaintenanceScreen';
+export { default as SpotDetailScreen } from './spot/SpotDetailScreen';

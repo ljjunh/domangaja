@@ -1,23 +1,25 @@
 import { apiClient } from '@/shared/api/client';
-import {
-  type GetTodaySpotResponse,
-  type GetPopularSpotsRequest,
-  type GetPopularSpotsResponse,
-  type GetWeeklyThemesRequest,
-  type GetWeeklyThemesResponse,
-  type GetRecentSpotsRequest,
-  type GetRecentSpotsResponse,
-  type GetScrapsRequest,
-  type GetScrapsResponse,
-  type CreateScrapRequest,
-  type CreateScrapResponse,
-  type DeleteScrapRequest,
-  type CreateSpotViewRequest,
+import type {
+  GetTodaySpotResponse,
+  GetPopularSpotsRequest,
+  GetPopularSpotsResponse,
+  GetWeeklyThemesRequest,
+  GetWeeklyThemesResponse,
+  GetRecentSpotsRequest,
+  GetRecentSpotsResponse,
+  GetScrapsRequest,
+  GetScrapsResponse,
+  GetSpotDetailRequest,
+  GetSpotDetailResponse,
+  CreateScrapRequest,
+  CreateScrapResponse,
+  DeleteScrapRequest,
+  CreateSpotViewRequest,
   CreateSpotViewResponse,
-  type GetMapSpotsRequest,
-  type GetMapSpotsResponse,
-  type GetCongestionRequest,
-  type GetCongestionResponse,
+  GetMapSpotsRequest,
+  GetMapSpotsResponse,
+  GetCongestionRequest,
+  GetCongestionResponse,
 } from '@/domains/spot/types/api';
 
 export const getTodaySpot = async (): Promise<GetTodaySpotResponse> => {
@@ -63,6 +65,16 @@ export const getRecentSpots = async (
 
 export const getScraps = async (params: GetScrapsRequest): Promise<GetScrapsResponse> => {
   const { data } = await apiClient.get<GetScrapsResponse>('/scraps', { params });
+  return data;
+};
+
+export const getSpotDetail = async ({
+  contentId,
+  lang,
+}: GetSpotDetailRequest): Promise<GetSpotDetailResponse> => {
+  const { data } = await apiClient.get<GetSpotDetailResponse>(`/tourism/${contentId}`, {
+    params: { lang },
+  });
   return data;
 };
 

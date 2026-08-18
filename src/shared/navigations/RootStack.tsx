@@ -18,6 +18,7 @@ import {
   PopularSpotScreen,
   WeeklyThemeScreen,
   PolicyScreen,
+  SpotDetailScreen,
 } from '@/screens';
 
 const useIsSignedIn = () => useAuthStore(state => state.isLogin);
@@ -65,6 +66,7 @@ export const RootStack = createNativeStackNavigator({
         RecentSpot: { screen: RecentSpotScreen },
         PopularSpot: { screen: PopularSpotScreen },
         WeeklyTheme: { screen: WeeklyThemeScreen },
+        SpotDetail: { screen: SpotDetailScreen },
       },
     },
     // 로그인 여부와 무관한 공통 화면

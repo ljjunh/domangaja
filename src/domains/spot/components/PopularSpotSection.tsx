@@ -41,7 +41,11 @@ export default function PopularSpotSection() {
               name={spot.title}
               quietness={spot.quietnessScore}
               image={{ uri: spot.imageUrl }}
-              onPress={() => console.log('도망지 상세페이지로 이동')}
+              onPress={() =>
+                navigate('SpotDetail', {
+                  contentId: spot.contentId,
+                })
+              }
             />
           ))}
         </ScrollView>
