@@ -1,6 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import { Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
+import { formatQuietness } from '@/shared/utils/formatQuietness';
 import { getQuietnessLevel, QUIETNESS_LEVEL_COLORS } from '../constants/quietness';
 
 const BUBBLE_SIZE = 26;
@@ -19,7 +20,7 @@ export default function SpotMarker({ quietness }: SpotMarkerProps) {
     <View style={styles.container}>
       <View style={[styles.bubble, { backgroundColor: fill }]}>
         <Text typography="st13" weight="semiBold" color={colors.white}>
-          {quietness}
+          {formatQuietness(quietness)}
         </Text>
       </View>
       {/* 꼬리 끝이 실제 좌표를 가리킨다. 묶여 있는 클러스터(원)와 형태로 구분되도록 */}
