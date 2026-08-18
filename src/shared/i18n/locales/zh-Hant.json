@@ -1,7 +1,8 @@
 {
   "common": {
     "cancel": "取消",
-    "confirm": "確認"
+    "confirm": "確認",
+    "all": "全部"
   },
   "logout": {
     "title": "登出",
@@ -134,6 +135,11 @@
       "empty": {
         "title": "正在統計排名",
         "description": "資料累積後將為您顯示熱門地點。"
+      },
+      "title": "目前熱門",
+      "emptyTheme": {
+        "title": "此主題下暫無地點",
+        "description": "換個主題看看吧。"
       }
     },
     "recent": {

@@ -14,6 +14,7 @@ export { default as NotificationSettingScreen } from './setting/NotificationSett
 export { default as NotificationScreen } from './notification/NotificationScreen';
 export { default as ScrapScreen } from './setting/ScrapScreen';
 export { default as RecentSpotScreen } from './spot/RecentSpotScreen';
+export { default as PopularSpotScreen } from './spot/PopularSpotScreen';
 export { default as PolicyScreen } from './legal/PolicyScreen';
 export { default as ForceUpdateScreen } from './appStatus/ForceUpdateScreen';
 export { default as MaintenanceScreen } from './appStatus/MaintenanceScreen';

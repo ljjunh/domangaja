@@ -1,7 +1,8 @@
 {
   "common": {
     "cancel": "キャンセル",
-    "confirm": "確認"
+    "confirm": "確認",
+    "all": "すべて"
   },
   "logout": {
     "title": "ログアウト",
@@ -134,6 +135,11 @@
       "empty": {
         "title": "順位を集計しています",
         "description": "データが集まったら人気の場所をお見せします。"
+      },
+      "title": "今よく見られている場所",
+      "emptyTheme": {
+        "title": "このテーマにはまだありません",
+        "description": "別のテーマを選んでみてください。"
       }
     },
     "recent": {

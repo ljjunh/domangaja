@@ -13,10 +13,11 @@ export interface GetTodaySpotResponse {
 }
 
 export interface GetPopularSpotsRequest {
-  // default 7
+  // default 7 (1~90)
   days?: number;
-  // default 10
+  // default 10 (1~50)
   limit?: number;
+  page?: number;
 }
 
 export interface PopularSpot {
@@ -26,7 +27,10 @@ export interface PopularSpot {
   regionName: string;
   imageUrl: string;
   quietnessScore: number;
+  theme: SpotTheme;
   viewCount: number;
+  scrapped: boolean;
+  scrapId: number | null;
 }
 
 export type GetPopularSpotsResponse = PopularSpot[];

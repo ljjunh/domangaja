@@ -1,7 +1,8 @@
 {
   "common": {
     "cancel": "Cancel",
-    "confirm": "OK"
+    "confirm": "OK",
+    "all": "All"
   },
   "logout": {
     "title": "Log Out",
@@ -134,6 +135,11 @@
       "empty": {
         "title": "Tallying the rankings",
         "description": "We'll show popular places once enough data is in."
+      },
+      "title": "Trending now",
+      "emptyTheme": {
+        "title": "Nothing here yet",
+        "description": "Try another theme."
       }
     },
     "recent": {

@@ -23,7 +23,6 @@ import {
   type GetScrapsRequest,
   type GetMapSpotsRequest,
   type GetScrapsResponse,
-  type GetRecentSpotsResponse,
   type CreateScrapRequest,
   type DeleteScrapRequest,
 } from '@/domains/spot/types/api';
@@ -35,6 +34,7 @@ const RECENT_PAGE_SIZE = 20;
 export const spotQueryKeys = {
   all,
   today: [...all, 'today'] as const,
+  popularAll: [...all, 'popular'] as const,
   popular: (params: GetPopularSpotsRequest) => [...all, 'popular', params] as const,
   themes: (params: GetWeeklyThemesRequest) => [...all, 'themes', params] as const,
   recentAll: [...all, 'recent'] as const,
@@ -96,20 +96,36 @@ export const spotQueries = {
     }),
 };
 
-// recentAll 아래에는 홈 섹션(배열)과 전체 목록 화면(무한스크롤 = 페이지 배열) 두 모양이
-// 섞여 있다. 한쪽 모양만 가정하고 map을 돌리면 다른 쪽에서 터진다
-type RecentSpotCache = GetRecentSpotsResponse | InfiniteData<GetRecentSpotsResponse, number>;
+const SCRAPPABLE_LIST_KEYS = [spotQueryKeys.recentAll, spotQueryKeys.popularAll];
 
-// 최근 본 목록은 스크랩 목록과 별개 캐시라, 스크랩 아이콘이 바로 뒤집히려면 여기도 같이 고쳐야 함
-function setRecentSpotScrapped(contentId: string, scrapped: boolean) {
-  const patch = (spots: GetRecentSpotsResponse) =>
+interface ScrappableSpot {
+  contentId: string;
+  scrapped: boolean;
+}
+
+type SpotListCache = ScrappableSpot[] | InfiniteData<ScrappableSpot[], number>;
+
+function snapshotSpotLists() {
+  return SCRAPPABLE_LIST_KEYS.flatMap(queryKey =>
+    queryClient.getQueriesData<SpotListCache>({ queryKey }),
+  );
+}
+
+async function cancelSpotListQueries() {
+  await Promise.all(SCRAPPABLE_LIST_KEYS.map(queryKey => queryClient.cancelQueries({ queryKey })));
+}
+
+function setSpotListScrapped(contentId: string, scrapped: boolean) {
+  const patch = (spots: ScrappableSpot[]) =>
     spots.map(spot => (spot.contentId === contentId ? { ...spot, scrapped } : spot));
 
-  queryClient.setQueriesData<RecentSpotCache>({ queryKey: spotQueryKeys.recentAll }, prev => {
-    if (prev == null) {
-      return prev;
-    }
-    return Array.isArray(prev) ? patch(prev) : { ...prev, pages: prev.pages.map(patch) };
+  SCRAPPABLE_LIST_KEYS.forEach(queryKey => {
+    queryClient.setQueriesData<SpotListCache>({ queryKey }, prev => {
+      if (prev == null) {
+        return prev;
+      }
+      return Array.isArray(prev) ? patch(prev) : { ...prev, pages: prev.pages.map(patch) };
+    });
   });
 }
 
@@ -118,17 +134,15 @@ export const spotMutations = {
     mutationOptions({
       mutationFn: createScrap,
       // 스크랩 목록은 서버가 준 id가 있어야 만들 수 있어서 낙관적으로 못 넣음
-      // 최근 본 목록의 아이콘만 먼저 뒤집고, 목록 자체는 성공 후 무효화
+      // 목록들의 아이콘만 먼저 뒤집고, 스크랩 목록 자체는 성공 후 무효화
       onMutate: async ({ contentId }: CreateScrapRequest) => {
-        await queryClient.cancelQueries({ queryKey: spotQueryKeys.recentAll });
-        const previousRecent = queryClient.getQueriesData<RecentSpotCache>({
-          queryKey: spotQueryKeys.recentAll,
-        });
-        setRecentSpotScrapped(contentId, true);
-        return { previousRecent };
+        await cancelSpotListQueries();
+        const previousLists = snapshotSpotLists();
+        setSpotListScrapped(contentId, true);
+        return { previousLists };
       },
       onError: (_error, _variables, context) => {
-        context?.previousRecent.forEach(([key, data]) => queryClient.setQueryData(key, data));
+        context?.previousLists.forEach(([key, data]) => queryClient.setQueryData(key, data));
       },
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: spotQueryKeys.scrapsAll });
@@ -140,25 +154,23 @@ export const spotMutations = {
       mutationFn: deleteScrap,
       onMutate: async ({ contentId }: DeleteScrapRequest) => {
         await queryClient.cancelQueries({ queryKey: spotQueryKeys.scrapsAll });
-        await queryClient.cancelQueries({ queryKey: spotQueryKeys.recentAll });
+        await cancelSpotListQueries();
 
-        const previous = queryClient.getQueriesData<GetScrapsResponse>({
+        const previousScraps = queryClient.getQueriesData<GetScrapsResponse>({
           queryKey: spotQueryKeys.scrapsAll,
         });
-        const previousRecent = queryClient.getQueriesData<RecentSpotCache>({
-          queryKey: spotQueryKeys.recentAll,
-        });
+        const previousLists = snapshotSpotLists();
 
         queryClient.setQueriesData<GetScrapsResponse>({ queryKey: spotQueryKeys.scrapsAll }, prev =>
           prev?.filter(scrap => scrap.contentId !== contentId),
         );
-        setRecentSpotScrapped(contentId, false);
+        setSpotListScrapped(contentId, false);
 
-        return { previous, previousRecent };
+        return { previousScraps, previousLists };
       },
       onError: (_error, _variables, context) => {
-        context?.previous.forEach(([key, data]) => queryClient.setQueryData(key, data));
-        context?.previousRecent.forEach(([key, data]) => queryClient.setQueryData(key, data));
+        context?.previousScraps.forEach(([key, data]) => queryClient.setQueryData(key, data));
+        context?.previousLists.forEach(([key, data]) => queryClient.setQueryData(key, data));
         queryClient.invalidateQueries({ queryKey: spotQueryKeys.scrapsAll });
       },
     }),

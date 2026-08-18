@@ -1,7 +1,8 @@
 {
   "common": {
     "cancel": "취소",
-    "confirm": "확인"
+    "confirm": "확인",
+    "all": "전체"
   },
   "logout": {
     "title": "로그아웃",
@@ -134,6 +135,11 @@
       "empty": {
         "title": "순위를 집계하고 있어요",
         "description": "데이터가 모이면 인기 있는 곳을 보여드릴게요."
+      },
+      "title": "지금 많이 찾는 도망지",
+      "emptyTheme": {
+        "title": "이 테마에는 아직 없어요",
+        "description": "다른 테마를 골라보세요."
       }
     },
     "recent": {

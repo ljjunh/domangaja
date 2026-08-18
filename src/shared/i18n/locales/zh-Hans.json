@@ -1,7 +1,8 @@
 {
   "common": {
     "cancel": "取消",
-    "confirm": "确认"
+    "confirm": "确认",
+    "all": "全部"
   },
   "logout": {
     "title": "退出登录",
@@ -134,6 +135,11 @@
       "empty": {
         "title": "正在统计排名",
         "description": "数据积累后将为您展示热门地点。"
+      },
+      "title": "当前热门",
+      "emptyTheme": {
+        "title": "此主题下暂无地点",
+        "description": "换个主题看看吧。"
       }
     },
     "recent": {
