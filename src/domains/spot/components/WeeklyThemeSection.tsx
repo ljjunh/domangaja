@@ -1,5 +1,6 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { EmptyState } from '@/shared/components/ui';
@@ -11,20 +12,18 @@ import ThemeCard from './ThemeCard';
 
 export default function WeeklyThemeSection() {
   const { t } = useTranslation();
+  const { navigate } = useNavigation();
   const { data: themes } = useSuspenseQuery(spotQueries.getWeeklyThemes({ limit: 5 }));
 
   return (
     <View style={styles.container}>
-      <SectionHeader
-        title="이번주 인기 테마"
-        onPressSeeAll={() => console.log('이번주 인기테마로 이동')}
-      />
+      <SectionHeader title={t('spot.theme.title')} onPressSeeAll={() => navigate('WeeklyTheme')} />
 
       {themes.length === 0 ? (
         <EmptyState
           icon={ClockOutlineIcon}
-          title={t('spot.popular.empty.title')}
-          description={t('spot.popular.empty.description')}
+          title={t('spot.theme.empty.title')}
+          description={t('spot.theme.empty.description')}
         />
       ) : (
         <ScrollView
@@ -39,6 +38,7 @@ export default function WeeklyThemeSection() {
               name={t(`spotTheme.${theme.theme}`)}
               spotCount={theme.spotCount}
               image={SPOT_THEME_IMAGES.square[theme.theme]}
+              style={styles.card}
               onPress={() => console.log('테마 페이지로 이동')}
             />
           ))}
@@ -58,5 +58,8 @@ const styles = StyleSheet.create({
   list: {
     paddingHorizontal: SCREEN_PADDING_HORIZONTAL,
     gap: 12,
+  },
+  card: {
+    width: 140,
   },
 });

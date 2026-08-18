@@ -13,11 +13,20 @@ import type {
   GetSpotDetailResponse,
   CreateScrapRequest,
   CreateScrapResponse,
-  Scrap,
+  DeleteScrapRequest,
+  CreateSpotViewRequest,
+  CreateSpotViewResponse,
+  GetMapSpotsRequest,
+  GetMapSpotsResponse,
 } from '@/domains/spot/types/api';
 
 export const getTodaySpot = async (): Promise<GetTodaySpotResponse> => {
   const { data } = await apiClient.get<GetTodaySpotResponse>('/spots/today');
+  return data;
+};
+
+export const getMapSpots = async (params: GetMapSpotsRequest): Promise<GetMapSpotsResponse> => {
+  const { data } = await apiClient.get<GetMapSpotsResponse>('/tourism/map', { params });
   return data;
 };
 
@@ -64,6 +73,13 @@ export const createScrap = async (params: CreateScrapRequest): Promise<CreateScr
   return data;
 };
 
-export const deleteScrap = async (id: Scrap['id']): Promise<void> => {
-  await apiClient.delete(`/scraps/${id}`);
+export const deleteScrap = async (params: DeleteScrapRequest): Promise<void> => {
+  await apiClient.delete('/scraps', { params });
+};
+
+export const createSpotView = async (
+  params: CreateSpotViewRequest,
+): Promise<CreateSpotViewResponse> => {
+  const { data } = await apiClient.post<CreateSpotViewResponse>('/spots/views', params);
+  return data;
 };

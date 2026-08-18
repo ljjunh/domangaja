@@ -11,6 +11,7 @@ interface SpotListItemProps {
   // 서버 연동 시 imageUrl(string)을 { uri: imageUrl }로 매핑
   image: ImageSourcePropType;
   isScrapped: boolean;
+  rank?: number;
   onPressItem: () => void;
   onPressScrap: () => void;
 }
@@ -21,12 +22,22 @@ export default function SpotListItem({
   quietness,
   image,
   isScrapped,
+  rank,
   onPressItem,
   onPressScrap,
 }: SpotListItemProps) {
   return (
     <Pressable onPress={onPressItem} style={styles.container}>
-      <Image source={image} style={styles.image} />
+      <View>
+        <Image source={image} style={styles.image} />
+        {rank != null && (
+          <View style={styles.rankBadge}>
+            <Text typography="st13" weight="semiBold" color={colors.white}>
+              {rank}
+            </Text>
+          </View>
+        )}
+      </View>
       <View style={styles.content}>
         <View style={styles.info}>
           <Text typography="t7" weight="bold">
@@ -57,6 +68,17 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 12,
+  },
+  rankBadge: {
+    position: 'absolute',
+    top: 4,
+    left: 4,
+    width: 18,
+    height: 18,
+    borderRadius: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.blue[500],
   },
   content: {
     flex: 1,

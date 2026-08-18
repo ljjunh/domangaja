@@ -1,12 +1,15 @@
+import { useNavigation } from '@react-navigation/native';
 import { NotificationOutlineIcon } from '@/assets/icons/common';
 import { IconButton } from '@/shared/components/ui';
 
 export default function NotificationButton() {
+  const { navigate } = useNavigation();
+
   return (
     <IconButton
       icon={NotificationOutlineIcon}
       label="알림"
-      onPress={() => console.log('Notification 이동')}
+      onPress={() => navigate('Notification')}
     />
   );
 }

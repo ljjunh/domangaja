@@ -1,24 +1,49 @@
-import { ImageBackground, StyleSheet, type ImageSourcePropType } from 'react-native';
+import {
+  ImageBackground,
+  StyleSheet,
+  View,
+  type ImageSourcePropType,
+  type StyleProp,
+  type ViewStyle,
+} from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 
 interface ThemeCardProps {
   name: string;
   spotCount: number;
-  // 서버 연동 시 imageUrl(string)을 { uri: imageUrl }로 매핑
   image: ImageSourcePropType;
+  isHot?: boolean;
+  style?: StyleProp<ViewStyle>;
   onPress: () => void;
 }
 
-export default function ThemeCard({ name, spotCount, image, onPress }: ThemeCardProps) {
+export default function ThemeCard({
+  name,
+  spotCount,
+  image,
+  isHot = false,
+  style,
+  onPress,
+}: ThemeCardProps) {
+  const { t } = useTranslation();
+
   return (
-    <Pressable onPress={onPress} style={styles.card}>
+    <Pressable onPress={onPress} style={[styles.card, style]}>
       <ImageBackground source={image} fadeDuration={0} style={styles.image}>
+        {isHot && (
+          <View style={styles.hotBadge}>
+            <Text typography="st13" weight="bold" color={colors.red[500]}>
+              HOT
+            </Text>
+          </View>
+        )}
         <Text typography="st12" weight="semiBold" color={colors.white} style={styles.textShadow}>
           {name}
         </Text>
         <Text typography="st13" weight="semiBold" color={colors.white} style={styles.textShadow}>
-          {spotCount}개의 도망지
+          {t('spot.theme.spotCount', { count: spotCount })}
         </Text>
       </ImageBackground>
     </Pressable>
@@ -27,8 +52,6 @@ export default function ThemeCard({ name, spotCount, image, onPress }: ThemeCard
 
 const styles = StyleSheet.create({
   card: {
-    width: 140,
-    height: 140,
     overflow: 'hidden',
     borderRadius: 12,
   },
@@ -36,6 +59,15 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     justifyContent: 'flex-end',
     padding: 8,
+  },
+  hotBadge: {
+    position: 'absolute',
+    top: 8,
+    left: 8,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 6,
+    backgroundColor: colors.white,
   },
   textShadow: {
     textShadowColor: colors.greyOpacity[600],
