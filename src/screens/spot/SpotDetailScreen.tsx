@@ -21,8 +21,7 @@ import { Layout, StackHeader } from '@/shared/components/layout';
 import { IconButton } from '@/shared/components/ui';
 import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
-// TODO: 서버 로케일 변환 유틸 전역 관리 검토
-import { toServerLocale } from '@/domains/user/utils/serverLocale';
+import { toServerLocale } from '@/shared/i18n/serverLocale';
 import { ExpandableOverview, SpotAudioGuide, SpotContactActions } from './components';
 import { GetSpotDetailResponse } from '@/domains/spot/types/api';
 

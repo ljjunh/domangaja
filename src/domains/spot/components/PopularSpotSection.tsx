@@ -8,10 +8,8 @@ import { spotQueries } from '@/domains/spot/api/queries';
 import { ClockOutlineIcon } from '@/assets/icons/common';
 import SectionHeader from './SectionHeader';
 import RankedSpotCard from './RankedSpotCard';
-import { useNavigation } from '@react-navigation/native';
 
 export default function PopularSpotSection() {
-  const navigation = useNavigation();
   const { t } = useTranslation();
   const { navigate } = useNavigation();
   const { data: spots } = useSuspenseQuery(spotQueries.getPopularSpots({ limit: 5 }));
@@ -44,7 +42,7 @@ export default function PopularSpotSection() {
               quietness={spot.quietnessScore}
               image={{ uri: spot.imageUrl }}
               onPress={() =>
-                navigation.navigate('SpotDetail', {
+                navigate('SpotDetail', {
                   contentId: spot.contentId,
                 })
               }

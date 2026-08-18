@@ -6,13 +6,13 @@ import { colors } from '@/shared/constants/colors';
 import { useNavigation } from '@react-navigation/native';
 
 export default function TodaySpotBanner() {
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
   const { data: spot } = useSuspenseQuery(spotQueries.getTodaySpot());
 
   return (
     <Pressable
       onPress={() =>
-        navigation.navigate('SpotDetail', {
+        navigate('SpotDetail', {
           contentId: spot.contentId,
         })
       }

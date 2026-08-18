@@ -10,7 +10,6 @@ import SectionHeader from './SectionHeader';
 import SpotListItem from './SpotListItem';
 
 export default function RecentSpotSection() {
-  const navigation = useNavigation();
   const { t } = useTranslation();
   const { navigate } = useNavigation();
   const { data: recentSpots } = useSuspenseQuery(spotQueries.getRecentSpots());
@@ -52,7 +51,7 @@ export default function RecentSpotSection() {
               image={{ uri: spot.imageUrl }}
               isScrapped={spot.scrapped}
               onPressItem={() =>
-                navigation.navigate('SpotDetail', {
+                navigate('SpotDetail', {
                   contentId: spot.contentId,
                 })
               }

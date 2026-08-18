@@ -78,7 +78,7 @@ interface StoryListProps {
 }
 
 export default function StoryList({ bottomInset = 0 }: StoryListProps) {
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
 
   return (
     <FlatList
@@ -96,7 +96,7 @@ export default function StoryList({ bottomInset = 0 }: StoryListProps) {
           placeName={item.placeName}
           viewCount={item.viewCount}
           image={item.image}
-          onPress={() => navigation.navigate('StoryDetail', { storyId: item.id })}
+          onPress={() => navigate('StoryDetail', { storyId: item.id })}
         />
       )}
     />
