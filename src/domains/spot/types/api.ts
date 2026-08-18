@@ -177,6 +177,36 @@ export interface MapSpot {
   imageUrl: string;
   tel: string;
   quietnessScore: number;
+  areaCode: string;
+  sigunguCode: string;
 }
 
 export type GetMapSpotsResponse = MapSpot[];
+
+export interface GetCongestionRequest {
+  areaCode: string;
+  sigunguCode: string;
+  touristSpot: string;
+  year: number;
+  month: number;
+}
+
+export interface DailyQuietness {
+  date: string;
+  quietnessScore: number;
+}
+
+export interface CongestionSpot {
+  touristSpotName: string;
+  daily: DailyQuietness[];
+}
+
+export interface GetCongestionResponse {
+  areaCode: string;
+  areaName: string;
+  sigunguCode: string;
+  sigunguName: string;
+  availableFrom: string;
+  availableTo: string;
+  spots: CongestionSpot[];
+}

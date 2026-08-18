@@ -12,6 +12,7 @@ import {
   getRecentSpots,
   getScraps,
   getMapSpots,
+  getCongestion,
   deleteScrap,
   createScrap,
   getSpotDetail,
@@ -23,6 +24,7 @@ import {
   type GetRecentSpotsRequest,
   type GetScrapsRequest,
   type GetMapSpotsRequest,
+  type GetCongestionRequest,
   type GetScrapsResponse,
   type GetSpotDetailRequest,
   type GetSpotDetailResponse,
@@ -45,6 +47,7 @@ export const spotQueryKeys = {
   recentInfinite: (limit: number) => [...all, 'recent', 'infinite', limit] as const,
   mapAll: [...all, 'map'] as const,
   map: (params: GetMapSpotsRequest) => [...all, 'map', params] as const,
+  congestion: (params: GetCongestionRequest) => [...all, 'congestion', params] as const,
   scrapsAll: [...all, 'scraps'] as const,
   scraps: (params: GetScrapsRequest) => [...all, 'scraps', params] as const,
   detailAll: [...all, 'detail'] as const,
@@ -92,6 +95,12 @@ export const spotQueries = {
       // hasNext가 없는 API — 받은 개수가 limit보다 적으면 마지막 페이지다
       getNextPageParam: (lastPage, _allPages, lastPageParam) =>
         lastPage.length < limit ? undefined : lastPageParam + 1,
+    }),
+
+  getCongestion: (params: GetCongestionRequest) =>
+    queryOptions({
+      queryKey: spotQueryKeys.congestion(params),
+      queryFn: () => getCongestion(params),
     }),
 
   getScraps: (params: GetScrapsRequest) =>

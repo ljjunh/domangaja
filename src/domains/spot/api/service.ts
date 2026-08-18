@@ -18,6 +18,8 @@ import type {
   CreateSpotViewResponse,
   GetMapSpotsRequest,
   GetMapSpotsResponse,
+  GetCongestionRequest,
+  GetCongestionResponse,
 } from '@/domains/spot/types/api';
 
 export const getTodaySpot = async (): Promise<GetTodaySpotResponse> => {
@@ -27,6 +29,14 @@ export const getTodaySpot = async (): Promise<GetTodaySpotResponse> => {
 
 export const getMapSpots = async (params: GetMapSpotsRequest): Promise<GetMapSpotsResponse> => {
   const { data } = await apiClient.get<GetMapSpotsResponse>('/tourism/map', { params });
+  console.log(data);
+  return data;
+};
+
+export const getCongestion = async (
+  params: GetCongestionRequest,
+): Promise<GetCongestionResponse> => {
+  const { data } = await apiClient.get<GetCongestionResponse>('/congestion', { params });
   return data;
 };
 
