@@ -38,7 +38,7 @@
         <category android:name="android.intent.category.BROWSABLE" />
         <data
           android:host="spots"
-          android:scheme="domanggaja" />
+          android:scheme="domangaja" />
       </intent-filter>
     </activity>
 
