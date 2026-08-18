@@ -15,7 +15,6 @@ export { default as GalleryIcon } from './gallery.svg';
 export { default as GiftFillIcon } from './gift-fill.svg';
 export { default as HeartFillIcon } from './heart-fill.svg';
 export { default as HeartOutlineIcon } from './heart-outline.svg';
-export { default as HeartFillIcon } from './heart-fill.svg';
 export { default as InfoCircleFillIcon } from './info-circle-fill.svg';
 export { default as LocationFillIcon } from './location-fill.svg';
 export { default as LogoutFillIcon } from './logout-fill.svg';
