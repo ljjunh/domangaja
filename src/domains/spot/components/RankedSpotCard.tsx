@@ -1,6 +1,7 @@
 import { ImageBackground, StyleSheet, View, type ImageSourcePropType } from 'react-native';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
+import { formatQuietness } from '@/shared/utils/formatQuietness';
 
 interface RankedSpotCardProps {
   rank: number;
@@ -31,7 +32,7 @@ export default function RankedSpotCard({
             {name}
           </Text>
           <Text typography="st12" weight="semiBold" color={colors.grey[500]}>
-            한적도 {quietness}%
+            한적도 {formatQuietness(quietness)}%
           </Text>
         </View>
       </ImageBackground>

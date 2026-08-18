@@ -121,6 +121,8 @@ export default function MapScreen() {
             name={selectedSpot.title}
             region={selectedSpot.address}
             category={selectedSpot.contentTypeId}
+            areaCode={selectedSpot.areaCode}
+            sigunguCode={selectedSpot.sigunguCode}
           />
         </BaseSheet>
       )}
