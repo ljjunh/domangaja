@@ -12,6 +12,7 @@ import {
   LanguageSettingScreen,
   MyInfoScreen,
   NotificationSettingScreen,
+  NotificationScreen,
   ScrapScreen,
   PolicyScreen,
 } from '@/screens';
@@ -56,6 +57,7 @@ export const RootStack = createNativeStackNavigator({
         LanguageSetting: { screen: LanguageSettingScreen },
         MyInfo: { screen: MyInfoScreen },
         NotificationSetting: { screen: NotificationSettingScreen },
+        Notification: { screen: NotificationScreen },
         Scrap: { screen: ScrapScreen },
       },
     },

@@ -61,6 +61,8 @@ export interface RecentSpot {
   theme: SpotTheme;
   viewedAt: string;
   description: string;
+  scrapped: boolean;
+  scrapId: number;
 }
 
 export type GetRecentSpotsResponse = RecentSpot[];
@@ -86,7 +88,38 @@ export interface CreateScrapRequest {
   contentId: string;
   // default: SPOT
   type?: ScrapType;
-  title: string;
+  title?: string;
+  regionName: string;
+  imageUrl: string;
+  quietnessScore: number;
 }
 
 export type CreateScrapResponse = Scrap;
+
+export interface DeleteScrapRequest {
+  contentId: string;
+  // default: SPOT
+  type?: ScrapType;
+}
+
+export interface CreateSpotViewRequest {
+  contentId: string;
+  title: string;
+  regionName?: string;
+  imageUrl?: string;
+  quietnessScore?: number;
+  theme?: SpotTheme;
+}
+
+export interface CreateSpotViewResponse {
+  contentId: string;
+  title: string;
+  regionName: string;
+  imageUrl: string;
+  quietnessScore: number;
+  theme: SpotTheme;
+  viewedAt: string;
+  description: string;
+  scrapped: boolean;
+  scrapId: number | null;
+}

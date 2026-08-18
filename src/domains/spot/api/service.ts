@@ -1,17 +1,19 @@
 import { apiClient } from '@/shared/api/client';
-import type {
-  GetTodaySpotResponse,
-  GetPopularSpotsRequest,
-  GetPopularSpotsResponse,
-  GetWeeklyThemesRequest,
-  GetWeeklyThemesResponse,
-  GetRecentSpotsRequest,
-  GetRecentSpotsResponse,
-  GetScrapsRequest,
-  GetScrapsResponse,
-  CreateScrapRequest,
-  CreateScrapResponse,
-  Scrap,
+import {
+  type GetTodaySpotResponse,
+  type GetPopularSpotsRequest,
+  type GetPopularSpotsResponse,
+  type GetWeeklyThemesRequest,
+  type GetWeeklyThemesResponse,
+  type GetRecentSpotsRequest,
+  type GetRecentSpotsResponse,
+  type GetScrapsRequest,
+  type GetScrapsResponse,
+  type CreateScrapRequest,
+  type CreateScrapResponse,
+  type DeleteScrapRequest,
+  type CreateSpotViewRequest,
+  CreateSpotViewResponse,
 } from '@/domains/spot/types/api';
 
 export const getTodaySpot = async (): Promise<GetTodaySpotResponse> => {
@@ -52,6 +54,13 @@ export const createScrap = async (params: CreateScrapRequest): Promise<CreateScr
   return data;
 };
 
-export const deleteScrap = async (id: Scrap['id']): Promise<void> => {
-  await apiClient.delete(`/scraps/${id}`);
+export const deleteScrap = async (params: DeleteScrapRequest): Promise<void> => {
+  await apiClient.delete('/scraps', { params });
+};
+
+export const createSpotView = async (
+  params: CreateSpotViewRequest,
+): Promise<CreateSpotViewResponse> => {
+  const { data } = await apiClient.post<CreateSpotViewResponse>('/spots/views', params);
+  return data;
 };

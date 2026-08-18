@@ -13,6 +13,7 @@ import { useNotificationPermission } from '@/domains/notification/hooks/useNotif
 import { MAIN_TAB_SCREEN_EDGES, SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { NotificationButton } from '@/domains/notification/components';
 import { userQueries } from '@/domains/user/api/queries';
+import { spotQueries } from '@/domains/spot/api/queries';
 import { getLanguageNativeName } from '@/shared/i18n/languages';
 import { SettingListItem, SettingSection } from './components';
 import { UserFillIcon } from '@/assets/icons/nav';
@@ -37,6 +38,7 @@ export default function SettingScreen() {
   const { isPermissionGranted } = useNotificationPermission();
   const { data: me } = useQuery(userQueries.getMe());
   const { data: notificationSettings } = useQuery(notificationQueries.getNotificationSetting());
+  const { data: scraps } = useQuery(spotQueries.getScraps({ type: 'SPOT' }));
 
   return (
     <Layout edges={MAIN_TAB_SCREEN_EDGES}>
@@ -61,7 +63,7 @@ export default function SettingScreen() {
             icon={ArchiveTickFillIcon}
             iconColor={colors.red[300]}
             label={t('setting.scrap')}
-            value={t('setting.scrapCount', { count: 4 })}
+            value={scraps == null ? undefined : t('setting.scrapCount', { count: scraps.length })}
             onPress={() => navigate('Scrap')}
           />
         </SettingSection>

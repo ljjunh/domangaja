@@ -1,83 +1,74 @@
-import { useState } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { Suspense } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { Layout, StackHeader } from '@/shared/components/layout';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { Text } from '@/shared/components/base';
-import { example1Image, example2Image } from '@/assets/images';
+import { EmptyState } from '@/shared/components/ui';
+import { spotMutations, spotQueries } from '@/domains/spot/api/queries';
 import { SpotListItem } from '@/domains/spot/components';
-
-// TODO: 서버 연동 시 저장 목록 쿼리로 교체, toggle 훅 분리, 낙관적업데이트
-const MOCK_SCRAPPED_SPOTS = [
-  {
-    id: 1,
-    name: '전북 무주 반디랜드',
-    region: '전북 무주',
-    quietness: 91,
-    image: example1Image,
-    isScrapped: true,
-  },
-  {
-    id: 2,
-    name: '강원 양양 죽도해변',
-    region: '강원 양양',
-    quietness: 86,
-    image: example2Image,
-    isScrapped: true,
-  },
-  {
-    id: 3,
-    name: '경북 영양 반딧불이천문대',
-    region: '경북 영양',
-    quietness: 87,
-    image: example1Image,
-    isScrapped: true,
-  },
-  {
-    id: 4,
-    name: '전남 신안 우이도',
-    region: '전남 신안',
-    quietness: 89,
-    image: example2Image,
-    isScrapped: true,
-  },
-];
+import { ArchiveTickOutlineIcon } from '@/assets/icons/common';
+import { ScrapSkeleton } from './components';
 
 export default function ScrapScreen() {
   const { t } = useTranslation();
-  const [spots, setSpots] = useState(MOCK_SCRAPPED_SPOTS);
-
-  const toggleScrap = (id: number) => {
-    setSpots(prev =>
-      prev.map(spot => (spot.id === id ? { ...spot, isScrapped: !spot.isScrapped } : spot)),
-    );
-  };
 
   return (
     <Layout>
       <StackHeader title={t('setting.scrap')} />
-      <FlatList
-        data={spots}
-        keyExtractor={spot => String(spot.id)}
-        contentContainerStyle={styles.list}
-        ListHeaderComponent={
-          <Text typography="t6" weight="semiBold">
-            {t('setting.scrapCount', { count: spots.length })}
-          </Text>
+      <Suspense
+        fallback={
+          <View style={styles.placeholder}>
+            <ScrapSkeleton />
+          </View>
         }
-        renderItem={({ item }) => (
-          <SpotListItem
-            name={item.name}
-            region={item.region}
-            quietness={item.quietness}
-            image={item.image}
-            isScrapped={item.isScrapped}
-            onPressItem={() => console.log('TODO: 도망지 상세로 이동')}
-            onPressScrap={() => toggleScrap(item.id)}
-          />
-        )}
-      />
+      >
+        <ScrapList />
+      </Suspense>
     </Layout>
+  );
+}
+
+function ScrapList() {
+  const { t } = useTranslation();
+  const { data: scraps } = useSuspenseQuery(spotQueries.getScraps({ type: 'SPOT' }));
+  const { mutate: deleteScrap } = useMutation(spotMutations.deleteScrap());
+
+  if (scraps.length === 0) {
+    return (
+      <View style={styles.placeholder}>
+        <EmptyState
+          icon={ArchiveTickOutlineIcon}
+          title={t('spot.scrap.empty.title')}
+          description={t('spot.scrap.empty.description')}
+        />
+      </View>
+    );
+  }
+
+  return (
+    <FlatList
+      data={scraps}
+      keyExtractor={scrap => String(scrap.id)}
+      contentContainerStyle={styles.list}
+      ListHeaderComponent={
+        <Text typography="t6" weight="semiBold">
+          {t('setting.scrapCount', { count: scraps.length })}
+        </Text>
+      }
+      renderItem={({ item }) => (
+        <SpotListItem
+          name={item.title}
+          region={item.regionName}
+          quietness={item.quietnessScore}
+          image={{ uri: item.imageUrl }}
+          isScrapped
+          onPressItem={() => console.log('TODO: 도망지 상세로 이동')}
+          onPressScrap={() => deleteScrap({ contentId: item.contentId })}
+        />
+      )}
+    />
   );
 }
 
@@ -85,5 +76,8 @@ const styles = StyleSheet.create({
   list: {
     paddingHorizontal: SCREEN_PADDING_HORIZONTAL,
     gap: 12,
+  },
+  placeholder: {
+    paddingHorizontal: SCREEN_PADDING_HORIZONTAL,
   },
 });

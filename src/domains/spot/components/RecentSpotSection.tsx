@@ -1,43 +1,32 @@
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { EmptyState } from '@/shared/components/ui';
-import { spotQueries } from '@/domains/spot/api/queries';
-import { example1Image, example2Image } from '@/assets/images';
+import { spotMutations, spotQueries } from '@/domains/spot/api/queries';
+import type { RecentSpot } from '@/domains/spot/types/api';
 import { ClockOutlineIcon } from '@/assets/icons/common';
 import SectionHeader from './SectionHeader';
 import SpotListItem from './SpotListItem';
 
-const MOCK_RESENT_SPOT = [
-  {
-    id: 1,
-    name: '전북 무주 반디랜드',
-    region: '전북 무주',
-    quietness: 91,
-    image: example1Image,
-    isScrapped: true,
-  },
-  {
-    id: 2,
-    name: '강원 양양 죽도해변',
-    region: '강원 양양',
-    quietness: 87,
-    image: example2Image,
-    isScrapped: false,
-  },
-  {
-    id: 3,
-    name: '전북 무주 반디랜드',
-    region: '전북 무주',
-    quietness: 85,
-    image: example1Image,
-    isScrapped: true,
-  },
-];
-
 export default function RecentSpotSection() {
   const { t } = useTranslation();
   const { data: recentSpots } = useSuspenseQuery(spotQueries.getRecentSpots());
+  const { mutate: createScrap } = useMutation(spotMutations.createScrap());
+  const { mutate: deleteScrap } = useMutation(spotMutations.deleteScrap());
+
+  const handlePressScrap = (spot: RecentSpot) => {
+    if (spot.scrapped) {
+      deleteScrap({ contentId: spot.contentId });
+      return;
+    }
+    createScrap({
+      contentId: spot.contentId,
+      title: spot.title,
+      regionName: spot.regionName,
+      imageUrl: spot.imageUrl,
+      quietnessScore: spot.quietnessScore,
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -54,16 +43,16 @@ export default function RecentSpotSection() {
         />
       ) : (
         <View style={styles.list}>
-          {MOCK_RESENT_SPOT.map(spot => (
+          {recentSpots.map(spot => (
             <SpotListItem
-              key={spot.id}
-              name={spot.name}
-              region={spot.region}
-              quietness={spot.quietness}
-              image={spot.image}
-              isScrapped={spot.isScrapped}
+              key={spot.contentId}
+              name={spot.title}
+              region={spot.regionName}
+              quietness={spot.quietnessScore}
+              image={{ uri: spot.imageUrl }}
+              isScrapped={spot.scrapped}
               onPressItem={() => console.log('도망지 상세 페이지로 이동')}
-              onPressScrap={() => console.log('스크랩 api 연동')}
+              onPressScrap={() => handlePressScrap(spot)}
             />
           ))}
         </View>
