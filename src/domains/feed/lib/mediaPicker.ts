@@ -9,6 +9,11 @@ export type PickStoryMediaResult =
   | { status: 'cancelled' }
   | { status: 'noPermission' };
 
+export type PickFeedPhotoResult =
+  | { status: 'picked'; file: UploadFile }
+  | { status: 'cancelled' }
+  | { status: 'noPermission' };
+
 function getErrorCode(error: unknown): string | undefined {
   if (typeof error === 'object' && error !== null && 'code' in error) {
     return (error as { code?: string }).code;
@@ -38,6 +43,27 @@ export async function pickStoryMedia(): Promise<PickStoryMediaResult> {
       return { status: 'noPermission' };
     }
     console.warn('미디어 선택 실패', error);
+    return { status: 'cancelled' };
+  }
+}
+
+// 크롭 없이 사진 원본 1장만 선택 (피드는 영상 불가)
+export async function pickFeedPhoto(): Promise<PickFeedPhotoResult> {
+  try {
+    const image = await ImagePicker.openPicker({ mediaType: 'photo' });
+    return {
+      status: 'picked',
+      file: { uri: image.path, mime: image.mime, fileName: image.filename ?? 'feed.jpg' },
+    };
+  } catch (error) {
+    const code = getErrorCode(error);
+    if (code === CANCELLED_CODE) {
+      return { status: 'cancelled' };
+    }
+    if (code === NO_PERMISSION_CODE) {
+      return { status: 'noPermission' };
+    }
+    console.warn('이미지 선택 실패', error);
     return { status: 'cancelled' };
   }
 }

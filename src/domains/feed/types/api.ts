@@ -44,6 +44,41 @@ export interface StoryLikeResponse {
   count: number;
 }
 
+export interface CreateFeedRequest {
+  category?: string;
+  regionName: string;
+  spotName: string;
+  latitude: number;
+  longitude: number;
+  title: string;
+  content: string;
+  imageUrl: string;
+  quietnessScore?: number;
+}
+
+export interface Feed {
+  id: number;
+  userId: number;
+  authorNickname: string;
+  category: string;
+  regionName: string;
+  spotName: string;
+  latitude: number;
+  longitude: number;
+  title: string;
+  content: string;
+  imageUrl: string;
+  quietnessScore: number | null;
+  viewCount: number;
+  commentCount: number;
+  bookmarkCount: number;
+  bookmarkedByMe: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type CreateFeedResponse = Feed;
+
 export type ReportTargetType = 'STORY';
 
 export interface CreateReportRequest {

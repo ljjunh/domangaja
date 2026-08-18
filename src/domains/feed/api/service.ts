@@ -1,5 +1,7 @@
 import { apiClient } from '@/shared/api/client';
 import type {
+  CreateFeedRequest,
+  CreateFeedResponse,
   CreateReportRequest,
   CreateReportResponse,
   CreateStoryRequest,
@@ -9,6 +11,11 @@ import type {
   Story,
   StoryLikeResponse,
 } from '@/domains/feed/types/api';
+
+export const createFeed = async (params: CreateFeedRequest): Promise<CreateFeedResponse> => {
+  const { data } = await apiClient.post<CreateFeedResponse>('/community/feeds', params);
+  return data;
+};
 
 export const createStory = async (params: CreateStoryRequest): Promise<CreateStoryResponse> => {
   const { data } = await apiClient.post<CreateStoryResponse>('/community/stories', params);
@@ -35,9 +42,7 @@ export const likeStory = async (storyId: number): Promise<StoryLikeResponse> => 
 };
 
 export const unlikeStory = async (storyId: number): Promise<StoryLikeResponse> => {
-  const { data } = await apiClient.delete<StoryLikeResponse>(
-    `/community/stories/${storyId}/likes`,
-  );
+  const { data } = await apiClient.delete<StoryLikeResponse>(`/community/stories/${storyId}/likes`);
   return data;
 };
 

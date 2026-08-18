@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { type StaticScreenProps, useNavigation } from '@react-navigation/native';
+import { StackActions, type StaticScreenProps, useNavigation } from '@react-navigation/native';
 import { useMutation } from '@tanstack/react-query';
 import Toast from 'react-native-toast-message';
 import { Layout } from '@/shared/components/layout';
@@ -90,10 +90,11 @@ export default function StoryWriteScreen(_props: StoryWriteScreenProps) {
     createStory(
       { ...MOCK_STORY_LOCATION, imageUrl },
       {
-        // 등록 성공 응답이 상세 데이터와 동일한 구조라 상세 조회 API를 다시 부르지 않고 그대로 넘긴다
+        // 등록 성공 응답이 상세 데이터와 동일한 구조라 상세 조회 API를 다시 부르지 않고 그대로 넘긴다.
+        // navigate가 아니라 replace — 작성 화면을 스택에서 지워야 상세에서 닫았을 때 목록으로 바로 돌아간다
         onSuccess: story => {
           setIsProcessing(false);
-          navigation.navigate('StoryDetail', { story });
+          navigation.dispatch(StackActions.replace('StoryDetail', { story }));
         },
         onError: () => {
           setIsProcessing(false);

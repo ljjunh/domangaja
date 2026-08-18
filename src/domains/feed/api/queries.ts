@@ -6,6 +6,7 @@ import {
 } from '@tanstack/react-query';
 import { queryClient } from '@/shared/api/queryClient';
 import {
+  createFeed,
   createStory,
   deleteStory,
   getStories,
@@ -70,9 +71,16 @@ function removeStoryFromCaches(storyId: number) {
 const TEMP_REPORT_REASON = '부적절한 콘텐츠';
 
 export const feedMutations = {
+  createFeed: () =>
+    mutationOptions({
+      mutationFn: createFeed,
+    }),
+
   createStory: () =>
     mutationOptions({
       mutationFn: createStory,
+      // 방금 등록한 스토리가 목록에 바로 보이도록 — 상세 화면을 닫고 돌아왔을 때 최신 목록이어야 한다
+      onSuccess: () => queryClient.invalidateQueries({ queryKey: feedQueryKeys.storyList }),
     }),
 
   deleteStory: () =>
