@@ -44,7 +44,75 @@ export interface StoryLikeResponse {
   count: number;
 }
 
-export type ReportTargetType = 'STORY';
+export interface CreateFeedRequest {
+  category?: string;
+  regionName: string;
+  spotName: string;
+  latitude: number;
+  longitude: number;
+  title: string;
+  content: string;
+  imageUrl: string;
+  quietnessScore?: number;
+}
+
+export interface Feed {
+  id: number;
+  userId: number;
+  authorNickname: string;
+  category: string;
+  regionName: string;
+  spotName: string;
+  latitude: number;
+  longitude: number;
+  title: string;
+  content: string;
+  imageUrl: string;
+  quietnessScore: number | null;
+  viewCount: number;
+  commentCount: number;
+  bookmarkCount: number;
+  bookmarkedByMe: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type CreateFeedResponse = Feed;
+
+export interface FeedBookmarkResponse {
+  active: boolean;
+  count: number;
+}
+
+export type FeedCategory =
+  | 'SEA'
+  | 'MOUNTAIN'
+  | 'ISLAND'
+  | 'FIELD'
+  | 'NIGHT_SKY'
+  | 'VALLEY'
+  | 'CITY'
+  | 'ETC';
+
+export type FeedSort = 'LATEST' | 'VIEWS' | 'POPULAR';
+
+export interface GetFeedsRequest {
+  category?: FeedCategory;
+  page?: number;
+  size?: number;
+  sort?: FeedSort;
+}
+
+export interface GetFeedsResponse {
+  content: Feed[];
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  hasNext: boolean;
+}
+
+export type ReportTargetType = 'STORY' | 'FEED';
 
 export interface CreateReportRequest {
   targetType: ReportTargetType;
