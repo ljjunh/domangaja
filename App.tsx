@@ -7,6 +7,10 @@ import Toast from 'react-native-toast-message';
 import { toastConfig } from '@/shared/lib/toastConfig';
 import '@/shared/i18n';
 import { Navigation } from '@/shared/navigations/index';
+import {
+  flushPendingDeepLinkNavigation,
+  useDeepLinkNavigation,
+} from '@/shared/navigations/useDeepLinkNavigation';
 import { queryClient } from '@/shared/api/queryClient';
 import { OverlayProvider } from '@/shared/overlay';
 import { AppErrorBoundary } from '@/shared/components/error';
@@ -21,6 +25,11 @@ import {
 import { useForegroundPush } from '@/domains/notification/hooks/useForegroundPush';
 import { useNotificationPermissionRequest } from '@/domains/notification/hooks/useNotificationPermissionRequest';
 
+function flushPendingNavigation() {
+  flushPendingPushNavigation();
+  flushPendingDeepLinkNavigation();
+}
+
 function App() {
   return (
     <GestureHandlerRootView style={styles.root}>
@@ -30,7 +39,7 @@ function App() {
           <AppErrorBoundary>
             <AppBootstrap>
               <OverlayProvider>
-                <Navigation onReady={flushPendingPushNavigation} />
+                <Navigation onReady={flushPendingNavigation} />
               </OverlayProvider>
             </AppBootstrap>
           </AppErrorBoundary>
@@ -47,6 +56,7 @@ function App() {
  */
 function AppBootstrap({ children }: { children: ReactNode }) {
   useAppBootstrap();
+  useDeepLinkNavigation();
   useDeviceTokenSync();
   usePushNavigation();
   useForegroundPush();
