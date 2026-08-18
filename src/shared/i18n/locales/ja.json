@@ -154,6 +154,16 @@
         "title": "まだ保存した場所がありません",
         "description": "気に入った場所を保存しておきましょう。"
       }
+    },
+    "theme": {
+      "title": "今週の人気テーマ",
+      "count": "全{{count}}テーマ",
+      "spotCount_one": "{{count}}件の場所",
+      "spotCount_other": "{{count}}件の場所",
+      "empty": {
+        "title": "まだ人気テーマがありません",
+        "description": "データが集まったら今週の人気テーマをお見せします。"
+      }
     }
   },
   "home": {

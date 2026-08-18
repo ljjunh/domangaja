@@ -154,6 +154,16 @@
         "title": "아직 저장한 곳이 없어요",
         "description": "마음에 드는 도망지를 저장해보세요."
       }
+    },
+    "theme": {
+      "title": "이번주 인기 테마",
+      "count": "전체 {{count}}개 테마",
+      "spotCount_one": "{{count}}개의 도망지",
+      "spotCount_other": "{{count}}개의 도망지",
+      "empty": {
+        "title": "아직 인기 테마가 없어요",
+        "description": "데이터가 모이면 이번주 인기 테마를 보여드릴게요."
+      }
     }
   },
   "home": {

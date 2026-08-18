@@ -154,6 +154,16 @@
         "title": "還沒有收藏的地點",
         "description": "把喜歡的地點收藏起來吧。"
       }
+    },
+    "theme": {
+      "title": "本週熱門主題",
+      "count": "共{{count}}個主題",
+      "spotCount_one": "{{count}}個地點",
+      "spotCount_other": "{{count}}個地點",
+      "empty": {
+        "title": "暫無熱門主題",
+        "description": "資料累積後將為您顯示本週熱門主題。"
+      }
     }
   },
   "home": {
