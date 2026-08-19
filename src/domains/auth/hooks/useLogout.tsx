@@ -7,7 +7,6 @@ import { overlay } from '@/shared/overlay';
 import { useAuthStore } from '@/shared/store/authStore';
 import { tokenStorage } from '@/shared/api/tokenStorage';
 import { queryClient } from '@/shared/api/queryClient';
-import { userQueryKeys } from '@/domains/user/api/queries';
 import { colors } from '@/shared/constants/colors';
 import { IS_IOS } from '@/shared/constants/platform';
 import { getFcmToken } from '@/domains/notification/lib/fcm';
@@ -28,7 +27,7 @@ export const useLogout = () => {
         }
 
         await tokenStorage.clear();
-        queryClient.removeQueries({ queryKey: userQueryKeys.all });
+        queryClient.clear();
         logout();
         close();
       };

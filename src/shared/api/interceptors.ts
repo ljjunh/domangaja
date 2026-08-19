@@ -2,6 +2,7 @@ import axios, { type AxiosResponse, type AxiosError, type InternalAxiosRequestCo
 import { useAuthStore } from '@/shared/store/authStore';
 import { useAppStatusStore } from '@/shared/store/appStatusStore';
 import { tokenStorage } from '@/shared/api/tokenStorage';
+import { queryClient } from '@/shared/api/queryClient';
 import { reportError } from '@/shared/lib/crashlytics';
 
 /**
@@ -90,6 +91,7 @@ export async function rejectInterceptor(error: AxiosError) {
       return await axios(config);
     } catch {
       await tokenStorage.clear();
+      queryClient.clear();
       useAuthStore.getState().logout();
       throw error;
     } finally {

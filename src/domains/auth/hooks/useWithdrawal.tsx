@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { overlay } from '@/shared/overlay';
 import { useAuthStore } from '@/shared/store/authStore';
 import { tokenStorage } from '@/shared/api/tokenStorage';
+import { queryClient } from '@/shared/api/queryClient';
 import { WithdrawalSheet } from '@/domains/auth/components';
 import { authMutations } from '@/domains/auth/api/queries';
 
@@ -15,6 +16,7 @@ export const useWithdrawal = () => {
         withdrawAccount(undefined, {
           onSuccess: async () => {
             await tokenStorage.clear();
+            queryClient.clear();
             logout();
           },
         });
