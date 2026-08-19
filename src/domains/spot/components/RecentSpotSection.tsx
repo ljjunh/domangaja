@@ -12,7 +12,7 @@ import SpotListItem from './SpotListItem';
 export default function RecentSpotSection() {
   const { t } = useTranslation();
   const { navigate } = useNavigation();
-  const { data: recentSpots } = useSuspenseQuery(spotQueries.getRecentSpots());
+  const { data: recentSpots } = useSuspenseQuery(spotQueries.getRecentSpots({ limit: 3 }));
   const { mutate: createScrap } = useMutation(spotMutations.createScrap());
   const { mutate: deleteScrap } = useMutation(spotMutations.deleteScrap());
 
