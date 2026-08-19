@@ -36,8 +36,13 @@ export function toImageUrl(path: string | null): string | null {
   if (path == null || path === '') {
     return null;
   }
+  // KTO 이미지가 http로 내려와 iOS ATS(NSAllowsArbitraryLoads=false)와
+  // Android cleartext 정책에 막힌다. 같은 주소가 https로도 응답하므로 올려준다
+  if (path.startsWith('http://')) {
+    return path.replace('http://', 'https://');
+  }
   // 서버가 절대 URL로 바꿔주는 날 이중 접두를 막는다
-  if (path.startsWith('http')) {
+  if (path.startsWith('https://')) {
     return path;
   }
   return `${API_HOST}${path}`;

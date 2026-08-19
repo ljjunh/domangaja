@@ -1,7 +1,9 @@
 export { default as PopularSpotSection } from './PopularSpotSection';
 export { default as QuietnessCalendar } from './QuietnessCalendar';
+export { default as QuietnessLegend } from './QuietnessLegend';
 export { default as RecentSpotSection } from './RecentSpotSection';
 export { default as SectionHeader } from './SectionHeader';
+export { default as SpotContactActions } from './SpotContactActions';
 export { default as SpotListItem } from './SpotListItem';
 export { default as SpotMarker } from './SpotMarker';
 export { default as SpotSheetContent } from './SpotSheetContent';

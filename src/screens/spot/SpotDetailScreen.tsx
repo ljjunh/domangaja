@@ -15,14 +15,15 @@ import { audioGuideQueries } from '@/domains/audioGuide/api/queries';
 import { SpotAudioGuide } from '@/domains/audioGuide/components';
 import { matchAudioGuides } from '@/domains/audioGuide/utils/matchAudioGuide';
 import { spotMutations, spotQueries } from '@/domains/spot/api/queries';
+import { SpotContactActions } from '@/domains/spot/components';
 import { toSpotDetailViewData } from '@/domains/spot/utils/spotDetail';
 import { Text } from '@/shared/components/base';
 import { Layout, StackHeader } from '@/shared/components/layout';
-import { IconButton } from '@/shared/components/ui';
+import { ExpandableText, IconButton } from '@/shared/components/ui';
 import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { toServerLocale } from '@/shared/i18n/serverLocale';
-import { ExpandableOverview, SpotContactActions, SpotDetailSkeleton } from './components';
+import { SpotDetailSkeleton } from './components';
 import { GetSpotDetailResponse } from '@/domains/spot/types/api';
 
 type Props = StaticScreenProps<{ contentId: GetSpotDetailResponse['contentId'] }>;
@@ -124,9 +125,7 @@ function SpotDetailContent({ contentId }: { contentId: GetSpotDetailResponse['co
             )}
           </View>
           {matchedAudioGuides.length > 0 && <SpotAudioGuide guides={matchedAudioGuides} />}
-          {detail.overview && (
-            <ExpandableOverview key={detail.overview} overview={detail.overview} />
-          )}
+          {detail.overview && <ExpandableText key={detail.overview} text={detail.overview} />}
           <SpotContactActions homepageUrl={detail.homepageUrl} tel={detail.tel} />
         </View>
       </ScrollView>

@@ -2,7 +2,9 @@
   "common": {
     "cancel": "취소",
     "confirm": "확인",
-    "all": "전체"
+    "all": "전체",
+    "more": "더보기",
+    "collapse": "접기"
   },
   "logout": {
     "title": "로그아웃",
@@ -133,16 +135,9 @@
       "calendar": "캘린더",
       "tourInfo": "관광정보"
     },
-    "weeklyVisitors": "주간 방문객",
-    "trend": "추세",
-    "audioGuide": "오디오 가이드",
     "bestDayTitle": "{{date}}이 가장 한적해요",
     "bestDaySubtitle": "예측 한적도 {{score}} · 이날을 추천드려요",
-    "quietnessLevel": {
-      "quiet": "한적",
-      "normal": "보통",
-      "crowded": "혼잡"
-    }
+    "emptyTourInfo": "소개 정보가 아직 없어요."
   },
   "spot": {
     "popular": {
@@ -178,6 +173,11 @@
         "title": "아직 인기 테마가 없어요",
         "description": "데이터가 모이면 이번주 인기 테마를 보여드릴게요."
       }
+    },
+    "quietnessLevel": {
+      "quiet": "한적",
+      "normal": "보통",
+      "crowded": "혼잡"
     }
   },
   "home": {

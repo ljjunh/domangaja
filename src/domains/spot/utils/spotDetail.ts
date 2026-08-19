@@ -1,3 +1,4 @@
+import { toImageUrl } from '@/shared/api/service';
 import type { GetSpotDetailResponse } from '@/domains/spot/types/api';
 import { getSpotContentTypeLabel } from '@/domains/spot/constants/contentType';
 
@@ -25,7 +26,7 @@ function getHomepageUrl(value: string): string | null {
 export function toSpotDetailViewData(spot: GetSpotDetailResponse) {
   return {
     ...spot,
-    imageUrl: spot.imageUrl?.trim() || spot.thumbnailUrl?.trim() || null,
+    imageUrl: toImageUrl(spot.imageUrl?.trim() || spot.thumbnailUrl?.trim() || null),
     overview: sanitizeHtmlToText(spot.overview ?? '') || null,
     homepageUrl: getHomepageUrl(spot.homepage ?? ''),
     tel: spot.tel?.trim() || null,

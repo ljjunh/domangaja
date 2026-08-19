@@ -6,6 +6,7 @@ import { parsePushAction } from '@/domains/notification/utils/pushAction';
 export const useForegroundPush = () => {
   useEffect(function handleForegroundPush() {
     return onForegroundPush(message => {
+      console.log('푸쉬옴', message);
       const action = parsePushAction(message.data);
       const text = message.body ?? message.title;
 

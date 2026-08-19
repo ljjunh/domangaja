@@ -6,12 +6,10 @@ import { colors } from '@/shared/constants/colors';
 import { IconButton } from '@/shared/components/ui';
 import { ArrowLeftIcon, ArrowRightIcon } from '@/assets/icons/common';
 import { useTranslation } from 'react-i18next';
-import { getQuietnessLevel, QUIETNESS_LEVEL_COLORS, QuietnessLevel } from '../constants/quietness';
+import { getQuietnessLevel, QUIETNESS_LEVEL_COLORS } from '../constants/quietness';
+import QuietnessLegend from './QuietnessLegend';
 import { spotQueries } from '@/domains/spot/api/queries';
 import { canGoNextMonth, canGoPrevMonth, toDailyQuietness } from '@/domains/spot/utils/congestion';
-
-// 범례 표시 순서
-const QUIETNESS_LEVELS: QuietnessLevel[] = ['quiet', 'normal', 'crowded'];
 
 function buildMonthGrid(monthDate: Date): (number | null)[][] {
   const year = monthDate.getFullYear();
@@ -121,7 +119,7 @@ export default function QuietnessCalendar({
   sigunguCode,
   touristSpot,
 }: QuietnessCalendarProps) {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   // 항상 '그 달의 1일'이 기본값(31일에서 월 이동하면 달을 건너뛰는 이월 버그 방지)
   const [visibleMonth, setVisibleMonth] = useState(() => {
     const today = new Date();
@@ -215,19 +213,7 @@ export default function QuietnessCalendar({
         ))}
       </View>
 
-      {/* 범례 */}
-      <View style={styles.legend}>
-        {QUIETNESS_LEVELS.map(level => (
-          <View key={level} style={styles.legendItem}>
-            <View
-              style={[styles.legendDot, { backgroundColor: QUIETNESS_LEVEL_COLORS[level].ink }]}
-            />
-            <Text typography="st12" weight="medium">
-              {t(`spotSheet.quietnessLevel.${level}`)}
-            </Text>
-          </View>
-        ))}
-      </View>
+      <QuietnessLegend />
     </View>
   );
 }
@@ -275,20 +261,5 @@ const styles = StyleSheet.create({
   },
   bannerTexts: {
     flex: 1,
-  },
-  legend: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 10,
-  },
-  legendItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  legendDot: {
-    width: 12,
-    height: 12,
-    borderRadius: 4,
   },
 });

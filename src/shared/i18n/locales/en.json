@@ -2,7 +2,9 @@
   "common": {
     "cancel": "Cancel",
     "confirm": "OK",
-    "all": "All"
+    "all": "All",
+    "more": "Show more",
+    "collapse": "Show less"
   },
   "logout": {
     "title": "Log Out",
@@ -133,16 +135,9 @@
       "calendar": "Calendar",
       "tourInfo": "Tour Info"
     },
-    "weeklyVisitors": "Weekly Visitors",
-    "trend": "Trend",
-    "audioGuide": "Audio Guide",
     "bestDayTitle": "{{date}} is the quietest",
     "bestDaySubtitle": "Predicted quietness {{score}} · We recommend this day",
-    "quietnessLevel": {
-      "quiet": "Quiet",
-      "normal": "Moderate",
-      "crowded": "Crowded"
-    }
+    "emptyTourInfo": "No description available yet."
   },
   "spot": {
     "popular": {
@@ -178,6 +173,11 @@
         "title": "No trending themes yet",
         "description": "We'll show trending themes once enough data is in."
       }
+    },
+    "quietnessLevel": {
+      "quiet": "Quiet",
+      "normal": "Moderate",
+      "crowded": "Crowded"
     }
   },
   "home": {

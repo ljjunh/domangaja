@@ -43,7 +43,7 @@ export default function BaseSheet({
 }: BaseSheetProps) {
   // 시트는 SafeArea 밖에서 물리 화면 바닥에 붙으므로 시스템 네비 인셋까지 포함
   const mainTabBarSpace = useMainTabBarSpace({ fromPhysicalBottom: true });
-  const { bottom } = useSafeAreaInsets();
+  const { top, bottom } = useSafeAreaInsets();
 
   return (
     <BottomSheet
@@ -53,6 +53,8 @@ export default function BaseSheet({
       handleIndicatorStyle={styles.handle}
       backgroundStyle={styles.background}
       backdropComponent={withBackdrop ? SheetBackdrop : undefined}
+      // 콘텐츠가 길어도 상태바/노치를 덮지 않게 최대 높이를 제한한다
+      topInset={top}
       {...bottomSheetProps}
     >
       {/* 콘텐츠가 시트 최대 높이(화면)를 넘으면 잘리는 대신 시트 안에서 스크롤 */}
