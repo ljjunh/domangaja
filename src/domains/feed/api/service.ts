@@ -1,5 +1,8 @@
 import { apiClient } from '@/shared/api/client';
 import type {
+  CommentLikeResponse,
+  CreateCommentRequest,
+  CreateCommentResponse,
   CreateFeedRequest,
   CreateFeedResponse,
   CreateReportRequest,
@@ -8,6 +11,7 @@ import type {
   CreateStoryResponse,
   Feed,
   FeedBookmarkResponse,
+  GetCommentsResponse,
   GetFeedsRequest,
   GetFeedsResponse,
   GetStoriesRequest,
@@ -54,6 +58,52 @@ export const bookmarkFeed = async (feedId: number): Promise<FeedBookmarkResponse
 export const unbookmarkFeed = async (feedId: number): Promise<FeedBookmarkResponse> => {
   const { data } = await apiClient.delete<FeedBookmarkResponse>(
     `/community/feeds/${feedId}/bookmark`,
+  );
+  return data;
+};
+
+export const getComments = async (feedId: number): Promise<GetCommentsResponse> => {
+  const { data } = await apiClient.get<GetCommentsResponse>(`/community/feeds/${feedId}/comments`);
+  return data;
+};
+
+export const createComment = async (
+  feedId: number,
+  params: CreateCommentRequest,
+): Promise<CreateCommentResponse> => {
+  const { data } = await apiClient.post<CreateCommentResponse>(
+    `/community/feeds/${feedId}/comments`,
+    params,
+  );
+  return data;
+};
+
+export const deleteComment = async (feedId: number, commentId: number): Promise<void> => {
+  await apiClient.delete(`/community/feeds/${feedId}/comments/${commentId}`);
+};
+
+export const reportComment = async (
+  commentId: number,
+  reason: string,
+): Promise<CreateReportResponse> =>
+  createReport({ targetType: 'COMMENT', targetId: commentId, reason });
+
+export const likeComment = async (
+  feedId: number,
+  commentId: number,
+): Promise<CommentLikeResponse> => {
+  const { data } = await apiClient.post<CommentLikeResponse>(
+    `/community/feeds/${feedId}/comments/${commentId}/likes`,
+  );
+  return data;
+};
+
+export const unlikeComment = async (
+  feedId: number,
+  commentId: number,
+): Promise<CommentLikeResponse> => {
+  const { data } = await apiClient.delete<CommentLikeResponse>(
+    `/community/feeds/${feedId}/comments/${commentId}/likes`,
   );
   return data;
 };

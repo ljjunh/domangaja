@@ -112,7 +112,31 @@ export interface GetFeedsResponse {
   hasNext: boolean;
 }
 
-export type ReportTargetType = 'STORY' | 'FEED';
+export interface Comment {
+  id: number;
+  feedId: number;
+  userId: number;
+  authorNickname: string;
+  content: string;
+  likeCount: number;
+  likedByMe: boolean;
+  createdAt: string;
+}
+
+export type GetCommentsResponse = Comment[];
+
+export interface CreateCommentRequest {
+  content: string;
+}
+
+export type CreateCommentResponse = Comment;
+
+export interface CommentLikeResponse {
+  active: boolean;
+  count: number;
+}
+
+export type ReportTargetType = 'STORY' | 'FEED' | 'COMMENT';
 
 export interface CreateReportRequest {
   targetType: ReportTargetType;
