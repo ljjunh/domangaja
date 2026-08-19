@@ -1,60 +1,58 @@
-import { StyleSheet, View } from 'react-native';
+import { type ReactNode } from 'react';
+import { ImageBackground, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Pressable, Text } from '@/shared/components/base';
+import { useQuery } from '@tanstack/react-query';
+import { Text } from '@/shared/components/base';
+import { ExpandableText } from '@/shared/components/ui';
 import { colors } from '@/shared/constants/colors';
-import { PlayFillIcon } from '@/assets/icons/common';
+import { toServerLocale } from '@/shared/i18n/serverLocale';
+import { spotQueries } from '@/domains/spot/api/queries';
+import { toSpotDetailViewData } from '@/domains/spot/utils/spotDetail';
+import SpotContactActions from './SpotContactActions';
 
-const MOCK_TAGS = ['들판', '문학', '호수'];
+interface SpotTourInfoProps {
+  contentId: string;
+  /**
+   * 오디오 가이드는 audioGuide 도메인 데이터라 여기서 직접 못 가져온다
+   * (도메인끼리 참조 금지) — 화면이 만들어 넣어준다
+   */
+  audioGuide?: ReactNode;
+}
 
-export default function SpotTourInfo() {
-  const { t } = useTranslation();
+export default function SpotTourInfo({ contentId, audioGuide }: SpotTourInfoProps) {
+  const { t, i18n } = useTranslation();
+  // 시트 안이라 Suspense 경계가 없다 — 도착 전에는 아무것도 그리지 않는다.
+  // 탭을 눌렀을 때만 마운트되므로 캘린더만 보고 닫으면 요청도 안 나간다
+  const { data: spot, isPending } = useQuery(
+    spotQueries.getSpotDetail({ contentId, lang: toServerLocale(i18n.language) }),
+  );
+
+  if (isPending) {
+    return null;
+  }
+
+  const detail = spot == null ? null : toSpotDetailViewData(spot);
 
   return (
     <View style={styles.container}>
-      <Text typography="t6" weight="medium" color={colors.grey[700]}>
-        소설 토지의 무대가 된 들판. 너른 평야에 사람보다 바람이 많아요.
-      </Text>
-      <View style={styles.tags}>
-        {MOCK_TAGS.map(tag => (
-          <View key={tag} style={styles.tag}>
-            <Text typography="st12" weight="semiBold" color={colors.grey[700]}>
-              #{tag}
-            </Text>
-          </View>
-        ))}
-      </View>
-      <View style={styles.statRow}>
-        <View style={styles.statCard}>
-          <Text typography="st12" weight="semiBold" color={colors.grey[600]}>
-            {t('spotSheet.weeklyVisitors')}
-          </Text>
-          <Text typography="t4" weight="semiBold">
-            1.1 천명
-          </Text>
-        </View>
-        <View style={styles.statCard}>
-          <Text typography="st12" weight="semiBold" color={colors.grey[600]}>
-            {t('spotSheet.trend')}
-          </Text>
-          <Text typography="t4" weight="semiBold" color={colors.blue[500]}>
-            +2
-          </Text>
-        </View>
-      </View>
-
-      <View style={styles.audioGuideCard}>
-        <Pressable style={styles.playButton}>
-          <PlayFillIcon width={36} height={36} color={colors.white} />
-        </Pressable>
-        <View>
-          <Text typography="t7" weight="semiBold">
-            {t('spotSheet.audioGuide')}
-          </Text>
-          <Text typography="st12" weight="semiBold" color={colors.grey[600]}>
-            4분 32초
-          </Text>
-        </View>
-      </View>
+      {/* imageUrl -> thumbnailUrl 폴백까지 실패하면 빈 칸을 남기지 않고 아예 뺀다 */}
+      {detail?.imageUrl != null && (
+        <ImageBackground
+          source={{ uri: detail.imageUrl }}
+          style={styles.hero}
+          imageStyle={styles.heroImage}
+        />
+      )}
+      {/* KTO에 소개글이 없는 관광지가 있다 */}
+      {detail?.overview == null ? (
+        <Text typography="t6" weight="medium" color={colors.grey[700]}>
+          {t('spotSheet.emptyTourInfo')}
+        </Text>
+      ) : (
+        <ExpandableText key={detail.overview} text={detail.overview} />
+      )}
+      {detail != null && <SpotContactActions homepageUrl={detail.homepageUrl} tel={detail.tel} />}
+      {audioGuide}
     </View>
   );
 }
@@ -62,38 +60,13 @@ export default function SpotTourInfo() {
 const styles = StyleSheet.create({
   container: {
     gap: 10,
+    paddingBottom: 10,
   },
-  tags: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 10,
+  hero: {
+    height: 160,
   },
-  tag: {
-    paddingVertical: 2,
-    paddingHorizontal: 10,
+  heroImage: {
     backgroundColor: colors.grey[100],
     borderRadius: 12,
-  },
-  statRow: {
-    flexDirection: 'row',
-    gap: 10,
-  },
-  statCard: {
-    flex: 1,
-    backgroundColor: colors.grey[100],
-    padding: 10,
-    borderRadius: 8,
-  },
-  audioGuideCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 10,
-    gap: 10,
-    backgroundColor: colors.grey[100],
-    borderRadius: 8,
-  },
-  playButton: {
-    backgroundColor: colors.blue[500],
-    borderRadius: 25,
   },
 });

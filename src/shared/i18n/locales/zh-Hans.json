@@ -2,7 +2,9 @@
   "common": {
     "cancel": "取消",
     "confirm": "确认",
-    "all": "全部"
+    "all": "全部",
+    "more": "展开",
+    "collapse": "收起"
   },
   "logout": {
     "title": "退出登录",
@@ -133,16 +135,9 @@
       "calendar": "日历",
       "tourInfo": "旅游信息"
     },
-    "weeklyVisitors": "每周访客",
-    "trend": "趋势",
-    "audioGuide": "语音导览",
     "bestDayTitle": "{{date}}最清静",
     "bestDaySubtitle": "预测清静度 {{score}} · 推荐这一天",
-    "quietnessLevel": {
-      "quiet": "清静",
-      "normal": "一般",
-      "crowded": "拥挤"
-    }
+    "emptyTourInfo": "暂无介绍信息。"
   },
   "spot": {
     "popular": {
@@ -178,6 +173,11 @@
         "title": "暂无热门主题",
         "description": "数据积累后将为您展示本周热门主题。"
       }
+    },
+    "quietnessLevel": {
+      "quiet": "清静",
+      "normal": "一般",
+      "crowded": "拥挤"
     }
   },
   "home": {

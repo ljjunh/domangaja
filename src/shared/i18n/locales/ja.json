@@ -2,7 +2,9 @@
   "common": {
     "cancel": "キャンセル",
     "confirm": "確認",
-    "all": "すべて"
+    "all": "すべて",
+    "more": "もっと見る",
+    "collapse": "閉じる"
   },
   "logout": {
     "title": "ログアウト",
@@ -133,16 +135,9 @@
       "calendar": "カレンダー",
       "tourInfo": "観光情報"
     },
-    "weeklyVisitors": "週間訪問者数",
-    "trend": "推移",
-    "audioGuide": "オーディオガイド",
     "bestDayTitle": "{{date}}が最も空いています",
     "bestDaySubtitle": "予測閑散度 {{score}} ・ この日がおすすめです",
-    "quietnessLevel": {
-      "quiet": "閑散",
-      "normal": "普通",
-      "crowded": "混雑"
-    }
+    "emptyTourInfo": "まだ紹介情報がありません。"
   },
   "spot": {
     "popular": {
@@ -178,6 +173,11 @@
         "title": "まだ人気テーマがありません",
         "description": "データが集まったら今週の人気テーマをお見せします。"
       }
+    },
+    "quietnessLevel": {
+      "quiet": "閑散",
+      "normal": "普通",
+      "crowded": "混雑"
     }
   },
   "home": {
