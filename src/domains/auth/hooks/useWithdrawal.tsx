@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { overlay } from '@/shared/overlay';
 import { useAuthStore } from '@/shared/store/authStore';
 import { tokenStorage } from '@/shared/api/tokenStorage';
+import { queryClient } from '@/shared/api/queryClient';
 import { WithdrawalSheet } from '@/domains/auth/components';
 import { authMutations } from '@/domains/auth/api/queries';
 
@@ -15,6 +16,8 @@ export const useWithdrawal = () => {
         withdrawAccount(undefined, {
           onSuccess: async () => {
             await tokenStorage.clear();
+            // 다음에 로그인하는 계정 화면에 이전 사용자 기준 캐시(좋아요/북마크 등)가 남지 않게 한다
+            queryClient.clear();
             logout();
           },
         });

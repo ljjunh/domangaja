@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useAuthStore } from '@/shared/store/authStore';
 import { showToast } from '@/shared/lib/toast';
 import { tokenStorage } from '@/shared/api/tokenStorage';
+import { queryClient } from '@/shared/api/queryClient';
 import { socialAuth } from '@/domains/auth/lib/socialAuth';
 import { loginWithApple, loginWithGoogle, loginWithKakao } from '@/domains/auth/api/service';
 import type { SocialProvider } from '@/domains/auth/constants/socialProviders';
@@ -50,6 +51,9 @@ export const useSocialLogin = () => {
         refreshToken: response.refreshToken,
       });
 
+      // 로그아웃 없이 계정이 바뀌는 경우(자동 로그인 실패 후 다른 계정으로 로그인 등)에도
+      // 이전 세션에서 남은 캐시가 새 계정 화면에 보이지 않도록 한다
+      queryClient.clear();
       login();
     } finally {
       setLoadingProvider(null);
