@@ -1,10 +1,12 @@
 import { useCallback, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, type LayoutChangeEvent } from 'react-native';
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetFlatList,
+  BottomSheetFooter,
   BottomSheetTextInput,
   type BottomSheetBackdropProps,
+  type BottomSheetFooterProps,
 } from '@gorhom/bottom-sheet';
 import { Defs, LinearGradient, Rect, Stop, Svg } from 'react-native-svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -50,7 +52,8 @@ function CommentEmptyState() {
   );
 }
 
-const SNAP_POINTS = ['60%'];
+// 처음엔 55% 높이로 열리고, handle을 위로 드래그하면 거의 전체 높이까지 확장된다
+const SNAP_POINTS = ['55%', '95%'];
 
 function CommentSeparator() {
   return <View style={styles.separator} />;
@@ -64,6 +67,9 @@ interface FeedCommentBottomSheetProps {
 export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentBottomSheetProps) {
   const { bottom } = useSafeAreaInsets();
   const [draft, setDraft] = useState('');
+  // 입력창은 footerComponent로 별도 레이어에 떠서, 마지막 댓글이 그 밑에 가려지지 않도록
+  // 실제 렌더된 높이를 재서 리스트 하단 padding으로 되돌려준다
+  const [footerHeight, setFooterHeight] = useState(0);
   // 댓글마다 각자 열림 상태를 들고 있으면 다른 댓글을 열어도 이전 메뉴가 안 닫힌다 —
   // 목록이 "지금 열려 있는 댓글 id" 하나만 들고 통제한다
   const [openCommentId, setOpenCommentId] = useState<number | null>(null);
@@ -93,6 +99,10 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
     [],
   );
 
+  const handleFooterLayout = useCallback((event: LayoutChangeEvent) => {
+    setFooterHeight(event.nativeEvent.layout.height);
+  }, []);
+
   const handleSend = () => {
     const trimmed = draft.trim();
     if (trimmed.length === 0 || isCreating) {
@@ -106,6 +116,27 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
       },
     );
   };
+
+  // footerComponent는 리스트와 분리된 레이어라 draft/handleSend를 그대로 클로저로 참조해도 안전하다 —
+  // useCallback으로 감싸도 매 타이핑마다 다시 만들어져 이점이 없어 일반 함수로 둔다.
+  // bottomInset prop 대신 안전영역 패딩을 이 행 자체 높이에 포함시킨다 — 그래야 onLayout으로 잰
+  // footerHeight가 실제 차지하는 전체 높이와 정확히 같아져서, 리스트 쪽과 어긋나 틈이 생기지 않는다
+  const renderFooter = (footerProps: BottomSheetFooterProps) => (
+    <BottomSheetFooter {...footerProps}>
+      <View style={[styles.inputRow, { paddingBottom: bottom + 10 }]} onLayout={handleFooterLayout}>
+        <BottomSheetTextInput
+          value={draft}
+          onChangeText={setDraft}
+          placeholder="댓글을 입력해주세요..."
+          placeholderTextColor={colors.grey[500]}
+          style={styles.input}
+        />
+        <Pressable hitSlop={8} onPress={handleSend}>
+          <SendOutlineIcon color={colors.blue[500]} />
+        </Pressable>
+      </View>
+    </BottomSheetFooter>
+  );
 
   const handlePressDelete = (commentId: number) => {
     // 삭제/신고가 진행 중일 때 다른 댓글을 눌러도 중복 요청하지 않는다
@@ -153,52 +184,46 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
       snapPoints={SNAP_POINTS}
       enableDynamicSizing={false}
       enablePanDownToClose
+      // 시트 크기(55%/95%)는 handle 드래그로만 바뀌고, 콘텐츠 영역은 항상 그 안에서만 스크롤되게 —
+      // 댓글이 적거나 없을 때 content 영역 드래그가 시트 크기를 바꿔버리는 걸 막는다
+      enableContentPanningGesture={false}
       onClose={onClose}
       backdropComponent={renderBackdrop}
-      keyboardBehavior="interactive"
+      footerComponent={renderFooter}
+      // footer 위치는 "시트 위치 - 키보드 높이"로 계산된다 — interactive는 시트를 키보드 높이만큼
+      // 계속 실시간으로 밀어올려서 시트+입력창이 통째로 움직이는 것처럼 느껴진다.
+      // extend는 이미 정해둔 두 번째 snap point(95%)로 한 번에 확장만 하고 끝나서 훨씬 안정적으로 보인다
+      keyboardBehavior="extend"
       keyboardBlurBehavior="restore"
       handleIndicatorStyle={styles.handleIndicator}
       backgroundStyle={styles.background}
     >
-      <View style={styles.listArea}>
-        <BottomSheetFlatList
-          data={comments ?? []}
-          keyExtractor={item => String(item.id)}
-          style={styles.flatList}
-          contentContainerStyle={styles.list}
-          ItemSeparatorComponent={CommentSeparator}
-          ListEmptyComponent={comments != null ? CommentEmptyState : null}
-          renderItem={({ item }) => (
-            <FeedCommentItem
-              comment={item}
-              isMine={me != null && me.id === item.userId}
-              onPressDelete={() => handlePressDelete(item.id)}
-              onPressReport={() => handlePressReport(item.id)}
-              onPressLike={() => handlePressLike(item)}
-              isMenuOpen={openCommentId === item.id}
-              onLongPress={() => setOpenCommentId(item.id)}
-              onRequestClose={closeMenu}
-            />
-          )}
-        />
-        <TopFadeOverlay />
+      {/* BottomSheetFlatList가 시트 콘텐츠의 유일한 스크롤 영역 — 입력창은 footerComponent로
+          완전히 분리된 레이어라 이 목록의 스크롤/제스처 계산에 끼어들지 않는다(안드로이드 스크롤 이슈 원인) */}
+      <BottomSheetFlatList
+        data={comments ?? []}
+        keyExtractor={item => String(item.id)}
+        style={styles.flatList}
+        contentContainerStyle={[styles.list, { paddingBottom: 12 + footerHeight }]}
+        ItemSeparatorComponent={CommentSeparator}
+        ListEmptyComponent={comments != null ? CommentEmptyState : null}
+        renderItem={({ item }) => (
+          <FeedCommentItem
+            comment={item}
+            isMine={me != null && me.id === item.userId}
+            onPressDelete={() => handlePressDelete(item.id)}
+            onPressReport={() => handlePressReport(item.id)}
+            onPressLike={() => handlePressLike(item)}
+            isMenuOpen={openCommentId === item.id}
+            onLongPress={() => setOpenCommentId(item.id)}
+            onRequestClose={closeMenu}
+          />
+        )}
+      />
+      <TopFadeOverlay />
 
-        {/* 목록 빈 공간(다른 댓글 줄이 아닌 곳)을 탭해도 메뉴가 닫히도록 — 입력창 영역은 덮지 않는다 */}
-        {openCommentId != null && <Pressable style={StyleSheet.absoluteFill} onPress={closeMenu} />}
-      </View>
-
-      <View style={[styles.inputRow, { paddingBottom: bottom + 10 }]}>
-        <BottomSheetTextInput
-          value={draft}
-          onChangeText={setDraft}
-          placeholder="댓글을 입력해주세요..."
-          placeholderTextColor={colors.grey[500]}
-          style={styles.input}
-        />
-        <Pressable hitSlop={8} onPress={handleSend}>
-          <SendOutlineIcon color={colors.blue[500]} />
-        </Pressable>
-      </View>
+      {/* 목록 빈 공간(다른 댓글 줄이 아닌 곳)을 탭해도 메뉴가 닫히도록 */}
+      {openCommentId != null && <Pressable style={StyleSheet.absoluteFill} onPress={closeMenu} />}
     </BottomSheet>
   );
 }
@@ -216,9 +241,6 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 12,
   },
-  listArea: {
-    flex: 1,
-  },
   flatList: {
     flex: 1,
   },
@@ -235,17 +257,13 @@ const styles = StyleSheet.create({
   list: {
     paddingHorizontal: SCREEN_PADDING_HORIZONTAL,
     paddingTop: 20,
-    paddingBottom: 12,
-    flexGrow: 1,
   },
   separator: {
     height: 18,
   },
   empty: {
-    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 40,
+    paddingTop: 8,
   },
   inputRow: {
     flexDirection: 'row',
@@ -253,6 +271,7 @@ const styles = StyleSheet.create({
     gap: 10,
     paddingHorizontal: SCREEN_PADDING_HORIZONTAL,
     paddingTop: 10,
+    backgroundColor: colors.white,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: colors.grey[100],
   },
@@ -265,8 +284,5 @@ const styles = StyleSheet.create({
     fontSize: typography.st10.fontSize,
     fontFamily: fontFamilyByWeight.regular,
     color: colors.black,
-  },
-  sendIcon: {
-    borderColor: colors.blue[500],
   },
 });
