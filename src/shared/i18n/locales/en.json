@@ -177,7 +177,8 @@
     "quietnessLevel": {
       "quiet": "Quiet",
       "normal": "Moderate",
-      "crowded": "Crowded"
+      "crowded": "Crowded",
+      "unmeasured": "No data"
     },
     "congestionEmpty": {
       "title": "Gathering quietness data",

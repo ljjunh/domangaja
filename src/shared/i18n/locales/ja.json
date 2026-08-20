@@ -177,7 +177,8 @@
     "quietnessLevel": {
       "quiet": "閑散",
       "normal": "普通",
-      "crowded": "混雑"
+      "crowded": "混雑",
+      "unmeasured": "未集計"
     },
     "congestionEmpty": {
       "title": "静けさを集めています",

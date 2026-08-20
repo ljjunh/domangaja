@@ -28,7 +28,8 @@ const INITIAL_REGION: Region = {
 
 const EXPANSION_DURATION = 300;
 
-const CLUSTER_ANCHOR = { x: 0.5, y: 0.5 };
+// 원·점은 도형 중심이, 핀은 꼬리 끝이 좌표에 놓여야 한다
+const CENTER_ANCHOR = { x: 0.5, y: 0.5 };
 const PIN_ANCHOR = { x: 0.5, y: 1 };
 
 export default function MapScreen() {
@@ -96,8 +97,7 @@ export default function MapScreen() {
           <Marker
             key={item.key}
             coordinate={{ latitude: item.latitude, longitude: item.longitude }}
-            // 클러스터는 원의 중심이, 개별 스팟은 핀 꼬리 끝이 좌표에 놓여야 한다
-            anchor={item.spot == null ? CLUSTER_ANCHOR : PIN_ANCHOR}
+            anchor={item.spot?.quietnessScore == null ? CENTER_ANCHOR : PIN_ANCHOR}
             onPress={() => (item.spot == null ? pressCluster(item) : setSelectedSpot(item.spot))}
           >
             {item.spot == null ? (
@@ -116,7 +116,7 @@ export default function MapScreen() {
       {/* 시트가 열리면 하단을 덮고, 시트 안 캘린더에 같은 범례가 이미 있다 */}
       {selectedSpot == null && (
         <View style={[styles.legend, { bottom: mainTabBarSpace }]} pointerEvents="none">
-          <QuietnessLegend />
+          <QuietnessLegend withUnmeasured />
         </View>
       )}
 

@@ -1,15 +1,26 @@
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Text } from '@/shared/components/base';
+import { colors } from '@/shared/constants/colors';
 import { QUIETNESS_LEVEL_COLORS, type QuietnessLevel } from '../constants/quietness';
 
 // 표시 순서 — 한적한 쪽부터
 const QUIETNESS_LEVELS: QuietnessLevel[] = ['quiet', 'normal', 'crowded'];
 
 const DOT_SIZE = 12;
+const UNMEASURED_RING_WIDTH = 3;
+
+interface QuietnessLegendProps {
+  /**
+   * 지도에만 있는 '미집계' 항목. 캘린더는 측정 대상이 아니면 캘린더째
+   * 빈 상태로 바뀌므로 이 항목이 필요 없다
+   * @default false
+   */
+  withUnmeasured?: boolean;
+}
 
 // 배경(흰 카드 / 지도 위 알약)은 배치하는 쪽이 입힌다
-export default function QuietnessLegend() {
+export default function QuietnessLegend({ withUnmeasured = false }: QuietnessLegendProps) {
   const { t } = useTranslation();
 
   return (
@@ -22,6 +33,14 @@ export default function QuietnessLegend() {
           </Text>
         </View>
       ))}
+      {withUnmeasured && (
+        <View style={styles.item}>
+          <View style={[styles.dot, styles.unmeasuredDot]} />
+          <Text typography="st12" weight="medium">
+            {t('spot.quietnessLevel.unmeasured')}
+          </Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -41,5 +60,12 @@ const styles = StyleSheet.create({
     width: DOT_SIZE,
     height: DOT_SIZE,
     borderRadius: 4,
+  },
+  // 지도 마커와 같은 모양 — 흰 원에 회색 띠
+  unmeasuredDot: {
+    borderRadius: DOT_SIZE / 2,
+    backgroundColor: colors.white,
+    borderWidth: UNMEASURED_RING_WIDTH,
+    borderColor: colors.greyOpacity[300],
   },
 });

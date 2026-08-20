@@ -176,7 +176,7 @@ export interface MapSpot {
   distanceMeters: number;
   imageUrl: string;
   tel: string;
-  quietnessScore: number;
+  quietnessScore: number | null;
   areaCode: string;
   sigunguCode: string;
 }

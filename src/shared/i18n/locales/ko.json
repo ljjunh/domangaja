@@ -177,7 +177,8 @@
     "quietnessLevel": {
       "quiet": "한적",
       "normal": "보통",
-      "crowded": "혼잡"
+      "crowded": "혼잡",
+      "unmeasured": "미집계"
     },
     "congestionEmpty": {
       "title": "한적도를 모으고 있어요",
