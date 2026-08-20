@@ -2,12 +2,11 @@ import { ImageBackground, StyleSheet, View } from 'react-native';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { placeholderImage } from '@/assets/images';
-import { formatQuietness } from '@/shared/utils/formatQuietness';
 
 interface RankedSpotCardProps {
   rank: number;
   name: string;
-  quietness: number;
+  region: string;
   /** 없거나 빈 문자열이면 폴백 이미지를 쓴다 */
   imageUrl: string | null;
   onPress: () => void;
@@ -16,7 +15,7 @@ interface RankedSpotCardProps {
 export default function RankedSpotCard({
   rank,
   name,
-  quietness,
+  region,
   imageUrl,
   onPress,
 }: RankedSpotCardProps) {
@@ -33,11 +32,12 @@ export default function RankedSpotCard({
           </Text>
         </View>
         <View style={styles.info}>
-          <Text typography="st12" weight="semiBold">
+          {/* 140px 폭이라 두 줄이 되면 카드 높이가 어긋난다 — 한 줄로 고정 */}
+          <Text typography="st12" weight="semiBold" numberOfLines={1}>
             {name}
           </Text>
-          <Text typography="st12" weight="semiBold" color={colors.grey[500]}>
-            한적도 {formatQuietness(quietness)}%
+          <Text typography="st12" weight="semiBold" color={colors.grey[500]} numberOfLines={1}>
+            {region}
           </Text>
         </View>
       </ImageBackground>

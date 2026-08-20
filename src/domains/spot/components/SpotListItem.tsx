@@ -9,7 +9,8 @@ import { placeholderImage } from '@/assets/images';
 interface SpotListItemProps {
   name: string;
   region: string;
-  quietness: number;
+  /** null이면 측정 대상이 아니라 한적도를 표시하지 않는다 */
+  quietness: number | null;
   /** 없거나 빈 문자열이면 폴백 이미지를 쓴다 */
   imageUrl: string | null;
   isScrapped: boolean;
@@ -47,7 +48,7 @@ export default function SpotListItem({
           </Text>
           <Text typography="st13" weight="semiBold" color={colors.grey[500]}>
             {region}
-            {' · '}한적도 {formatQuietness(quietness)}%
+            {quietness != null && ` · 한적도 ${formatQuietness(quietness)}%`}
           </Text>
         </View>
         <IconButton

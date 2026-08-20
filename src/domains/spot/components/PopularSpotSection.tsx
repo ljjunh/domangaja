@@ -39,7 +39,7 @@ export default function PopularSpotSection() {
               key={spot.contentId}
               rank={spot.rank}
               name={spot.title}
-              quietness={spot.quietnessScore}
+              region={spot.regionName}
               imageUrl={spot.imageUrl}
               onPress={() =>
                 navigate('SpotDetail', {

@@ -27,7 +27,8 @@ export interface PopularSpot {
   title: string;
   regionName: string;
   imageUrl: string;
-  quietnessScore: number;
+  // KTO 혼잡도 측정 대상이 아니면 null
+  quietnessScore: number | null;
   theme: SpotTheme;
   viewCount: number;
   scrapped: boolean;
@@ -65,7 +66,8 @@ export interface RecentSpot {
   title: string;
   regionName: string;
   imageUrl: string;
-  quietnessScore: number;
+  // KTO 혼잡도 측정 대상이 아니면 null
+  quietnessScore: number | null;
   theme: SpotTheme;
   viewedAt: string;
   description: string;
@@ -87,7 +89,8 @@ export interface Scrap {
   title: string;
   regionName: string;
   imageUrl: string;
-  quietnessScore: number;
+  // KTO 혼잡도 측정 대상이 아니면 null
+  quietnessScore: number | null;
 }
 
 export type GetScrapsResponse = Scrap[];

@@ -26,7 +26,7 @@ export default function RecentSpotSection() {
       title: spot.title,
       regionName: spot.regionName,
       imageUrl: spot.imageUrl,
-      quietnessScore: spot.quietnessScore,
+      quietnessScore: spot.quietnessScore ?? undefined,
     });
   };
 
