@@ -12,10 +12,8 @@ const SIZE_BY_COUNT = [
 // 안쪽 원의 비율. 바깥 halo와 두 겹으로 겹쳐 테두리가 번진 느낌을 낸다
 const CORE_RATIO = 0.68;
 
-// colors.purple[400] (#b44bd7)의 반투명 버전.
-// 팔레트에 purpleOpacity가 없어 이 컴포넌트에서만 쓰는 값으로 둔다
-const HALO_COLOR = 'rgba(180, 75, 215, 0.16)';
-const CORE_COLOR = 'rgba(180, 75, 215, 0.34)';
+const HALO_COLOR = 'rgba(69, 147, 252, 0.16)';
+const CORE_COLOR = 'rgba(69, 147, 252, 0.34)';
 
 interface ClusterMarkerProps {
   count: number;
@@ -30,7 +28,7 @@ export default function ClusterMarker({ count }: ClusterMarkerProps) {
       <View
         style={[styles.core, { width: coreSize, height: coreSize, borderRadius: coreSize / 2 }]}
       />
-      <Text typography="t7" weight="bold" color={colors.purple[800]}>
+      <Text typography="t7" weight="bold" color={colors.blue[800]}>
         {count}
       </Text>
     </View>

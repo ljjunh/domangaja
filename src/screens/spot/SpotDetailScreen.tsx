@@ -37,7 +37,7 @@ export default function SpotDetailScreen({ route }: Props) {
 }
 
 function SpotDetailContent({ contentId }: { contentId: GetSpotDetailResponse['contentId'] }) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: spot } = useSuspenseQuery(
     spotQueries.getSpotDetail({
       contentId,
@@ -112,7 +112,7 @@ function SpotDetailContent({ contentId }: { contentId: GetSpotDetailResponse['co
                 {detail.title}
               </Text>
               <Text typography="t6" color={colors.grey[800]}>
-                {detail.contentTypeLabel}
+                {t(detail.contentTypeLabelKey)}
               </Text>
             </View>
             {detail.address && (

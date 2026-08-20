@@ -267,5 +267,15 @@
     "untilTomorrow": "Tomorrow at {{time}}",
     "untilDate": "{{date}} at {{time}}",
     "refresh": "Refresh"
+  },
+  "spotContentType": {
+    "12": "Attractions",
+    "14": "Culture",
+    "15": "Events",
+    "28": "Leisure",
+    "32": "Stays",
+    "38": "Shopping",
+    "39": "Food",
+    "etc": "Other"
   }
 }

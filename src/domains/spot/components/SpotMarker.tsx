@@ -5,20 +5,27 @@ import { formatQuietness } from '@/shared/utils/formatQuietness';
 import { getQuietnessLevel, QUIETNESS_LEVEL_COLORS } from '../constants/quietness';
 
 const BUBBLE_SIZE = 26;
-const DOT_SIZE = 24;
-const DOT_RING_WIDTH = 4;
+const UNMEASURED_BORDER_WIDTH = 3;
+// 반투명(greyOpacity)을 쓰면 원 테두리는 흰 배경 위, 꼬리는 지도 위에 얹혀
+// 같은 값인데도 다른 색으로 보인다 — 불투명 회색으로 고정한다
+const UNMEASURED_COLOR = colors.grey[400];
 const TAIL_WIDTH = 5;
 const TAIL_HEIGHT = 6;
 
 interface SpotMarkerProps {
-  /** null이면 측정 대상이 아니라는 뜻 — 숫자 없이 점으로 표시한다 */
+  /** null이면 측정 대상이 아니라는 뜻 — 숫자 없이 빈 핀으로 표시한다 */
   quietness: number | null;
 }
 
 export default function SpotMarker({ quietness }: SpotMarkerProps) {
   // 0으로 내림돼 "가장 혼잡"처럼 보이면 안 된다 — 등급 판정 전에 갈라낸다
   if (quietness == null) {
-    return <View style={styles.dot} />;
+    return (
+      <View style={styles.container}>
+        <View style={[styles.bubble, styles.unmeasuredBubble]} />
+        <View style={[styles.tail, styles.unmeasuredTail]} />
+      </View>
+    );
   }
 
   const level = getQuietnessLevel(quietness);
@@ -49,14 +56,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     boxShadow: '0 4 4 0 rgba(0, 0, 0, 0.25)',
   },
-  // 측정 대상이 아닌 스팟 — 흰 원에 회색 띠. 숫자 체계와 섞이지 않게 꼬리도 없다
-  dot: {
-    width: DOT_SIZE,
-    height: DOT_SIZE,
-    borderRadius: DOT_SIZE / 2,
+  // 측정 대상이 아닌 스팟 — 크기·꼬리는 색깔 핀과 동일하고 안쪽만 흰색
+  unmeasuredBubble: {
     backgroundColor: colors.white,
-    borderWidth: DOT_RING_WIDTH,
-    borderColor: colors.greyOpacity[300],
+    borderWidth: UNMEASURED_BORDER_WIDTH,
+    borderColor: UNMEASURED_COLOR,
+  },
+  // 테두리와 이어져 하나의 핀으로 읽히게 같은 색
+  unmeasuredTail: {
+    borderTopColor: UNMEASURED_COLOR,
   },
   tail: {
     width: 0,

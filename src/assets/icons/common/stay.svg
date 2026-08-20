@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="숙박">
+<title>숙박 (contentTypeId 32)</title>
+<rect x="3" y="8" width="4" height="18" rx="2" fill="#D98A1E"></rect>
+<path d="M7 17h15a7 7 0 0 1 7 7v2H7z" fill="#F0A93C"></path>
+<rect x="3" y="23" width="26" height="4" rx="2" fill="#D98A1E"></rect>
+<rect x="8" y="12" width="10" height="6" rx="3" fill="#FFCE7A"></rect>
+</svg>
