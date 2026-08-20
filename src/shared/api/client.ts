@@ -5,7 +5,7 @@ import {
   rejectInterceptor,
 } from '@/shared/api/interceptors';
 
-export const API_HOST = 'https://43-201-178-25.nip.io';
+export const API_HOST = 'https://api.domanggaja.site';
 const API_VERSION = 'v1';
 
 export const apiClient = axios.create({
