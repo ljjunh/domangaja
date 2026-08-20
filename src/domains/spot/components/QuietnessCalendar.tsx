@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
+import { formatQuietness } from '@/shared/utils/formatQuietness';
 import { IconButton } from '@/shared/components/ui';
 import { ArrowLeftIcon, ArrowRightIcon } from '@/assets/icons/common';
 import { useTranslation } from 'react-i18next';
@@ -106,7 +107,7 @@ function BestDayBanner({ date, score }: { date: Date; score: number }) {
           {t('spotSheet.bestDayTitle', { date: dateLabel })}
         </Text>
         <Text typography="t7" weight="regular" color={colors.grey[700]}>
-          {t('spotSheet.bestDaySubtitle', { score })}
+          {t('spotSheet.bestDaySubtitle', { score: formatQuietness(score) })}
         </Text>
       </View>
     </View>

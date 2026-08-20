@@ -1,8 +1,13 @@
-import { useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
-import MapView, { Marker, PROVIDER_GOOGLE, type Region } from 'react-native-maps';
+import MapView, {
+  Marker,
+  PROVIDER_GOOGLE,
+  type Region,
+  type UserLocationChangeEvent,
+} from 'react-native-maps';
 import { QuietnessLegend, SpotMarker, SpotSheetContent } from '@/domains/spot/components';
 import { spotQueries } from '@/domains/spot/api/queries';
 import type { MapSpot } from '@/domains/spot/types/api';
@@ -10,10 +15,20 @@ import {
   getSpotContentTypeLabelKey,
   type SpotContentTypeId,
 } from '@/domains/spot/constants/contentType';
-import { BaseSheet } from '@/shared/components/overlay';
+import { FALLBACK_REGION, isInKorea, toRegion } from '@/domains/spot/constants/mapRegion';
+import { BaseSheet, LocationPermissionSheet } from '@/shared/components/overlay';
+import { overlay } from '@/shared/overlay';
 import { colors } from '@/shared/constants/colors';
+import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { useMainTabBarSpace } from '@/shared/hooks/useMainTabBarSpace';
 import { toServerLocale } from '@/shared/i18n/serverLocale';
+import {
+  checkLocationPermission,
+  requestLocationPermission,
+  type LocationPermissionResult,
+} from '@/shared/lib/locationPermission';
+import { storage } from '@/shared/utils/storage';
+import { STORAGE_KEYS } from '@/shared/constants/storageKeys';
 import {
   createSpotClusterIndex,
   getExpansionRegion,
@@ -24,18 +39,14 @@ import {
   ClusterMarker,
   MapSearchButton,
   MapSpotAudioGuide,
+  MyLocationButton,
   SpotTypeFilterChips,
 } from './components';
 
-// 첫 단계: 확인용 초기 위치 (충북 단양)
-const INITIAL_REGION: Region = {
-  latitude: 36.9846,
-  longitude: 128.3655,
-  latitudeDelta: 0.5,
-  longitudeDelta: 0.5,
-};
-
 const EXPANSION_DURATION = 300;
+const MOVE_DURATION = 500;
+// GPS가 안 잡히는 실내·기내에서 무한정 기다리지 않는다
+const LOCATION_TIMEOUT = 5_000;
 
 // 첫 조회는 관광지로 — 필터가 항상 하나는 선택된 상태다
 const DEFAULT_CONTENT_TYPE_ID: SpotContentTypeId = '12';
@@ -53,22 +64,30 @@ export default function MapScreen() {
   const [isMapReady, setIsMapReady] = useState(false);
   // 지금 보이는 영역. 클러스터를 다시 묶으려면 필요해서 state로 둔다
   // (onRegionChangeComplete는 제스처가 끝날 때 한 번만 발화한다)
-  const [viewRegion, setViewRegion] = useState<Region>(INITIAL_REGION);
+  const [viewRegion, setViewRegion] = useState<Region>(FALLBACK_REGION);
   // 검색 기준 영역. 버튼을 누른 시점에만 갱신된다 — 지도를 움직일 때마다 바뀌면
-  // 쿼리키가 매번 달라져 캐시가 무의미해지고 요청도 쏟아진다
-  const [searchedRegion, setSearchedRegion] = useState<Region>(INITIAL_REGION);
+  // 쿼리키가 매번 달라져 캐시가 무의미해지고 요청도 쏟아진다.
+  // null인 동안은 조회하지 않는다 — 위치가 정해지기 전에 쏘면 3,000건짜리 요청이 두 번 나간다
+  const [searchedRegion, setSearchedRegion] = useState<Region | null>(null);
   const [contentTypeId, setContentTypeId] = useState<SpotContentTypeId>(DEFAULT_CONTENT_TYPE_ID);
+  const [locationPermission, setLocationPermission] = useState<LocationPermissionResult | null>(
+    null,
+  );
+  const [isLocating, setIsLocating] = useState(false);
+  // onUserLocationChange는 계속 발화하므로, 요청한 순간에만 한 번 받아쓴다
+  const locationResolveRef = useRef<((region: Region | null) => void) | null>(null);
 
-  const { data: spots, isFetching } = useQuery(
-    spotQueries.getMapSpots({
-      lat: searchedRegion.latitude,
-      lng: searchedRegion.longitude,
-      latitudeDelta: searchedRegion.latitudeDelta,
-      longitudeDelta: searchedRegion.longitudeDelta,
+  const { data: spots, isFetching } = useQuery({
+    ...spotQueries.getMapSpots({
+      lat: searchedRegion?.latitude ?? FALLBACK_REGION.latitude,
+      lng: searchedRegion?.longitude ?? FALLBACK_REGION.longitude,
+      latitudeDelta: searchedRegion?.latitudeDelta ?? FALLBACK_REGION.latitudeDelta,
+      longitudeDelta: searchedRegion?.longitudeDelta ?? FALLBACK_REGION.longitudeDelta,
       contentTypeId: Number(contentTypeId),
       lang: toServerLocale(i18n.language),
     }),
-  );
+    enabled: searchedRegion != null,
+  });
 
   // 인덱스 생성은 비싸서 목록이 바뀔 때만, 질의는 지도가 움직일 때마다
   const clusterIndex = useMemo(() => createSpotClusterIndex(spots ?? []), [spots]);
@@ -76,6 +95,124 @@ export default function MapScreen() {
     () => getSpotClusters(clusterIndex, viewRegion),
     [clusterIndex, viewRegion],
   );
+
+  // 실제 지도의 showsUserLocation을 좌표 공급원으로 쓴다 (숨은 MapView를 하나 더 띄우지 않는다)
+  const receiveUserLocation = (event: UserLocationChangeEvent) => {
+    const coordinate = event.nativeEvent.coordinate;
+    const resolve = locationResolveRef.current;
+    if (resolve == null) {
+      return;
+    }
+    locationResolveRef.current = null;
+    resolve(
+      coordinate == null || !isInKorea(coordinate.latitude, coordinate.longitude)
+        ? null
+        : toRegion(coordinate.latitude, coordinate.longitude),
+    );
+  };
+
+  const getCurrentRegion = useCallback(() => {
+    return new Promise<Region | null>(resolve => {
+      locationResolveRef.current = resolve;
+      setTimeout(() => {
+        if (locationResolveRef.current === resolve) {
+          locationResolveRef.current = null;
+          resolve(null);
+        }
+      }, LOCATION_TIMEOUT);
+    });
+  }, []);
+
+  const moveTo = (region: Region) => {
+    mapRef.current?.animateToRegion(region, MOVE_DURATION);
+    setSearchedRegion(region);
+  };
+
+  // 첫 진입: 저장된 위치로 카메라를 먼저 놓고, 권한을 물어 현재 위치가 잡히면 그쪽으로
+  useEffect(
+    function startFromBestKnownRegion() {
+      let isMounted = true;
+
+      const start = async () => {
+        const savedRegion = await storage.get<Region>(STORAGE_KEYS.LAST_MAP_REGION);
+        if (!isMounted) {
+          return;
+        }
+        const initialRegion = savedRegion ?? FALLBACK_REGION;
+        setViewRegion(initialRegion);
+        mapRef.current?.animateToRegion(initialRegion, 0);
+
+        const permission = await requestLocationPermission();
+        if (!isMounted) {
+          return;
+        }
+        setLocationPermission(permission);
+
+        // 권한이 없으면 저장된 위치(없으면 서울)에서 그대로 조회한다
+        if (permission !== 'granted') {
+          setSearchedRegion(initialRegion);
+          return;
+        }
+
+        const currentRegion = await getCurrentRegion();
+        if (!isMounted) {
+          return;
+        }
+        // 좌표를 못 얻거나 서비스 지역 밖이면 폴백
+        setSearchedRegion(currentRegion ?? initialRegion);
+        if (currentRegion != null) {
+          mapRef.current?.animateToRegion(currentRegion, MOVE_DURATION);
+        }
+      };
+
+      start();
+      return () => {
+        isMounted = false;
+      };
+    },
+    [getCurrentRegion],
+  );
+
+  // 다음 방문에 여기서 시작하도록 마지막으로 조회한 영역을 남긴다
+  useEffect(
+    function rememberSearchedRegion() {
+      if (searchedRegion != null) {
+        storage.set(STORAGE_KEYS.LAST_MAP_REGION, searchedRegion);
+      }
+    },
+    [searchedRegion],
+  );
+
+  // 메인탭 화면이라 전역 overlay에 띄운다 — 화면 트리 안에 그리면 떠 있는 탭바에 가려진다
+  // (fullScreenModal 화면은 반대로 화면 트리에 직접 그려야 한다)
+  const openPermissionSheet = () => {
+    overlay.open(({ unmount }) => <LocationPermissionSheet onClose={unmount} />);
+  };
+
+  const moveToMyLocation = async () => {
+    const permission =
+      locationPermission === 'granted'
+        ? await checkLocationPermission()
+        : await requestLocationPermission();
+    setLocationPermission(permission);
+
+    if (permission === 'blocked') {
+      openPermissionSheet();
+      return;
+    }
+    // retriable(안드로이드 1회 거절)은 조용히 종료 — 다시 누르면 시스템이 한 번 더 묻는다
+    if (permission !== 'granted') {
+      return;
+    }
+
+    setIsLocating(true);
+    const currentRegion = await getCurrentRegion();
+    setIsLocating(false);
+    if (currentRegion != null) {
+      setSelectedSpot(null);
+      moveTo(currentRegion);
+    }
+  };
 
   const searchCurrentArea = () => {
     setSelectedSpot(null);
@@ -102,8 +239,10 @@ export default function MapScreen() {
         ref={mapRef}
         provider={PROVIDER_GOOGLE}
         style={StyleSheet.absoluteFill}
-        initialRegion={INITIAL_REGION}
+        initialRegion={FALLBACK_REGION}
         showsCompass={false}
+        showsUserLocation={locationPermission === 'granted'}
+        onUserLocationChange={receiveUserLocation}
         onMapReady={() => setIsMapReady(true)}
         onRegionChangeComplete={setViewRegion}
         onPress={e => {
@@ -137,6 +276,12 @@ export default function MapScreen() {
         />
         <MapSearchButton isSearching={isFetching} onPress={searchCurrentArea} />
       </View>
+
+      {selectedSpot == null && (
+        <View style={[styles.myLocation, { bottom: mainTabBarSpace }]}>
+          <MyLocationButton isLocating={isLocating} onPress={moveToMyLocation} />
+        </View>
+      )}
 
       {/* 시트가 열리면 하단을 덮고, 시트 안 캘린더에 같은 범례가 이미 있다 */}
       {selectedSpot == null && (
@@ -177,6 +322,10 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     gap: 10,
+  },
+  myLocation: {
+    position: 'absolute',
+    right: SCREEN_PADDING_HORIZONTAL,
   },
   legend: {
     position: 'absolute',

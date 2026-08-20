@@ -4,10 +4,10 @@ import { Trans, useTranslation } from 'react-i18next';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { Text } from '@/shared/components/base';
 import { Button } from '@/shared/components/ui';
-import { BaseSheet } from '@/shared/components/overlay';
+import BaseSheet from './BaseSheet';
 import { colors } from '@/shared/constants/colors';
 import { IS_IOS } from '@/shared/constants/platform';
-import { openLocationSettings } from '@/domains/feed/lib/locationPermission';
+import { openLocationSettings } from '@/shared/lib/locationPermission';
 
 const PLATFORM_KEY = IS_IOS ? 'ios' : 'android';
 

@@ -6,9 +6,10 @@ import { Layout, StackHeader } from '@/shared/components/layout';
 
 type PolicyType = 'terms' | 'privacy';
 
+// TODO: 페이지가 언어별 버전을 제공하면 lang 파라미터를 붙인다 (지금은 한국어만)
 const POLICY_URLS: Record<PolicyType, string> = {
-  terms: 'https://www.kakao.com/policy/terms?lang=ko',
-  privacy: 'https://www.kakao.com/policy/privacy?lang=ko',
+  terms: 'https://api.domanggaja.site/terms',
+  privacy: 'https://api.domanggaja.site/privacy',
 };
 
 type PolicyScreenProps = StaticScreenProps<{ type: PolicyType }>;
