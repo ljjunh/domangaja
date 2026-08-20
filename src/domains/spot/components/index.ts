@@ -1,5 +1,6 @@
 export { default as PopularSpotSection } from './PopularSpotSection';
 export { default as QuietnessCalendar } from './QuietnessCalendar';
+export { default as QuietnessCalendarEmpty } from './QuietnessCalendarEmpty';
 export { default as QuietnessLegend } from './QuietnessLegend';
 export { default as RecentSpotSection } from './RecentSpotSection';
 export { default as SectionHeader } from './SectionHeader';

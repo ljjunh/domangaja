@@ -178,6 +178,12 @@
       "quiet": "閑散",
       "normal": "普通",
       "crowded": "混雑"
+    },
+    "congestionEmpty": {
+      "title": "静けさを集めています",
+      "description": "訪問データが集まったら日別の静けさをお知らせします。",
+      "noticeTitle": "新しく登録された場所です",
+      "noticeDescription": "まだ訪問者が少なく、静かな可能性が高いです"
     }
   },
   "home": {

@@ -8,8 +8,14 @@ import { ArrowLeftIcon, ArrowRightIcon } from '@/assets/icons/common';
 import { useTranslation } from 'react-i18next';
 import { getQuietnessLevel, QUIETNESS_LEVEL_COLORS } from '../constants/quietness';
 import QuietnessLegend from './QuietnessLegend';
+import QuietnessCalendarEmpty from './QuietnessCalendarEmpty';
 import { spotQueries } from '@/domains/spot/api/queries';
-import { canGoNextMonth, canGoPrevMonth, toDailyQuietness } from '@/domains/spot/utils/congestion';
+import {
+  canGoNextMonth,
+  canGoPrevMonth,
+  hasCongestionData,
+  toDailyQuietness,
+} from '@/domains/spot/utils/congestion';
 
 function buildMonthGrid(monthDate: Date): (number | null)[][] {
   const year = monthDate.getFullYear();
@@ -128,7 +134,7 @@ export default function QuietnessCalendar({
 
   // 시트 안이라 Suspense 경계가 없다 — 도착 전에는 날짜가 회색으로 보이고 배너만 빠진다.
   // 보이는 달이 바뀌면 쿼리키가 바뀌어 그 달만 다시 받는다
-  const { data: congestion } = useQuery(
+  const { data: congestion, isPending } = useQuery(
     spotQueries.getCongestion({
       areaCode,
       sigunguCode,
@@ -138,6 +144,16 @@ export default function QuietnessCalendar({
     }),
   );
   const dailyQuietness = useMemo(() => toDailyQuietness(congestion), [congestion]);
+
+  // 측정 대상인지 알기 전에는 아무것도 그리지 않는다.
+  // 격자를 먼저 그리면 측정 대상이 아닐 때 캘린더가 떴다 사라진다
+  if (isPending) {
+    return null;
+  }
+
+  if (!hasCongestionData(congestion)) {
+    return <QuietnessCalendarEmpty />;
+  }
 
   const weeks = buildMonthGrid(visibleMonth);
   const weekdayLabels = getWeekdayLabels(i18n.language);

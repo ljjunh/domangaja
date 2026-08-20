@@ -178,6 +178,12 @@
       "quiet": "Quiet",
       "normal": "Moderate",
       "crowded": "Crowded"
+    },
+    "congestionEmpty": {
+      "title": "Gathering quietness data",
+      "description": "Once visit data adds up, we'll show daily quietness.",
+      "noticeTitle": "A newly added place",
+      "noticeDescription": "Few visitors so far, so it may well be quiet"
     }
   },
   "home": {

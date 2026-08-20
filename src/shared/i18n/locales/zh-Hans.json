@@ -178,6 +178,12 @@
       "quiet": "清静",
       "normal": "一般",
       "crowded": "拥挤"
+    },
+    "congestionEmpty": {
+      "title": "正在收集清静度",
+      "description": "数据积累后将为您展示每日清静度。",
+      "noticeTitle": "这是新收录的地点",
+      "noticeDescription": "目前访客较少，可能比较清静"
     }
   },
   "home": {

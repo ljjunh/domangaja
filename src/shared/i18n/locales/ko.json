@@ -178,6 +178,12 @@
       "quiet": "한적",
       "normal": "보통",
       "crowded": "혼잡"
+    },
+    "congestionEmpty": {
+      "title": "한적도를 모으고 있어요",
+      "description": "방문 데이터가 쌓이면 날짜별 한적도를 알려드릴게요.",
+      "noticeTitle": "새로 등록된 도망지예요",
+      "noticeDescription": "아직 방문객이 적어 한적할 가능성이 높아요"
     }
   },
   "home": {
