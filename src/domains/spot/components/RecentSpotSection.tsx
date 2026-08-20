@@ -48,7 +48,7 @@ export default function RecentSpotSection() {
               name={spot.title}
               region={spot.regionName}
               quietness={spot.quietnessScore}
-              image={{ uri: spot.imageUrl }}
+              imageUrl={spot.imageUrl}
               isScrapped={spot.scrapped}
               onPressItem={() =>
                 navigate('SpotDetail', {

@@ -1,14 +1,15 @@
-import { ImageBackground, StyleSheet, View, type ImageSourcePropType } from 'react-native';
+import { ImageBackground, StyleSheet, View } from 'react-native';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
+import { placeholderImage } from '@/assets/images';
 import { formatQuietness } from '@/shared/utils/formatQuietness';
 
 interface RankedSpotCardProps {
   rank: number;
   name: string;
   quietness: number;
-  // 서버 연동 시 imageUrl(string)을 { uri: imageUrl }로 매핑
-  image: ImageSourcePropType;
+  /** 없거나 빈 문자열이면 폴백 이미지를 쓴다 */
+  imageUrl: string | null;
   onPress: () => void;
 }
 
@@ -16,12 +17,16 @@ export default function RankedSpotCard({
   rank,
   name,
   quietness,
-  image,
+  imageUrl,
   onPress,
 }: RankedSpotCardProps) {
   return (
     <Pressable onPress={onPress} style={styles.card}>
-      <ImageBackground source={image} fadeDuration={0} style={styles.image}>
+      <ImageBackground
+        source={imageUrl ? { uri: imageUrl } : placeholderImage}
+        fadeDuration={0}
+        style={styles.image}
+      >
         <View style={styles.rankBadge}>
           <Text typography="t7" weight="semiBold" color={colors.blue[500]}>
             {rank}

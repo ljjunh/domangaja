@@ -88,7 +88,7 @@ function RecentSpotList() {
           name={item.title}
           region={item.regionName}
           quietness={item.quietnessScore}
-          image={{ uri: item.imageUrl }}
+          imageUrl={item.imageUrl}
           isScrapped={item.scrapped}
           onPressItem={() => console.log('TODO: 도망지 상세로 이동')}
           onPressScrap={() => handlePressScrap(item)}
