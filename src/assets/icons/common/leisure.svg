@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="레포츠">
+<title>레포츠 (contentTypeId 28)</title>
+<circle cx="8" cy="22" r="5.5" fill="none" stroke="#0EA46F" stroke-width="2.6"></circle>
+<circle cx="24" cy="22" r="5.5" fill="none" stroke="#0EA46F" stroke-width="2.6"></circle>
+<path d="M8 22l6-11h6l4 11" stroke="#0EA46F" stroke-width="2.6" fill="none" stroke-linejoin="round"></path>
+<circle cx="22" cy="6.5" r="3" fill="#FFC24D"></circle>
+</svg>

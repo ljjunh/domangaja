@@ -38,6 +38,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 25,
     backgroundColor: colors.white,
-    boxShadow: '0 2 8 0 rgba(0, 0, 0, 0.15)',
+    boxShadow: '0 4 4 0 rgba(0, 0, 0, 0.1)',
   },
 });

@@ -6,6 +6,10 @@ import MapView, { Marker, PROVIDER_GOOGLE, type Region } from 'react-native-maps
 import { QuietnessLegend, SpotMarker, SpotSheetContent } from '@/domains/spot/components';
 import { spotQueries } from '@/domains/spot/api/queries';
 import type { MapSpot } from '@/domains/spot/types/api';
+import {
+  getSpotContentTypeLabelKey,
+  type SpotContentTypeId,
+} from '@/domains/spot/constants/contentType';
 import { BaseSheet } from '@/shared/components/overlay';
 import { colors } from '@/shared/constants/colors';
 import { useMainTabBarSpace } from '@/shared/hooks/useMainTabBarSpace';
@@ -16,7 +20,12 @@ import {
   getSpotClusters,
   type SpotClusterItem,
 } from './utils/cluster';
-import { ClusterMarker, MapSearchButton, MapSpotAudioGuide } from './components';
+import {
+  ClusterMarker,
+  MapSearchButton,
+  MapSpotAudioGuide,
+  SpotTypeFilterChips,
+} from './components';
 
 // 첫 단계: 확인용 초기 위치 (충북 단양)
 const INITIAL_REGION: Region = {
@@ -28,11 +37,15 @@ const INITIAL_REGION: Region = {
 
 const EXPANSION_DURATION = 300;
 
-const CLUSTER_ANCHOR = { x: 0.5, y: 0.5 };
+// 첫 조회는 관광지로 — 필터가 항상 하나는 선택된 상태다
+const DEFAULT_CONTENT_TYPE_ID: SpotContentTypeId = '12';
+
+// 원·점은 도형 중심이, 핀은 꼬리 끝이 좌표에 놓여야 한다
+const CENTER_ANCHOR = { x: 0.5, y: 0.5 };
 const PIN_ANCHOR = { x: 0.5, y: 1 };
 
 export default function MapScreen() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   // 지도는 SafeArea 밖까지 그려지므로 물리 바닥 기준으로 탭바를 피한다
   const mainTabBarSpace = useMainTabBarSpace({ fromPhysicalBottom: true });
   const mapRef = useRef<MapView>(null);
@@ -44,6 +57,7 @@ export default function MapScreen() {
   // 검색 기준 영역. 버튼을 누른 시점에만 갱신된다 — 지도를 움직일 때마다 바뀌면
   // 쿼리키가 매번 달라져 캐시가 무의미해지고 요청도 쏟아진다
   const [searchedRegion, setSearchedRegion] = useState<Region>(INITIAL_REGION);
+  const [contentTypeId, setContentTypeId] = useState<SpotContentTypeId>(DEFAULT_CONTENT_TYPE_ID);
 
   const { data: spots, isFetching } = useQuery(
     spotQueries.getMapSpots({
@@ -51,6 +65,7 @@ export default function MapScreen() {
       lng: searchedRegion.longitude,
       latitudeDelta: searchedRegion.latitudeDelta,
       longitudeDelta: searchedRegion.longitudeDelta,
+      contentTypeId: Number(contentTypeId),
       lang: toServerLocale(i18n.language),
     }),
   );
@@ -64,6 +79,13 @@ export default function MapScreen() {
 
   const searchCurrentArea = () => {
     setSelectedSpot(null);
+    setSearchedRegion(viewRegion);
+  };
+
+  // 필터를 바꾸면 지금 보고 있는 영역 기준으로 다시 조회한다
+  const selectContentType = (nextContentTypeId: SpotContentTypeId) => {
+    setSelectedSpot(null);
+    setContentTypeId(nextContentTypeId);
     setSearchedRegion(viewRegion);
   };
 
@@ -96,8 +118,7 @@ export default function MapScreen() {
           <Marker
             key={item.key}
             coordinate={{ latitude: item.latitude, longitude: item.longitude }}
-            // 클러스터는 원의 중심이, 개별 스팟은 핀 꼬리 끝이 좌표에 놓여야 한다
-            anchor={item.spot == null ? CLUSTER_ANCHOR : PIN_ANCHOR}
+            anchor={item.spot == null ? CENTER_ANCHOR : PIN_ANCHOR}
             onPress={() => (item.spot == null ? pressCluster(item) : setSelectedSpot(item.spot))}
           >
             {item.spot == null ? (
@@ -109,14 +130,18 @@ export default function MapScreen() {
         ))}
       </MapView>
 
-      <View style={styles.searchButton} pointerEvents="box-none">
+      <View style={styles.topOverlay} pointerEvents="box-none">
+        <SpotTypeFilterChips
+          selectedContentTypeId={contentTypeId}
+          onSelectContentType={selectContentType}
+        />
         <MapSearchButton isSearching={isFetching} onPress={searchCurrentArea} />
       </View>
 
       {/* 시트가 열리면 하단을 덮고, 시트 안 캘린더에 같은 범례가 이미 있다 */}
       {selectedSpot == null && (
         <View style={[styles.legend, { bottom: mainTabBarSpace }]} pointerEvents="none">
-          <QuietnessLegend />
+          <QuietnessLegend withUnmeasured />
         </View>
       )}
 
@@ -131,7 +156,7 @@ export default function MapScreen() {
             contentId={selectedSpot.contentId}
             name={selectedSpot.title}
             region={selectedSpot.address}
-            category={selectedSpot.contentTypeId}
+            category={t(getSpotContentTypeLabelKey(selectedSpot.contentTypeId))}
             areaCode={selectedSpot.areaCode}
             sigunguCode={selectedSpot.sigunguCode}
             audioGuide={<MapSpotAudioGuide spot={selectedSpot} />}
@@ -146,11 +171,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  searchButton: {
+  topOverlay: {
     position: 'absolute',
     top: 60,
     left: 0,
     right: 0,
+    gap: 10,
   },
   legend: {
     position: 'absolute',

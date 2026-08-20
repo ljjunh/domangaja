@@ -1,16 +1,18 @@
-import { StyleSheet, View, type ImageSourcePropType } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Image, Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { formatQuietness } from '@/shared/utils/formatQuietness';
 import { IconButton } from '@/shared/components/ui';
 import { ArchiveTickFillIcon, ArchiveTickOutlineIcon } from '@/assets/icons/common';
+import { placeholderImage } from '@/assets/images';
 
 interface SpotListItemProps {
   name: string;
   region: string;
-  quietness: number;
-  // 서버 연동 시 imageUrl(string)을 { uri: imageUrl }로 매핑
-  image: ImageSourcePropType;
+  /** null이면 측정 대상이 아니라 한적도를 표시하지 않는다 */
+  quietness: number | null;
+  /** 없거나 빈 문자열이면 폴백 이미지를 쓴다 */
+  imageUrl: string | null;
   isScrapped: boolean;
   rank?: number;
   onPressItem: () => void;
@@ -21,7 +23,7 @@ export default function SpotListItem({
   name,
   region,
   quietness,
-  image,
+  imageUrl,
   isScrapped,
   rank,
   onPressItem,
@@ -30,7 +32,7 @@ export default function SpotListItem({
   return (
     <Pressable onPress={onPressItem} style={styles.container}>
       <View>
-        <Image source={image} style={styles.image} />
+        <Image source={imageUrl ? { uri: imageUrl } : placeholderImage} style={styles.image} />
         {rank != null && (
           <View style={styles.rankBadge}>
             <Text typography="st13" weight="semiBold" color={colors.white}>
@@ -46,7 +48,7 @@ export default function SpotListItem({
           </Text>
           <Text typography="st13" weight="semiBold" color={colors.grey[500]}>
             {region}
-            {' · '}한적도 {formatQuietness(quietness)}%
+            {quietness != null && ` · 한적도 ${formatQuietness(quietness)}%`}
           </Text>
         </View>
         <IconButton

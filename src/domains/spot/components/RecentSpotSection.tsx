@@ -26,7 +26,7 @@ export default function RecentSpotSection() {
       title: spot.title,
       regionName: spot.regionName,
       imageUrl: spot.imageUrl,
-      quietnessScore: spot.quietnessScore,
+      quietnessScore: spot.quietnessScore ?? undefined,
     });
   };
 
@@ -48,7 +48,7 @@ export default function RecentSpotSection() {
               name={spot.title}
               region={spot.regionName}
               quietness={spot.quietnessScore}
-              image={{ uri: spot.imageUrl }}
+              imageUrl={spot.imageUrl}
               isScrapped={spot.scrapped}
               onPressItem={() =>
                 navigate('SpotDetail', {

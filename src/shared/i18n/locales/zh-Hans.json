@@ -177,7 +177,14 @@
     "quietnessLevel": {
       "quiet": "清静",
       "normal": "一般",
-      "crowded": "拥挤"
+      "crowded": "拥挤",
+      "unmeasured": "未统计"
+    },
+    "congestionEmpty": {
+      "title": "正在收集清静度",
+      "description": "数据积累后将为您展示每日清静度。",
+      "noticeTitle": "这是新收录的地点",
+      "noticeDescription": "目前访客较少，可能比较清静"
     }
   },
   "home": {
@@ -260,5 +267,15 @@
     "untilTomorrow": "明天 {{time}}",
     "untilDate": "{{date}} {{time}}",
     "refresh": "刷新"
+  },
+  "spotContentType": {
+    "12": "旅游景点",
+    "14": "文化设施",
+    "15": "活动",
+    "28": "休闲运动",
+    "32": "住宿",
+    "38": "购物",
+    "39": "餐厅",
+    "etc": "其他"
   }
 }

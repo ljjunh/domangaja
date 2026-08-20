@@ -34,7 +34,7 @@ import {
 import { queryClient } from '@/shared/api/queryClient';
 
 const all = ['spot'] as const;
-const RECENT_PAGE_SIZE = 20;
+const RECENT_PAGE_SIZE = 10;
 
 export const spotQueryKeys = {
   all,

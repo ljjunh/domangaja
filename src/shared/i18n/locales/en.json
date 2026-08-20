@@ -177,7 +177,14 @@
     "quietnessLevel": {
       "quiet": "Quiet",
       "normal": "Moderate",
-      "crowded": "Crowded"
+      "crowded": "Crowded",
+      "unmeasured": "No data"
+    },
+    "congestionEmpty": {
+      "title": "Gathering quietness data",
+      "description": "Once visit data adds up, we'll show daily quietness.",
+      "noticeTitle": "A newly added place",
+      "noticeDescription": "Few visitors so far, so it may well be quiet"
     }
   },
   "home": {
@@ -260,5 +267,15 @@
     "untilTomorrow": "Tomorrow at {{time}}",
     "untilDate": "{{date}} at {{time}}",
     "refresh": "Refresh"
+  },
+  "spotContentType": {
+    "12": "Attractions",
+    "14": "Culture",
+    "15": "Events",
+    "28": "Leisure",
+    "32": "Stays",
+    "38": "Shopping",
+    "39": "Food",
+    "etc": "Other"
   }
 }

@@ -1,38 +1,43 @@
-import { ImageBackground, StyleSheet, View, type ImageSourcePropType } from 'react-native';
+import { ImageBackground, StyleSheet, View } from 'react-native';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
-import { formatQuietness } from '@/shared/utils/formatQuietness';
+import { placeholderImage } from '@/assets/images';
 
 interface RankedSpotCardProps {
   rank: number;
   name: string;
-  quietness: number;
-  // 서버 연동 시 imageUrl(string)을 { uri: imageUrl }로 매핑
-  image: ImageSourcePropType;
+  region: string;
+  /** 없거나 빈 문자열이면 폴백 이미지를 쓴다 */
+  imageUrl: string | null;
   onPress: () => void;
 }
 
 export default function RankedSpotCard({
   rank,
   name,
-  quietness,
-  image,
+  region,
+  imageUrl,
   onPress,
 }: RankedSpotCardProps) {
   return (
     <Pressable onPress={onPress} style={styles.card}>
-      <ImageBackground source={image} fadeDuration={0} style={styles.image}>
+      <ImageBackground
+        source={imageUrl ? { uri: imageUrl } : placeholderImage}
+        fadeDuration={0}
+        style={styles.image}
+      >
         <View style={styles.rankBadge}>
           <Text typography="t7" weight="semiBold" color={colors.blue[500]}>
             {rank}
           </Text>
         </View>
         <View style={styles.info}>
-          <Text typography="st12" weight="semiBold">
+          {/* 140px 폭이라 두 줄이 되면 카드 높이가 어긋난다 — 한 줄로 고정 */}
+          <Text typography="st12" weight="semiBold" numberOfLines={1}>
             {name}
           </Text>
-          <Text typography="st12" weight="semiBold" color={colors.grey[500]}>
-            한적도 {formatQuietness(quietness)}%
+          <Text typography="st12" weight="semiBold" color={colors.grey[500]} numberOfLines={1}>
+            {region}
           </Text>
         </View>
       </ImageBackground>

@@ -1,19 +1,18 @@
-export const SPOT_CONTENT_TYPE_LABELS = {
-  '12': '관광지',
-  '14': '문화시설',
-  '15': '행사',
-  '28': '레포츠',
-  '32': '숙박',
-  '38': '쇼핑',
-  '39': '음식점',
-} as const satisfies Record<string, string>;
+// KTO 콘텐츠 종류 — 어떤 id가 있는지는 도메인 지식, 표시 문구는 로케일 파일이 갖는다
+export const SPOT_CONTENT_TYPE_IDS = ['12', '14', '15', '28', '32', '38', '39'] as const;
 
-export type SpotContentTypeId = keyof typeof SPOT_CONTENT_TYPE_LABELS;
+export type SpotContentTypeId = (typeof SPOT_CONTENT_TYPE_IDS)[number];
 
-export function getSpotContentTypeLabel(contentTypeId: string): string {
-  if (contentTypeId in SPOT_CONTENT_TYPE_LABELS) {
-    return SPOT_CONTENT_TYPE_LABELS[contentTypeId as SpotContentTypeId];
-  }
+function isSpotContentTypeId(contentTypeId: string): contentTypeId is SpotContentTypeId {
+  return SPOT_CONTENT_TYPE_IDS.includes(contentTypeId as SpotContentTypeId);
+}
 
-  return '기타';
+/**
+ * 표시 문구가 아니라 i18n 키를 돌려준다.
+ * 순수 함수로 남겨두려면 t를 알 수 없으니, 호출부가 t(key)로 번역한다
+ */
+export function getSpotContentTypeLabelKey(contentTypeId: string): string {
+  return isSpotContentTypeId(contentTypeId)
+    ? `spotContentType.${contentTypeId}`
+    : 'spotContentType.etc';
 }

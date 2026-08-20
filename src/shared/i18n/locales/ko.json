@@ -177,7 +177,14 @@
     "quietnessLevel": {
       "quiet": "한적",
       "normal": "보통",
-      "crowded": "혼잡"
+      "crowded": "혼잡",
+      "unmeasured": "미집계"
+    },
+    "congestionEmpty": {
+      "title": "한적도를 모으고 있어요",
+      "description": "방문 데이터가 쌓이면 날짜별 한적도를 알려드릴게요.",
+      "noticeTitle": "새로 등록된 도망지예요",
+      "noticeDescription": "아직 방문객이 적어 한적할 가능성이 높아요"
     }
   },
   "home": {
@@ -260,5 +267,15 @@
     "untilTomorrow": "내일 {{time}}",
     "untilDate": "{{date}} {{time}}",
     "refresh": "새로고침"
+  },
+  "spotContentType": {
+    "12": "관광지",
+    "14": "문화시설",
+    "15": "행사",
+    "28": "레포츠",
+    "32": "숙박",
+    "38": "쇼핑",
+    "39": "식당",
+    "etc": "기타"
   }
 }

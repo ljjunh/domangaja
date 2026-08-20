@@ -57,7 +57,7 @@ function PopularSpotList() {
       title: spot.title,
       regionName: spot.regionName,
       imageUrl: spot.imageUrl,
-      quietnessScore: spot.quietnessScore,
+      quietnessScore: spot.quietnessScore ?? undefined,
     });
   };
 
@@ -93,7 +93,7 @@ function PopularSpotList() {
               name={item.title}
               region={item.regionName}
               quietness={item.quietnessScore}
-              image={{ uri: item.imageUrl }}
+              imageUrl={item.imageUrl}
               isScrapped={item.scrapped}
               rank={item.rank}
               onPressItem={() => console.log('TODO: 도망지 상세로 이동')}

@@ -1,6 +1,6 @@
 import { toImageUrl } from '@/shared/api/service';
 import type { GetSpotDetailResponse } from '@/domains/spot/types/api';
-import { getSpotContentTypeLabel } from '@/domains/spot/constants/contentType';
+import { getSpotContentTypeLabelKey } from '@/domains/spot/constants/contentType';
 
 function sanitizeHtmlToText(value: string): string {
   return value
@@ -32,6 +32,6 @@ export function toSpotDetailViewData(spot: GetSpotDetailResponse) {
     tel: spot.tel?.trim() || null,
     address: spot.address?.trim() || null,
     zipcode: spot.zipcode?.trim() || null,
-    contentTypeLabel: getSpotContentTypeLabel(spot.contentTypeId),
+    contentTypeLabelKey: getSpotContentTypeLabelKey(spot.contentTypeId),
   };
 }
