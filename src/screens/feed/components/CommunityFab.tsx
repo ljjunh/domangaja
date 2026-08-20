@@ -16,7 +16,11 @@ interface CommunityFabProps {
   loading?: boolean;
 }
 
-export default function CommunityFab({ onPress, bottomOffset, loading = false }: CommunityFabProps) {
+export default function CommunityFab({
+  onPress,
+  bottomOffset,
+  loading = false,
+}: CommunityFabProps) {
   return (
     <Pressable
       onPress={onPress}

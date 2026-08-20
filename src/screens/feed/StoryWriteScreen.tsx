@@ -11,7 +11,7 @@ import { GalleryIcon, PlayFillIcon } from '@/assets/icons/common';
 import { showToast } from '@/shared/lib/toast';
 import { toastConfig } from '@/shared/lib/toastConfig';
 import { uploadImage, type UploadFile } from '@/shared/api/service';
-import { checkLocationPermission } from '@/domains/feed/lib/locationPermission';
+import { checkLocationPermission } from '@/shared/lib/locationPermission';
 import { pickStoryMedia } from '@/domains/feed/lib/mediaPicker';
 import { feedMutations } from '@/domains/feed/api/queries';
 import { MOCK_STORY_LOCATION } from '@/domains/feed/constants/mockStoryUpload';

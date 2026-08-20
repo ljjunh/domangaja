@@ -5,9 +5,10 @@ import { MAIN_TAB_SCREEN_EDGES } from '@/shared/constants/layout';
 import { useMainTabBarSpace } from '@/shared/hooks/useMainTabBarSpace';
 import { overlay } from '@/shared/overlay';
 import { showToast } from '@/shared/lib/toast';
-import { requestLocationPermission } from '@/domains/feed/lib/locationPermission';
-import { useCurrentLocation } from '@/domains/feed/hooks/useCurrentLocation';
-import { FeedList, LocationPermissionSheet, StoryList } from '@/domains/feed/components';
+import { requestLocationPermission } from '@/shared/lib/locationPermission';
+import { useCurrentLocation } from '@/shared/hooks/useCurrentLocation';
+import { FeedList, StoryList } from '@/domains/feed/components';
+import { LocationPermissionSheet } from '@/shared/components/overlay';
 import { CommunityFab, CommunityTabs, type CommunityTabValue } from './components';
 
 export default function FeedScreen() {
