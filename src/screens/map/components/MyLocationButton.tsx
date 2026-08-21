@@ -1,9 +1,9 @@
 import { ActivityIndicator, StyleSheet } from 'react-native';
 import { Pressable } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
-import { LocationFillIcon } from '@/assets/icons/common';
+import { GpsIcon } from '@/assets/icons/common';
 
-const ICON_SIZE = 22;
+const ICON_SIZE = 24;
 
 interface MyLocationButtonProps {
   isLocating: boolean;
@@ -16,7 +16,7 @@ export default function MyLocationButton({ isLocating, onPress }: MyLocationButt
       {isLocating ? (
         <ActivityIndicator size={ICON_SIZE} color={colors.blue[500]} />
       ) : (
-        <LocationFillIcon width={ICON_SIZE} height={ICON_SIZE} color={colors.blue[500]} />
+        <GpsIcon width={ICON_SIZE} height={ICON_SIZE} color={colors.blue[500]} />
       )}
     </Pressable>
   );
@@ -24,8 +24,7 @@ export default function MyLocationButton({ isLocating, onPress }: MyLocationButt
 
 const styles = StyleSheet.create({
   container: {
-    width: 44,
-    height: 44,
+    padding: 10,
     borderRadius: 22,
     justifyContent: 'center',
     alignItems: 'center',
