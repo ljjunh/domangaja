@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { Layout, StackHeader } from '@/shared/components/layout';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
@@ -32,6 +33,7 @@ export default function ScrapScreen() {
 
 function ScrapList() {
   const { t } = useTranslation();
+  const { navigate } = useNavigation();
   const { data: scraps } = useSuspenseQuery(spotQueries.getScraps({ type: 'SPOT' }));
   const { mutate: deleteScrap } = useMutation(spotMutations.deleteScrap());
 
@@ -64,7 +66,7 @@ function ScrapList() {
           quietness={item.quietnessScore}
           imageUrl={item.imageUrl}
           isScrapped
-          onPressItem={() => console.log('TODO: 도망지 상세로 이동')}
+          onPressItem={() => navigate('SpotDetail', { contentId: item.contentId })}
           onPressScrap={() => deleteScrap({ contentId: item.contentId })}
         />
       )}
