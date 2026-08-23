@@ -1,6 +1,7 @@
 import { Suspense, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { Layout, StackHeader } from '@/shared/components/layout';
 import { EmptyState } from '@/shared/components/ui';
@@ -35,6 +36,7 @@ export default function PopularSpotScreen() {
 
 function PopularSpotList() {
   const { t } = useTranslation();
+  const { navigate } = useNavigation();
   const [selectedTheme, setSelectedTheme] = useState<SpotTheme | null>(null);
   const { data: popularSpots } = useSuspenseQuery(
     spotQueries.getPopularSpots({ limit: POPULAR_LIMIT }),
@@ -96,7 +98,7 @@ function PopularSpotList() {
               imageUrl={item.imageUrl}
               isScrapped={item.scrapped}
               rank={item.rank}
-              onPressItem={() => console.log('TODO: 도망지 상세로 이동')}
+              onPressItem={() => navigate('SpotDetail', { contentId: item.contentId })}
               onPressScrap={() => handlePressScrap(item)}
             />
           )}

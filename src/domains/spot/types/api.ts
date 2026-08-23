@@ -186,6 +186,38 @@ export interface MapSpot {
 
 export type GetMapSpotsResponse = MapSpot[];
 
+export interface GetAreaSpotsParams {
+  areaCode: string;
+  sigunguCode?: string;
+  contentTypeId?: number;
+  lang?: ServerLocale;
+}
+
+export interface GetAreaSpotsRequest extends GetAreaSpotsParams {
+  // default 10
+  numOfRows?: number;
+  // default 1
+  pageNo?: number;
+}
+
+export interface AreaSpot {
+  contentId: string;
+  contentTypeId: string;
+  title: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  // 지역 검색은 위치 기준이 없어서 항상 null
+  distanceMeters: null;
+  imageUrl: string;
+  tel: string;
+  quietnessScore: number | null;
+  areaCode: string;
+  sigunguCode: string;
+}
+
+export type GetAreaSpotsResponse = AreaSpot[];
+
 export interface GetCongestionRequest {
   areaCode: string;
   sigunguCode: string;

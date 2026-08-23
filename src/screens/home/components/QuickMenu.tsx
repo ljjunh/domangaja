@@ -26,17 +26,17 @@ export default function QuickMenu() {
     {
       label: t('home.quickMenu.region'),
       icon: LocationFillIcon,
-      onPress: () => console.log('지역별 찾기로 이동'),
+      onPress: () => navigate('RegionSpot'),
     },
     {
       label: t('home.quickMenu.theme'),
       icon: SunFogFillIcon,
-      onPress: () => console.log('테마별 찾기로 이동'),
+      onPress: () => navigate('WeeklyTheme'),
     },
     {
       label: t('home.quickMenu.popular'),
       icon: CrownFillIcon,
-      onPress: () => console.log('인기 도망지로 이동'),
+      onPress: () => navigate('PopularSpot'),
     },
     {
       label: t('home.quickMenu.scrap'),

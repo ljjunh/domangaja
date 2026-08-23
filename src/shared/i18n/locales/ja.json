@@ -185,6 +185,21 @@
       "description": "訪問データが集まったら日別の静けさをお知らせします。",
       "noticeTitle": "新しく登録された場所です",
       "noticeDescription": "まだ訪問者が少なく、静かな可能性が高いです"
+    },
+    "regionSearch": {
+      "title": "地域から探す",
+      "areaPlaceholder": "地域（必須）",
+      "districtPlaceholder": "市・郡・区（任意）",
+      "search": "検索",
+      "quietness": "静けさ {{score}}%",
+      "guide": {
+        "title": "探したい地域を選択してください。",
+        "description": "市・郡・区まで絞り込めます。"
+      },
+      "empty": {
+        "title": "選択した地域ではまだ見つかりませんでした。",
+        "description": "別の地域も探してみてください。"
+      }
     }
   },
   "home": {

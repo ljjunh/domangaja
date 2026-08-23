@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import { useMutation, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { Layout, StackHeader } from '@/shared/components/layout';
 import { EmptyState } from '@/shared/components/ui';
@@ -33,6 +34,7 @@ export default function RecentSpotScreen() {
 
 function RecentSpotList() {
   const { t } = useTranslation();
+  const { navigate } = useNavigation();
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = useSuspenseInfiniteQuery(
     spotQueries.getRecentSpotsInfinite(),
   );
@@ -90,7 +92,7 @@ function RecentSpotList() {
           quietness={item.quietnessScore}
           imageUrl={item.imageUrl}
           isScrapped={item.scrapped}
-          onPressItem={() => console.log('TODO: 도망지 상세로 이동')}
+          onPressItem={() => navigate('SpotDetail', { contentId: item.contentId })}
           onPressScrap={() => handlePressScrap(item)}
         />
       )}
