@@ -26,7 +26,7 @@ export default function QuickMenu() {
     {
       label: t('home.quickMenu.region'),
       icon: LocationFillIcon,
-      onPress: () => console.log('지역별 찾기로 이동'),
+      onPress: () => navigate('RegionSpot'),
     },
     {
       label: t('home.quickMenu.theme'),
