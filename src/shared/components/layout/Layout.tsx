@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import { StyleSheet } from 'react-native';
-import { SafeAreaView, type Edge } from 'react-native-safe-area-context';
+import { StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets, type Edge } from 'react-native-safe-area-context';
 import { colors } from '@/shared/constants/colors';
 
 interface LayoutProps {
@@ -19,10 +19,21 @@ export default function Layout({
   edges = DEFAULT_EDGES,
   backgroundColor = colors.white,
 }: LayoutProps) {
+  const insets = useSafeAreaInsets();
+
   return (
-    <SafeAreaView edges={edges} style={[styles.safe, { backgroundColor }]}>
+    <View
+      style={[
+        styles.safe,
+        { backgroundColor },
+        edges.includes('top') && { paddingTop: insets.top },
+        edges.includes('bottom') && { paddingBottom: insets.bottom },
+        edges.includes('left') && { paddingLeft: insets.left },
+        edges.includes('right') && { paddingRight: insets.right },
+      ]}
+    >
       {children}
-    </SafeAreaView>
+    </View>
   );
 }
 
