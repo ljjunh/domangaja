@@ -10,6 +10,7 @@ import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { toServerLocale } from '@/shared/i18n/serverLocale';
 import { RegionPicker, RegionSpotResults, RegionSpotSkeleton } from './components';
 
+// TODO: 유저별 관심 지역 관련해서 기획 및 개발 추가
 export default function RegionSpotScreen() {
   const { t, i18n } = useTranslation();
   const [areaCode, setAreaCode] = useState<string | null>(null);
