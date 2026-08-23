@@ -185,6 +185,21 @@
       "description": "数据积累后将为您展示每日清静度。",
       "noticeTitle": "这是新收录的地点",
       "noticeDescription": "目前访客较少，可能比较清静"
+    },
+    "regionSearch": {
+      "title": "按地区查找",
+      "areaPlaceholder": "地区（必选）",
+      "districtPlaceholder": "市郡区（可选）",
+      "search": "搜索",
+      "quietness": "清静度 {{score}}%",
+      "guide": {
+        "title": "请选择要查找的地区。",
+        "description": "还可以进一步筛选市郡区。"
+      },
+      "empty": {
+        "title": "所选地区暂未找到地点。",
+        "description": "请看看其他地区。"
+      }
     }
   },
   "home": {

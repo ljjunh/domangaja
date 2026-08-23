@@ -185,6 +185,21 @@
       "description": "방문 데이터가 쌓이면 날짜별 한적도를 알려드릴게요.",
       "noticeTitle": "새로 등록된 도망지예요",
       "noticeDescription": "아직 방문객이 적어 한적할 가능성이 높아요"
+    },
+    "regionSearch": {
+      "title": "지역별 찾기",
+      "areaPlaceholder": "(필수)시도",
+      "districtPlaceholder": "(선택)시군구",
+      "search": "검색",
+      "quietness": "한적도 {{score}}%",
+      "guide": {
+        "title": "찾아볼 지역을 선택해주세요.",
+        "description": "시도를 선택하면 시군구까지 좁혀볼 수 있어요."
+      },
+      "empty": {
+        "title": "선택한 지역에서는 아직 찾지 못했어요.",
+        "description": "다른 지역도 둘러보세요."
+      }
     }
   },
   "home": {

@@ -16,6 +16,7 @@ export { default as ScrapScreen } from './setting/ScrapScreen';
 export { default as RecentSpotScreen } from './spot/RecentSpotScreen';
 export { default as PopularSpotScreen } from './spot/PopularSpotScreen';
 export { default as WeeklyThemeScreen } from './spot/WeeklyThemeScreen';
+export { default as RegionSpotScreen } from './spot/RegionSpotScreen';
 export { default as PolicyScreen } from './legal/PolicyScreen';
 export { default as ForceUpdateScreen } from './appStatus/ForceUpdateScreen';
 export { default as MaintenanceScreen } from './appStatus/MaintenanceScreen';

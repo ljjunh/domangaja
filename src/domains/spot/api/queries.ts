@@ -12,6 +12,7 @@ import {
   getRecentSpots,
   getScraps,
   getMapSpots,
+  getAreaSpots,
   getCongestion,
   deleteScrap,
   createScrap,
@@ -24,6 +25,7 @@ import {
   type GetRecentSpotsRequest,
   type GetScrapsRequest,
   type GetMapSpotsRequest,
+  type GetAreaSpotsParams,
   type GetCongestionRequest,
   type GetScrapsResponse,
   type GetSpotDetailRequest,
@@ -35,6 +37,7 @@ import { queryClient } from '@/shared/api/queryClient';
 
 const all = ['spot'] as const;
 const RECENT_PAGE_SIZE = 10;
+const AREA_PAGE_SIZE = 20;
 
 export const spotQueryKeys = {
   all,
@@ -47,6 +50,8 @@ export const spotQueryKeys = {
   recentInfinite: (limit: number) => [...all, 'recent', 'infinite', limit] as const,
   mapAll: [...all, 'map'] as const,
   map: (params: GetMapSpotsRequest) => [...all, 'map', params] as const,
+  area: (params: GetAreaSpotsParams, numOfRows: number) =>
+    [...all, 'area', params, numOfRows] as const,
   congestion: (params: GetCongestionRequest) => [...all, 'congestion', params] as const,
   scrapsAll: [...all, 'scraps'] as const,
   scraps: (params: GetScrapsRequest) => [...all, 'scraps', params] as const,
@@ -83,6 +88,15 @@ export const spotQueries = {
     queryOptions({
       queryKey: spotQueryKeys.map(params),
       queryFn: () => getMapSpots(params),
+    }),
+
+  getAreaSpotsInfinite: (params: GetAreaSpotsParams, numOfRows: number = AREA_PAGE_SIZE) =>
+    infiniteQueryOptions({
+      queryKey: spotQueryKeys.area(params, numOfRows),
+      queryFn: ({ pageParam }) => getAreaSpots({ ...params, numOfRows, pageNo: pageParam }),
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, _allPages, lastPageParam) =>
+        lastPage.length < numOfRows ? undefined : lastPageParam + 1,
     }),
 
   // 전체 목록 화면용. 홈 섹션(getRecentSpots)과 캐시가 갈리지만 둘 다 recentAll
@@ -140,16 +154,14 @@ function snapshotSpotDetails() {
 }
 
 function setSpotDetailScrapped(contentId: string, scrapped: boolean, scrapId: number | null) {
-  queryClient.setQueriesData<GetSpotDetailResponse>(
-    { queryKey: spotQueryKeys.detailAll },
-    prev =>
-      prev?.contentId === contentId
-        ? {
-            ...prev,
-            scrapped,
-            scrapId,
-          }
-        : prev,
+  queryClient.setQueriesData<GetSpotDetailResponse>({ queryKey: spotQueryKeys.detailAll }, prev =>
+    prev?.contentId === contentId
+      ? {
+          ...prev,
+          scrapped,
+          scrapId,
+        }
+      : prev,
   );
 }
 

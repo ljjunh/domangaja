@@ -185,6 +185,21 @@
       "description": "Once visit data adds up, we'll show daily quietness.",
       "noticeTitle": "A newly added place",
       "noticeDescription": "Few visitors so far, so it may well be quiet"
+    },
+    "regionSearch": {
+      "title": "Search by region",
+      "areaPlaceholder": "Region (required)",
+      "districtPlaceholder": "District (optional)",
+      "search": "Search",
+      "quietness": "Quietness {{score}}%",
+      "guide": {
+        "title": "Choose a region to explore.",
+        "description": "You can narrow the results down to a district."
+      },
+      "empty": {
+        "title": "No places found in this region yet.",
+        "description": "Try exploring another region."
+      }
     }
   },
   "home": {

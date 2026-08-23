@@ -17,6 +17,7 @@ import {
   RecentSpotScreen,
   PopularSpotScreen,
   WeeklyThemeScreen,
+  RegionSpotScreen,
   PolicyScreen,
   SpotDetailScreen,
 } from '@/screens';
@@ -66,6 +67,7 @@ export const RootStack = createNativeStackNavigator({
         RecentSpot: { screen: RecentSpotScreen },
         PopularSpot: { screen: PopularSpotScreen },
         WeeklyTheme: { screen: WeeklyThemeScreen },
+        RegionSpot: { screen: RegionSpotScreen },
         SpotDetail: { screen: SpotDetailScreen },
       },
     },
