@@ -8,7 +8,6 @@ import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { toImageUrl } from '@/shared/api/service';
 import { feedMutations, feedQueries } from '@/domains/feed/api/queries';
 import { userQueries } from '@/domains/user/api/queries';
-import type { Feed } from '@/domains/feed/types/api';
 import FeedBanner from './FeedBanner';
 import FeedCommentBottomSheet from './FeedCommentBottomSheet';
 import FeedItem from './FeedItem';
@@ -59,29 +58,6 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
     });
   };
 
-  const { mutate: bookmarkFeed, isPending: isBookmarking } = useMutation(
-    feedMutations.bookmarkFeed(),
-  );
-  const { mutate: unbookmarkFeed, isPending: isUnbookmarking } = useMutation(
-    feedMutations.unbookmarkFeed(),
-  );
-
-  const handlePressBookmark = (feed: Feed) => {
-    // 북마크 요청이 진행 중이면 다른 카드를 눌러도 중복 요청하지 않는다
-    if (isBookmarking || isUnbookmarking) {
-      return;
-    }
-    if (feed.bookmarkedByMe) {
-      unbookmarkFeed(feed.id, {
-        onError: () => showToast('error', '북마크 해제에 실패했어요. 잠시 후 다시 시도해주세요.'),
-      });
-    } else {
-      bookmarkFeed(feed.id, {
-        onError: () => showToast('error', '북마크에 실패했어요. 잠시 후 다시 시도해주세요.'),
-      });
-    }
-  };
-
   const handleEndReached = () => {
     // hasNext가 false면 요청하지 않고, 이미 다음 페이지를 불러오는 중이면 중복 요청하지 않는다
     if (hasNextPage && !isFetchingNextPage) {
@@ -117,8 +93,6 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
           onPressComment={openComments}
           onPressDelete={() => handlePressDelete(item.id)}
           onPressReport={() => handlePressReport(item.id)}
-          bookmarked={item.bookmarkedByMe}
-          onPressBookmark={() => handlePressBookmark(item)}
         />
       )}
     />

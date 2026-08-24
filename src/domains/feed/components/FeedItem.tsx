@@ -30,8 +30,10 @@ interface FeedItemProps {
   // 실제 삭제/신고 요청은 호출부(목록/상세)가 각자의 성공 후 동작(목록 갱신 vs 화면 닫기)에 맞게 처리한다
   onPressDelete: () => void;
   onPressReport: () => void;
-  bookmarked: boolean;
-  onPressBookmark: () => void;
+  // 1차 스토어 심사 전 임시로 숨김 처리 — "저장한 피드 모아보기" 화면(서버 API 포함)이 아직 없어서,
+  // props를 안 넘기면 버튼 자체가 안 보인다. 목록/상세용 API 준비되면 다시 넘겨주면 됨
+  bookmarked?: boolean;
+  onPressBookmark?: () => void;
 }
 
 export default function FeedItem({
@@ -146,13 +148,15 @@ export default function FeedItem({
             </Text>
           </Pressable>
         </View>
-        <Pressable hitSlop={8} onPress={onPressBookmark}>
-          {bookmarked ? (
-            <ArchiveTickFillIcon width={20} height={20} color={colors.blue[500]} />
-          ) : (
-            <ArchiveTickOutlineIcon width={20} height={20} color={colors.grey[500]} />
-          )}
-        </Pressable>
+        {onPressBookmark != null && (
+          <Pressable hitSlop={8} onPress={onPressBookmark}>
+            {bookmarked ? (
+              <ArchiveTickFillIcon width={20} height={20} color={colors.blue[500]} />
+            ) : (
+              <ArchiveTickOutlineIcon width={20} height={20} color={colors.grey[500]} />
+            )}
+          </Pressable>
+        )}
       </View>
     </Pressable>
   );

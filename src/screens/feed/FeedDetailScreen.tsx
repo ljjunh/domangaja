@@ -62,28 +62,6 @@ export default function FeedDetailScreen({ route }: FeedDetailScreenProps) {
     });
   };
 
-  const { mutate: bookmarkFeed, isPending: isBookmarking } = useMutation(
-    feedMutations.bookmarkFeed(),
-  );
-  const { mutate: unbookmarkFeed, isPending: isUnbookmarking } = useMutation(
-    feedMutations.unbookmarkFeed(),
-  );
-
-  const handlePressBookmark = () => {
-    if (isBookmarking || isUnbookmarking || feed == null) {
-      return;
-    }
-    if (feed.bookmarkedByMe) {
-      unbookmarkFeed(feedId, {
-        onError: () => showToast('error', '북마크 해제에 실패했어요. 잠시 후 다시 시도해주세요.'),
-      });
-    } else {
-      bookmarkFeed(feedId, {
-        onError: () => showToast('error', '북마크에 실패했어요. 잠시 후 다시 시도해주세요.'),
-      });
-    }
-  };
-
   if (feed == null) {
     return (
       <Layout>
@@ -114,8 +92,6 @@ export default function FeedDetailScreen({ route }: FeedDetailScreenProps) {
           onPressComment={openComments}
           onPressDelete={handlePressDelete}
           onPressReport={handlePressReport}
-          bookmarked={feed.bookmarkedByMe}
-          onPressBookmark={handlePressBookmark}
         />
       </ScrollView>
     </Layout>
