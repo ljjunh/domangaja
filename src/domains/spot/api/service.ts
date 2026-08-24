@@ -5,6 +5,8 @@ import type {
   GetPopularSpotsResponse,
   GetWeeklyThemesRequest,
   GetWeeklyThemesResponse,
+  GetThemeSpotsRequest,
+  GetThemeSpotsResponse,
   GetRecentSpotsRequest,
   GetRecentSpotsResponse,
   GetScrapsRequest,
@@ -60,6 +62,13 @@ export const getWeeklyThemes = async (
   const { data } = await apiClient.get<GetWeeklyThemesResponse>('/spots/themes/popular', {
     params,
   });
+  return data;
+};
+
+export const getThemeSpots = async (
+  params: GetThemeSpotsRequest,
+): Promise<GetThemeSpotsResponse> => {
+  const { data } = await apiClient.get<GetThemeSpotsResponse>('/tourism/theme', { params });
   return data;
 };
 

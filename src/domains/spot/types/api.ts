@@ -54,6 +54,31 @@ export interface WeeklyTheme {
 
 export type GetWeeklyThemesResponse = WeeklyTheme[];
 
+export interface GetThemeSpotsRequest {
+  theme: SpotTheme;
+  // default 20 (max 100). API has no pagination.
+  limit?: number;
+}
+
+export interface ThemeSpot {
+  contentId: string;
+  contentTypeId: string;
+  title: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  distanceMeters: number | null;
+  imageUrl: string;
+  tel: string;
+  quietnessScore: number | null;
+  areaCode: string;
+  sigunguCode: string;
+  regionName: string;
+  theme: SpotTheme;
+}
+
+export type GetThemeSpotsResponse = ThemeSpot[];
+
 export interface GetRecentSpotsRequest {
   // default 10 (1~50)
   limit?: number;
