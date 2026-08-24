@@ -27,7 +27,7 @@ export default function ThemeFilterChips({ selectedTheme, onSelectTheme }: Theme
       {SPOT_THEMES.map(theme => (
         <Chip
           key={theme}
-          label={t(`spotTheme.${theme}`)}
+          label={t(`spot.theme.names.${theme}`)}
           isSelected={selectedTheme === theme}
           onPress={() => onSelectTheme(theme)}
         />

@@ -1,19 +1,18 @@
 import { Suspense, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { Layout, StackHeader } from '@/shared/components/layout';
 import { EmptyState } from '@/shared/components/ui';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
+import { colors } from '@/shared/constants/colors';
 import type { SpotTheme } from '@/shared/types/spotTheme';
 import { spotMutations, spotQueries } from '@/domains/spot/api/queries';
 import { SpotListItem } from '@/domains/spot/components';
 import type { PopularSpot } from '@/domains/spot/types/api';
 import { ClockOutlineIcon } from '@/assets/icons/common';
 import { PopularSpotSkeleton, ThemeFilterChips } from './components';
-
-const POPULAR_LIMIT = 50;
 
 export default function PopularSpotScreen() {
   const { t } = useTranslation();
@@ -38,16 +37,13 @@ function PopularSpotList() {
   const { t } = useTranslation();
   const { navigate } = useNavigation();
   const [selectedTheme, setSelectedTheme] = useState<SpotTheme | null>(null);
-  const { data: popularSpots } = useSuspenseQuery(
-    spotQueries.getPopularSpots({ limit: POPULAR_LIMIT }),
+  const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = useSuspenseInfiniteQuery(
+    spotQueries.getPopularSpotsInfinite({ theme: selectedTheme ?? undefined }),
   );
   const { mutate: createScrap } = useMutation(spotMutations.createScrap());
   const { mutate: deleteScrap } = useMutation(spotMutations.deleteScrap());
 
-  const visibleSpots =
-    selectedTheme == null
-      ? popularSpots
-      : popularSpots.filter(spot => spot.theme === selectedTheme);
+  const popularSpots = data.pages.flat();
 
   const handlePressScrap = (spot: PopularSpot) => {
     if (spot.scrapped) {
@@ -69,17 +65,15 @@ function PopularSpotList() {
         <ThemeFilterChips selectedTheme={selectedTheme} onSelectTheme={setSelectedTheme} />
       </View>
 
-      {visibleSpots.length === 0 ? (
+      {popularSpots.length === 0 ? (
         <View style={styles.placeholder}>
           <EmptyState
             icon={ClockOutlineIcon}
             title={t(
-              popularSpots.length === 0
-                ? 'spot.popular.empty.title'
-                : 'spot.popular.emptyTheme.title',
+              selectedTheme == null ? 'spot.popular.empty.title' : 'spot.popular.emptyTheme.title',
             )}
             description={t(
-              popularSpots.length === 0
+              selectedTheme == null
                 ? 'spot.popular.empty.description'
                 : 'spot.popular.emptyTheme.description',
             )}
@@ -87,9 +81,20 @@ function PopularSpotList() {
         </View>
       ) : (
         <FlatList
-          data={visibleSpots}
+          data={popularSpots}
           keyExtractor={spot => spot.contentId}
           contentContainerStyle={styles.list}
+          onEndReached={() => {
+            if (hasNextPage && !isFetchingNextPage) {
+              fetchNextPage();
+            }
+          }}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={
+            isFetchingNextPage ? (
+              <ActivityIndicator style={styles.footer} color={colors.grey[400]} />
+            ) : null
+          }
           renderItem={({ item }) => (
             <SpotListItem
               name={item.title}
@@ -115,6 +120,9 @@ const styles = StyleSheet.create({
   list: {
     paddingHorizontal: SCREEN_PADDING_HORIZONTAL,
     gap: 12,
+  },
+  footer: {
+    paddingVertical: 20,
   },
   placeholder: {
     paddingHorizontal: SCREEN_PADDING_HORIZONTAL,

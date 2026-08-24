@@ -165,13 +165,35 @@
       }
     },
     "theme": {
-      "title": "今週の人気テーマ",
-      "count": "全{{count}}テーマ",
-      "spotCount_one": "{{count}}件の場所",
-      "spotCount_other": "{{count}}件の場所",
-      "empty": {
-        "title": "まだ人気テーマがありません",
-        "description": "データが集まったら今週の人気テーマをお見せします。"
+      "names": {
+        "SEA": "海・ビーチ",
+        "MOUNTAIN": "森・山",
+        "ISLAND": "島",
+        "FIELD": "野原・田舎",
+        "NIGHT_SKY": "星・夜空",
+        "VALLEY": "渓谷・滝",
+        "CITY": "都市",
+        "ETC": "その他"
+      },
+      "browse": { "title": "テーマ別に探す" },
+      "popular": {
+        "title": "今週の人気テーマ",
+        "count": "全{{count}}テーマ",
+        "spotCount_one": "{{count}}件の場所",
+        "spotCount_other": "{{count}}件の場所",
+        "empty": {
+          "title": "まだ人気テーマがありません",
+          "description": "データが集まったら今週の人気テーマをお見せします。"
+        }
+      },
+      "result": {
+        "addInterest": "テーマを登録",
+        "removeInterest": "テーマを解除",
+        "quietness": "静かさ {{score}}%",
+        "empty": {
+          "title": "このテーマにはまだ場所がありません",
+          "description": "他のテーマもご覧ください。"
+        }
       }
     },
     "quietnessLevel": {
@@ -253,16 +275,6 @@
       "description": "問題が続く場合は、アプリを完全に終了してから開き直してください。"
     },
     "retry": "再試行"
-  },
-  "spotTheme": {
-    "SEA": "海・ビーチ",
-    "MOUNTAIN": "森・山",
-    "ISLAND": "島",
-    "FIELD": "野原・田舎",
-    "NIGHT_SKY": "星・夜空",
-    "VALLEY": "渓谷・滝",
-    "CITY": "都市",
-    "ETC": "その他"
   },
   "forceUpdate": {
     "title": "新しいバージョンに更新してください",

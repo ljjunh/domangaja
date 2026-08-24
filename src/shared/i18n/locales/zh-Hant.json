@@ -165,13 +165,35 @@
       }
     },
     "theme": {
-      "title": "本週熱門主題",
-      "count": "共{{count}}個主題",
-      "spotCount_one": "{{count}}個地點",
-      "spotCount_other": "{{count}}個地點",
-      "empty": {
-        "title": "暫無熱門主題",
-        "description": "資料累積後將為您顯示本週熱門主題。"
+      "names": {
+        "SEA": "大海 · 海灘",
+        "MOUNTAIN": "森林 · 山",
+        "ISLAND": "島嶼",
+        "FIELD": "田野 · 鄉村",
+        "NIGHT_SKY": "星空 · 夜空",
+        "VALLEY": "溪谷 · 瀑布",
+        "CITY": "城市",
+        "ETC": "其他"
+      },
+      "browse": { "title": "按主題查找" },
+      "popular": {
+        "title": "本週熱門主題",
+        "count": "共{{count}}個主題",
+        "spotCount_one": "{{count}}個地點",
+        "spotCount_other": "{{count}}個地點",
+        "empty": {
+          "title": "暫無熱門主題",
+          "description": "資料累積後將為您顯示本週熱門主題。"
+        }
+      },
+      "result": {
+        "addInterest": "關注主題",
+        "removeInterest": "取消關注",
+        "quietness": "清靜度 {{score}}%",
+        "empty": {
+          "title": "該主題下暫無地點",
+          "description": "去看看其他主題吧。"
+        }
       }
     },
     "quietnessLevel": {
@@ -253,16 +275,6 @@
       "description": "如果問題持續，請完全關閉應用程式後重新開啟。"
     },
     "retry": "重試"
-  },
-  "spotTheme": {
-    "SEA": "大海 · 海灘",
-    "MOUNTAIN": "森林 · 山",
-    "ISLAND": "島嶼",
-    "FIELD": "田野 · 鄉村",
-    "NIGHT_SKY": "星空 · 夜空",
-    "VALLEY": "溪谷 · 瀑布",
-    "CITY": "城市",
-    "ETC": "其他"
   },
   "forceUpdate": {
     "title": "請更新至新版本",
