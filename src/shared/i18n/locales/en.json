@@ -337,10 +337,9 @@
     },
     "storyWrite": {
       "title": "New Story",
-      "photoLabel": "Photo or short video",
-      "photoPlaceholder": "Add a photo or short video",
-      "photoLimit": "(1 selectable)",
-      "videoSelected": "Video selected"
+      "photoLabel": "Photo",
+      "photoPlaceholder": "Add a photo",
+      "photoLimit": "(1 selectable)"
     },
     "feedWrite": {
       "title": "New Feed",

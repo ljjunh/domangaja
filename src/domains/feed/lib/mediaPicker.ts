@@ -21,16 +21,16 @@ function getErrorCode(error: unknown): string | undefined {
   return undefined;
 }
 
-// 크롭 없이 사진/영상 원본 1개 선택
+// 크롭 없이 사진 원본 1장만 선택
 export async function pickStoryMedia(): Promise<PickStoryMediaResult> {
   try {
-    const media = await ImagePicker.openPicker({ mediaType: 'any' });
+    const media = await ImagePicker.openPicker({ mediaType: 'photo' });
     return {
       status: 'picked',
       file: {
         uri: media.path,
         mime: media.mime,
-        fileName: media.filename ?? (media.mime.startsWith('video') ? 'story.mp4' : 'story.jpg'),
+        fileName: media.filename ?? 'story.jpg',
       },
     };
   } catch (error) {

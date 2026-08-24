@@ -337,10 +337,9 @@
     },
     "storyWrite": {
       "title": "스토리 올리기",
-      "photoLabel": "사진 또는 짧은 영상",
-      "photoPlaceholder": "사진 또는 짧은 영상을 추가해주세요",
-      "photoLimit": "(1개 선택 가능)",
-      "videoSelected": "동영상이 선택되었어요"
+      "photoLabel": "사진",
+      "photoPlaceholder": "사진을 추가해주세요",
+      "photoLimit": "(1개 선택 가능)"
     },
     "feedWrite": {
       "title": "피드 올리기",

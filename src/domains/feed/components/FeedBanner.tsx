@@ -1,14 +1,16 @@
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { LocationFillIcon, ArrowRightIcon } from '@/assets/icons/common';
 
 export default function FeedBanner() {
   const { t } = useTranslation();
+  const navigation = useNavigation();
   return (
     <Pressable
-      onPress={() => console.log('TODO: 실시간 한적도 페이지로 이동')}
+      onPress={() => navigation.navigate('Main', { screen: 'Map' })}
       style={styles.banner}
     >
       <View style={styles.locationIconBadge}>

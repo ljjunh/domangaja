@@ -8,7 +8,7 @@ import { Layout } from '@/shared/components/layout';
 import { Image, Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
-import { GalleryIcon, PlayFillIcon } from '@/assets/icons/common';
+import { GalleryIcon } from '@/assets/icons/common';
 import { showToast } from '@/shared/lib/toast';
 import { toastConfig } from '@/shared/lib/toastConfig';
 import { uploadImage, type UploadFile } from '@/shared/api/service';
@@ -102,8 +102,6 @@ export default function StoryWriteScreen({ route }: StoryWriteScreenProps) {
     );
   };
 
-  const isVideo = selectedMedia != null && selectedMedia.mime.startsWith('video');
-
   return (
     <Layout>
       <PostFormHeader
@@ -128,15 +126,7 @@ export default function StoryWriteScreen({ route }: StoryWriteScreenProps) {
                 </Text>
               </>
             )}
-            {selectedMedia != null && isVideo && (
-              <>
-                <PlayFillIcon width={32} height={32} color={colors.grey[500]} />
-                <Text typography="st10" weight="semiBold" color={colors.grey[500]}>
-                  {t('feed.storyWrite.videoSelected')}
-                </Text>
-              </>
-            )}
-            {selectedMedia != null && !isVideo && (
+            {selectedMedia != null && (
               <Image
                 source={{ uri: selectedMedia.uri }}
                 style={styles.mediaPreview}

@@ -337,10 +337,9 @@
     },
     "storyWrite": {
       "title": "ストーリーを作成",
-      "photoLabel": "写真または短い動画",
-      "photoPlaceholder": "写真または短い動画を追加してください",
-      "photoLimit": "(1つ選択可能)",
-      "videoSelected": "動画が選択されました"
+      "photoLabel": "写真",
+      "photoPlaceholder": "写真を追加してください",
+      "photoLimit": "(1つ選択可能)"
     },
     "feedWrite": {
       "title": "フィードを作成",

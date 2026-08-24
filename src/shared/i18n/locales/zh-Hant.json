@@ -337,10 +337,9 @@
     },
     "storyWrite": {
       "title": "發佈故事",
-      "photoLabel": "照片或短影片",
-      "photoPlaceholder": "新增照片或短影片",
-      "photoLimit": "(可選擇1個)",
-      "videoSelected": "已選擇影片"
+      "photoLabel": "照片",
+      "photoPlaceholder": "新增照片",
+      "photoLimit": "(可選擇1個)"
     },
     "feedWrite": {
       "title": "發佈動態",
