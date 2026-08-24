@@ -40,7 +40,6 @@ import { queryClient } from '@/shared/api/queryClient';
 const all = ['spot'] as const;
 const RECENT_PAGE_SIZE = 10;
 const AREA_PAGE_SIZE = 20;
-const UNSUPPORTED_TOURISM_THEMES = new Set(['NIGHT_SKY', 'ETC']);
 
 export const spotQueryKeys = {
   all,
@@ -85,11 +84,7 @@ export const spotQueries = {
   getThemeSpots: (params: GetThemeSpotsRequest) =>
     queryOptions({
       queryKey: spotQueryKeys.themeSpots(params),
-      // KTO에 대응하는 분류가 없는 두 테마는 서버가 400을 반환한다.
-      queryFn: () =>
-        UNSUPPORTED_TOURISM_THEMES.has(params.theme)
-          ? Promise.resolve([])
-          : getThemeSpots(params),
+      queryFn: () => getThemeSpots(params),
     }),
 
   getRecentSpots: (params: GetRecentSpotsRequest = {}) =>

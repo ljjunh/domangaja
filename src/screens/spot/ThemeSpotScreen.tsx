@@ -9,7 +9,7 @@ import { Button, EmptyState } from '@/shared/components/ui';
 import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { formatQuietness } from '@/shared/utils/formatQuietness';
-import type { SpotTheme } from '@/shared/types/spotTheme';
+import type { TourismSpotTheme } from '@/shared/types/spotTheme';
 import { spotQueries } from '@/domains/spot/api/queries';
 import type { ThemeSpot } from '@/domains/spot/types/api';
 import { userMutations, userQueries } from '@/domains/user/api/queries';
@@ -19,9 +19,9 @@ import { RecentSpotSkeleton } from './components';
 
 const THEME_SPOT_LIMIT = 20;
 
-type ThemeSpotScreenProps = StaticScreenProps<{ theme: SpotTheme }>;
+type ThemeSpotScreenProps = StaticScreenProps<{ theme: TourismSpotTheme }>;
 
-// TODO: 컴포넌트 분리하기, screens/spot/components 디렉토리도 점거하기
+// TODO: 컴포넌트 분리하기, screens/spot/components 디렉토리도 점검하기
 export default function ThemeSpotScreen({ route }: ThemeSpotScreenProps) {
   const { t } = useTranslation();
 
@@ -41,7 +41,7 @@ export default function ThemeSpotScreen({ route }: ThemeSpotScreenProps) {
   );
 }
 
-function ThemeSpotList({ theme }: { theme: SpotTheme }) {
+function ThemeSpotList({ theme }: { theme: TourismSpotTheme }) {
   const { t } = useTranslation();
   const { navigate } = useNavigation();
   const { data: spots } = useSuspenseQuery(

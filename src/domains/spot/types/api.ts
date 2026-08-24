@@ -1,5 +1,5 @@
 // DTO (서버 계약: Request/Response)
-import type { SpotTheme } from '@/shared/types/spotTheme';
+import type { SpotTheme, TourismSpotTheme } from '@/shared/types/spotTheme';
 import type { ServerLocale } from '@/shared/i18n/serverLocale';
 
 export interface GetTodaySpotResponse {
@@ -55,7 +55,7 @@ export interface WeeklyTheme {
 export type GetWeeklyThemesResponse = WeeklyTheme[];
 
 export interface GetThemeSpotsRequest {
-  theme: SpotTheme;
+  theme: TourismSpotTheme;
   // default 20 (max 100). API has no pagination.
   limit?: number;
 }

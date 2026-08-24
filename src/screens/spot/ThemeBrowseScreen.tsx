@@ -5,7 +5,7 @@ import { Pressable, Text } from '@/shared/components/base';
 import { Layout, StackHeader } from '@/shared/components/layout';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { colors } from '@/shared/constants/colors';
-import { SPOT_THEMES, type SpotTheme } from '@/shared/types/spotTheme';
+import { TOURISM_SPOT_THEMES, type TourismSpotTheme } from '@/shared/types/spotTheme';
 import { SPOT_THEME_IMAGES } from '@/assets/images/spotTheme';
 
 const COLUMN_COUNT = 2;
@@ -22,7 +22,7 @@ export default function ThemeBrowseScreen() {
     <Layout>
       <StackHeader title={t('spot.theme.browse.title')} />
       <FlatList
-        data={SPOT_THEMES}
+        data={TOURISM_SPOT_THEMES}
         keyExtractor={theme => theme}
         numColumns={COLUMN_COUNT}
         contentContainerStyle={styles.grid}
@@ -44,7 +44,7 @@ function ThemeBrowseCard({
   width,
   onPress,
 }: {
-  theme: SpotTheme;
+  theme: TourismSpotTheme;
   width: number;
   onPress: () => void;
 }) {
