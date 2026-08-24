@@ -22,6 +22,7 @@ import {
 } from '@/domains/spot/api/service';
 import {
   type GetPopularSpotsRequest,
+  type GetPopularSpotsParams,
   type GetWeeklyThemesRequest,
   type GetThemeSpotsRequest,
   type GetRecentSpotsRequest,
@@ -38,6 +39,7 @@ import {
 import { queryClient } from '@/shared/api/queryClient';
 
 const all = ['spot'] as const;
+const POPULAR_PAGE_SIZE = 20;
 const RECENT_PAGE_SIZE = 10;
 const AREA_PAGE_SIZE = 20;
 
@@ -46,6 +48,10 @@ export const spotQueryKeys = {
   today: [...all, 'today'] as const,
   popularAll: [...all, 'popular'] as const,
   popular: (params: GetPopularSpotsRequest) => [...all, 'popular', params] as const,
+  popularInfinite: (
+    params: GetPopularSpotsParams,
+    limit: number,
+  ) => [...all, 'popular', 'infinite', params, limit] as const,
   themes: (params: GetWeeklyThemesRequest) => [...all, 'themes', params] as const,
   themeSpots: (params: GetThemeSpotsRequest) => [...all, 'themeSpots', params] as const,
   recentAll: [...all, 'recent'] as const,
@@ -73,6 +79,19 @@ export const spotQueries = {
     queryOptions({
       queryKey: spotQueryKeys.popular(params),
       queryFn: () => getPopularSpots(params),
+    }),
+
+  getPopularSpotsInfinite: (
+    params: GetPopularSpotsParams = {},
+    limit: number = POPULAR_PAGE_SIZE,
+  ) =>
+    infiniteQueryOptions({
+      queryKey: spotQueryKeys.popularInfinite(params, limit),
+      queryFn: ({ pageParam }) => getPopularSpots({ ...params, limit, page: pageParam }),
+      initialPageParam: 0,
+      // hasNext가 없는 API — 받은 개수가 limit보다 작으면 마지막 페이지다
+      getNextPageParam: (lastPage, _allPages, lastPageParam) =>
+        lastPage.length < limit ? undefined : lastPageParam + 1,
     }),
 
   getWeeklyThemes: (params: GetWeeklyThemesRequest = {}) =>

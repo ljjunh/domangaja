@@ -13,11 +13,16 @@ export interface GetTodaySpotResponse {
   description: string;
 }
 
-export interface GetPopularSpotsRequest {
+export interface GetPopularSpotsParams {
   // default 7 (1~90)
   days?: number;
+  theme?: SpotTheme;
+}
+
+export interface GetPopularSpotsRequest extends GetPopularSpotsParams {
   // default 10 (1~50)
   limit?: number;
+  // default 0. 받은 개수가 limit보다 작으면 마지막 페이지
   page?: number;
 }
 
