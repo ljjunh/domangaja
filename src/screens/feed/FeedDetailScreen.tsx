@@ -1,4 +1,5 @@
 import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { type StaticScreenProps, useNavigation } from '@react-navigation/native';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Layout, StackHeader } from '@/shared/components/layout';
@@ -22,6 +23,7 @@ function openComments(feedId: number) {
 }
 
 export default function FeedDetailScreen({ route }: FeedDetailScreenProps) {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   const params = route.params;
   const feedId = 'feedId' in params ? params.feedId : params.feed.id;
@@ -48,7 +50,7 @@ export default function FeedDetailScreen({ route }: FeedDetailScreenProps) {
     }
     deleteFeed(feedId, {
       onSuccess: goBackToList,
-      onError: () => showToast('error', '피드 삭제에 실패했어요. 잠시 후 다시 시도해주세요.'),
+      onError: () => showToast('error', t('feed.error.deleteFeed')),
     });
   };
 
@@ -58,7 +60,7 @@ export default function FeedDetailScreen({ route }: FeedDetailScreenProps) {
     }
     reportFeed(feedId, {
       onSuccess: goBackToList,
-      onError: () => showToast('error', '신고에 실패했어요. 잠시 후 다시 시도해주세요.'),
+      onError: () => showToast('error', t('feed.error.report')),
     });
   };
 

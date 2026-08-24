@@ -1,4 +1,5 @@
 import { ActivityIndicator, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Pressable } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { AddIcon } from '@/assets/icons/common';
@@ -21,6 +22,7 @@ export default function CommunityFab({
   bottomOffset,
   loading = false,
 }: CommunityFabProps) {
+  const { t } = useTranslation();
   return (
     <Pressable
       onPress={onPress}
@@ -28,7 +30,7 @@ export default function CommunityFab({
       hitSlop={8}
       accessibilityRole="button"
       accessibilityState={{ disabled: loading, busy: loading }}
-      accessibilityLabel="등록하기"
+      accessibilityLabel={t('feed.action.registerAccessibilityLabel')}
       style={[styles.fab, { bottom: bottomOffset }, loading && styles.disabled]}
     >
       {loading ? <ActivityIndicator color={colors.white} /> : <AddIcon color={colors.white} />}

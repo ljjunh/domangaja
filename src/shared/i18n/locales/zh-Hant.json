@@ -292,5 +292,81 @@
     "38": "購物",
     "39": "餐廳",
     "etc": "其他"
+  },
+  "feed": {
+    "tabs": {
+      "story": "故事",
+      "feed": "動態"
+    },
+    "quietSpot": {
+      "title": "正在尋找安靜的地方嗎?"
+    },
+    "banner": {
+      "subtitle": "查看即時安靜度較高的地方"
+    },
+    "storyHeader": {
+      "subtitle": "此刻,那些安靜的地方"
+    },
+    "empty": {
+      "feed": "還沒有已發佈的動態。",
+      "story": "還沒有已發佈的故事。",
+      "comment": "還沒有已發佈的留言。"
+    },
+    "action": {
+      "report": "檢舉",
+      "deleteFeed": "刪除動態",
+      "deleteStory": "刪除故事",
+      "deleteComment": "刪除留言",
+      "registerAccessibilityLabel": "發佈"
+    },
+    "item": {
+      "viewCount_one": "瀏覽 {{count}}",
+      "viewCount_other": "瀏覽 {{count}}",
+      "commentCount_one": "留言 {{count}}",
+      "commentCount_other": "留言 {{count}}",
+      "quietness": "安靜度 {{value}}%"
+    },
+    "comment": {
+      "placeholder": "請輸入留言..."
+    },
+    "postForm": {
+      "close": "關閉",
+      "share": "分享",
+      "location": "位置",
+      "autoLocation": "將依據你目前的位置登記"
+    },
+    "storyWrite": {
+      "title": "發佈故事",
+      "photoLabel": "照片或短影片",
+      "photoPlaceholder": "新增照片或短影片",
+      "photoLimit": "(可選擇1個)",
+      "videoSelected": "已選擇影片"
+    },
+    "feedWrite": {
+      "title": "發佈動態",
+      "photoLabel": "照片",
+      "titleLabel": "標題",
+      "titlePlaceholder": "請輸入標題(最多30字)",
+      "contentLabel": "內容",
+      "contentPlaceholder": "請輸入內容(最多200字)"
+    },
+    "error": {
+      "selectMedia": "請選擇照片或影片。",
+      "selectPhoto": "請選擇照片。",
+      "titleRequired": "請輸入標題。",
+      "contentRequired": "請輸入內容。",
+      "locationOff": "位置存取權限已關閉。請在設定中確認位置權限。",
+      "currentLocationFailed": "無法取得目前位置。請稍後再試。",
+      "uploadFailed": "檔案上傳失敗。請稍後再試。",
+      "createFeed": "動態發佈失敗。請稍後再試。",
+      "createStory": "故事發佈失敗。請稍後再試。",
+      "createComment": "留言發佈失敗。請稍後再試。",
+      "deleteFeed": "動態刪除失敗。請稍後再試。",
+      "deleteStory": "故事刪除失敗。請稍後再試。",
+      "deleteComment": "留言刪除失敗。請稍後再試。",
+      "report": "檢舉失敗。請稍後再試。",
+      "like": "按讚失敗。請稍後再試。",
+      "unlike": "取消按讚失敗。請稍後再試。"
+    }
   }
 }

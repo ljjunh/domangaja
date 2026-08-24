@@ -1,17 +1,19 @@
 import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 
 export default function StoryHeader() {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       <Text typography="t4" weight="bold" color={colors.grey[900]}>
-        지금 한적한 곳을 찾고 있나요?
+        {t('feed.quietSpot.title')}
       </Text>
       <View style={styles.statusRow}>
         <View style={styles.dot} />
         <Text typography="st12" weight="semiBold" color={colors.grey[500]}>
-          지금 이 순간, 한적한 장소들
+          {t('feed.storyHeader.subtitle')}
         </Text>
       </View>
     </View>

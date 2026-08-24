@@ -1,4 +1,5 @@
 import { FlatList, StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import { Text } from '@/shared/components/base';
@@ -23,10 +24,11 @@ function FeedItemSeparator() {
 }
 
 function FeedEmptyState() {
+  const { t } = useTranslation();
   return (
     <View style={styles.empty}>
       <Text typography="st10" weight="semiBold" color={colors.grey[400]}>
-        아직 등록된 피드가 없어요.
+        {t('feed.empty.feed')}
       </Text>
     </View>
   );
@@ -38,6 +40,7 @@ function openComments(feedId: number) {
 }
 
 export default function FeedList({ bottomInset = 0 }: FeedListProps) {
+  const { t } = useTranslation();
   const navigation = useNavigation();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
@@ -57,7 +60,7 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
       return;
     }
     deleteFeed(feedId, {
-      onError: () => showToast('error', '피드 삭제에 실패했어요. 잠시 후 다시 시도해주세요.'),
+      onError: () => showToast('error', t('feed.error.deleteFeed')),
     });
   };
 
@@ -66,7 +69,7 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
       return;
     }
     reportFeed(feedId, {
-      onError: () => showToast('error', '신고에 실패했어요. 잠시 후 다시 시도해주세요.'),
+      onError: () => showToast('error', t('feed.error.report')),
     });
   };
 

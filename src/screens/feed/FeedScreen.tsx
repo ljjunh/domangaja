@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { Layout } from '@/shared/components/layout';
 import { MAIN_TAB_SCREEN_EDGES } from '@/shared/constants/layout';
@@ -12,6 +13,7 @@ import { LocationPermissionSheet } from '@/shared/components/overlay';
 import { CommunityFab, CommunityTabs, type CommunityTabValue } from './components';
 
 export default function FeedScreen() {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   const mainTabBarSpace = useMainTabBarSpace();
   const fabBottomSpace = useMainTabBarSpace({ fromPhysicalBottom: true });
@@ -58,7 +60,7 @@ export default function FeedScreen() {
     setIsResolvingLocation(false);
 
     if (result.status !== 'success') {
-      showToast('error', '현재 위치를 가져오지 못했어요. 잠시 후 다시 시도해주세요.');
+      showToast('error', t('feed.error.currentLocationFailed'));
       return;
     }
 

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { StackActions, type StaticScreenProps, useNavigation } from '@react-navigation/native';
 import { useMutation } from '@tanstack/react-query';
 import Toast from 'react-native-toast-message';
@@ -24,6 +25,7 @@ import { FormSectionLabel, PostFormHeader, PostLocationField } from './component
 type StoryWriteScreenProps = StaticScreenProps<{ latitude: number; longitude: number }>;
 
 export default function StoryWriteScreen({ route }: StoryWriteScreenProps) {
+  const { t } = useTranslation();
   const { latitude, longitude } = route.params;
   const navigation = useNavigation();
   const [selectedMedia, setSelectedMedia] = useState<UploadFile | null>(null);
@@ -60,7 +62,7 @@ export default function StoryWriteScreen({ route }: StoryWriteScreenProps) {
       return;
     }
     if (selectedMedia == null) {
-      showToast('error', '사진 또는 영상을 선택해주세요.');
+      showToast('error', t('feed.error.selectMedia'));
       return;
     }
 
@@ -70,7 +72,7 @@ export default function StoryWriteScreen({ route }: StoryWriteScreenProps) {
     const permission = await checkLocationPermission();
     if (permission !== 'granted') {
       setIsProcessing(false);
-      showToast('error', '위치 접근이 꺼져 있어요. 설정에서 위치 권한을 확인해주세요.');
+      showToast('error', t('feed.error.locationOff'));
       return;
     }
 
@@ -79,7 +81,7 @@ export default function StoryWriteScreen({ route }: StoryWriteScreenProps) {
       imageUrl = await uploadImage(selectedMedia);
     } catch {
       setIsProcessing(false);
-      showToast('error', '파일 업로드에 실패했어요. 잠시 후 다시 시도해주세요.');
+      showToast('error', t('feed.error.uploadFailed'));
       return;
     }
 
@@ -94,7 +96,7 @@ export default function StoryWriteScreen({ route }: StoryWriteScreenProps) {
         },
         onError: () => {
           setIsProcessing(false);
-          showToast('error', '스토리 등록에 실패했어요. 잠시 후 다시 시도해주세요.');
+          showToast('error', t('feed.error.createStory'));
         },
       },
     );
@@ -105,24 +107,24 @@ export default function StoryWriteScreen({ route }: StoryWriteScreenProps) {
   return (
     <Layout>
       <PostFormHeader
-        title="스토리 올리기"
+        title={t('feed.storyWrite.title')}
         onClose={() => navigation.goBack()}
         onShare={handleShare}
       />
       <View style={styles.container}>
-        <PostLocationField address="현재 위치를 기준으로 등록돼요" />
+        <PostLocationField address={t('feed.postForm.autoLocation')} />
 
         <View style={styles.section}>
-          <FormSectionLabel title="사진 또는 짧은 영상" required />
+          <FormSectionLabel title={t('feed.storyWrite.photoLabel')} required />
           <Pressable onPress={handlePickMedia} style={styles.mediaPicker}>
             {selectedMedia == null && (
               <>
                 <GalleryIcon width={32} height={32} color={colors.grey[500]} />
                 <Text typography="st10" weight="semiBold" color={colors.grey[500]}>
-                  사진 또는 짧은 영상을 추가해주세요
+                  {t('feed.storyWrite.photoPlaceholder')}
                 </Text>
                 <Text typography="st13" weight="semiBold" color={colors.grey[400]}>
-                  (1개 선택 가능)
+                  {t('feed.storyWrite.photoLimit')}
                 </Text>
               </>
             )}
@@ -130,7 +132,7 @@ export default function StoryWriteScreen({ route }: StoryWriteScreenProps) {
               <>
                 <PlayFillIcon width={32} height={32} color={colors.grey[500]} />
                 <Text typography="st10" weight="semiBold" color={colors.grey[500]}>
-                  동영상이 선택되었어요
+                  {t('feed.storyWrite.videoSelected')}
                 </Text>
               </>
             )}

@@ -292,5 +292,81 @@
     "38": "购物",
     "39": "餐厅",
     "etc": "其他"
+  },
+  "feed": {
+    "tabs": {
+      "story": "故事",
+      "feed": "动态"
+    },
+    "quietSpot": {
+      "title": "正在寻找安静的地方吗?"
+    },
+    "banner": {
+      "subtitle": "查看实时安静度较高的地方"
+    },
+    "storyHeader": {
+      "subtitle": "此刻,那些安静的地方"
+    },
+    "empty": {
+      "feed": "还没有已发布的动态。",
+      "story": "还没有已发布的故事。",
+      "comment": "还没有已发布的评论。"
+    },
+    "action": {
+      "report": "举报",
+      "deleteFeed": "删除动态",
+      "deleteStory": "删除故事",
+      "deleteComment": "删除评论",
+      "registerAccessibilityLabel": "发布"
+    },
+    "item": {
+      "viewCount_one": "浏览 {{count}}",
+      "viewCount_other": "浏览 {{count}}",
+      "commentCount_one": "评论 {{count}}",
+      "commentCount_other": "评论 {{count}}",
+      "quietness": "安静度 {{value}}%"
+    },
+    "comment": {
+      "placeholder": "请输入评论..."
+    },
+    "postForm": {
+      "close": "关闭",
+      "share": "分享",
+      "location": "位置",
+      "autoLocation": "将根据你当前的位置进行登记"
+    },
+    "storyWrite": {
+      "title": "发布故事",
+      "photoLabel": "照片或短视频",
+      "photoPlaceholder": "添加照片或短视频",
+      "photoLimit": "(可选择1个)",
+      "videoSelected": "已选择视频"
+    },
+    "feedWrite": {
+      "title": "发布动态",
+      "photoLabel": "照片",
+      "titleLabel": "标题",
+      "titlePlaceholder": "请输入标题(最多30字)",
+      "contentLabel": "内容",
+      "contentPlaceholder": "请输入内容(最多200字)"
+    },
+    "error": {
+      "selectMedia": "请选择照片或视频。",
+      "selectPhoto": "请选择照片。",
+      "titleRequired": "请输入标题。",
+      "contentRequired": "请输入内容。",
+      "locationOff": "位置访问权限已关闭。请在设置中确认位置权限。",
+      "currentLocationFailed": "无法获取当前位置。请稍后再试。",
+      "uploadFailed": "文件上传失败。请稍后再试。",
+      "createFeed": "动态发布失败。请稍后再试。",
+      "createStory": "故事发布失败。请稍后再试。",
+      "createComment": "评论发布失败。请稍后再试。",
+      "deleteFeed": "动态删除失败。请稍后再试。",
+      "deleteStory": "故事删除失败。请稍后再试。",
+      "deleteComment": "评论删除失败。请稍后再试。",
+      "report": "举报失败。请稍后再试。",
+      "like": "点赞失败。请稍后再试。",
+      "unlike": "取消点赞失败。请稍后再试。"
+    }
   }
 }

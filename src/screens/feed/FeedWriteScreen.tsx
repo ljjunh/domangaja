@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { KeyboardAvoidingView, ScrollView, StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { StackActions, type StaticScreenProps, useNavigation } from '@react-navigation/native';
 import { useMutation } from '@tanstack/react-query';
 import Toast from 'react-native-toast-message';
@@ -24,6 +25,7 @@ import { FormSectionLabel, PostFormHeader, PostLocationField } from './component
 type FeedWriteScreenProps = StaticScreenProps<{ latitude: number; longitude: number }>;
 
 export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
+  const { t } = useTranslation();
   const { latitude, longitude } = route.params;
   const navigation = useNavigation();
   const [title, setTitle] = useState('');
@@ -63,17 +65,17 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
       return;
     }
     if (selectedPhoto == null) {
-      showToast('error', '사진을 선택해주세요.');
+      showToast('error', t('feed.error.selectPhoto'));
       return;
     }
     const trimmedTitle = title.trim();
     if (trimmedTitle === '') {
-      showToast('error', '제목을 입력해주세요.');
+      showToast('error', t('feed.error.titleRequired'));
       return;
     }
     const trimmedContent = content.trim();
     if (trimmedContent === '') {
-      showToast('error', '내용을 입력해주세요.');
+      showToast('error', t('feed.error.contentRequired'));
       return;
     }
 
@@ -83,7 +85,7 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
     const permission = await checkLocationPermission();
     if (permission !== 'granted') {
       setIsProcessing(false);
-      showToast('error', '위치 접근이 꺼져 있어요. 설정에서 위치 권한을 확인해주세요.');
+      showToast('error', t('feed.error.locationOff'));
       return;
     }
 
@@ -92,7 +94,7 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
       imageUrl = await uploadImage(selectedPhoto);
     } catch {
       setIsProcessing(false);
-      showToast('error', '파일 업로드에 실패했어요. 잠시 후 다시 시도해주세요.');
+      showToast('error', t('feed.error.uploadFailed'));
       return;
     }
 
@@ -113,7 +115,7 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
         },
         onError: () => {
           setIsProcessing(false);
-          showToast('error', '피드 등록에 실패했어요. 잠시 후 다시 시도해주세요.');
+          showToast('error', t('feed.error.createFeed'));
         },
       },
     );
@@ -122,16 +124,16 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
   return (
     <Layout>
       <PostFormHeader
-        title="피드 올리기"
+        title={t('feed.feedWrite.title')}
         onClose={() => navigation.goBack()}
         onShare={handleShare}
       />
       <KeyboardAvoidingView style={styles.avoidingView} behavior="padding">
         <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-          <PostLocationField address="현재 위치를 기준으로 등록돼요" />
+          <PostLocationField address={t('feed.postForm.autoLocation')} />
 
           <View style={styles.section}>
-            <FormSectionLabel title="사진" required />
+            <FormSectionLabel title={t('feed.feedWrite.photoLabel')} required />
             <Pressable onPress={handlePickPhoto} style={styles.addPhotoTile}>
               {selectedPhoto == null ? (
                 <AddIcon color={colors.blue[500]} />
@@ -146,23 +148,23 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
           </View>
 
           <View style={styles.section}>
-            <FormSectionLabel title="제목" required />
+            <FormSectionLabel title={t('feed.feedWrite.titleLabel')} required />
             <TextInput
               typography="st10"
               value={title}
               onChangeText={setTitle}
-              placeholder="제목을 입력해주세요 (최대 30자)"
+              placeholder={t('feed.feedWrite.titlePlaceholder')}
               style={styles.titleInput}
             />
           </View>
 
           <View style={styles.section}>
-            <FormSectionLabel title="내용" required />
+            <FormSectionLabel title={t('feed.feedWrite.contentLabel')} required />
             <TextInput
               typography="st10"
               value={content}
               onChangeText={setContent}
-              placeholder="내용을 입력해주세요 (최대 200자)"
+              placeholder={t('feed.feedWrite.contentPlaceholder')}
               multiline
               textAlignVertical="top"
               style={styles.contentInput}

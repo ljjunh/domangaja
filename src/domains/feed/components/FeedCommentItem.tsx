@@ -73,13 +73,13 @@ export default function FeedCommentItem({
             {isMine ? (
               <Pressable onPress={handlePressDelete} style={styles.menuItem}>
                 <Text typography="t7" weight="semiBold" color={colors.red[500]}>
-                  댓글 삭제
+                  {t('feed.action.deleteComment')}
                 </Text>
               </Pressable>
             ) : (
               <Pressable onPress={handlePressReport} style={styles.menuItem}>
                 <Text typography="t7" weight="semiBold" color={colors.red[500]}>
-                  신고
+                  {t('feed.action.report')}
                 </Text>
               </Pressable>
             )}

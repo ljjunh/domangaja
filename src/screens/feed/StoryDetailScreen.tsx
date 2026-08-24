@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ActivityIndicator, StatusBar, StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { type StaticScreenProps, useNavigation } from '@react-navigation/native';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -24,6 +25,7 @@ type StoryDetailScreenProps = StaticScreenProps<{ storyId: number } | { story: S
 const TEMP_PROGRESS = 0.35;
 
 export default function StoryDetailScreen({ route }: StoryDetailScreenProps) {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   const params = route.params;
@@ -57,7 +59,7 @@ export default function StoryDetailScreen({ route }: StoryDetailScreenProps) {
     }
     deleteStory(story.id, {
       onSuccess: goBackToList,
-      onError: () => showToast('error', '스토리 삭제에 실패했어요. 잠시 후 다시 시도해주세요.'),
+      onError: () => showToast('error', t('feed.error.deleteStory')),
     });
   };
 
@@ -68,7 +70,7 @@ export default function StoryDetailScreen({ route }: StoryDetailScreenProps) {
     }
     reportStory(story.id, {
       onSuccess: goBackToList,
-      onError: () => showToast('error', '신고에 실패했어요. 잠시 후 다시 시도해주세요.'),
+      onError: () => showToast('error', t('feed.error.report')),
     });
   };
 
@@ -78,11 +80,11 @@ export default function StoryDetailScreen({ route }: StoryDetailScreenProps) {
     }
     if (story.likedByMe) {
       unlikeStory(story.id, {
-        onError: () => showToast('error', '좋아요 취소에 실패했어요. 잠시 후 다시 시도해주세요.'),
+        onError: () => showToast('error', t('feed.error.unlike')),
       });
     } else {
       likeStory(story.id, {
-        onError: () => showToast('error', '좋아요에 실패했어요. 잠시 후 다시 시도해주세요.'),
+        onError: () => showToast('error', t('feed.error.like')),
       });
     }
   };

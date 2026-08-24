@@ -105,13 +105,13 @@ export default function FeedItem({
                 {isMine ? (
                   <Pressable onPress={handlePressDelete} style={styles.menuItem}>
                     <Text typography="t7" weight="semiBold" color={colors.red[500]}>
-                      피드 삭제
+                      {t('feed.action.deleteFeed')}
                     </Text>
                   </Pressable>
                 ) : (
                   <Pressable onPress={handlePressReport} style={styles.menuItem}>
                     <Text typography="t7" weight="semiBold" color={colors.red[500]}>
-                      신고
+                      {t('feed.action.report')}
                     </Text>
                   </Pressable>
                 )}
@@ -140,11 +140,11 @@ export default function FeedItem({
       <View style={styles.statsRow}>
         <View style={styles.statsTextRow}>
           <Text typography="st13" weight="semiBold" color={colors.grey[500]}>
-            조회 {viewCount} ·{' '}
+            {t('feed.item.viewCount', { count: viewCount })} ·{' '}
           </Text>
           <Pressable hitSlop={4} onPress={() => onPressComment(id)}>
             <Text typography="st13" weight="semiBold" color={colors.grey[500]}>
-              댓글 {commentCount}
+              {t('feed.item.commentCount', { count: commentCount })}
             </Text>
           </Pressable>
         </View>

@@ -1,4 +1,5 @@
 import { ImageBackground, StyleSheet, View, type ImageSourcePropType } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { formatQuietness } from '@/shared/utils/formatQuietness';
@@ -23,13 +24,14 @@ export default function StoryCard({
   onPress,
   onPressLike,
 }: StoryCardProps) {
+  const { t } = useTranslation();
   return (
     <Pressable style={styles.card} onPress={onPress}>
       <ImageBackground source={image} style={styles.image} resizeMode="cover">
         {quietness != null && (
           <View style={styles.badge}>
             <Text typography="st12" weight="semiBold">
-              한적도 {formatQuietness(quietness)}%
+              {t('feed.item.quietness', { value: formatQuietness(quietness) })}
             </Text>
           </View>
         )}

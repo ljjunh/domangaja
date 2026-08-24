@@ -292,5 +292,81 @@
     "38": "Shopping",
     "39": "Food",
     "etc": "Other"
+  },
+  "feed": {
+    "tabs": {
+      "story": "Stories",
+      "feed": "Feed"
+    },
+    "quietSpot": {
+      "title": "Looking for a quiet spot?"
+    },
+    "banner": {
+      "subtitle": "Check places with high real-time quietness"
+    },
+    "storyHeader": {
+      "subtitle": "Quiet places, right now"
+    },
+    "empty": {
+      "feed": "No feed posts yet.",
+      "story": "No stories yet.",
+      "comment": "No comments yet."
+    },
+    "action": {
+      "report": "Report",
+      "deleteFeed": "Delete feed",
+      "deleteStory": "Delete story",
+      "deleteComment": "Delete comment",
+      "registerAccessibilityLabel": "Create post"
+    },
+    "item": {
+      "viewCount_one": "{{count}} view",
+      "viewCount_other": "{{count}} views",
+      "commentCount_one": "{{count}} comment",
+      "commentCount_other": "{{count}} comments",
+      "quietness": "Quietness {{value}}%"
+    },
+    "comment": {
+      "placeholder": "Write a comment..."
+    },
+    "postForm": {
+      "close": "Close",
+      "share": "Share",
+      "location": "Location",
+      "autoLocation": "Registered based on your current location"
+    },
+    "storyWrite": {
+      "title": "New Story",
+      "photoLabel": "Photo or short video",
+      "photoPlaceholder": "Add a photo or short video",
+      "photoLimit": "(1 selectable)",
+      "videoSelected": "Video selected"
+    },
+    "feedWrite": {
+      "title": "New Feed",
+      "photoLabel": "Photo",
+      "titleLabel": "Title",
+      "titlePlaceholder": "Enter a title (up to 30 characters)",
+      "contentLabel": "Content",
+      "contentPlaceholder": "Enter content (up to 200 characters)"
+    },
+    "error": {
+      "selectMedia": "Please select a photo or video.",
+      "selectPhoto": "Please select a photo.",
+      "titleRequired": "Please enter a title.",
+      "contentRequired": "Please enter content.",
+      "locationOff": "Location access is off. Please check location permission in Settings.",
+      "currentLocationFailed": "Couldn't get your current location. Please try again shortly.",
+      "uploadFailed": "File upload failed. Please try again shortly.",
+      "createFeed": "Failed to post feed. Please try again shortly.",
+      "createStory": "Failed to post story. Please try again shortly.",
+      "createComment": "Failed to post comment. Please try again shortly.",
+      "deleteFeed": "Failed to delete feed. Please try again shortly.",
+      "deleteStory": "Failed to delete story. Please try again shortly.",
+      "deleteComment": "Failed to delete comment. Please try again shortly.",
+      "report": "Failed to report. Please try again shortly.",
+      "like": "Failed to like. Please try again shortly.",
+      "unlike": "Failed to unlike. Please try again shortly."
+    }
   }
 }
