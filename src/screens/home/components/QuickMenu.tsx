@@ -31,7 +31,7 @@ export default function QuickMenu() {
     {
       label: t('home.quickMenu.theme'),
       icon: SunFogFillIcon,
-      onPress: () => navigate('WeeklyTheme'),
+      onPress: () => navigate('ThemeBrowse'),
     },
     {
       label: t('home.quickMenu.popular'),
