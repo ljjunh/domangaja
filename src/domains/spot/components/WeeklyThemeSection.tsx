@@ -42,7 +42,6 @@ export default function WeeklyThemeSection() {
               spotCount={theme.spotCount}
               image={SPOT_THEME_IMAGES.square[theme.theme]}
               style={styles.card}
-              onPress={() => console.log('테마 페이지로 이동')}
             />
           ))}
         </ScrollView>

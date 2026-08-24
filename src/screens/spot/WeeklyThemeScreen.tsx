@@ -76,7 +76,6 @@ function WeeklyThemeGrid() {
           image={SPOT_THEME_IMAGES.square[item.theme]}
           isHot={index < HOT_THEME_COUNT}
           style={{ width: cardWidth }}
-          onPress={() => console.log('TODO: 테마별 도망지 목록으로 이동', item.theme)}
         />
       )}
     />
