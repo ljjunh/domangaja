@@ -14,21 +14,17 @@ import { uploadImage, type UploadFile } from '@/shared/api/service';
 import { checkLocationPermission } from '@/shared/lib/locationPermission';
 import { pickFeedPhoto } from '@/domains/feed/lib/mediaPicker';
 import { feedMutations } from '@/domains/feed/api/queries';
-import { MOCK_FEED_LOCATION } from '@/domains/feed/constants/mockFeedUpload';
 import { requestPhotoPermission } from '@/domains/user/lib/photoPermission';
 import { PhotoPermissionSheet } from '@/domains/user/components';
 import { FormSectionLabel, PostFormHeader, PostLocationField } from './components';
 
-// TODO: GPS 연동 시 실제 위치 값으로 교체
-const MOCK_ADDRESS = '서울특별시 종로구 사직로 161';
-
 // 최초 위치 권한 요청/좌표 확보는 Community 리스트 화면의 + 버튼이 이미 끝내고 들어온다 —
-// 이 화면은 그 결과(좌표)를 params로 받기만 한다.
-// 단, 등록 API의 regionName/spotName은 아직 역지오코딩이 없어 MOCK_FEED_LOCATION을 대신 사용한다 —
-// 그래서 route.params의 좌표는 현재 등록 요청에 쓰지 않는다 (실제 GPS 연동 시 교체 대상)
+// 이 화면은 그 결과(좌표)를 params로 받아 등록 API에 그대로 전달한다.
+// 지역명/장소명은 서버가 좌표로부터 채워주므로 클라이언트에서 따로 변환하지 않는다
 type FeedWriteScreenProps = StaticScreenProps<{ latitude: number; longitude: number }>;
 
-export default function FeedWriteScreen(_props: FeedWriteScreenProps) {
+export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
+  const { latitude, longitude } = route.params;
   const navigation = useNavigation();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -102,7 +98,8 @@ export default function FeedWriteScreen(_props: FeedWriteScreenProps) {
 
     createFeed(
       {
-        ...MOCK_FEED_LOCATION,
+        latitude,
+        longitude,
         title: trimmedTitle,
         content: trimmedContent,
         imageUrl,
@@ -131,7 +128,7 @@ export default function FeedWriteScreen(_props: FeedWriteScreenProps) {
       />
       <KeyboardAvoidingView style={styles.avoidingView} behavior="padding">
         <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-          <PostLocationField address={MOCK_ADDRESS} />
+          <PostLocationField address="현재 위치를 기준으로 등록돼요" />
 
           <View style={styles.section}>
             <FormSectionLabel title="사진" required />

@@ -14,21 +14,17 @@ import { uploadImage, type UploadFile } from '@/shared/api/service';
 import { checkLocationPermission } from '@/shared/lib/locationPermission';
 import { pickStoryMedia } from '@/domains/feed/lib/mediaPicker';
 import { feedMutations } from '@/domains/feed/api/queries';
-import { MOCK_STORY_LOCATION } from '@/domains/feed/constants/mockStoryUpload';
 import { requestPhotoPermission } from '@/domains/user/lib/photoPermission';
 import { PhotoPermissionSheet } from '@/domains/user/components';
 import { FormSectionLabel, PostFormHeader, PostLocationField } from './components';
 
-// TODO: GPS 연동 시 실제 위치 값으로 교체
-const MOCK_ADDRESS = '서울특별시 종로구 사직로 161';
-
 // 최초 위치 권한 요청/좌표 확보는 Community 리스트 화면의 + 버튼이 이미 끝내고 들어온다 —
-// 이 화면은 그 결과(좌표)를 params로 받기만 한다.
-// 단, 등록 API의 regionName/spotName은 아직 역지오코딩이 없어 MOCK_STORY_LOCATION을 대신 사용한다 —
-// 그래서 route.params의 좌표는 현재 등록 요청에 쓰지 않는다 (실제 GPS 연동 시 교체 대상)
+// 이 화면은 그 결과(좌표)를 params로 받아 등록 API에 그대로 전달한다.
+// 지역명/장소명은 서버가 좌표로부터 채워주므로 클라이언트에서 따로 변환하지 않는다
 type StoryWriteScreenProps = StaticScreenProps<{ latitude: number; longitude: number }>;
 
-export default function StoryWriteScreen(_props: StoryWriteScreenProps) {
+export default function StoryWriteScreen({ route }: StoryWriteScreenProps) {
+  const { latitude, longitude } = route.params;
   const navigation = useNavigation();
   const [selectedMedia, setSelectedMedia] = useState<UploadFile | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -88,7 +84,7 @@ export default function StoryWriteScreen(_props: StoryWriteScreenProps) {
     }
 
     createStory(
-      { ...MOCK_STORY_LOCATION, imageUrl },
+      { latitude, longitude, imageUrl },
       {
         // 등록 성공 응답이 상세 데이터와 동일한 구조라 상세 조회 API를 다시 부르지 않고 그대로 넘긴다.
         // navigate가 아니라 replace — 작성 화면을 스택에서 지워야 상세에서 닫았을 때 목록으로 바로 돌아간다
@@ -114,7 +110,7 @@ export default function StoryWriteScreen(_props: StoryWriteScreenProps) {
         onShare={handleShare}
       />
       <View style={styles.container}>
-        <PostLocationField address={MOCK_ADDRESS} />
+        <PostLocationField address="현재 위치를 기준으로 등록돼요" />
 
         <View style={styles.section}>
           <FormSectionLabel title="사진 또는 짧은 영상" required />
