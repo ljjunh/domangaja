@@ -1,7 +1,9 @@
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+import { Text } from '@/shared/components/base';
 import { Border } from '@/shared/components/ui';
+import { colors } from '@/shared/constants/colors';
 import { overlay } from '@/shared/overlay';
 import { showToast } from '@/shared/lib/toast';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
@@ -18,6 +20,16 @@ interface FeedListProps {
 
 function FeedItemSeparator() {
   return <Border style={styles.separator} />;
+}
+
+function FeedEmptyState() {
+  return (
+    <View style={styles.empty}>
+      <Text typography="st10" weight="semiBold" color={colors.grey[400]}>
+        아직 등록된 피드가 없어요.
+      </Text>
+    </View>
+  );
 }
 
 // 피드 카드가 리스트 어디서나 호출할 수 있도록 overlay로 댓글 시트를 띄운다 (WithdrawalSheet와 동일한 방식)
@@ -69,10 +81,12 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
     <FlatList
       data={feeds}
       keyExtractor={item => String(item.id)}
+      style={styles.flatList}
       contentContainerStyle={styles.list}
       ListHeaderComponent={<FeedBanner />}
       ListHeaderComponentStyle={styles.header}
       ItemSeparatorComponent={FeedItemSeparator}
+      ListEmptyComponent={data != null ? FeedEmptyState : null}
       ListFooterComponent={<View style={{ height: bottomInset }} />}
       onEndReached={handleEndReached}
       onEndReachedThreshold={0.5}
@@ -100,14 +114,24 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
 }
 
 const styles = StyleSheet.create({
+  flatList: {
+    flex: 1,
+  },
   list: {
     paddingHorizontal: SCREEN_PADDING_HORIZONTAL,
     paddingTop: 12,
+    flexGrow: 1,
   },
   header: {
     marginBottom: 16,
   },
   separator: {
     marginVertical: 18,
+  },
+  empty: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 40,
   },
 });
