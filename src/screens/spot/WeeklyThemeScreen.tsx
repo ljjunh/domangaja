@@ -23,7 +23,7 @@ export default function WeeklyThemeScreen() {
 
   return (
     <Layout>
-      <StackHeader title={t('spot.theme.title')} />
+      <StackHeader title={t('spot.theme.popular.title')} />
       <Suspense
         fallback={
           <View style={styles.placeholder}>
@@ -50,8 +50,8 @@ function WeeklyThemeGrid() {
       <View style={styles.placeholder}>
         <EmptyState
           icon={ClockOutlineIcon}
-          title={t('spot.theme.empty.title')}
-          description={t('spot.theme.empty.description')}
+          title={t('spot.theme.popular.empty.title')}
+          description={t('spot.theme.popular.empty.description')}
         />
       </View>
     );
@@ -66,12 +66,12 @@ function WeeklyThemeGrid() {
       columnWrapperStyle={styles.row}
       ListHeaderComponent={
         <Text typography="t7" weight="medium" color={colors.grey[500]}>
-          {t('spot.theme.count', { count: themes.length })}
+          {t('spot.theme.popular.count', { count: themes.length })}
         </Text>
       }
       renderItem={({ item, index }) => (
         <ThemeCard
-          name={t(`spotTheme.${item.theme}`)}
+          name={t(`spot.theme.names.${item.theme}`)}
           spotCount={item.spotCount}
           image={SPOT_THEME_IMAGES.square[item.theme]}
           isHot={index < HOT_THEME_COUNT}

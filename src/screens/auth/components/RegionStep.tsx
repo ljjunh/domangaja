@@ -183,7 +183,7 @@ export default function RegionStep({ onNext, isSubmitting = false }: RegionStepP
                 {ONBOARDING_SPOT_THEMES.map(theme => (
                   <LandscapeCard
                     key={theme}
-                    label={t(`spotTheme.${theme}`)}
+                    label={t(`spot.theme.names.${theme}`)}
                     image={SPOT_THEME_IMAGES.wide[theme]}
                     isSelected={landscapes.includes(theme)}
                     onPress={() => setLandscapes(prev => toggleSelection(prev, theme))}

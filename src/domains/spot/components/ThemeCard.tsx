@@ -43,7 +43,7 @@ export default function ThemeCard({
           {name}
         </Text>
         <Text typography="st13" weight="semiBold" color={colors.white} style={styles.textShadow}>
-          {t('spot.theme.spotCount', { count: spotCount })}
+          {t('spot.theme.popular.spotCount', { count: spotCount })}
         </Text>
       </ImageBackground>
     </Pressable>

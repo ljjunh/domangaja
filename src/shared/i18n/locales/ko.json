@@ -165,13 +165,35 @@
       }
     },
     "theme": {
-      "title": "이번주 인기 테마",
-      "count": "전체 {{count}}개 테마",
-      "spotCount_one": "{{count}}개의 도망지",
-      "spotCount_other": "{{count}}개의 도망지",
-      "empty": {
-        "title": "아직 인기 테마가 없어요",
-        "description": "데이터가 모이면 이번주 인기 테마를 보여드릴게요."
+      "names": {
+        "SEA": "바다 · 해변",
+        "MOUNTAIN": "숲 · 산",
+        "ISLAND": "섬",
+        "FIELD": "들판 · 시골",
+        "NIGHT_SKY": "별 · 밤하늘",
+        "VALLEY": "계곡 · 폭포",
+        "CITY": "도시",
+        "ETC": "그 외"
+      },
+      "browse": { "title": "테마별 찾기" },
+      "popular": {
+        "title": "이번주 인기 테마",
+        "count": "전체 {{count}}개 테마",
+        "spotCount_one": "{{count}}개의 도망지",
+        "spotCount_other": "{{count}}개의 도망지",
+        "empty": {
+          "title": "아직 인기 테마가 없어요",
+          "description": "데이터가 모이면 이번주 인기 테마를 보여드릴게요."
+        }
+      },
+      "result": {
+        "addInterest": "관심 테마 등록",
+        "removeInterest": "관심 테마 해제",
+        "quietness": "한적도 {{score}}%",
+        "empty": {
+          "title": "이 테마에는 아직 도망지가 없어요",
+          "description": "다른 테마의 도망지도 둘러보세요."
+        }
       }
     },
     "quietnessLevel": {
@@ -253,16 +275,6 @@
       "description": "문제가 계속되면 앱을 완전히 종료한 뒤 다시 열어보세요."
     },
     "retry": "다시 시도하기"
-  },
-  "spotTheme": {
-    "SEA": "바다 · 해변",
-    "MOUNTAIN": "숲 · 산",
-    "ISLAND": "섬",
-    "FIELD": "들판 · 시골",
-    "NIGHT_SKY": "별 · 밤하늘",
-    "VALLEY": "계곡 · 폭포",
-    "CITY": "도시",
-    "ETC": "그 외"
   },
   "forceUpdate": {
     "title": "새 버전으로 업데이트해 주세요",
