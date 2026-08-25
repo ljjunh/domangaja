@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { IconButton } from '@/shared/components/ui';
 import { ArrowLeftIcon } from '@/assets/icons/common';
@@ -13,6 +14,7 @@ interface StackHeaderProps {
 }
 
 export default function StackHeader({ title, left, right }: StackHeaderProps) {
+  const { t } = useTranslation();
   const navigation = useNavigation();
 
   return (
@@ -20,7 +22,7 @@ export default function StackHeader({ title, left, right }: StackHeaderProps) {
       <View style={styles.side}>
         <IconButton
           icon={ArrowLeftIcon}
-          label="뒤로가기"
+          label={t('common.back')}
           onPress={navigation.goBack}
           color={colors.black}
         />

@@ -4,7 +4,9 @@
     "confirm": "確認",
     "all": "全部",
     "more": "展開",
-    "collapse": "收起"
+    "collapse": "收起",
+    "back": "返回",
+    "seeAll": "查看全部"
   },
   "logout": {
     "title": "登出",
@@ -57,16 +59,34 @@
     "openSettings": "開啟設定"
   },
   "nickname": {
+    "title": "我們該怎麼\n稱呼你？",
+    "placeholder": "暱稱",
     "rule": "請輸入2~10位韓文、英文或數字。",
     "duplicate": "該暱稱已被使用。",
     "unavailable": "該暱稱無法使用。",
     "checkFailed": "檢查失敗，請稍後重試。"
   },
   "birthDate": {
+    "title": "你的生日是\n什麼時候？",
     "invalidDate": "請重新確認您的出生日期。",
     "tooYoung": "僅滿14歲以上可註冊。"
   },
+  "region": {
+    "title": "你想逃到\n哪裡去？",
+    "description": "選好感興趣的地區，我們會優先顯示。",
+    "landscapeTitle": "你喜歡什麼樣的風景？",
+    "start": "開始使用",
+    "names": {
+      "SEOUL": "首爾",
+      "GANGWON": "江原",
+      "CHUNGCHEONG": "忠清",
+      "JEOLLA": "全羅",
+      "GYEONGSANG": "慶尚",
+      "JEJU": "濟州"
+    }
+  },
   "notification": {
+    "buttonAccessibilityLabel": "通知",
     "markAllRead": "全部已讀",
     "setting": "通知設定",
     "unreadCount_one": "{{count}} 則未讀通知",
@@ -139,7 +159,31 @@
     "bestDaySubtitle": "預測清靜度 {{score}} · 推薦這一天",
     "emptyTourInfo": "暫無介紹資訊。"
   },
+  "audioGuide": {
+    "title": "語音導覽",
+    "error": "無法播放",
+    "previous": "上一個",
+    "next": "下一個",
+    "playAccessibilityLabel": "播放語音導覽",
+    "pauseAccessibilityLabel": "暫停語音導覽",
+    "previousAccessibilityLabel": "上一個語音導覽",
+    "nextAccessibilityLabel": "下一個語音導覽"
+  },
   "spot": {
+    "quietness": "清靜度 {{score}}%",
+    "detail": {
+      "scrap": "收藏",
+      "unscrap": "取消收藏",
+      "share": "分享"
+    },
+    "today": {
+      "title": "今日推薦逃離地",
+      "detail": "查看詳情"
+    },
+    "contact": {
+      "homepage": "造訪官網",
+      "tel": "電話洽詢"
+    },
     "popular": {
       "empty": {
         "title": "正在統計排名",
@@ -230,6 +274,11 @@
       "theme": "按主題",
       "popular": "熱門",
       "scrap": "已收藏"
+    },
+    "nearbyBanner": {
+      "title": "想知道你附近有哪些清靜的地方嗎？",
+      "description": "根據你的位置推薦清靜度高的地點",
+      "accessibilityLabel": "在地圖上查看附近的清靜地點"
     }
   },
   "map": {

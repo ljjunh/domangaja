@@ -4,7 +4,9 @@
     "confirm": "确认",
     "all": "全部",
     "more": "展开",
-    "collapse": "收起"
+    "collapse": "收起",
+    "back": "返回",
+    "seeAll": "查看全部"
   },
   "logout": {
     "title": "退出登录",
@@ -57,16 +59,34 @@
     "openSettings": "打开设置"
   },
   "nickname": {
+    "title": "我们该怎么\n称呼你？",
+    "placeholder": "昵称",
     "rule": "请输入2~10位韩文、英文或数字。",
     "duplicate": "该昵称已被使用。",
     "unavailable": "该昵称无法使用。",
     "checkFailed": "检查失败，请稍后重试。"
   },
   "birthDate": {
+    "title": "你的生日是\n什么时候？",
     "invalidDate": "请重新确认您的出生日期。",
     "tooYoung": "仅满14周岁以上可注册。"
   },
+  "region": {
+    "title": "你想逃到\n哪里去？",
+    "description": "选好感兴趣的地区，我们会优先展示。",
+    "landscapeTitle": "你喜欢什么样的风景？",
+    "start": "开始使用",
+    "names": {
+      "SEOUL": "首尔",
+      "GANGWON": "江原",
+      "CHUNGCHEONG": "忠清",
+      "JEOLLA": "全罗",
+      "GYEONGSANG": "庆尚",
+      "JEJU": "济州"
+    }
+  },
   "notification": {
+    "buttonAccessibilityLabel": "通知",
     "markAllRead": "全部已读",
     "setting": "通知设置",
     "unreadCount_one": "{{count}} 条未读通知",
@@ -139,7 +159,31 @@
     "bestDaySubtitle": "预测清静度 {{score}} · 推荐这一天",
     "emptyTourInfo": "暂无介绍信息。"
   },
+  "audioGuide": {
+    "title": "语音导览",
+    "error": "无法播放",
+    "previous": "上一个",
+    "next": "下一个",
+    "playAccessibilityLabel": "播放语音导览",
+    "pauseAccessibilityLabel": "暂停语音导览",
+    "previousAccessibilityLabel": "上一个语音导览",
+    "nextAccessibilityLabel": "下一个语音导览"
+  },
   "spot": {
+    "quietness": "清静度 {{score}}%",
+    "detail": {
+      "scrap": "收藏",
+      "unscrap": "取消收藏",
+      "share": "分享"
+    },
+    "today": {
+      "title": "今日推荐逃离地",
+      "detail": "查看详情"
+    },
+    "contact": {
+      "homepage": "访问官网",
+      "tel": "电话咨询"
+    },
     "popular": {
       "empty": {
         "title": "正在统计排名",
@@ -230,6 +274,11 @@
       "theme": "按主题",
       "popular": "热门",
       "scrap": "已收藏"
+    },
+    "nearbyBanner": {
+      "title": "想知道你附近有哪些清静的地方吗？",
+      "description": "根据你的位置推荐清静度高的地点",
+      "accessibilityLabel": "在地图上查看附近的清静地点"
     }
   },
   "map": {

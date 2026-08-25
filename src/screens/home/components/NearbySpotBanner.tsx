@@ -1,17 +1,19 @@
 import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { ArrowRightIcon, LocationFillIcon } from '@/assets/icons/common';
 
 export default function NearbySpotBanner() {
+  const { t } = useTranslation();
   const { navigate } = useNavigation();
 
   // TODO: 내 주변 한적한 곳 구현 후 해당 화면으로 이동하도록 수정
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel="지도에서 내 주변 한적한 장소 보기"
+      accessibilityLabel={t('home.nearbyBanner.accessibilityLabel')}
       onPress={() => navigate('Main', { screen: 'Map' })}
       style={styles.banner}
     >
@@ -21,10 +23,10 @@ export default function NearbySpotBanner() {
         </View>
         <View>
           <Text typography="st12" weight="semiBold">
-            지금 내 주변 한적한 곳이 궁금하다면?
+            {t('home.nearbyBanner.title')}
           </Text>
           <Text typography="st13" weight="semiBold" color={colors.grey[500]}>
-            내 위치 기준 한적도 높은 장소를 알려드려요
+            {t('home.nearbyBanner.description')}
           </Text>
         </View>
       </View>

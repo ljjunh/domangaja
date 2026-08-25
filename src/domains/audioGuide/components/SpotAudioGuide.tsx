@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useIsFocused } from '@react-navigation/native';
 import Video, { type VideoRef } from 'react-native-video';
 
@@ -19,6 +20,7 @@ function formatTime(seconds: number): string {
 }
 
 export default function SpotAudioGuide({ guides }: SpotAudioGuideProps) {
+  const { t } = useTranslation();
   const playerRef = useRef<VideoRef>(null);
   const isFocused = useIsFocused();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -81,7 +83,11 @@ export default function SpotAudioGuide({ guides }: SpotAudioGuideProps) {
       <View style={styles.mainRow}>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={isPaused ? '오디오 가이드 재생' : '오디오 가이드 일시정지'}
+          accessibilityLabel={
+            isPaused
+              ? t('audioGuide.playAccessibilityLabel')
+              : t('audioGuide.pauseAccessibilityLabel')
+          }
           disabled={hasError}
           style={[styles.playButton, hasError && styles.disabledButton]}
           onPress={() => setIsPaused(value => !value)}
@@ -100,7 +106,7 @@ export default function SpotAudioGuide({ guides }: SpotAudioGuideProps) {
         <View style={styles.texts}>
           <View style={styles.titleRow}>
             <Text typography="t7" weight="semiBold" style={styles.title}>
-              {title || '오디오 가이드'}
+              {title || t('audioGuide.title')}
             </Text>
             {audioTitle && audioTitle !== title && (
               <Text typography="st12" color={colors.grey[700]} style={styles.audioTitle}>
@@ -109,7 +115,9 @@ export default function SpotAudioGuide({ guides }: SpotAudioGuideProps) {
             )}
           </View>
           <Text typography="st12" weight="semiBold" color={colors.grey[600]}>
-            {hasError ? '재생할 수 없어요' : `${formatTime(currentTime)} / ${formatTime(duration)}`}
+            {hasError
+              ? t('audioGuide.error')
+              : `${formatTime(currentTime)} / ${formatTime(duration)}`}
           </Text>
         </View>
         {hasMultipleGuides && (
@@ -123,7 +131,7 @@ export default function SpotAudioGuide({ guides }: SpotAudioGuideProps) {
         <View style={styles.guideNavigation}>
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="이전 오디오 가이드"
+            accessibilityLabel={t('audioGuide.previousAccessibilityLabel')}
             disabled={activeIndex === 0}
             onPress={() => selectGuide(activeIndex - 1)}
           >
@@ -132,12 +140,12 @@ export default function SpotAudioGuide({ guides }: SpotAudioGuideProps) {
               weight="semiBold"
               color={activeIndex === 0 ? colors.grey[400] : colors.blue[600]}
             >
-              이전
+              {t('audioGuide.previous')}
             </Text>
           </Pressable>
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="다음 오디오 가이드"
+            accessibilityLabel={t('audioGuide.nextAccessibilityLabel')}
             disabled={activeIndex === guides.length - 1}
             onPress={() => selectGuide(activeIndex + 1)}
           >
@@ -146,7 +154,7 @@ export default function SpotAudioGuide({ guides }: SpotAudioGuideProps) {
               weight="semiBold"
               color={activeIndex === guides.length - 1 ? colors.grey[400] : colors.blue[600]}
             >
-              다음
+              {t('audioGuide.next')}
             </Text>
           </Pressable>
         </View>

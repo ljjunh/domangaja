@@ -4,7 +4,9 @@
     "confirm": "확인",
     "all": "전체",
     "more": "더보기",
-    "collapse": "접기"
+    "collapse": "접기",
+    "back": "뒤로가기",
+    "seeAll": "더보기"
   },
   "logout": {
     "title": "로그아웃",
@@ -57,16 +59,34 @@
     "openSettings": "설정 열기"
   },
   "nickname": {
+    "title": "뭐라고\n불러드릴까요?",
+    "placeholder": "닉네임",
     "rule": "한글/영어/숫자 2~10자로 입력해주세요.",
     "duplicate": "이미 사용 중인 닉네임이에요.",
     "unavailable": "사용할 수 없는 닉네임이에요.",
     "checkFailed": "확인에 실패했어요. 잠시 후 다시 시도해주세요."
   },
   "birthDate": {
+    "title": "생일이\n언제예요?",
     "invalidDate": "생년월일을 다시 확인해주세요.",
     "tooYoung": "만 14세 이상만 가입할 수 있어요."
   },
+  "region": {
+    "title": "어디로\n도망가고 싶어요?",
+    "description": "관심지역을 골라두면 먼저 보여드려요.",
+    "landscapeTitle": "어떤 풍경을 좋아하세요?",
+    "start": "시작하기",
+    "names": {
+      "SEOUL": "서울",
+      "GANGWON": "강원",
+      "CHUNGCHEONG": "충청",
+      "JEOLLA": "전라",
+      "GYEONGSANG": "경상",
+      "JEJU": "제주"
+    }
+  },
   "notification": {
+    "buttonAccessibilityLabel": "알림",
     "markAllRead": "모두 읽음",
     "setting": "알림 설정",
     "unreadCount_one": "안 읽은 알림 {{count}}개",
@@ -139,7 +159,31 @@
     "bestDaySubtitle": "예측 한적도 {{score}} · 이날을 추천드려요",
     "emptyTourInfo": "소개 정보가 아직 없어요."
   },
+  "audioGuide": {
+    "title": "오디오 가이드",
+    "error": "재생할 수 없어요",
+    "previous": "이전",
+    "next": "다음",
+    "playAccessibilityLabel": "오디오 가이드 재생",
+    "pauseAccessibilityLabel": "오디오 가이드 일시정지",
+    "previousAccessibilityLabel": "이전 오디오 가이드",
+    "nextAccessibilityLabel": "다음 오디오 가이드"
+  },
   "spot": {
+    "quietness": "한적도 {{score}}%",
+    "detail": {
+      "scrap": "스크랩",
+      "unscrap": "스크랩 해제",
+      "share": "공유"
+    },
+    "today": {
+      "title": "오늘의 추천 도망지",
+      "detail": "자세히 보기"
+    },
+    "contact": {
+      "homepage": "홈페이지 방문",
+      "tel": "전화 문의"
+    },
     "popular": {
       "empty": {
         "title": "순위를 집계하고 있어요",
@@ -230,6 +274,11 @@
       "theme": "테마별 찾기",
       "popular": "인기 도망지",
       "scrap": "저장한 곳"
+    },
+    "nearbyBanner": {
+      "title": "지금 내 주변 한적한 곳이 궁금하다면?",
+      "description": "내 위치 기준 한적도 높은 장소를 알려드려요",
+      "accessibilityLabel": "지도에서 내 주변 한적한 장소 보기"
     }
   },
   "map": {

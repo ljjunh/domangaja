@@ -49,8 +49,7 @@ export default function BirthDateStep({ onNext }: BirthDateStepProps) {
 
   return (
     <View style={styles.container}>
-      {/* TODO: 다국어 처리 예정 */}
-      <TypingTitle text={'생일이\n언제예요?'} onComplete={() => setIsTitleDone(true)} />
+      <TypingTitle text={t('birthDate.title')} onComplete={() => setIsTitleDone(true)} />
 
       {isTitleDone && (
         <>
