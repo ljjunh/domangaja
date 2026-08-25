@@ -1,40 +1,41 @@
 import { useEffect } from 'react';
-import { showToast } from '@/shared/lib/toast';
-import { onForegroundPush } from '@/domains/notification/lib/fcm';
+import { showPushToast } from '@/shared/lib/toast';
+import { onForegroundPush, type PushMessage } from '@/domains/notification/lib/fcm';
+import { invalidateNotificationList } from '@/domains/notification/api/queries';
+import { navigateByPush } from '@/domains/notification/hooks/usePushNavigation';
 import { parsePushAction } from '@/domains/notification/utils/pushAction';
 
-export const useForegroundPush = () => {
-  useEffect(function handleForegroundPush() {
-    return onForegroundPush(message => {
-      console.log('푸쉬옴', message);
-      const action = parsePushAction(message.data);
-      const text = message.body ?? message.title;
+/**
+ * 훅 밖으로 꺼내둔 이유: 개발용 버튼에서 가짜 메시지로 같은 경로를 그대로 태울 수 있다
+ * (배너 모양·마케팅 제외·탭 이동을 실제 코드로 확인)
+ */
+export function handleForegroundPushMessage(message: PushMessage) {
+  const action = parsePushAction(message.data);
 
-      switch (action?.type) {
-        case 'QUIETNESS':
-          // TODO: 해당 스팟 쿼리 무효화 (spot 쿼리 레이어 생기면)
-          // queryClient.invalidateQueries({ queryKey: spotQueryKeys.detail(action.spotId) });
-          if (text != null) {
-            showToast('info', text);
-          }
-          break;
-        case 'COMMENT':
-        case 'LIKE':
-          // TODO: 해당 피드 쿼리 무효화 (feed 쿼리 레이어 생기면)
-          // queryClient.invalidateQueries({ queryKey: feedQueryKeys.detail(action.feedId) });
-          if (text != null) {
-            showToast('info', text);
-          }
-          break;
-        case 'MARKETING':
-          break; // 앱 사용 중인 사람에게 광고 토스트를 끼얹지 않는다 — 의도적 무시
-        default:
-          // action이 없거나 모르는 값. 서버가 아직 action을 안 실어 보내므로 일단 표시.
-          // TODO: 서버가 action을 싣기 시작하면 '조용히 무시'로 전환
-          if (text != null) {
-            showToast('info', text);
-          }
-      }
-    });
+  // 대상 화면(스팟·피드) 쿼리 무효화는 다른 도메인이라 여기서 하지 않는다(ADR 003)
+  invalidateNotificationList();
+
+  // 앱 사용 중인 사람에게 광고 배너를 끼얹지 않는다 — 의도적 무시
+  if (action?.type === 'MARKETING') {
+    return;
+  }
+  if (message.title == null && message.body == null) {
+    return;
+  }
+
+  // action이 null(모르는 종류)이어도 배너는 띄운다 — 내용은 보여주고 이동만 포기한다.
+  // navigateByPush가 targetId 없으면 조용히 끝내므로 탭해도 안전하다
+
+  // 목적지 로직은 navigateByPush 한 곳에만 둔다 (OS 알림 탭과 같은 경로)
+  showPushToast({
+    title: message.title,
+    body: message.body,
+    onPress: () => navigateByPush(message),
+  });
+}
+
+export const useForegroundPush = () => {
+  useEffect(function subscribeForegroundPush() {
+    return onForegroundPush(handleForegroundPushMessage);
   }, []);
 };
