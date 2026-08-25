@@ -62,10 +62,17 @@ export interface WeeklyTheme {
 
 export type GetWeeklyThemesResponse = WeeklyTheme[];
 
-export interface GetThemeSpotsRequest {
+export interface GetThemeSpotsParams {
   theme: TourismSpotTheme;
-  // default 20 (max 100). API has no pagination.
+  areaCode?: string;
+  sigunguCode?: string;
+}
+
+export interface GetThemeSpotsRequest extends GetThemeSpotsParams {
+  // default 20 (max 100)
   limit?: number;
+  // default 0. 받은 개수가 limit보다 작으면 마지막 페이지
+  page?: number;
 }
 
 export interface ThemeSpot {
