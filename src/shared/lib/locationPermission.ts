@@ -34,7 +34,7 @@ function toAndroidResult(
   if (fineStatus === RESULTS.GRANTED || coarseStatus === RESULTS.GRANTED) {
     return 'granted';
   }
-  if (fineStatus === RESULTS.DENIED || coarseStatus === RESULTS.DENIED) {
+  if (fineStatus === RESULTS.DENIED) {
     return 'retriable';
   }
   return 'blocked';

@@ -55,11 +55,9 @@ export const RootStack = createNativeStackNavigator({
         },
         FeedWrite: {
           screen: FeedWriteScreen,
-          options: { presentation: 'fullScreenModal' },
         },
         StoryWrite: {
           screen: StoryWriteScreen,
-          options: { presentation: 'fullScreenModal' },
         },
         LanguageSetting: { screen: LanguageSettingScreen },
         MyInfo: { screen: MyInfoScreen },
