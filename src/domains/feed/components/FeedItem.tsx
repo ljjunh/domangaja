@@ -30,8 +30,10 @@ interface FeedItemProps {
   // 실제 삭제/신고 요청은 호출부(목록/상세)가 각자의 성공 후 동작(목록 갱신 vs 화면 닫기)에 맞게 처리한다
   onPressDelete: () => void;
   onPressReport: () => void;
-  bookmarked: boolean;
-  onPressBookmark: () => void;
+  // 1차 스토어 심사 전 임시로 숨김 처리 — "저장한 피드 모아보기" 화면(서버 API 포함)이 아직 없어서,
+  // props를 안 넘기면 버튼 자체가 안 보인다. 목록/상세용 API 준비되면 다시 넘겨주면 됨
+  bookmarked?: boolean;
+  onPressBookmark?: () => void;
 }
 
 export default function FeedItem({
@@ -103,13 +105,13 @@ export default function FeedItem({
                 {isMine ? (
                   <Pressable onPress={handlePressDelete} style={styles.menuItem}>
                     <Text typography="t7" weight="semiBold" color={colors.red[500]}>
-                      피드 삭제
+                      {t('feed.action.deleteFeed')}
                     </Text>
                   </Pressable>
                 ) : (
                   <Pressable onPress={handlePressReport} style={styles.menuItem}>
                     <Text typography="t7" weight="semiBold" color={colors.red[500]}>
-                      신고
+                      {t('feed.action.report')}
                     </Text>
                   </Pressable>
                 )}
@@ -138,21 +140,23 @@ export default function FeedItem({
       <View style={styles.statsRow}>
         <View style={styles.statsTextRow}>
           <Text typography="st13" weight="semiBold" color={colors.grey[500]}>
-            조회 {viewCount} ·{' '}
+            {t('feed.item.viewCount', { count: viewCount })} ·{' '}
           </Text>
           <Pressable hitSlop={4} onPress={() => onPressComment(id)}>
             <Text typography="st13" weight="semiBold" color={colors.grey[500]}>
-              댓글 {commentCount}
+              {t('feed.item.commentCount', { count: commentCount })}
             </Text>
           </Pressable>
         </View>
-        <Pressable hitSlop={8} onPress={onPressBookmark}>
-          {bookmarked ? (
-            <ArchiveTickFillIcon width={20} height={20} color={colors.blue[500]} />
-          ) : (
-            <ArchiveTickOutlineIcon width={20} height={20} color={colors.grey[500]} />
-          )}
-        </Pressable>
+        {onPressBookmark != null && (
+          <Pressable hitSlop={8} onPress={onPressBookmark}>
+            {bookmarked ? (
+              <ArchiveTickFillIcon width={20} height={20} color={colors.blue[500]} />
+            ) : (
+              <ArchiveTickOutlineIcon width={20} height={20} color={colors.grey[500]} />
+            )}
+          </Pressable>
+        )}
       </View>
     </Pressable>
   );

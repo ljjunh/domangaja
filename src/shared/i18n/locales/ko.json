@@ -304,5 +304,80 @@
     "38": "쇼핑",
     "39": "식당",
     "etc": "기타"
+  },
+  "feed": {
+    "tabs": {
+      "story": "스토리",
+      "feed": "피드"
+    },
+    "quietSpot": {
+      "title": "지금 한적한 곳을 찾고 있나요?"
+    },
+    "banner": {
+      "subtitle": "실시간 한적도 높은 장소를 확인해보세요"
+    },
+    "storyHeader": {
+      "subtitle": "지금 이 순간, 한적한 장소들"
+    },
+    "empty": {
+      "feed": "아직 등록된 피드가 없어요.",
+      "story": "아직 등록된 스토리가 없어요.",
+      "comment": "아직 작성된 댓글이 없어요."
+    },
+    "action": {
+      "report": "신고",
+      "deleteFeed": "피드 삭제",
+      "deleteStory": "스토리 삭제",
+      "deleteComment": "댓글 삭제",
+      "registerAccessibilityLabel": "등록하기"
+    },
+    "item": {
+      "viewCount_one": "조회 {{count}}",
+      "viewCount_other": "조회 {{count}}",
+      "commentCount_one": "댓글 {{count}}",
+      "commentCount_other": "댓글 {{count}}",
+      "quietness": "한적도 {{value}}%"
+    },
+    "comment": {
+      "placeholder": "댓글을 입력해주세요..."
+    },
+    "postForm": {
+      "close": "닫기",
+      "share": "공유하기",
+      "location": "위치",
+      "autoLocation": "현재 위치를 기준으로 등록돼요"
+    },
+    "storyWrite": {
+      "title": "스토리 올리기",
+      "photoLabel": "사진",
+      "photoPlaceholder": "사진을 추가해주세요",
+      "photoLimit": "(1개 선택 가능)"
+    },
+    "feedWrite": {
+      "title": "피드 올리기",
+      "photoLabel": "사진",
+      "titleLabel": "제목",
+      "titlePlaceholder": "제목을 입력해주세요 (최대 30자)",
+      "contentLabel": "내용",
+      "contentPlaceholder": "내용을 입력해주세요 (최대 200자)"
+    },
+    "error": {
+      "selectMedia": "사진 또는 영상을 선택해주세요.",
+      "selectPhoto": "사진을 선택해주세요.",
+      "titleRequired": "제목을 입력해주세요.",
+      "contentRequired": "내용을 입력해주세요.",
+      "locationOff": "위치 접근이 꺼져 있어요. 설정에서 위치 권한을 확인해주세요.",
+      "currentLocationFailed": "현재 위치를 가져오지 못했어요. 잠시 후 다시 시도해주세요.",
+      "uploadFailed": "파일 업로드에 실패했어요. 잠시 후 다시 시도해주세요.",
+      "createFeed": "피드 등록에 실패했어요. 잠시 후 다시 시도해주세요.",
+      "createStory": "스토리 등록에 실패했어요. 잠시 후 다시 시도해주세요.",
+      "createComment": "댓글 등록에 실패했어요. 잠시 후 다시 시도해주세요.",
+      "deleteFeed": "피드 삭제에 실패했어요. 잠시 후 다시 시도해주세요.",
+      "deleteStory": "스토리 삭제에 실패했어요. 잠시 후 다시 시도해주세요.",
+      "deleteComment": "댓글 삭제에 실패했어요. 잠시 후 다시 시도해주세요.",
+      "report": "신고에 실패했어요. 잠시 후 다시 시도해주세요.",
+      "like": "좋아요에 실패했어요. 잠시 후 다시 시도해주세요.",
+      "unlike": "좋아요 취소에 실패했어요. 잠시 후 다시 시도해주세요."
+    }
   }
 }

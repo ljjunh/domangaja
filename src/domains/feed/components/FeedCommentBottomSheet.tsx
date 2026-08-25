@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { StyleSheet, View, type LayoutChangeEvent } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetFlatList,
@@ -43,10 +44,11 @@ function TopFadeOverlay() {
 }
 
 function CommentEmptyState() {
+  const { t } = useTranslation();
   return (
     <View style={styles.empty}>
       <Text typography="st10" weight="semiBold" color={colors.grey[400]}>
-        아직 작성된 댓글이 없어요.
+        {t('feed.empty.comment')}
       </Text>
     </View>
   );
@@ -65,6 +67,7 @@ interface FeedCommentBottomSheetProps {
 }
 
 export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentBottomSheetProps) {
+  const { t } = useTranslation();
   const { bottom } = useSafeAreaInsets();
   const [draft, setDraft] = useState('');
   // 입력창은 footerComponent로 별도 레이어에 떠서, 마지막 댓글이 그 밑에 가려지지 않도록
@@ -112,7 +115,7 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
       { feedId, content: trimmed },
       {
         onSuccess: () => setDraft(''),
-        onError: () => showToast('error', '댓글 등록에 실패했어요. 잠시 후 다시 시도해주세요.'),
+        onError: () => showToast('error', t('feed.error.createComment')),
       },
     );
   };
@@ -127,7 +130,7 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
         <BottomSheetTextInput
           value={draft}
           onChangeText={setDraft}
-          placeholder="댓글을 입력해주세요..."
+          placeholder={t('feed.comment.placeholder')}
           placeholderTextColor={colors.grey[500]}
           style={styles.input}
         />
@@ -145,7 +148,7 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
     }
     deleteComment(
       { feedId, commentId },
-      { onError: () => showToast('error', '댓글 삭제에 실패했어요. 잠시 후 다시 시도해주세요.') },
+      { onError: () => showToast('error', t('feed.error.deleteComment')) },
     );
   };
 
@@ -155,7 +158,7 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
     }
     reportComment(
       { feedId, commentId },
-      { onError: () => showToast('error', '신고에 실패했어요. 잠시 후 다시 시도해주세요.') },
+      { onError: () => showToast('error', t('feed.error.report')) },
     );
   };
 
@@ -167,13 +170,13 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
       unlikeComment(
         { feedId, commentId: comment.id },
         {
-          onError: () => showToast('error', '좋아요 취소에 실패했어요. 잠시 후 다시 시도해주세요.'),
+          onError: () => showToast('error', t('feed.error.unlike')),
         },
       );
     } else {
       likeComment(
         { feedId, commentId: comment.id },
-        { onError: () => showToast('error', '좋아요에 실패했어요. 잠시 후 다시 시도해주세요.') },
+        { onError: () => showToast('error', t('feed.error.like')) },
       );
     }
   };

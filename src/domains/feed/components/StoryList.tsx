@@ -1,6 +1,9 @@
 import { FlatList, StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
+import { Text } from '@/shared/components/base';
+import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { toImageUrl } from '@/shared/api/service';
 import { showToast } from '@/shared/lib/toast';
@@ -13,7 +16,19 @@ interface StoryListProps {
   bottomInset?: number;
 }
 
+function StoryEmptyState() {
+  const { t } = useTranslation();
+  return (
+    <View style={styles.empty}>
+      <Text typography="st10" weight="semiBold" color={colors.grey[400]}>
+        {t('feed.empty.story')}
+      </Text>
+    </View>
+  );
+}
+
 export default function StoryList({ bottomInset = 0 }: StoryListProps) {
+  const { t } = useTranslation();
   const navigation = useNavigation();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
@@ -33,11 +48,11 @@ export default function StoryList({ bottomInset = 0 }: StoryListProps) {
     }
     if (story.likedByMe) {
       unlikeStory(story.id, {
-        onError: () => showToast('error', '좋아요 취소에 실패했어요. 잠시 후 다시 시도해주세요.'),
+        onError: () => showToast('error', t('feed.error.unlike')),
       });
     } else {
       likeStory(story.id, {
-        onError: () => showToast('error', '좋아요에 실패했어요. 잠시 후 다시 시도해주세요.'),
+        onError: () => showToast('error', t('feed.error.like')),
       });
     }
   };
@@ -54,10 +69,12 @@ export default function StoryList({ bottomInset = 0 }: StoryListProps) {
       data={rows}
       keyExtractor={(item, index) => (item == null ? `filler-${index}` : String(item.id))}
       numColumns={2}
+      style={styles.flatList}
       columnWrapperStyle={styles.row}
       contentContainerStyle={styles.list}
       ListHeaderComponent={<StoryHeader />}
       ListHeaderComponentStyle={styles.header}
+      ListEmptyComponent={data != null ? StoryEmptyState : null}
       ListFooterComponent={<View style={{ height: bottomInset }} />}
       onEndReached={handleEndReached}
       onEndReachedThreshold={0.5}
@@ -81,10 +98,14 @@ export default function StoryList({ bottomInset = 0 }: StoryListProps) {
 }
 
 const styles = StyleSheet.create({
+  flatList: {
+    flex: 1,
+  },
   list: {
     paddingHorizontal: SCREEN_PADDING_HORIZONTAL,
     paddingTop: 16,
     gap: 12,
+    flexGrow: 1,
   },
   header: {
     marginBottom: 16,
@@ -94,5 +115,11 @@ const styles = StyleSheet.create({
   },
   filler: {
     flex: 1,
+  },
+  empty: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 40,
   },
 });

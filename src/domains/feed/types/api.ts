@@ -1,6 +1,4 @@
 export interface CreateStoryRequest {
-  regionName: string;
-  spotName: string;
   latitude: number;
   longitude: number;
   imageUrl: string;
@@ -46,8 +44,6 @@ export interface StoryLikeResponse {
 
 export interface CreateFeedRequest {
   category?: string;
-  regionName: string;
-  spotName: string;
   latitude: number;
   longitude: number;
   title: string;

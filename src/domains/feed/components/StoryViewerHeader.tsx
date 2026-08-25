@@ -1,4 +1,5 @@
 import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { CloseIcon, MoreOutlineIcon } from '@/assets/icons/common';
@@ -24,6 +25,7 @@ export default function StoryViewerHeader({
   onPressReport,
   onClose,
 }: StoryViewerHeaderProps) {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       <View style={styles.profile}>
@@ -54,13 +56,13 @@ export default function StoryViewerHeader({
               {isMine ? (
                 <Pressable onPress={onPressDelete} style={styles.menuItem}>
                   <Text typography="t7" weight="semiBold" color={colors.red[500]}>
-                    스토리 삭제
+                    {t('feed.action.deleteStory')}
                   </Text>
                 </Pressable>
               ) : (
                 <Pressable onPress={onPressReport} style={styles.menuItem}>
                   <Text typography="t7" weight="semiBold" color={colors.red[500]}>
-                    신고
+                    {t('feed.action.report')}
                   </Text>
                 </Pressable>
               )}

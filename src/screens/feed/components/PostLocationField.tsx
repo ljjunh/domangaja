@@ -1,4 +1,5 @@
 import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Text } from '@/shared/components/base';
 import { Border } from '@/shared/components/ui';
 import { colors } from '@/shared/constants/colors';
@@ -11,9 +12,10 @@ interface PostLocationFieldProps {
 }
 
 export default function PostLocationField({ address }: PostLocationFieldProps) {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
-      <FormSectionLabel title="위치" />
+      <FormSectionLabel title={t('feed.postForm.location')} />
       <View style={styles.row}>
         <LocationFillIcon width={18} height={18} color={colors.blue[500]} />
         <Text typography="st10" weight="semiBold" color={colors.grey[800]}>

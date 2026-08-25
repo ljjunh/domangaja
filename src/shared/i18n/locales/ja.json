@@ -304,5 +304,80 @@
     "38": "ショッピング",
     "39": "飲食店",
     "etc": "その他"
+  },
+  "feed": {
+    "tabs": {
+      "story": "ストーリー",
+      "feed": "フィード"
+    },
+    "quietSpot": {
+      "title": "静かな場所を探していますか?"
+    },
+    "banner": {
+      "subtitle": "リアルタイムで閑静度の高い場所を確認してみましょう"
+    },
+    "storyHeader": {
+      "subtitle": "いま、静かな場所たち"
+    },
+    "empty": {
+      "feed": "まだ登録されたフィードがありません。",
+      "story": "まだ登録されたストーリーがありません。",
+      "comment": "まだ作成されたコメントがありません。"
+    },
+    "action": {
+      "report": "報告",
+      "deleteFeed": "フィードを削除",
+      "deleteStory": "ストーリーを削除",
+      "deleteComment": "コメントを削除",
+      "registerAccessibilityLabel": "登録する"
+    },
+    "item": {
+      "viewCount_one": "閲覧 {{count}}",
+      "viewCount_other": "閲覧 {{count}}",
+      "commentCount_one": "コメント {{count}}",
+      "commentCount_other": "コメント {{count}}",
+      "quietness": "閑静度 {{value}}%"
+    },
+    "comment": {
+      "placeholder": "コメントを入力してください..."
+    },
+    "postForm": {
+      "close": "閉じる",
+      "share": "共有する",
+      "location": "位置",
+      "autoLocation": "現在の位置を基準に登録されます"
+    },
+    "storyWrite": {
+      "title": "ストーリーを作成",
+      "photoLabel": "写真",
+      "photoPlaceholder": "写真を追加してください",
+      "photoLimit": "(1つ選択可能)"
+    },
+    "feedWrite": {
+      "title": "フィードを作成",
+      "photoLabel": "写真",
+      "titleLabel": "タイトル",
+      "titlePlaceholder": "タイトルを入力してください(最大30文字)",
+      "contentLabel": "内容",
+      "contentPlaceholder": "内容を入力してください(最大200文字)"
+    },
+    "error": {
+      "selectMedia": "写真または動画を選択してください。",
+      "selectPhoto": "写真を選択してください。",
+      "titleRequired": "タイトルを入力してください。",
+      "contentRequired": "内容を入力してください。",
+      "locationOff": "位置情報アクセスがオフになっています。設定で位置情報の権限を確認してください。",
+      "currentLocationFailed": "現在の位置を取得できませんでした。しばらくしてから再度お試しください。",
+      "uploadFailed": "ファイルのアップロードに失敗しました。しばらくしてから再度お試しください。",
+      "createFeed": "フィードの登録に失敗しました。しばらくしてから再度お試しください。",
+      "createStory": "ストーリーの登録に失敗しました。しばらくしてから再度お試しください。",
+      "createComment": "コメントの登録に失敗しました。しばらくしてから再度お試しください。",
+      "deleteFeed": "フィードの削除に失敗しました。しばらくしてから再度お試しください。",
+      "deleteStory": "ストーリーの削除に失敗しました。しばらくしてから再度お試しください。",
+      "deleteComment": "コメントの削除に失敗しました。しばらくしてから再度お試しください。",
+      "report": "報告に失敗しました。しばらくしてから再度お試しください。",
+      "like": "いいねに失敗しました。しばらくしてから再度お試しください。",
+      "unlike": "いいねの取り消しに失敗しました。しばらくしてから再度お試しください。"
+    }
   }
 }

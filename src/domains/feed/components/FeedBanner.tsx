@@ -1,12 +1,16 @@
 import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { LocationFillIcon, ArrowRightIcon } from '@/assets/icons/common';
 
 export default function FeedBanner() {
+  const { t } = useTranslation();
+  const navigation = useNavigation();
   return (
     <Pressable
-      onPress={() => console.log('TODO: 실시간 한적도 페이지로 이동')}
+      onPress={() => navigation.navigate('Main', { screen: 'Map' })}
       style={styles.banner}
     >
       <View style={styles.locationIconBadge}>
@@ -14,10 +18,10 @@ export default function FeedBanner() {
       </View>
       <View style={styles.texts}>
         <Text typography="t7" weight="bold" color={colors.grey[900]}>
-          지금 한적한 곳을 찾고 있나요?
+          {t('feed.quietSpot.title')}
         </Text>
         <Text typography="st13" weight="semiBold" color={colors.grey[500]}>
-          실시간 한적도 높은 장소를 확인해보세요
+          {t('feed.banner.subtitle')}
         </Text>
       </View>
       <ArrowRightIcon width={16} height={16} color={colors.grey[400]} />

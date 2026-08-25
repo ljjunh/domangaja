@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { KeyboardAvoidingView, ScrollView, StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { StackActions, type StaticScreenProps, useNavigation } from '@react-navigation/native';
 import { useMutation } from '@tanstack/react-query';
 import Toast from 'react-native-toast-message';
@@ -14,21 +15,18 @@ import { uploadImage, type UploadFile } from '@/shared/api/service';
 import { checkLocationPermission } from '@/shared/lib/locationPermission';
 import { pickFeedPhoto } from '@/domains/feed/lib/mediaPicker';
 import { feedMutations } from '@/domains/feed/api/queries';
-import { MOCK_FEED_LOCATION } from '@/domains/feed/constants/mockFeedUpload';
 import { requestPhotoPermission } from '@/domains/user/lib/photoPermission';
 import { PhotoPermissionSheet } from '@/domains/user/components';
 import { FormSectionLabel, PostFormHeader, PostLocationField } from './components';
 
-// TODO: GPS 연동 시 실제 위치 값으로 교체
-const MOCK_ADDRESS = '서울특별시 종로구 사직로 161';
-
 // 최초 위치 권한 요청/좌표 확보는 Community 리스트 화면의 + 버튼이 이미 끝내고 들어온다 —
-// 이 화면은 그 결과(좌표)를 params로 받기만 한다.
-// 단, 등록 API의 regionName/spotName은 아직 역지오코딩이 없어 MOCK_FEED_LOCATION을 대신 사용한다 —
-// 그래서 route.params의 좌표는 현재 등록 요청에 쓰지 않는다 (실제 GPS 연동 시 교체 대상)
+// 이 화면은 그 결과(좌표)를 params로 받아 등록 API에 그대로 전달한다.
+// 지역명/장소명은 서버가 좌표로부터 채워주므로 클라이언트에서 따로 변환하지 않는다
 type FeedWriteScreenProps = StaticScreenProps<{ latitude: number; longitude: number }>;
 
-export default function FeedWriteScreen(_props: FeedWriteScreenProps) {
+export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
+  const { t } = useTranslation();
+  const { latitude, longitude } = route.params;
   const navigation = useNavigation();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -67,17 +65,17 @@ export default function FeedWriteScreen(_props: FeedWriteScreenProps) {
       return;
     }
     if (selectedPhoto == null) {
-      showToast('error', '사진을 선택해주세요.');
+      showToast('error', t('feed.error.selectPhoto'));
       return;
     }
     const trimmedTitle = title.trim();
     if (trimmedTitle === '') {
-      showToast('error', '제목을 입력해주세요.');
+      showToast('error', t('feed.error.titleRequired'));
       return;
     }
     const trimmedContent = content.trim();
     if (trimmedContent === '') {
-      showToast('error', '내용을 입력해주세요.');
+      showToast('error', t('feed.error.contentRequired'));
       return;
     }
 
@@ -87,7 +85,7 @@ export default function FeedWriteScreen(_props: FeedWriteScreenProps) {
     const permission = await checkLocationPermission();
     if (permission !== 'granted') {
       setIsProcessing(false);
-      showToast('error', '위치 접근이 꺼져 있어요. 설정에서 위치 권한을 확인해주세요.');
+      showToast('error', t('feed.error.locationOff'));
       return;
     }
 
@@ -96,13 +94,14 @@ export default function FeedWriteScreen(_props: FeedWriteScreenProps) {
       imageUrl = await uploadImage(selectedPhoto);
     } catch {
       setIsProcessing(false);
-      showToast('error', '파일 업로드에 실패했어요. 잠시 후 다시 시도해주세요.');
+      showToast('error', t('feed.error.uploadFailed'));
       return;
     }
 
     createFeed(
       {
-        ...MOCK_FEED_LOCATION,
+        latitude,
+        longitude,
         title: trimmedTitle,
         content: trimmedContent,
         imageUrl,
@@ -116,7 +115,7 @@ export default function FeedWriteScreen(_props: FeedWriteScreenProps) {
         },
         onError: () => {
           setIsProcessing(false);
-          showToast('error', '피드 등록에 실패했어요. 잠시 후 다시 시도해주세요.');
+          showToast('error', t('feed.error.createFeed'));
         },
       },
     );
@@ -125,16 +124,16 @@ export default function FeedWriteScreen(_props: FeedWriteScreenProps) {
   return (
     <Layout>
       <PostFormHeader
-        title="피드 올리기"
+        title={t('feed.feedWrite.title')}
         onClose={() => navigation.goBack()}
         onShare={handleShare}
       />
       <KeyboardAvoidingView style={styles.avoidingView} behavior="padding">
         <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-          <PostLocationField address={MOCK_ADDRESS} />
+          <PostLocationField address={t('feed.postForm.autoLocation')} />
 
           <View style={styles.section}>
-            <FormSectionLabel title="사진" required />
+            <FormSectionLabel title={t('feed.feedWrite.photoLabel')} required />
             <Pressable onPress={handlePickPhoto} style={styles.addPhotoTile}>
               {selectedPhoto == null ? (
                 <AddIcon color={colors.blue[500]} />
@@ -149,23 +148,23 @@ export default function FeedWriteScreen(_props: FeedWriteScreenProps) {
           </View>
 
           <View style={styles.section}>
-            <FormSectionLabel title="제목" required />
+            <FormSectionLabel title={t('feed.feedWrite.titleLabel')} required />
             <TextInput
               typography="st10"
               value={title}
               onChangeText={setTitle}
-              placeholder="제목을 입력해주세요 (최대 30자)"
+              placeholder={t('feed.feedWrite.titlePlaceholder')}
               style={styles.titleInput}
             />
           </View>
 
           <View style={styles.section}>
-            <FormSectionLabel title="내용" required />
+            <FormSectionLabel title={t('feed.feedWrite.contentLabel')} required />
             <TextInput
               typography="st10"
               value={content}
               onChangeText={setContent}
-              placeholder="내용을 입력해주세요 (최대 200자)"
+              placeholder={t('feed.feedWrite.contentPlaceholder')}
               multiline
               textAlignVertical="top"
               style={styles.contentInput}

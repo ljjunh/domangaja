@@ -1,14 +1,16 @@
 import { FlatList, StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+import { Text } from '@/shared/components/base';
 import { Border } from '@/shared/components/ui';
+import { colors } from '@/shared/constants/colors';
 import { overlay } from '@/shared/overlay';
 import { showToast } from '@/shared/lib/toast';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { toImageUrl } from '@/shared/api/service';
 import { feedMutations, feedQueries } from '@/domains/feed/api/queries';
 import { userQueries } from '@/domains/user/api/queries';
-import type { Feed } from '@/domains/feed/types/api';
 import FeedBanner from './FeedBanner';
 import FeedCommentBottomSheet from './FeedCommentBottomSheet';
 import FeedItem from './FeedItem';
@@ -21,12 +23,24 @@ function FeedItemSeparator() {
   return <Border style={styles.separator} />;
 }
 
+function FeedEmptyState() {
+  const { t } = useTranslation();
+  return (
+    <View style={styles.empty}>
+      <Text typography="st10" weight="semiBold" color={colors.grey[400]}>
+        {t('feed.empty.feed')}
+      </Text>
+    </View>
+  );
+}
+
 // 피드 카드가 리스트 어디서나 호출할 수 있도록 overlay로 댓글 시트를 띄운다 (WithdrawalSheet와 동일한 방식)
 function openComments(feedId: number) {
   overlay.open(({ unmount }) => <FeedCommentBottomSheet feedId={feedId} onClose={unmount} />);
 }
 
 export default function FeedList({ bottomInset = 0 }: FeedListProps) {
+  const { t } = useTranslation();
   const navigation = useNavigation();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
@@ -46,7 +60,7 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
       return;
     }
     deleteFeed(feedId, {
-      onError: () => showToast('error', '피드 삭제에 실패했어요. 잠시 후 다시 시도해주세요.'),
+      onError: () => showToast('error', t('feed.error.deleteFeed')),
     });
   };
 
@@ -55,31 +69,8 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
       return;
     }
     reportFeed(feedId, {
-      onError: () => showToast('error', '신고에 실패했어요. 잠시 후 다시 시도해주세요.'),
+      onError: () => showToast('error', t('feed.error.report')),
     });
-  };
-
-  const { mutate: bookmarkFeed, isPending: isBookmarking } = useMutation(
-    feedMutations.bookmarkFeed(),
-  );
-  const { mutate: unbookmarkFeed, isPending: isUnbookmarking } = useMutation(
-    feedMutations.unbookmarkFeed(),
-  );
-
-  const handlePressBookmark = (feed: Feed) => {
-    // 북마크 요청이 진행 중이면 다른 카드를 눌러도 중복 요청하지 않는다
-    if (isBookmarking || isUnbookmarking) {
-      return;
-    }
-    if (feed.bookmarkedByMe) {
-      unbookmarkFeed(feed.id, {
-        onError: () => showToast('error', '북마크 해제에 실패했어요. 잠시 후 다시 시도해주세요.'),
-      });
-    } else {
-      bookmarkFeed(feed.id, {
-        onError: () => showToast('error', '북마크에 실패했어요. 잠시 후 다시 시도해주세요.'),
-      });
-    }
   };
 
   const handleEndReached = () => {
@@ -93,10 +84,12 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
     <FlatList
       data={feeds}
       keyExtractor={item => String(item.id)}
+      style={styles.flatList}
       contentContainerStyle={styles.list}
       ListHeaderComponent={<FeedBanner />}
       ListHeaderComponentStyle={styles.header}
       ItemSeparatorComponent={FeedItemSeparator}
+      ListEmptyComponent={data != null ? FeedEmptyState : null}
       ListFooterComponent={<View style={{ height: bottomInset }} />}
       onEndReached={handleEndReached}
       onEndReachedThreshold={0.5}
@@ -117,8 +110,6 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
           onPressComment={openComments}
           onPressDelete={() => handlePressDelete(item.id)}
           onPressReport={() => handlePressReport(item.id)}
-          bookmarked={item.bookmarkedByMe}
-          onPressBookmark={() => handlePressBookmark(item)}
         />
       )}
     />
@@ -126,14 +117,24 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
 }
 
 const styles = StyleSheet.create({
+  flatList: {
+    flex: 1,
+  },
   list: {
     paddingHorizontal: SCREEN_PADDING_HORIZONTAL,
     paddingTop: 12,
+    flexGrow: 1,
   },
   header: {
     marginBottom: 16,
   },
   separator: {
     marginVertical: 18,
+  },
+  empty: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 40,
   },
 });

@@ -1,4 +1,5 @@
 import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { IconButton, TextButton } from '@/shared/components/ui';
 import { Text } from '@/shared/components/base';
 import { CloseIcon } from '@/assets/icons/common';
@@ -11,9 +12,15 @@ interface PostFormHeaderProps {
 }
 
 export default function PostFormHeader({ title, onClose, onShare }: PostFormHeaderProps) {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
-      <IconButton icon={CloseIcon} label="닫기" onPress={onClose} color={colors.black} />
+      <IconButton
+        icon={CloseIcon}
+        label={t('feed.postForm.close')}
+        onPress={onClose}
+        color={colors.black}
+      />
 
       <View style={styles.title}>
         <Text typography="t4" weight="semiBold" numberOfLines={1}>
@@ -23,7 +30,7 @@ export default function PostFormHeader({ title, onClose, onShare }: PostFormHead
 
       <View style={styles.right}>
         <TextButton typography="t6" weight="semiBold" color={colors.blue[500]} onPress={onShare}>
-          공유하기
+          {t('feed.postForm.share')}
         </TextButton>
       </View>
     </View>

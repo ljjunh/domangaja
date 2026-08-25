@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { StackActions, type StaticScreenProps, useNavigation } from '@react-navigation/native';
 import { useMutation } from '@tanstack/react-query';
 import Toast from 'react-native-toast-message';
@@ -7,28 +8,25 @@ import { Layout } from '@/shared/components/layout';
 import { Image, Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
-import { GalleryIcon, PlayFillIcon } from '@/assets/icons/common';
+import { GalleryIcon } from '@/assets/icons/common';
 import { showToast } from '@/shared/lib/toast';
 import { toastConfig } from '@/shared/lib/toastConfig';
 import { uploadImage, type UploadFile } from '@/shared/api/service';
 import { checkLocationPermission } from '@/shared/lib/locationPermission';
 import { pickStoryMedia } from '@/domains/feed/lib/mediaPicker';
 import { feedMutations } from '@/domains/feed/api/queries';
-import { MOCK_STORY_LOCATION } from '@/domains/feed/constants/mockStoryUpload';
 import { requestPhotoPermission } from '@/domains/user/lib/photoPermission';
 import { PhotoPermissionSheet } from '@/domains/user/components';
 import { FormSectionLabel, PostFormHeader, PostLocationField } from './components';
 
-// TODO: GPS 연동 시 실제 위치 값으로 교체
-const MOCK_ADDRESS = '서울특별시 종로구 사직로 161';
-
 // 최초 위치 권한 요청/좌표 확보는 Community 리스트 화면의 + 버튼이 이미 끝내고 들어온다 —
-// 이 화면은 그 결과(좌표)를 params로 받기만 한다.
-// 단, 등록 API의 regionName/spotName은 아직 역지오코딩이 없어 MOCK_STORY_LOCATION을 대신 사용한다 —
-// 그래서 route.params의 좌표는 현재 등록 요청에 쓰지 않는다 (실제 GPS 연동 시 교체 대상)
+// 이 화면은 그 결과(좌표)를 params로 받아 등록 API에 그대로 전달한다.
+// 지역명/장소명은 서버가 좌표로부터 채워주므로 클라이언트에서 따로 변환하지 않는다
 type StoryWriteScreenProps = StaticScreenProps<{ latitude: number; longitude: number }>;
 
-export default function StoryWriteScreen(_props: StoryWriteScreenProps) {
+export default function StoryWriteScreen({ route }: StoryWriteScreenProps) {
+  const { t } = useTranslation();
+  const { latitude, longitude } = route.params;
   const navigation = useNavigation();
   const [selectedMedia, setSelectedMedia] = useState<UploadFile | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -64,7 +62,7 @@ export default function StoryWriteScreen(_props: StoryWriteScreenProps) {
       return;
     }
     if (selectedMedia == null) {
-      showToast('error', '사진 또는 영상을 선택해주세요.');
+      showToast('error', t('feed.error.selectMedia'));
       return;
     }
 
@@ -74,7 +72,7 @@ export default function StoryWriteScreen(_props: StoryWriteScreenProps) {
     const permission = await checkLocationPermission();
     if (permission !== 'granted') {
       setIsProcessing(false);
-      showToast('error', '위치 접근이 꺼져 있어요. 설정에서 위치 권한을 확인해주세요.');
+      showToast('error', t('feed.error.locationOff'));
       return;
     }
 
@@ -83,12 +81,12 @@ export default function StoryWriteScreen(_props: StoryWriteScreenProps) {
       imageUrl = await uploadImage(selectedMedia);
     } catch {
       setIsProcessing(false);
-      showToast('error', '파일 업로드에 실패했어요. 잠시 후 다시 시도해주세요.');
+      showToast('error', t('feed.error.uploadFailed'));
       return;
     }
 
     createStory(
-      { ...MOCK_STORY_LOCATION, imageUrl },
+      { latitude, longitude, imageUrl },
       {
         // 등록 성공 응답이 상세 데이터와 동일한 구조라 상세 조회 API를 다시 부르지 않고 그대로 넘긴다.
         // navigate가 아니라 replace — 작성 화면을 스택에서 지워야 상세에서 닫았을 때 목록으로 바로 돌아간다
@@ -98,47 +96,37 @@ export default function StoryWriteScreen(_props: StoryWriteScreenProps) {
         },
         onError: () => {
           setIsProcessing(false);
-          showToast('error', '스토리 등록에 실패했어요. 잠시 후 다시 시도해주세요.');
+          showToast('error', t('feed.error.createStory'));
         },
       },
     );
   };
 
-  const isVideo = selectedMedia != null && selectedMedia.mime.startsWith('video');
-
   return (
     <Layout>
       <PostFormHeader
-        title="스토리 올리기"
+        title={t('feed.storyWrite.title')}
         onClose={() => navigation.goBack()}
         onShare={handleShare}
       />
       <View style={styles.container}>
-        <PostLocationField address={MOCK_ADDRESS} />
+        <PostLocationField address={t('feed.postForm.autoLocation')} />
 
         <View style={styles.section}>
-          <FormSectionLabel title="사진 또는 짧은 영상" required />
+          <FormSectionLabel title={t('feed.storyWrite.photoLabel')} required />
           <Pressable onPress={handlePickMedia} style={styles.mediaPicker}>
             {selectedMedia == null && (
               <>
                 <GalleryIcon width={32} height={32} color={colors.grey[500]} />
                 <Text typography="st10" weight="semiBold" color={colors.grey[500]}>
-                  사진 또는 짧은 영상을 추가해주세요
+                  {t('feed.storyWrite.photoPlaceholder')}
                 </Text>
                 <Text typography="st13" weight="semiBold" color={colors.grey[400]}>
-                  (1개 선택 가능)
+                  {t('feed.storyWrite.photoLimit')}
                 </Text>
               </>
             )}
-            {selectedMedia != null && isVideo && (
-              <>
-                <PlayFillIcon width={32} height={32} color={colors.grey[500]} />
-                <Text typography="st10" weight="semiBold" color={colors.grey[500]}>
-                  동영상이 선택되었어요
-                </Text>
-              </>
-            )}
-            {selectedMedia != null && !isVideo && (
+            {selectedMedia != null && (
               <Image
                 source={{ uri: selectedMedia.uri }}
                 style={styles.mediaPreview}
