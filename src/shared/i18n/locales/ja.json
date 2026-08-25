@@ -4,7 +4,9 @@
     "confirm": "確認",
     "all": "すべて",
     "more": "もっと見る",
-    "collapse": "閉じる"
+    "collapse": "閉じる",
+    "back": "戻る",
+    "seeAll": "すべて見る"
   },
   "logout": {
     "title": "ログアウト",
@@ -57,16 +59,34 @@
     "openSettings": "設定を開く"
   },
   "nickname": {
+    "title": "なんと\nお呼びしますか？",
+    "placeholder": "ニックネーム",
     "rule": "ハングル・英字・数字で2〜10文字を入力してください。",
     "duplicate": "このニックネームはすでに使用されています。",
     "unavailable": "このニックネームは使用できません。",
     "checkFailed": "確認に失敗しました。しばらくしてからもう一度お試しください。"
   },
   "birthDate": {
+    "title": "誕生日は\nいつですか？",
     "invalidDate": "生年月日をもう一度ご確認ください。",
     "tooYoung": "満14歳以上のみご登録いただけます。"
   },
+  "region": {
+    "title": "どこへ\n逃げたいですか？",
+    "description": "気になる地域を選んでおくと、先に表示します。",
+    "landscapeTitle": "どんな風景が好きですか？",
+    "start": "はじめる",
+    "names": {
+      "SEOUL": "ソウル",
+      "GANGWON": "江原",
+      "CHUNGCHEONG": "忠清",
+      "JEOLLA": "全羅",
+      "GYEONGSANG": "慶尚",
+      "JEJU": "済州"
+    }
+  },
   "notification": {
+    "buttonAccessibilityLabel": "通知",
     "markAllRead": "すべて既読",
     "setting": "通知設定",
     "unreadCount_one": "未読の通知 {{count}}件",
@@ -139,7 +159,31 @@
     "bestDaySubtitle": "予測閑散度 {{score}} ・ この日がおすすめです",
     "emptyTourInfo": "まだ紹介情報がありません。"
   },
+  "audioGuide": {
+    "title": "オーディオガイド",
+    "error": "再生できません",
+    "previous": "前へ",
+    "next": "次へ",
+    "playAccessibilityLabel": "オーディオガイドを再生",
+    "pauseAccessibilityLabel": "オーディオガイドを一時停止",
+    "previousAccessibilityLabel": "前のオーディオガイド",
+    "nextAccessibilityLabel": "次のオーディオガイド"
+  },
   "spot": {
+    "quietness": "静けさ {{score}}%",
+    "detail": {
+      "scrap": "保存",
+      "unscrap": "保存を解除",
+      "share": "共有"
+    },
+    "today": {
+      "title": "今日のおすすめ逃避先",
+      "detail": "詳しく見る"
+    },
+    "contact": {
+      "homepage": "ホームページを見る",
+      "tel": "電話で問い合わせ"
+    },
     "popular": {
       "empty": {
         "title": "順位を集計しています",
@@ -230,6 +274,11 @@
       "theme": "テーマ別",
       "popular": "人気",
       "scrap": "保存済み"
+    },
+    "nearbyBanner": {
+      "title": "今、近くの静かな場所が気になりますか？",
+      "description": "現在地をもとに静かな場所をお知らせします",
+      "accessibilityLabel": "地図で近くの静かな場所を見る"
     }
   },
   "map": {

@@ -25,14 +25,14 @@ import TypingTitle from './TypingTitle';
 import { stepEntering } from '../utils/stepEntering';
 import { Button } from '@/shared/components/ui';
 
-// TODO: 다국어 처리 예정 (label)
-const REGIONS: { value: PreferredRegion; label: string }[] = [
-  { value: 'SEOUL', label: '서울' },
-  { value: 'GANGWON', label: '강원' },
-  { value: 'CHUNGCHEONG', label: '충청' },
-  { value: 'JEOLLA', label: '전라' },
-  { value: 'GYEONGSANG', label: '경상' },
-  { value: 'JEJU', label: '제주' },
+// 표시 이름은 로케일(region.names)에 있고 여기선 순서만 정한다
+const REGIONS: PreferredRegion[] = [
+  'SEOUL',
+  'GANGWON',
+  'CHUNGCHEONG',
+  'JEOLLA',
+  'GYEONGSANG',
+  'JEJU',
 ];
 
 // 있으면 빼고, 없으면 넣는 다중 선택 토글
@@ -150,8 +150,7 @@ export default function RegionStep({ onNext, isSubmitting = false }: RegionStepP
 
   return (
     <View style={styles.container}>
-      {/* TODO: 다국어 처리 예정 */}
-      <TypingTitle text={'어디로\n도망가고 싶어요?'} onComplete={() => setIsTitleDone(true)} />
+      <TypingTitle text={t('region.title')} onComplete={() => setIsTitleDone(true)} />
 
       {isTitleDone && (
         <>
@@ -161,15 +160,15 @@ export default function RegionStep({ onNext, isSubmitting = false }: RegionStepP
           >
             <Animated.View entering={stepEntering()} style={styles.section}>
               <Text typography="t6" weight="medium" color={colors.grey[600]}>
-                관심지역을 골라두면 먼저 보여드려요.
+                {t('region.description')}
               </Text>
               <View style={styles.chipRow}>
                 {REGIONS.map(region => (
                   <RegionChip
-                    key={region.value}
-                    label={region.label}
-                    isSelected={regions.includes(region.value)}
-                    onPress={() => setRegions(prev => toggleSelection(prev, region.value))}
+                    key={region}
+                    label={t(`region.names.${region}`)}
+                    isSelected={regions.includes(region)}
+                    onPress={() => setRegions(prev => toggleSelection(prev, region))}
                   />
                 ))}
               </View>
@@ -177,7 +176,7 @@ export default function RegionStep({ onNext, isSubmitting = false }: RegionStepP
 
             <Animated.View entering={stepEntering(100)} style={styles.section}>
               <Text typography="t5" weight="semiBold">
-                어떤 풍경을 좋아하세요?
+                {t('region.landscapeTitle')}
               </Text>
               <View style={styles.cardGrid}>
                 {ONBOARDING_SPOT_THEMES.map(theme => (
@@ -200,7 +199,7 @@ export default function RegionStep({ onNext, isSubmitting = false }: RegionStepP
               loading={isSubmitting}
               onPress={() => onNext({ regions, landscapes })}
             >
-              시작하기
+              {t('region.start')}
             </Button>
           </Animated.View>
         </>

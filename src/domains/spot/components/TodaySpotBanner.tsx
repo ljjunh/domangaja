@@ -1,4 +1,5 @@
 import { ImageBackground, StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Text, Pressable } from '@/shared/components/base';
 import { spotQueries } from '@/domains/spot/api/queries';
@@ -6,6 +7,7 @@ import { colors } from '@/shared/constants/colors';
 import { useNavigation } from '@react-navigation/native';
 
 export default function TodaySpotBanner() {
+  const { t } = useTranslation();
   const { navigate } = useNavigation();
   const { data: spot } = useSuspenseQuery(spotQueries.getTodaySpot());
 
@@ -24,7 +26,7 @@ export default function TodaySpotBanner() {
         imageStyle={styles.image}
       >
         <Text typography="st12" weight="medium" color={colors.white} style={styles.textShadow}>
-          오늘의 추천 도망지
+          {t('spot.today.title')}
         </Text>
         <Text typography="t5" weight="semiBold" color={colors.white} style={styles.textShadow}>
           {spot.title}
@@ -40,7 +42,7 @@ export default function TodaySpotBanner() {
         </Text>
         <View style={styles.detailChip}>
           <Text typography="st13" weight="medium" color={colors.white} style={styles.textShadow}>
-            자세히 보기 {'>'}
+            {t('spot.today.detail')} {'>'}
           </Text>
         </View>
       </ImageBackground>

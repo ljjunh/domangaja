@@ -117,8 +117,7 @@ export default function NicknameStep({ onNext, accessToken }: NicknameStepProps)
 
   return (
     <View style={styles.container}>
-      {/* TODO: 다국어 처리 예정 */}
-      <TypingTitle text={'뭐라고\n불러드릴까요?'} onComplete={() => setIsTitleDone(true)} />
+      <TypingTitle text={t('nickname.title')} onComplete={() => setIsTitleDone(true)} />
 
       {isTitleDone && (
         <>
@@ -129,7 +128,7 @@ export default function NicknameStep({ onNext, accessToken }: NicknameStepProps)
                 weight="semiBold"
                 value={nickname}
                 onChangeText={setNickname}
-                placeholder="닉네임"
+                placeholder={t('nickname.placeholder')}
                 autoFocus
                 onLayout={event => setInputLayout(event.nativeEvent.layout)}
                 style={styles.input}

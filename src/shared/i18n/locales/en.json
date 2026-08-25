@@ -4,7 +4,9 @@
     "confirm": "OK",
     "all": "All",
     "more": "Show more",
-    "collapse": "Show less"
+    "collapse": "Show less",
+    "back": "Go back",
+    "seeAll": "See all"
   },
   "logout": {
     "title": "Log Out",
@@ -57,16 +59,34 @@
     "openSettings": "Open Settings"
   },
   "nickname": {
+    "title": "What should we\ncall you?",
+    "placeholder": "Nickname",
     "rule": "Use 2–10 Korean or English letters and numbers.",
     "duplicate": "This nickname is already taken.",
     "unavailable": "This nickname can't be used.",
     "checkFailed": "Check failed. Please try again in a moment."
   },
   "birthDate": {
+    "title": "When is your\nbirthday?",
     "invalidDate": "Please check your date of birth.",
     "tooYoung": "You must be at least 14 years old to sign up."
   },
+  "region": {
+    "title": "Where would you\nlike to escape to?",
+    "description": "Pick the regions you like and we'll show them first.",
+    "landscapeTitle": "What kind of scenery do you like?",
+    "start": "Get started",
+    "names": {
+      "SEOUL": "Seoul",
+      "GANGWON": "Gangwon",
+      "CHUNGCHEONG": "Chungcheong",
+      "JEOLLA": "Jeolla",
+      "GYEONGSANG": "Gyeongsang",
+      "JEJU": "Jeju"
+    }
+  },
   "notification": {
+    "buttonAccessibilityLabel": "Notifications",
     "markAllRead": "Mark all read",
     "setting": "Settings",
     "unreadCount_one": "{{count}} unread notification",
@@ -139,7 +159,31 @@
     "bestDaySubtitle": "Predicted quietness {{score}} · We recommend this day",
     "emptyTourInfo": "No description available yet."
   },
+  "audioGuide": {
+    "title": "Audio guide",
+    "error": "Can't play this",
+    "previous": "Previous",
+    "next": "Next",
+    "playAccessibilityLabel": "Play audio guide",
+    "pauseAccessibilityLabel": "Pause audio guide",
+    "previousAccessibilityLabel": "Previous audio guide",
+    "nextAccessibilityLabel": "Next audio guide"
+  },
   "spot": {
+    "quietness": "Quietness {{score}}%",
+    "detail": {
+      "scrap": "Save",
+      "unscrap": "Unsave",
+      "share": "Share"
+    },
+    "today": {
+      "title": "Today's escape pick",
+      "detail": "See details"
+    },
+    "contact": {
+      "homepage": "Visit website",
+      "tel": "Call"
+    },
     "popular": {
       "empty": {
         "title": "Tallying the rankings",
@@ -230,6 +274,11 @@
       "theme": "Theme",
       "popular": "Popular",
       "scrap": "Saved"
+    },
+    "nearbyBanner": {
+      "title": "Curious about quiet spots near you?",
+      "description": "We'll show quiet places based on your location",
+      "accessibilityLabel": "See quiet places near me on the map"
     }
   },
   "map": {

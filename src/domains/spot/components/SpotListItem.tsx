@@ -1,4 +1,5 @@
 import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Image, Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { formatQuietness } from '@/shared/utils/formatQuietness';
@@ -29,6 +30,8 @@ export default function SpotListItem({
   onPressItem,
   onPressScrap,
 }: SpotListItemProps) {
+  const { t } = useTranslation();
+
   return (
     <Pressable onPress={onPressItem} style={styles.container}>
       <View>
@@ -48,7 +51,8 @@ export default function SpotListItem({
           </Text>
           <Text typography="st13" weight="semiBold" color={colors.grey[500]}>
             {region}
-            {quietness != null && ` · 한적도 ${formatQuietness(quietness)}%`}
+            {quietness != null &&
+              ` · ${t('spot.quietness', { score: formatQuietness(quietness) })}`}
           </Text>
         </View>
         <IconButton

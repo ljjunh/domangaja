@@ -91,11 +91,11 @@ function SpotDetailContent({ contentId }: { contentId: GetSpotDetailResponse['co
             <IconButton
               icon={spot.scrapped ? ArchiveTickFillIcon : ArchiveTickOutlineIcon}
               color={spot.scrapped ? colors.blue[500] : colors.black}
-              label={spot.scrapped ? '스크랩 해제' : '스크랩'}
+              label={spot.scrapped ? t('spot.detail.unscrap') : t('spot.detail.scrap')}
               disabled={isScrapPending}
               onPress={toggleScrap}
             />
-            <IconButton icon={ExportIcon} label="공유" onPress={shareSpot} />
+            <IconButton icon={ExportIcon} label={t('spot.detail.share')} onPress={shareSpot} />
           </>
         }
       />
