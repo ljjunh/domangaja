@@ -24,7 +24,7 @@ import {
   type GetPopularSpotsRequest,
   type GetPopularSpotsParams,
   type GetWeeklyThemesRequest,
-  type GetThemeSpotsRequest,
+  type GetThemeSpotsParams,
   type GetRecentSpotsRequest,
   type GetScrapsRequest,
   type GetMapSpotsRequest,
@@ -40,6 +40,7 @@ import { queryClient } from '@/shared/api/queryClient';
 
 const all = ['spot'] as const;
 const POPULAR_PAGE_SIZE = 20;
+const THEME_PAGE_SIZE = 20;
 const RECENT_PAGE_SIZE = 10;
 const AREA_PAGE_SIZE = 20;
 
@@ -53,7 +54,8 @@ export const spotQueryKeys = {
     limit: number,
   ) => [...all, 'popular', 'infinite', params, limit] as const,
   themes: (params: GetWeeklyThemesRequest) => [...all, 'themes', params] as const,
-  themeSpots: (params: GetThemeSpotsRequest) => [...all, 'themeSpots', params] as const,
+  themeSpots: (params: GetThemeSpotsParams, limit: number) =>
+    [...all, 'themeSpots', params, limit] as const,
   recentAll: [...all, 'recent'] as const,
   recent: (params: GetRecentSpotsRequest) => [...all, 'recent', params] as const,
   recentInfinite: (limit: number) => [...all, 'recent', 'infinite', limit] as const,
@@ -100,10 +102,16 @@ export const spotQueries = {
       queryFn: () => getWeeklyThemes(params),
     }),
 
-  getThemeSpots: (params: GetThemeSpotsRequest) =>
-    queryOptions({
-      queryKey: spotQueryKeys.themeSpots(params),
-      queryFn: () => getThemeSpots(params),
+  getThemeSpotsInfinite: (
+    params: GetThemeSpotsParams,
+    limit: number = THEME_PAGE_SIZE,
+  ) =>
+    infiniteQueryOptions({
+      queryKey: spotQueryKeys.themeSpots(params, limit),
+      queryFn: ({ pageParam }) => getThemeSpots({ ...params, limit, page: pageParam }),
+      initialPageParam: 0,
+      getNextPageParam: (lastPage, _allPages, lastPageParam) =>
+        lastPage.length < limit ? undefined : lastPageParam + 1,
     }),
 
   getRecentSpots: (params: GetRecentSpotsRequest = {}) =>

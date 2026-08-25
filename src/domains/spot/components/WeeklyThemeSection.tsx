@@ -13,9 +13,7 @@ import ThemeCard from './ThemeCard';
 export default function WeeklyThemeSection() {
   const { t } = useTranslation();
   const { navigate } = useNavigation();
-  const { data: themes } = useSuspenseQuery(
-    spotQueries.getWeeklyThemes({ limit: 5, spotLimit: 20 }),
-  );
+  const { data: themes } = useSuspenseQuery(spotQueries.getWeeklyThemes({ limit: 5 }));
 
   return (
     <View style={styles.container}>
@@ -43,7 +41,7 @@ export default function WeeklyThemeSection() {
               name={t(`spot.theme.names.${theme.theme}`)}
               spotCount={theme.spotCount}
               image={SPOT_THEME_IMAGES.square[theme.theme]}
-              onPress={() => navigate('PopularThemeSpot', { theme: theme.theme, spots: theme.spots })}
+              onPress={() => navigate('PopularThemeSpot', { theme: theme.theme })}
               style={styles.card}
             />
           ))}

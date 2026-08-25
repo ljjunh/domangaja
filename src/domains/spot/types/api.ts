@@ -47,6 +47,7 @@ export interface GetWeeklyThemesRequest {
   days?: number;
   // default 10
   limit?: number;
+  // TODO: 인기 테마 장소는 /spots/popular로 조회하므로 서버에 미사용 파라미터 제거 요청하기
   // default 0 (0~20). 각 테마의 인기 장소를 spots에 포함한다.
   spotLimit?: number;
 }
@@ -62,10 +63,17 @@ export interface WeeklyTheme {
 
 export type GetWeeklyThemesResponse = WeeklyTheme[];
 
-export interface GetThemeSpotsRequest {
+export interface GetThemeSpotsParams {
   theme: TourismSpotTheme;
-  // default 20 (max 100). API has no pagination.
+  areaCode?: string;
+  sigunguCode?: string;
+}
+
+export interface GetThemeSpotsRequest extends GetThemeSpotsParams {
+  // default 20 (max 100)
   limit?: number;
+  // default 0. 받은 개수가 limit보다 작으면 마지막 페이지
+  page?: number;
 }
 
 export interface ThemeSpot {
