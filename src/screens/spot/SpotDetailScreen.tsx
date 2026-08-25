@@ -10,7 +10,7 @@ import {
   ExportIcon,
   LocationFillIcon,
 } from '@/assets/icons/common';
-import { example1Image } from '@/assets/images';
+import { placeholderImage } from '@/assets/images';
 import { audioGuideQueries } from '@/domains/audioGuide/api/queries';
 import { SpotAudioGuide } from '@/domains/audioGuide/components';
 import { matchAudioGuides } from '@/domains/audioGuide/utils/matchAudioGuide';
@@ -101,7 +101,7 @@ function SpotDetailContent({ contentId }: { contentId: GetSpotDetailResponse['co
       />
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         <ImageBackground
-          source={detail.imageUrl ? { uri: detail.imageUrl } : example1Image}
+          source={detail.imageUrl ? { uri: detail.imageUrl } : placeholderImage}
           style={styles.hero}
           imageStyle={styles.heroImage}
         />

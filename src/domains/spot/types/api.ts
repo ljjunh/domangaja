@@ -47,6 +47,8 @@ export interface GetWeeklyThemesRequest {
   days?: number;
   // default 10
   limit?: number;
+  // default 0 (0~20). 각 테마의 인기 장소를 spots에 포함한다.
+  spotLimit?: number;
 }
 
 export interface WeeklyTheme {
@@ -55,6 +57,7 @@ export interface WeeklyTheme {
   spotCount: number;
   viewCount: number;
   imageUrl: string;
+  spots: PopularSpot[];
 }
 
 export type GetWeeklyThemesResponse = WeeklyTheme[];

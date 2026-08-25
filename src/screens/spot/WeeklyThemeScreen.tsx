@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { FlatList, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Text } from '@/shared/components/base';
 import { Layout, StackHeader } from '@/shared/components/layout';
@@ -39,8 +40,9 @@ export default function WeeklyThemeScreen() {
 
 function WeeklyThemeGrid() {
   const { t } = useTranslation();
+  const { navigate } = useNavigation();
   const { width: windowWidth } = useWindowDimensions();
-  const { data: themes } = useSuspenseQuery(spotQueries.getWeeklyThemes());
+  const { data: themes } = useSuspenseQuery(spotQueries.getWeeklyThemes({ spotLimit: 20 }));
 
   const cardWidth =
     (windowWidth - SCREEN_PADDING_HORIZONTAL * 2 - COLUMN_GAP * (COLUMN_COUNT - 1)) / COLUMN_COUNT;
@@ -76,6 +78,7 @@ function WeeklyThemeGrid() {
           image={SPOT_THEME_IMAGES.square[item.theme]}
           isHot={index < HOT_THEME_COUNT}
           style={{ width: cardWidth }}
+          onPress={() => navigate('PopularThemeSpot', { theme: item.theme, spots: item.spots })}
         />
       )}
     />
