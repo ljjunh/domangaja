@@ -134,11 +134,33 @@ function SpotDetailContent({ contentId }: { contentId: GetSpotDetailResponse['co
 }
 
 const styles = StyleSheet.create({
-  scrollContent: { paddingBottom: 40 },
-  hero: { height: 260, marginHorizontal: SCREEN_PADDING_HORIZONTAL },
-  heroImage: { backgroundColor: colors.grey[100], borderRadius: 12 },
-  content: { paddingHorizontal: SCREEN_PADDING_HORIZONTAL, paddingTop: 20, gap: 16 },
-  titleSection: { gap: 7 },
-  titleRow: { flexDirection: 'row', alignItems: 'baseline', gap: 10 },
-  regionRow: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+  scrollContent: {
+    paddingBottom: 40,
+  },
+  hero: {
+    height: 260,
+    marginHorizontal: SCREEN_PADDING_HORIZONTAL,
+  },
+  heroImage: {
+    backgroundColor: colors.grey[100],
+    borderRadius: 12,
+  },
+  content: {
+    paddingHorizontal: SCREEN_PADDING_HORIZONTAL,
+    paddingTop: 20,
+    gap: 16,
+  },
+  titleSection: {
+    gap: 7,
+  },
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    gap: 10,
+  },
+  regionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
 });
