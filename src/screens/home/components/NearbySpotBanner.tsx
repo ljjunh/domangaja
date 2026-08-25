@@ -1,11 +1,20 @@
 import { StyleSheet, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { ArrowRightIcon, LocationFillIcon } from '@/assets/icons/common';
 
 export default function NearbySpotBanner() {
+  const { navigate } = useNavigation();
+
+  // TODO: 내 주변 한적한 곳 구현 후 해당 화면으로 이동하도록 수정
   return (
-    <Pressable style={styles.banner}>
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel="지도에서 내 주변 한적한 장소 보기"
+      onPress={() => navigate('Main', { screen: 'Map' })}
+      style={styles.banner}
+    >
       <View style={styles.content}>
         <View style={styles.locationIconBadge}>
           <LocationFillIcon color={colors.blue[500]} />

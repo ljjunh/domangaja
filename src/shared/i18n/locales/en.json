@@ -165,13 +165,35 @@
       }
     },
     "theme": {
-      "title": "Trending themes",
-      "count": "{{count}} themes",
-      "spotCount_one": "{{count}} place",
-      "spotCount_other": "{{count}} places",
-      "empty": {
-        "title": "No trending themes yet",
-        "description": "We'll show trending themes once enough data is in."
+      "names": {
+        "SEA": "Sea & Beach",
+        "MOUNTAIN": "Forest & Mountain",
+        "ISLAND": "Island",
+        "FIELD": "Fields & Countryside",
+        "NIGHT_SKY": "Stars & Night Sky",
+        "VALLEY": "Valley & Waterfall",
+        "CITY": "City",
+        "ETC": "Others"
+      },
+      "browse": { "title": "Browse by theme" },
+      "popular": {
+        "title": "Trending themes",
+        "count": "{{count}} themes",
+        "spotCount_one": "{{count}} place",
+        "spotCount_other": "{{count}} places",
+        "empty": {
+          "title": "No trending themes yet",
+          "description": "We'll show trending themes once enough data is in."
+        }
+      },
+      "result": {
+        "addInterest": "Follow theme",
+        "removeInterest": "Unfollow theme",
+        "quietness": "Quietness {{score}}%",
+        "empty": {
+          "title": "No places in this theme yet",
+          "description": "Explore places in another theme."
+        }
       }
     },
     "quietnessLevel": {
@@ -253,16 +275,6 @@
       "description": "If the problem continues, close the app completely and open it again."
     },
     "retry": "Try again"
-  },
-  "spotTheme": {
-    "SEA": "Sea & Beach",
-    "MOUNTAIN": "Forest & Mountain",
-    "ISLAND": "Island",
-    "FIELD": "Fields & Countryside",
-    "NIGHT_SKY": "Stars & Night Sky",
-    "VALLEY": "Valley & Waterfall",
-    "CITY": "City",
-    "ETC": "Others"
   },
   "forceUpdate": {
     "title": "Please update to the new version",

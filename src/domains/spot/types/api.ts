@@ -1,5 +1,5 @@
 // DTO (서버 계약: Request/Response)
-import type { SpotTheme } from '@/shared/types/spotTheme';
+import type { SpotTheme, TourismSpotTheme } from '@/shared/types/spotTheme';
 import type { ServerLocale } from '@/shared/i18n/serverLocale';
 
 export interface GetTodaySpotResponse {
@@ -13,11 +13,16 @@ export interface GetTodaySpotResponse {
   description: string;
 }
 
-export interface GetPopularSpotsRequest {
+export interface GetPopularSpotsParams {
   // default 7 (1~90)
   days?: number;
+  theme?: SpotTheme;
+}
+
+export interface GetPopularSpotsRequest extends GetPopularSpotsParams {
   // default 10 (1~50)
   limit?: number;
+  // default 0. 받은 개수가 limit보다 작으면 마지막 페이지
   page?: number;
 }
 
@@ -53,6 +58,31 @@ export interface WeeklyTheme {
 }
 
 export type GetWeeklyThemesResponse = WeeklyTheme[];
+
+export interface GetThemeSpotsRequest {
+  theme: TourismSpotTheme;
+  // default 20 (max 100). API has no pagination.
+  limit?: number;
+}
+
+export interface ThemeSpot {
+  contentId: string;
+  contentTypeId: string;
+  title: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  distanceMeters: number | null;
+  imageUrl: string;
+  tel: string;
+  quietnessScore: number | null;
+  areaCode: string;
+  sigunguCode: string;
+  regionName: string;
+  theme: SpotTheme;
+}
+
+export type GetThemeSpotsResponse = ThemeSpot[];
 
 export interface GetRecentSpotsRequest {
   // default 10 (1~50)

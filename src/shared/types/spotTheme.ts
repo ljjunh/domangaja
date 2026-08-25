@@ -25,6 +25,7 @@ export const SPOT_THEMES: SpotTheme[] = [
 ];
 
 export type IllustratedSpotTheme = Exclude<SpotTheme, 'ETC'>;
+export type TourismSpotTheme = Exclude<SpotTheme, 'NIGHT_SKY' | 'ETC'>;
 
 export const ONBOARDING_SPOT_THEMES: IllustratedSpotTheme[] = [
   'SEA',
@@ -32,6 +33,16 @@ export const ONBOARDING_SPOT_THEMES: IllustratedSpotTheme[] = [
   'ISLAND',
   'FIELD',
   'NIGHT_SKY',
+  'VALLEY',
+  'CITY',
+];
+
+/** KTO 관광지 테마 목록 API가 실제로 지원하는 테마 6종. */
+export const TOURISM_SPOT_THEMES: TourismSpotTheme[] = [
+  'SEA',
+  'MOUNTAIN',
+  'ISLAND',
+  'FIELD',
   'VALLEY',
   'CITY',
 ];

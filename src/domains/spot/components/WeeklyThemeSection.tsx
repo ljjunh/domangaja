@@ -17,13 +17,16 @@ export default function WeeklyThemeSection() {
 
   return (
     <View style={styles.container}>
-      <SectionHeader title={t('spot.theme.title')} onPressSeeAll={() => navigate('WeeklyTheme')} />
+      <SectionHeader
+        title={t('spot.theme.popular.title')}
+        onPressSeeAll={() => navigate('WeeklyTheme')}
+      />
 
       {themes.length === 0 ? (
         <EmptyState
           icon={ClockOutlineIcon}
-          title={t('spot.theme.empty.title')}
-          description={t('spot.theme.empty.description')}
+          title={t('spot.theme.popular.empty.title')}
+          description={t('spot.theme.popular.empty.description')}
         />
       ) : (
         <ScrollView
@@ -35,11 +38,10 @@ export default function WeeklyThemeSection() {
           {themes.map(theme => (
             <ThemeCard
               key={theme.theme}
-              name={t(`spotTheme.${theme.theme}`)}
+              name={t(`spot.theme.names.${theme.theme}`)}
               spotCount={theme.spotCount}
               image={SPOT_THEME_IMAGES.square[theme.theme]}
               style={styles.card}
-              onPress={() => console.log('테마 페이지로 이동')}
             />
           ))}
         </ScrollView>
