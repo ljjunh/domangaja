@@ -7,7 +7,7 @@ import {
   type ViewStyle,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Text } from '@/shared/components/base';
+import { Pressable, Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 
 interface ThemeCardProps {
@@ -15,6 +15,7 @@ interface ThemeCardProps {
   spotCount: number;
   image: ImageSourcePropType;
   isHot?: boolean;
+  onPress?: () => void;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -23,16 +24,16 @@ export default function ThemeCard({
   spotCount,
   image,
   isHot = false,
+  onPress,
   style,
 }: ThemeCardProps) {
   const { t } = useTranslation();
 
-  // TODO: 인기 테마의 관광지 목록 조회 API 확인 후 카드 클릭 연동
   return (
-    <View style={[styles.card, style]}>
+    <Pressable onPress={onPress} disabled={!onPress} style={[styles.card, style]}>
       <ImageBackground source={image} fadeDuration={0} style={styles.image}>
         {isHot && (
-          <View style={styles.hotBadge}>
+          <View pointerEvents="none" style={styles.hotBadge}>
             <Text typography="st13" weight="bold" color={colors.red[500]}>
               HOT
             </Text>
@@ -45,7 +46,7 @@ export default function ThemeCard({
           {t('spot.theme.popular.spotCount', { count: spotCount })}
         </Text>
       </ImageBackground>
-    </View>
+    </Pressable>
   );
 }
 
