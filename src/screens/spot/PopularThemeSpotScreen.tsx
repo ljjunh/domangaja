@@ -12,6 +12,7 @@ import { ClockOutlineIcon } from '@/assets/icons/common';
 
 type Props = StaticScreenProps<{ theme: SpotTheme; spots: PopularSpot[] }>;
 
+// TODO: 인기 테마별 장소 API 페이지네이션 요청하기
 export default function PopularThemeSpotScreen({ route }: Props) {
   const { t } = useTranslation();
   const { navigate } = useNavigation();

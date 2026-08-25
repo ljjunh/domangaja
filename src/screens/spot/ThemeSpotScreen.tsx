@@ -13,6 +13,7 @@ import { ThemeInterestButton, ThemeSpotListItem } from '@/domains/spot/component
 import { ClockOutlineIcon } from '@/assets/icons/common';
 import { RecentSpotSkeleton } from './components';
 
+// TODO: 테마별 장소 API 페이지네이션 요청하기
 const THEME_SPOT_LIMIT = 20;
 
 type ThemeSpotScreenProps = StaticScreenProps<{ theme: TourismSpotTheme }>;
