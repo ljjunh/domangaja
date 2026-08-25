@@ -47,6 +47,7 @@ export interface GetWeeklyThemesRequest {
   days?: number;
   // default 10
   limit?: number;
+  // TODO: 인기 테마 장소는 /spots/popular로 조회하므로 서버에 미사용 파라미터 제거 요청하기
   // default 0 (0~20). 각 테마의 인기 장소를 spots에 포함한다.
   spotLimit?: number;
 }

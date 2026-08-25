@@ -5,4 +5,5 @@ export { default as RegionSpotSkeleton } from './RegionSpotSkeleton';
 export { default as RegionPicker } from './RegionPicker';
 export { default as RegionSpotResults } from './RegionSpotResults';
 export { default as ThemeFilterChips } from './ThemeFilterChips';
+export { default as ThemeSpotSkeleton } from './ThemeSpotSkeleton';
 export { default as WeeklyThemeSkeleton } from './WeeklyThemeSkeleton';
