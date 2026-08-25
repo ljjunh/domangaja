@@ -11,5 +11,8 @@ export { default as SpotSheetContent } from './SpotSheetContent';
 export { default as SpotSheetHeader } from './SpotSheetHeader';
 export { default as SpotTourInfo } from './SpotTourInfo';
 export { default as ThemeCard } from './ThemeCard';
+export { default as ThemeBrowseCard } from './ThemeBrowseCard';
+export { default as ThemeInterestButton } from './ThemeInterestButton';
+export { default as ThemeSpotListItem } from './ThemeSpotListItem';
 export { default as TodaySpotBanner } from './TodaySpotBanner';
 export { default as WeeklyThemeSection } from './WeeklyThemeSection';
