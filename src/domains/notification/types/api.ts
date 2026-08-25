@@ -5,13 +5,16 @@ export interface NotificationSettings {
   marketingAlert: boolean;
 }
 
-export type NotificationType =
-  | 'FEED_COMMENT'
-  | 'STORY_LIKE'
-  | 'COMMENT_LIKE'
-  | 'FEED_BOOKMARK'
-  | 'QUIETNESS_RISE'
-  | 'MARKETING';
+export const NOTIFICATION_TYPES = [
+  'FEED_COMMENT',
+  'STORY_LIKE',
+  'COMMENT_LIKE',
+  'FEED_BOOKMARK',
+  'QUIETNESS_RISE',
+  'MARKETING',
+] as const;
+
+export type NotificationType = (typeof NOTIFICATION_TYPES)[number];
 
 export interface Notification {
   id: number;

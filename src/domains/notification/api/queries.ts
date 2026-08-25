@@ -27,6 +27,29 @@ export const notificationQueryKeys = {
   list: [...all, 'list'] as const,
 };
 
+/**
+ * 푸시가 도착·탭됐으면 목록에 새 알림이 쌓였다.
+ * 포그라운드·백그라운드 두 경로가 각자 부르면 갈라지므로 여기 한 곳에 둔다
+ */
+export function invalidateNotificationList() {
+  queryClient.invalidateQueries({ queryKey: notificationQueryKeys.list });
+}
+
+/**
+ * 푸시를 탭해 들어왔을 때 — 봤으니 읽음으로 표시하고 목록을 갱신한다.
+ * React 밖(navigateByPush)에서 불리므로 mutation 대신 서비스를 직접 쓴다
+ */
+export async function markPushNotificationRead(notificationId: string | null) {
+  if (notificationId != null) {
+    try {
+      await readNotification(Number(notificationId));
+    } catch {
+      // 읽음 표시 실패가 화면 이동을 막을 이유는 없다 — 목록 갱신은 그대로 진행
+    }
+  }
+  invalidateNotificationList();
+}
+
 export const notificationQueries = {
   getNotificationSetting: () =>
     queryOptions({

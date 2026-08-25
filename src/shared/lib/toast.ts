@@ -9,3 +9,24 @@ export function showToast(type: ToastType, message: string) {
     text1: message,
   });
 }
+
+interface PushToastParams {
+  title: string | null;
+  body: string | null;
+  onPress: () => void;
+}
+
+/**
+ * 포그라운드 푸시 배너. 전역 <Toast>가 position="bottom"이라 여기서 상단으로 덮어쓴다.
+ * topOffset을 0으로 두고 SafeArea 인셋은 PushToastView가 더한다
+ */
+export function showPushToast({ title, body, onPress }: PushToastParams) {
+  Toast.show({
+    type: 'push',
+    text1: title ?? undefined,
+    text2: body ?? undefined,
+    position: 'top',
+    topOffset: 0,
+    onPress,
+  });
+}
