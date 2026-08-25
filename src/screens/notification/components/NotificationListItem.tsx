@@ -12,18 +12,33 @@ import {
   GiftFillIcon,
   HeartFillIcon,
   MessageOutlineIcon,
+  NotificationOutlineIcon,
+  SunFogFillIcon,
   SunOutlineIcon,
 } from '@/assets/icons/common';
 
 const BADGE_SIZE = 40;
 const ICON_SIZE = 22;
 
-const BADGE_BY_TYPE: Record<NotificationType, { icon: ComponentType<SvgProps>; color: string }> = {
+interface NotificationBadge {
+  icon: ComponentType<SvgProps>;
+  color: string;
+}
+
+// 서버 enum이 늘어나면 앱 배포 전까지 모르는 값이 내려온다 — 그때 쓸 기본 배지
+const FALLBACK_BADGE: NotificationBadge = {
+  icon: NotificationOutlineIcon,
+  color: colors.grey[500],
+};
+
+const BADGE_BY_TYPE: Record<NotificationType, NotificationBadge> = {
   FEED_COMMENT: { icon: MessageOutlineIcon, color: colors.blue[500] },
   STORY_LIKE: { icon: HeartFillIcon, color: colors.red[400] },
   COMMENT_LIKE: { icon: HeartFillIcon, color: colors.red[400] },
   FEED_BOOKMARK: { icon: ArchiveTickFillIcon, color: colors.blue[500] },
   QUIETNESS_RISE: { icon: SunOutlineIcon, color: colors.teal[500] },
+  // 한적해짐(맑은 해)과 짝이 보이게 흐린 해 + 주의 색
+  QUIETNESS_DROP: { icon: SunFogFillIcon, color: colors.orange[500] },
   MARKETING: { icon: GiftFillIcon, color: colors.purple[700] },
 };
 
@@ -45,7 +60,9 @@ export default function NotificationListItem({
   onPress,
 }: NotificationListItemProps) {
   const { t } = useTranslation();
-  const { icon: Icon, color } = BADGE_BY_TYPE[type];
+  const badge = BADGE_BY_TYPE[type] ?? FALLBACK_BADGE;
+  const { icon: Icon, color } = badge;
+
   const timeAgo = formatTimeAgo(createdAt);
 
   return (

@@ -10,6 +10,7 @@ import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { notificationMutations, notificationQueries } from '@/domains/notification/api/queries';
 import type { Notification } from '@/domains/notification/types/api';
+import { navigateToNotificationTarget } from '@/domains/notification/lib/notificationNavigation';
 import { NotificationEmpty, NotificationListItem, NotificationSkeleton } from './components';
 
 interface NotificationSection {
@@ -68,8 +69,8 @@ function NotificationList() {
     if (!notification.read) {
       readNotification(notification.id);
     }
-    // TODO: type별로 피드/스토리/스팟 상세로 이동 (targetId, subTargetId 사용)
-    console.log('알림 이동', notification.type, notification.targetId, notification.subTargetId);
+    // 목적지 매핑은 푸시 탭과 공유한다
+    navigateToNotificationTarget(notification);
   };
 
   return (

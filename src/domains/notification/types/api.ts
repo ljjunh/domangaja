@@ -11,6 +11,7 @@ export const NOTIFICATION_TYPES = [
   'COMMENT_LIKE',
   'FEED_BOOKMARK',
   'QUIETNESS_RISE',
+  'QUIETNESS_DROP',
   'MARKETING',
 ] as const;
 
