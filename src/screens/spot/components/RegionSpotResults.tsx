@@ -76,7 +76,12 @@ export default function RegionSpotResults({ search }: Props) {
       renderItem={({ item }) => (
         <RegionSpotItem
           spot={item}
-          onPress={() => navigate('SpotDetail', { contentId: item.contentId })}
+          onPress={() =>
+            navigate('SpotDetail', {
+              contentId: item.contentId,
+              lang: search.lang,
+            })
+          }
         />
       )}
     />

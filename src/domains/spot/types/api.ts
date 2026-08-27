@@ -138,7 +138,7 @@ export type GetScrapsResponse = Scrap[];
 
 export interface GetSpotDetailRequest {
   contentId: string;
-  lang: ServerLocale;
+  lang?: ServerLocale;
 }
 
 // TODO: nullable 필드 확인 필요
