@@ -107,14 +107,12 @@ function SpotDetailContent({ contentId, lang }: SpotDetailParams) {
         />
         <View style={styles.content}>
           <View style={styles.titleSection}>
-            <View style={styles.titleRow}>
-              <Text typography="t3" weight="bold">
-                {detail.title}
-              </Text>
-              <Text typography="t6" color={colors.grey[800]}>
+            <Text typography="t3" weight="bold">
+              {detail.title}{' '}
+              <Text typography="t6" weight="regular" color={colors.grey[800]}>
                 {t(detail.contentTypeLabelKey)}
               </Text>
-            </View>
+            </Text>
             {detail.address && (
               <View style={styles.regionRow}>
                 <LocationFillIcon width={16} height={16} color={colors.grey[500]} />
@@ -152,11 +150,6 @@ const styles = StyleSheet.create({
   },
   titleSection: {
     gap: 7,
-  },
-  titleRow: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
-    gap: 10,
   },
   regionRow: {
     flexDirection: 'row',

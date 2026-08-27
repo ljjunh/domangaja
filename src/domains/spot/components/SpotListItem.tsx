@@ -46,10 +46,16 @@ export default function SpotListItem({
       </View>
       <View style={styles.content}>
         <View style={styles.info}>
-          <Text typography="t7" weight="bold">
+          <Text typography="t7" weight="bold" numberOfLines={2} ellipsizeMode="tail">
             {name}
           </Text>
-          <Text typography="st13" weight="semiBold" color={colors.grey[500]}>
+          <Text
+            typography="st13"
+            weight="semiBold"
+            color={colors.grey[500]}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
             {region}
             {quietness != null &&
               ` · ${t('spot.quietness', { score: formatQuietness(quietness) })}`}
@@ -92,13 +98,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: 8,
     borderBottomWidth: 1,
     borderBottomColor: colors.grey[200],
   },
   info: {
+    flex: 1,
+    minWidth: 0,
     gap: 4,
   },
   scrapButton: {
+    flexShrink: 0,
     alignSelf: 'center',
   },
 });
