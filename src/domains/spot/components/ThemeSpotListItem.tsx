@@ -22,10 +22,16 @@ export default function ThemeSpotListItem({ spot, onPress }: ThemeSpotListItemPr
     <Pressable onPress={onPress} style={styles.item}>
       <Image source={spot.imageUrl ? { uri: spot.imageUrl } : placeholderImage} style={styles.image} />
       <View style={styles.content}>
-        <Text typography="t7" weight="bold" numberOfLines={1}>
+        <Text typography="t7" weight="bold" numberOfLines={2} ellipsizeMode="tail">
           {spot.title}
         </Text>
-        <Text typography="st13" weight="semiBold" color={colors.grey[500]} numberOfLines={1}>
+        <Text
+          typography="st13"
+          weight="semiBold"
+          color={colors.grey[500]}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
           {spot.regionName}
           {spot.quietnessScore != null &&
             ` · ${t('spot.theme.result.quietness', {

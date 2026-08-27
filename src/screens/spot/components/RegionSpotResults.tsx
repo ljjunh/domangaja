@@ -26,10 +26,16 @@ function RegionSpotItem({ spot, onPress }: { spot: AreaSpot; onPress: () => void
         style={styles.image}
       />
       <View style={styles.spotInfo}>
-        <Text typography="t7" weight="bold" numberOfLines={1}>
+        <Text typography="t7" weight="bold" numberOfLines={2} ellipsizeMode="tail">
           {spot.title}
         </Text>
-        <Text typography="st13" weight="semiBold" color={colors.grey[500]} numberOfLines={2}>
+        <Text
+          typography="st13"
+          weight="semiBold"
+          color={colors.grey[500]}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
           {spot.address}
           {spot.quietnessScore != null &&
             ` · ${t('spot.regionSearch.quietness', {
@@ -76,7 +82,12 @@ export default function RegionSpotResults({ search }: Props) {
       renderItem={({ item }) => (
         <RegionSpotItem
           spot={item}
-          onPress={() => navigate('SpotDetail', { contentId: item.contentId })}
+          onPress={() =>
+            navigate('SpotDetail', {
+              contentId: item.contentId,
+              lang: search.lang,
+            })
+          }
         />
       )}
     />
