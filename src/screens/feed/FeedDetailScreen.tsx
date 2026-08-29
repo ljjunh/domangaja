@@ -6,21 +6,15 @@ import { Layout, StackHeader } from '@/shared/components/layout';
 import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { toImageUrl } from '@/shared/api/service';
-import { overlay } from '@/shared/overlay';
 import { showToast } from '@/shared/lib/toast';
 import { feedMutations, feedQueries } from '@/domains/feed/api/queries';
-import { FeedCommentBottomSheet, FeedItem } from '@/domains/feed/components';
+import { FeedItem, openFeedCommentBottomSheet } from '@/domains/feed/components';
 import type { Feed } from '@/domains/feed/types/api';
 import { userQueries } from '@/domains/user/api/queries';
 
 // 등록 직후 넘어온 feed는 상세 조회 API를 다시 부르지 않고 그 값을 캐시 초기값으로 써서,
 // 목록에서 feedId만 갖고 들어오는 경우와 동일하게 동작하게 한다 (deep link 등으로 feedId만 와도 그대로 조회)
 type FeedDetailScreenProps = StaticScreenProps<{ feedId: number } | { feed: Feed }>;
-
-// FeedList와 동일한 방식 — overlay로 기존 댓글 시트를 그대로 띄운다 (아직 mock 데이터)
-function openComments(feedId: number) {
-  overlay.open(({ unmount }) => <FeedCommentBottomSheet feedId={feedId} onClose={unmount} />);
-}
 
 export default function FeedDetailScreen({ route }: FeedDetailScreenProps) {
   const { t } = useTranslation();
@@ -91,7 +85,7 @@ export default function FeedDetailScreen({ route }: FeedDetailScreenProps) {
           viewCount={feed.viewCount}
           commentCount={feed.commentCount}
           isMine={me != null && me.id === feed.userId}
-          onPressComment={openComments}
+          onPressComment={openFeedCommentBottomSheet}
           onPressDelete={handlePressDelete}
           onPressReport={handlePressReport}
         />

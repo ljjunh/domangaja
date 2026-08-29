@@ -21,8 +21,27 @@ import { showToast } from '@/shared/lib/toast';
 import { feedMutations, feedQueries } from '@/domains/feed/api/queries';
 import { userQueries } from '@/domains/user/api/queries';
 import type { Comment } from '@/domains/feed/types/api';
+import { overlay } from '@/shared/overlay';
 import FeedCommentItem from './FeedCommentItem';
 import { SendOutlineIcon } from '@/assets/icons/common';
+
+let isCommentSheetOpen = false;
+
+export function openFeedCommentBottomSheet(feedId: number) {
+  if (isCommentSheetOpen) {
+    return;
+  }
+  isCommentSheetOpen = true;
+  overlay.open(({ unmount }) => (
+    <FeedCommentBottomSheet
+      feedId={feedId}
+      onClose={() => {
+        isCommentSheetOpen = false;
+        unmount();
+      }}
+    />
+  ));
+}
 
 const TOP_FADE_HEIGHT = 28;
 const TOP_FADE_GRADIENT_ID = 'feed-comment-top-fade';
@@ -54,11 +73,48 @@ function CommentEmptyState() {
   );
 }
 
-// 처음엔 55% 높이로 열리고, handle을 위로 드래그하면 거의 전체 높이까지 확장된다
-const SNAP_POINTS = ['55%', '95%'];
+const SNAP_POINTS = ['65%'];
 
 function CommentSeparator() {
   return <View style={styles.separator} />;
+}
+
+interface FeedCommentInputProps {
+  bottom: number;
+  isSending: boolean;
+  onLayout: (event: LayoutChangeEvent) => void;
+  onSend: (text: string) => void;
+}
+
+// draft를 이 컴포넌트 안에 두어야 타이핑 중 부모(FeedCommentBottomSheet)가 리렌더되지 않는다 —
+// 부모가 리렌더되면 renderFooter가 다시 만들어져 footerComponent가 재마운트되고 키보드가 닫힌다
+function FeedCommentInput({ bottom, isSending, onLayout, onSend }: FeedCommentInputProps) {
+  const { t } = useTranslation();
+  const [draft, setDraft] = useState('');
+
+  const handleSend = () => {
+    const trimmed = draft.trim();
+    if (trimmed.length === 0 || isSending) {
+      return;
+    }
+    onSend(trimmed);
+    setDraft('');
+  };
+
+  return (
+    <View style={[styles.inputRow, { paddingBottom: bottom + 10 }]} onLayout={onLayout}>
+      <BottomSheetTextInput
+        value={draft}
+        onChangeText={setDraft}
+        placeholder={t('feed.comment.placeholder')}
+        placeholderTextColor={colors.grey[500]}
+        style={styles.input}
+      />
+      <Pressable hitSlop={8} onPress={handleSend}>
+        <SendOutlineIcon color={colors.blue[500]} />
+      </Pressable>
+    </View>
+  );
 }
 
 interface FeedCommentBottomSheetProps {
@@ -68,8 +124,7 @@ interface FeedCommentBottomSheetProps {
 
 export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentBottomSheetProps) {
   const { t } = useTranslation();
-  const { bottom } = useSafeAreaInsets();
-  const [draft, setDraft] = useState('');
+  const { top, bottom } = useSafeAreaInsets();
   // 입력창은 footerComponent로 별도 레이어에 떠서, 마지막 댓글이 그 밑에 가려지지 않도록
   // 실제 렌더된 높이를 재서 리스트 하단 padding으로 되돌려준다
   const [footerHeight, setFooterHeight] = useState(0);
@@ -106,39 +161,33 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
     setFooterHeight(event.nativeEvent.layout.height);
   }, []);
 
-  const handleSend = () => {
-    const trimmed = draft.trim();
-    if (trimmed.length === 0 || isCreating) {
-      return;
-    }
-    createComment(
-      { feedId, content: trimmed },
-      {
-        onSuccess: () => setDraft(''),
-        onError: () => showToast('error', t('feed.error.createComment')),
-      },
-    );
-  };
+  const handleSend = useCallback(
+    (text: string) => {
+      createComment(
+        { feedId, content: text },
+        { onError: () => showToast('error', t('feed.error.createComment')) },
+      );
+    },
+    [feedId, createComment, t],
+  );
 
-  // footerComponent는 리스트와 분리된 레이어라 draft/handleSend를 그대로 클로저로 참조해도 안전하다 —
-  // useCallback으로 감싸도 매 타이핑마다 다시 만들어져 이점이 없어 일반 함수로 둔다.
+  // renderFooter가 매 렌더마다 새 함수면 BottomSheet가 footerComponent를 다른 컴포넌트로 보고
+  // 통째로 재마운트해버려 입력 중이던 TextInput이 포커스(키보드)를 잃는다 —
+  // draft state를 FeedCommentInput 안으로 내려서 타이핑 중엔 이 함수가 재생성되지 않게 한다.
   // bottomInset prop 대신 안전영역 패딩을 이 행 자체 높이에 포함시킨다 — 그래야 onLayout으로 잰
   // footerHeight가 실제 차지하는 전체 높이와 정확히 같아져서, 리스트 쪽과 어긋나 틈이 생기지 않는다
-  const renderFooter = (footerProps: BottomSheetFooterProps) => (
-    <BottomSheetFooter {...footerProps}>
-      <View style={[styles.inputRow, { paddingBottom: bottom + 10 }]} onLayout={handleFooterLayout}>
-        <BottomSheetTextInput
-          value={draft}
-          onChangeText={setDraft}
-          placeholder={t('feed.comment.placeholder')}
-          placeholderTextColor={colors.grey[500]}
-          style={styles.input}
+  const renderFooter = useCallback(
+    (footerProps: BottomSheetFooterProps) => (
+      <BottomSheetFooter {...footerProps}>
+        <FeedCommentInput
+          bottom={bottom}
+          isSending={isCreating}
+          onLayout={handleFooterLayout}
+          onSend={handleSend}
         />
-        <Pressable hitSlop={8} onPress={handleSend}>
-          <SendOutlineIcon color={colors.blue[500]} />
-        </Pressable>
-      </View>
-    </BottomSheetFooter>
+      </BottomSheetFooter>
+    ),
+    [bottom, isCreating, handleFooterLayout, handleSend],
   );
 
   const handlePressDelete = (commentId: number) => {
@@ -187,15 +236,15 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
       snapPoints={SNAP_POINTS}
       enableDynamicSizing={false}
       enablePanDownToClose
-      // 시트 크기(55%/95%)는 handle 드래그로만 바뀌고, 콘텐츠 영역은 항상 그 안에서만 스크롤되게 —
-      // 댓글이 적거나 없을 때 content 영역 드래그가 시트 크기를 바꿔버리는 걸 막는다
-      enableContentPanningGesture={false}
+      // topInset 없이 퍼센트 snap point를 쓰면 전체 화면 높이 기준으로 계산되어, 95%가
+      // 다이나믹 아일랜드/노치가 있는 기기의 상단 안전영역을 침범한다 — 안전영역 top을 빼고 계산하게 한다
+      topInset={top}
       onClose={onClose}
       backdropComponent={renderBackdrop}
       footerComponent={renderFooter}
       // footer 위치는 "시트 위치 - 키보드 높이"로 계산된다 — interactive는 시트를 키보드 높이만큼
       // 계속 실시간으로 밀어올려서 시트+입력창이 통째로 움직이는 것처럼 느껴진다.
-      // extend는 이미 정해둔 두 번째 snap point(95%)로 한 번에 확장만 하고 끝나서 훨씬 안정적으로 보인다
+      // extend는 키보드가 뜰 때 한 번에 정해진 snap point로 확장만 하고 끝나서 훨씬 안정적으로 보인다
       keyboardBehavior="extend"
       keyboardBlurBehavior="restore"
       handleIndicatorStyle={styles.handleIndicator}
