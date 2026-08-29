@@ -242,6 +242,7 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
       footerComponent={renderFooter}
       keyboardBehavior="extend"
       keyboardBlurBehavior="restore"
+      android_keyboardInputMode="adjustResize"
       handleIndicatorStyle={styles.handleIndicator}
       backgroundStyle={styles.background}
     >
