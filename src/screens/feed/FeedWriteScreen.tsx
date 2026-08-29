@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { KeyboardAvoidingView, ScrollView, StyleSheet, View } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, ScrollView, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { StackActions, type StaticScreenProps, useNavigation } from '@react-navigation/native';
 import { useMutation } from '@tanstack/react-query';
@@ -42,6 +42,8 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
   const { mutate: createFeed } = useMutation(feedMutations.createFeed());
 
   const handlePickPhoto = async () => {
+    Keyboard.dismiss();
+
     const permission = await requestPhotoPermission();
     if (permission === 'blocked') {
       setIsPhotoPermissionSheetVisible(true);
