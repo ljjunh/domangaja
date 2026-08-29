@@ -236,22 +236,15 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
       snapPoints={SNAP_POINTS}
       enableDynamicSizing={false}
       enablePanDownToClose
-      // topInset 없이 퍼센트 snap point를 쓰면 전체 화면 높이 기준으로 계산되어, 95%가
-      // 다이나믹 아일랜드/노치가 있는 기기의 상단 안전영역을 침범한다 — 안전영역 top을 빼고 계산하게 한다
       topInset={top}
       onClose={onClose}
       backdropComponent={renderBackdrop}
       footerComponent={renderFooter}
-      // footer 위치는 "시트 위치 - 키보드 높이"로 계산된다 — interactive는 시트를 키보드 높이만큼
-      // 계속 실시간으로 밀어올려서 시트+입력창이 통째로 움직이는 것처럼 느껴진다.
-      // extend는 키보드가 뜰 때 한 번에 정해진 snap point로 확장만 하고 끝나서 훨씬 안정적으로 보인다
       keyboardBehavior="extend"
       keyboardBlurBehavior="restore"
       handleIndicatorStyle={styles.handleIndicator}
       backgroundStyle={styles.background}
     >
-      {/* BottomSheetFlatList가 시트 콘텐츠의 유일한 스크롤 영역 — 입력창은 footerComponent로
-          완전히 분리된 레이어라 이 목록의 스크롤/제스처 계산에 끼어들지 않는다(안드로이드 스크롤 이슈 원인) */}
       <BottomSheetFlatList
         data={comments ?? []}
         keyExtractor={item => String(item.id)}
