@@ -4,6 +4,10 @@ import type { UploadFile } from '@/shared/api/service';
 const CANCELLED_CODE = 'E_PICKER_CANCELLED';
 const NO_PERMISSION_CODE = 'E_NO_LIBRARY_PERMISSION';
 
+const FEED_IMAGE_MAX_SIZE = 1440;
+const STORY_IMAGE_MAX_SIZE = 1920;
+const COMPRESS_IMAGE_QUALITY = 0.8;
+
 export type PickStoryMediaResult =
   | { status: 'picked'; file: UploadFile }
   | { status: 'cancelled' }
@@ -24,7 +28,12 @@ function getErrorCode(error: unknown): string | undefined {
 // 크롭 없이 사진 원본 1장만 선택
 export async function pickStoryMedia(): Promise<PickStoryMediaResult> {
   try {
-    const media = await ImagePicker.openPicker({ mediaType: 'photo' });
+    const media = await ImagePicker.openPicker({
+      mediaType: 'photo',
+      compressImageMaxWidth: STORY_IMAGE_MAX_SIZE,
+      compressImageMaxHeight: STORY_IMAGE_MAX_SIZE,
+      compressImageQuality: COMPRESS_IMAGE_QUALITY,
+    });
     return {
       status: 'picked',
       file: {
@@ -50,7 +59,12 @@ export async function pickStoryMedia(): Promise<PickStoryMediaResult> {
 // 크롭 없이 사진 원본 1장만 선택 (피드는 영상 불가)
 export async function pickFeedPhoto(): Promise<PickFeedPhotoResult> {
   try {
-    const image = await ImagePicker.openPicker({ mediaType: 'photo' });
+    const image = await ImagePicker.openPicker({
+      mediaType: 'photo',
+      compressImageMaxWidth: FEED_IMAGE_MAX_SIZE,
+      compressImageMaxHeight: FEED_IMAGE_MAX_SIZE,
+      compressImageQuality: COMPRESS_IMAGE_QUALITY,
+    });
     return {
       status: 'picked',
       file: { uri: image.path, mime: image.mime, fileName: image.filename ?? 'feed.jpg' },

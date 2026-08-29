@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { Suspense, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { Layout } from '@/shared/components/layout';
@@ -8,7 +8,12 @@ import { overlay } from '@/shared/overlay';
 import { showToast } from '@/shared/lib/toast';
 import { requestLocationPermission } from '@/shared/lib/locationPermission';
 import { useCurrentLocation } from '@/shared/hooks/useCurrentLocation';
-import { FeedList, StoryList } from '@/domains/feed/components';
+import {
+  FeedList,
+  FeedListSkeleton,
+  StoryList,
+  StoryListSkeleton,
+} from '@/domains/feed/components';
 import { LocationPermissionSheet } from '@/shared/components/overlay';
 import { CommunityFab, CommunityTabs, type CommunityTabValue } from './components';
 
@@ -76,9 +81,13 @@ export default function FeedScreen() {
     <Layout edges={MAIN_TAB_SCREEN_EDGES}>
       <CommunityTabs value={tab} onChange={setTab} />
       {tab === 'story' ? (
-        <StoryList bottomInset={mainTabBarSpace} />
+        <Suspense fallback={<StoryListSkeleton />}>
+          <StoryList bottomInset={mainTabBarSpace} />
+        </Suspense>
       ) : (
-        <FeedList bottomInset={mainTabBarSpace} />
+        <Suspense fallback={<FeedListSkeleton />}>
+          <FeedList bottomInset={mainTabBarSpace} />
+        </Suspense>
       )}
       <CommunityFab
         onPress={handlePressFab}
