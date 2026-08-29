@@ -148,12 +148,14 @@ export default function FeedItem({
 
       <Image source={image} style={styles.image} />
 
-      <View style={styles.placeRow}>
-        <LocationFillIcon color={colors.grey[200]} />
-        <Text typography="st13" weight="semiBold" color={colors.grey[700]}>
-          {placeName}
-        </Text>
-      </View>
+      {placeName != null && placeName.trim() !== '' && (
+        <View style={styles.placeRow}>
+          <LocationFillIcon color={colors.grey[200]} />
+          <Text typography="st13" weight="semiBold" color={colors.grey[700]}>
+            {placeName}
+          </Text>
+        </View>
+      )}
 
       <View style={styles.statsRow}>
         <View style={styles.statsTextRow}>

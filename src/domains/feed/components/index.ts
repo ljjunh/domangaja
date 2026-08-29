@@ -1,5 +1,5 @@
 export { default as FeedBanner } from './FeedBanner';
-export { default as FeedCommentBottomSheet } from './FeedCommentBottomSheet';
+export { default as FeedCommentBottomSheet, openFeedCommentBottomSheet } from './FeedCommentBottomSheet';
 export { default as FeedCommentItem } from './FeedCommentItem';
 export { default as FeedItem } from './FeedItem';
 export { default as FeedList } from './FeedList';

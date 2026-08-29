@@ -1,5 +1,14 @@
-import { useState } from 'react';
-import { KeyboardAvoidingView, ScrollView, StyleSheet, View } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  Dimensions,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+  type TextInput as RNTextInputInstance,
+} from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { StackActions, type StaticScreenProps, useNavigation } from '@react-navigation/native';
 import { useMutation } from '@tanstack/react-query';
@@ -26,6 +35,7 @@ type FeedWriteScreenProps = StaticScreenProps<{ latitude: number; longitude: num
 
 const TITLE_MAX_LENGTH = 30;
 const CONTENT_MAX_LENGTH = 200;
+const KEYBOARD_SAFE_PADDING = 16;
 
 export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
   const { t } = useTranslation();
@@ -39,9 +49,52 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
   // 뒤에 가려진다(StoryWriteScreen과 같은 문제) — 화면 자신의 트리 안에서 직접 그린다
   const [isPhotoPermissionSheetVisible, setIsPhotoPermissionSheetVisible] = useState(false);
 
+  const scrollViewRef = useRef<ScrollView>(null);
+  const contentInputRef = useRef<RNTextInputInstance>(null);
+
+  const scrollOffsetYRef = useRef(0);
+  const keyboardHeightRef = useRef(0);
+
+  const adjustScrollForKeyboard = useCallback(() => {
+    if (Platform.OS !== 'ios' || keyboardHeightRef.current === 0) {
+      return;
+    }
+    contentInputRef.current?.measureInWindow((_x, y, _width, height) => {
+      const windowHeight = Dimensions.get('window').height;
+      const visibleBottom = windowHeight - keyboardHeightRef.current;
+      const inputBottom = y + height;
+      const overlap = inputBottom - visibleBottom + KEYBOARD_SAFE_PADDING;
+      // 이미 다 보이면(overlap <= 0) 아무것도 하지 않는다 — 필요한 만큼만 내린다
+      if (overlap > 0) {
+        scrollViewRef.current?.scrollTo({ y: scrollOffsetYRef.current + overlap, animated: true });
+      }
+    });
+  }, []);
+
+  // 안드로이드는 AndroidManifest의 windowSoftInputMode="adjustResize"가 알아서 처리해줘서
+  // 이 보정 로직은 iOS에서만 동작
+  useEffect(() => {
+    if (Platform.OS !== 'ios') {
+      return;
+    }
+    const showSubscription = Keyboard.addListener('keyboardWillShow', event => {
+      keyboardHeightRef.current = event.endCoordinates.height;
+      adjustScrollForKeyboard();
+    });
+    const hideSubscription = Keyboard.addListener('keyboardWillHide', () => {
+      keyboardHeightRef.current = 0;
+    });
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, [adjustScrollForKeyboard]);
+
   const { mutate: createFeed } = useMutation(feedMutations.createFeed());
 
   const handlePickPhoto = async () => {
+    Keyboard.dismiss();
+
     const permission = await requestPhotoPermission();
     if (permission === 'blocked') {
       setIsPhotoPermissionSheetVisible(true);
@@ -131,8 +184,19 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
         onClose={() => navigation.goBack()}
         onShare={handleShare}
       />
-      <KeyboardAvoidingView style={styles.avoidingView} behavior="padding">
-        <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+      <KeyboardAvoidingView
+        style={styles.avoidingView}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <ScrollView
+          ref={scrollViewRef}
+          contentContainerStyle={styles.container}
+          keyboardShouldPersistTaps="handled"
+          onScroll={event => {
+            scrollOffsetYRef.current = event.nativeEvent.contentOffset.y;
+          }}
+          scrollEventThrottle={16}
+        >
           <PostLocationField address={t('feed.postForm.autoLocation')} />
 
           <View style={styles.section}>
@@ -165,6 +229,7 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
           <View style={styles.section}>
             <FormSectionLabel title={t('feed.feedWrite.contentLabel')} required />
             <TextInput
+              ref={contentInputRef}
               typography="st10"
               value={content}
               onChangeText={setContent}
@@ -172,6 +237,8 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
               maxLength={CONTENT_MAX_LENGTH}
               multiline
               textAlignVertical="top"
+              onFocus={adjustScrollForKeyboard}
+              onContentSizeChange={adjustScrollForKeyboard}
               style={styles.contentInput}
             />
           </View>

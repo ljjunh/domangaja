@@ -10,6 +10,8 @@ interface FeedCommentItemProps {
   comment: Comment;
   // 삭제/신고 메뉴 분기용 — 호출부가 로그인 사용자와 비교해서 넘겨준다
   isMine: boolean;
+  // 마지막 댓글이면 메뉴를 아래가 아니라 위로 띄운다 — 아래로 띄우면 하단 입력창(footer)에 가려진다
+  isLast: boolean;
   onPressDelete: () => void;
   onPressReport: () => void;
   onPressLike: () => void;
@@ -23,6 +25,7 @@ interface FeedCommentItemProps {
 export default function FeedCommentItem({
   comment,
   isMine,
+  isLast,
   onPressDelete,
   onPressReport,
   onPressLike,
@@ -69,7 +72,7 @@ export default function FeedCommentItem({
         </Pressable>
 
         {isMenuOpen && (
-          <View style={styles.menu}>
+          <View style={[styles.menu, isLast && styles.menuUpward]}>
             {isMine ? (
               <Pressable onPress={handlePressDelete} style={styles.menuItem}>
                 <Text typography="t7" weight="semiBold" color={colors.red[500]}>
@@ -139,6 +142,12 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 8,
     zIndex: 100,
+  },
+  menuUpward: {
+    top: undefined,
+    bottom: '100%',
+    marginTop: 0,
+    marginBottom: 8,
   },
   menuItem: {
     paddingHorizontal: 16,

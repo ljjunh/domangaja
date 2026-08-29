@@ -5,14 +5,13 @@ import { useMutation, useQuery, useSuspenseInfiniteQuery } from '@tanstack/react
 import { Text } from '@/shared/components/base';
 import { Border } from '@/shared/components/ui';
 import { colors } from '@/shared/constants/colors';
-import { overlay } from '@/shared/overlay';
 import { showToast } from '@/shared/lib/toast';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
 import { toImageUrl } from '@/shared/api/service';
 import { feedMutations, feedQueries } from '@/domains/feed/api/queries';
 import { userQueries } from '@/domains/user/api/queries';
 import FeedBanner from './FeedBanner';
-import FeedCommentBottomSheet from './FeedCommentBottomSheet';
+import { openFeedCommentBottomSheet } from './FeedCommentBottomSheet';
 import FeedItem from './FeedItem';
 
 interface FeedListProps {
@@ -32,11 +31,6 @@ function FeedEmptyState() {
       </Text>
     </View>
   );
-}
-
-// 피드 카드가 리스트 어디서나 호출할 수 있도록 overlay로 댓글 시트를 띄운다 (WithdrawalSheet와 동일한 방식)
-function openComments(feedId: number) {
-  overlay.open(({ unmount }) => <FeedCommentBottomSheet feedId={feedId} onClose={unmount} />);
 }
 
 export default function FeedList({ bottomInset = 0 }: FeedListProps) {
@@ -109,7 +103,7 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
           commentCount={item.commentCount}
           isMine={me != null && me.id === item.userId}
           onPress={() => navigation.navigate('FeedDetail', { feedId: item.id })}
-          onPressComment={openComments}
+          onPressComment={openFeedCommentBottomSheet}
           onPressDelete={() => handlePressDelete(item.id)}
           onPressReport={() => handlePressReport(item.id)}
         />
