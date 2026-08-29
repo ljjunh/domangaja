@@ -24,6 +24,9 @@ import { FormSectionLabel, PostFormHeader, PostLocationField } from './component
 // 지역명/장소명은 서버가 좌표로부터 채워주므로 클라이언트에서 따로 변환하지 않는다
 type FeedWriteScreenProps = StaticScreenProps<{ latitude: number; longitude: number }>;
 
+const TITLE_MAX_LENGTH = 30;
+const CONTENT_MAX_LENGTH = 200;
+
 export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
   const { t } = useTranslation();
   const { latitude, longitude } = route.params;
@@ -154,6 +157,7 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
               value={title}
               onChangeText={setTitle}
               placeholder={t('feed.feedWrite.titlePlaceholder')}
+              maxLength={TITLE_MAX_LENGTH}
               style={styles.titleInput}
             />
           </View>
@@ -165,6 +169,7 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
               value={content}
               onChangeText={setContent}
               placeholder={t('feed.feedWrite.contentPlaceholder')}
+              maxLength={CONTENT_MAX_LENGTH}
               multiline
               textAlignVertical="top"
               style={styles.contentInput}

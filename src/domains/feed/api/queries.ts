@@ -61,7 +61,12 @@ export const feedQueries = {
   storyDetail: (storyId: number) =>
     queryOptions({
       queryKey: feedQueryKeys.storyDetail(storyId),
-      queryFn: () => getStory(storyId),
+      // 상세 조회 자체가 서버 뷰카운트를 올리므로, 응답으로 받은 최신 값을 목록 캐시에도 바로 반영한다
+      queryFn: async () => {
+        const story = await getStory(storyId);
+        patchStoryViewCount(storyId, story.viewCount);
+        return story;
+      },
     }),
 
   feedList: () =>
@@ -75,7 +80,12 @@ export const feedQueries = {
   feedDetail: (feedId: number) =>
     queryOptions({
       queryKey: feedQueryKeys.feedDetail(feedId),
-      queryFn: () => getFeed(feedId),
+      // 상세 조회 자체가 서버 뷰카운트를 올리므로, 응답으로 받은 최신 값을 목록 캐시에도 바로 반영한다
+      queryFn: async () => {
+        const feed = await getFeed(feedId);
+        patchFeedViewCount(feedId, feed.viewCount);
+        return feed;
+      },
     }),
 
   comments: (feedId: number) =>
@@ -84,6 +94,35 @@ export const feedQueries = {
       queryFn: () => getComments(feedId),
     }),
 };
+
+// 상세 조회로 서버가 이미 올린 뷰카운트를 목록 캐시에도 반영 — 재조회 없이 목록의 해당 항목만 patch
+function patchStoryViewCount(storyId: number, viewCount: number) {
+  queryClient.setQueryData<InfiniteData<GetStoriesResponse>>(feedQueryKeys.storyList, prev =>
+    prev == null
+      ? prev
+      : {
+          ...prev,
+          pages: prev.pages.map(page => ({
+            ...page,
+            content: page.content.map(story => (story.id === storyId ? { ...story, viewCount } : story)),
+          })),
+        },
+  );
+}
+
+function patchFeedViewCount(feedId: number, viewCount: number) {
+  queryClient.setQueryData<InfiniteData<GetFeedsResponse>>(feedQueryKeys.feedList, prev =>
+    prev == null
+      ? prev
+      : {
+          ...prev,
+          pages: prev.pages.map(page => ({
+            ...page,
+            content: page.content.map(feed => (feed.id === feedId ? { ...feed, viewCount } : feed)),
+          })),
+        },
+  );
+}
 
 function applyLikeResult(storyId: number, result: { active: boolean; count: number }) {
   const patch = (story: Story): Story =>
