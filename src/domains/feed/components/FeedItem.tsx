@@ -17,6 +17,8 @@ interface FeedItemProps {
   createdAt: string;
   locationLabel: string;
   title: string;
+  // 목록에서는 1줄로 자르고(...), 상세에서는 안 넘겨서 전체를 보여준다
+  titleNumberOfLines?: number;
   content: string;
   // 목록에서는 2줄로 자르고(...), 상세에서는 안 넘겨서 전체를 보여준다
   contentNumberOfLines?: number;
@@ -44,6 +46,7 @@ export default function FeedItem({
   createdAt,
   locationLabel,
   title,
+  titleNumberOfLines,
   content,
   contentNumberOfLines,
   image,
@@ -128,7 +131,7 @@ export default function FeedItem({
         typography="t6"
         weight="bold"
         color={colors.grey[900]}
-        numberOfLines={1}
+        numberOfLines={titleNumberOfLines}
         ellipsizeMode="tail"
       >
         {title}

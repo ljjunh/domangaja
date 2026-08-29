@@ -100,6 +100,7 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
           createdAt={item.createdAt}
           locationLabel={item.regionName}
           title={item.title}
+          titleNumberOfLines={1}
           content={item.content}
           contentNumberOfLines={2}
           image={{ uri: toImageUrl(item.imageUrl) ?? item.imageUrl }}
