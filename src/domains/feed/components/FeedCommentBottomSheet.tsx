@@ -259,10 +259,11 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
         contentContainerStyle={[styles.list, { paddingBottom: 12 + footerHeight }]}
         ItemSeparatorComponent={CommentSeparator}
         ListEmptyComponent={comments != null ? CommentEmptyState : null}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <FeedCommentItem
             comment={item}
             isMine={me != null && me.id === item.userId}
+            isLast={(comments?.length ?? 0) > 1 && index === (comments?.length ?? 0) - 1}
             onPressDelete={() => handlePressDelete(item.id)}
             onPressReport={() => handlePressReport(item.id)}
             onPressLike={() => handlePressLike(item)}
@@ -273,9 +274,6 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
         )}
       />
       <TopFadeOverlay />
-
-      {/* 목록 빈 공간(다른 댓글 줄이 아닌 곳)을 탭해도 메뉴가 닫히도록 */}
-      {openCommentId != null && <Pressable style={StyleSheet.absoluteFill} onPress={closeMenu} />}
     </BottomSheet>
   );
 }
