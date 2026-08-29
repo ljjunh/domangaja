@@ -18,6 +18,8 @@ interface FeedItemProps {
   locationLabel: string;
   title: string;
   content: string;
+  // 목록에서는 2줄로 자르고(...), 상세에서는 안 넘겨서 전체를 보여준다
+  contentNumberOfLines?: number;
   // 서버 연동 시 imageUrl(string)을 { uri: imageUrl }로 매핑
   image: ImageSourcePropType;
   placeName: string;
@@ -43,6 +45,7 @@ export default function FeedItem({
   locationLabel,
   title,
   content,
+  contentNumberOfLines,
   image,
   placeName,
   viewCount,
@@ -121,10 +124,22 @@ export default function FeedItem({
         </View>
       </View>
 
-      <Text typography="t6" weight="bold" color={colors.grey[900]}>
+      <Text
+        typography="t6"
+        weight="bold"
+        color={colors.grey[900]}
+        numberOfLines={1}
+        ellipsizeMode="tail"
+      >
         {title}
       </Text>
-      <Text typography="st11" weight="regular" color={colors.grey[700]}>
+      <Text
+        typography="st11"
+        weight="regular"
+        color={colors.grey[700]}
+        numberOfLines={contentNumberOfLines}
+        ellipsizeMode="tail"
+      >
         {content}
       </Text>
 
