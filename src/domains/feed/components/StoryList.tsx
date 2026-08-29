@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
+import { useMutation, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { Text } from '@/shared/components/base';
 import { colors } from '@/shared/constants/colors';
 import { SCREEN_PADDING_HORIZONTAL } from '@/shared/constants/layout';
@@ -31,10 +31,10 @@ export default function StoryList({ bottomInset = 0 }: StoryListProps) {
   const { t } = useTranslation();
   const navigation = useNavigation();
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery(
     feedQueries.storyList(),
   );
-  const stories = data?.pages.flatMap(page => page.content) ?? [];
+  const stories = data.pages.flatMap(page => page.content);
   const isOddCount = stories.length % 2 === 1;
   const rows: (Story | null)[] = isOddCount ? [...stories, null] : stories;
 
@@ -74,7 +74,7 @@ export default function StoryList({ bottomInset = 0 }: StoryListProps) {
       contentContainerStyle={styles.list}
       ListHeaderComponent={<StoryHeader />}
       ListHeaderComponentStyle={styles.header}
-      ListEmptyComponent={data != null ? StoryEmptyState : null}
+      ListEmptyComponent={StoryEmptyState}
       ListFooterComponent={<View style={{ height: bottomInset }} />}
       onEndReached={handleEndReached}
       onEndReachedThreshold={0.5}

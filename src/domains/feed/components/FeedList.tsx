@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
-import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { Text } from '@/shared/components/base';
 import { Border } from '@/shared/components/ui';
 import { colors } from '@/shared/constants/colors';
@@ -43,10 +43,10 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
   const { t } = useTranslation();
   const navigation = useNavigation();
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery(
     feedQueries.feedList(),
   );
-  const feeds = data?.pages.flatMap(page => page.content) ?? [];
+  const feeds = data.pages.flatMap(page => page.content);
 
   // 더보기 메뉴에서 삭제/신고 분기용 — 카드마다 새로 조회하지 않고 한 번만 가져와 비교한다
   const { data: me } = useQuery(userQueries.getMe());
@@ -89,7 +89,7 @@ export default function FeedList({ bottomInset = 0 }: FeedListProps) {
       ListHeaderComponent={<FeedBanner />}
       ListHeaderComponentStyle={styles.header}
       ItemSeparatorComponent={FeedItemSeparator}
-      ListEmptyComponent={data != null ? FeedEmptyState : null}
+      ListEmptyComponent={FeedEmptyState}
       ListFooterComponent={<View style={{ height: bottomInset }} />}
       onEndReached={handleEndReached}
       onEndReachedThreshold={0.5}
