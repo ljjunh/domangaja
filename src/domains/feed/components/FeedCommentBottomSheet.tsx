@@ -1,14 +1,17 @@
-import { useCallback, useState } from 'react';
-import { StyleSheet, View, type LayoutChangeEvent } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { BackHandler, Platform, StyleSheet, View, type LayoutChangeEvent } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetFlatList,
   BottomSheetFooter,
   BottomSheetTextInput,
+  KEYBOARD_STATUS,
+  useBottomSheetInternal,
   type BottomSheetBackdropProps,
   type BottomSheetFooterProps,
 } from '@gorhom/bottom-sheet';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { Defs, LinearGradient, Rect, Stop, Svg } from 'react-native-svg';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -74,6 +77,8 @@ function CommentEmptyState() {
 }
 
 const SNAP_POINTS = ['65%'];
+const ANDROID_KEYBOARD_INPUT_MODE =
+  typeof Platform.Version === 'number' && Platform.Version >= 35 ? 'adjustPan' : 'adjustResize';
 
 function CommentSeparator() {
   return <View style={styles.separator} />;
@@ -91,6 +96,10 @@ interface FeedCommentInputProps {
 function FeedCommentInput({ bottom, isSending, onLayout, onSend }: FeedCommentInputProps) {
   const { t } = useTranslation();
   const [draft, setDraft] = useState('');
+  const { animatedKeyboardState } = useBottomSheetInternal();
+  const keyboardAwarePadding = useAnimatedStyle(() => ({
+    paddingBottom: animatedKeyboardState.get().status === KEYBOARD_STATUS.SHOWN ? 10 : bottom + 10,
+  }));
 
   const handleSend = () => {
     const trimmed = draft.trim();
@@ -102,7 +111,7 @@ function FeedCommentInput({ bottom, isSending, onLayout, onSend }: FeedCommentIn
   };
 
   return (
-    <View style={[styles.inputRow, { paddingBottom: bottom + 10 }]} onLayout={onLayout}>
+    <Animated.View style={[styles.inputRow, keyboardAwarePadding]} onLayout={onLayout}>
       <BottomSheetTextInput
         value={draft}
         onChangeText={setDraft}
@@ -113,7 +122,7 @@ function FeedCommentInput({ bottom, isSending, onLayout, onSend }: FeedCommentIn
       <Pressable hitSlop={8} onPress={handleSend}>
         <SendOutlineIcon color={colors.blue[500]} />
       </Pressable>
-    </View>
+    </Animated.View>
   );
 }
 
@@ -132,6 +141,15 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
   // 목록이 "지금 열려 있는 댓글 id" 하나만 들고 통제한다
   const [openCommentId, setOpenCommentId] = useState<number | null>(null);
   const closeMenu = () => setOpenCommentId(null);
+  const bottomSheetRef = useRef<BottomSheet>(null);
+
+  useEffect(function closeOnAndroidBackPress() {
+    const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
+      bottomSheetRef.current?.close();
+      return true;
+    });
+    return () => subscription.remove();
+  }, []);
 
   const { data: comments } = useQuery(feedQueries.comments(feedId));
   const { data: me } = useQuery(userQueries.getMe());
@@ -232,6 +250,7 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
 
   return (
     <BottomSheet
+      ref={bottomSheetRef}
       index={0}
       snapPoints={SNAP_POINTS}
       enableDynamicSizing={false}
@@ -240,9 +259,9 @@ export default function FeedCommentBottomSheet({ feedId, onClose }: FeedCommentB
       onClose={onClose}
       backdropComponent={renderBackdrop}
       footerComponent={renderFooter}
-      keyboardBehavior="extend"
+      keyboardBehavior="fillParent"
       keyboardBlurBehavior="restore"
-      android_keyboardInputMode="adjustResize"
+      android_keyboardInputMode={ANDROID_KEYBOARD_INPUT_MODE}
       handleIndicatorStyle={styles.handleIndicator}
       backgroundStyle={styles.background}
     >
