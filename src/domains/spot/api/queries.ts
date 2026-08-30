@@ -162,7 +162,12 @@ export const spotQueries = {
   getSpotDetail: (params: GetSpotDetailRequest) =>
     queryOptions({
       queryKey: spotQueryKeys.detail(params),
-      queryFn: () => getSpotDetail(params),
+      // 서버가 상세 조회(GET)를 '최근 본 도망지' 기록으로 처리하므로, 조회 뒤 최근 목록을 갱신한다
+      queryFn: async () => {
+        const detail = await getSpotDetail(params);
+        queryClient.invalidateQueries({ queryKey: spotQueryKeys.recentAll });
+        return detail;
+      },
     }),
 };
 

@@ -1,7 +1,5 @@
-import { useRef, type ComponentRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Trans, useTranslation } from 'react-i18next';
-import BottomSheet from '@gorhom/bottom-sheet';
 import { Text } from '@/shared/components/base';
 import { Button } from '@/shared/components/ui';
 import { BaseSheet } from '@/shared/components/overlay';
@@ -17,54 +15,54 @@ interface PhotoPermissionSheetProps {
 
 export default function PhotoPermissionSheet({ onClose }: PhotoPermissionSheetProps) {
   const { t } = useTranslation();
-  const sheetRef = useRef<ComponentRef<typeof BottomSheet>>(null);
-
-  const handleOpenSettings = () => {
+  const handleOpenSettings = (close: () => void) => {
     openPhotoSettings();
-    sheetRef.current?.close();
+    close();
   };
 
   return (
-    <BaseSheet ref={sheetRef} onClose={onClose}>
-      <View style={styles.container}>
-        <Text typography="t4" weight="bold" color={colors.grey[900]}>
-          {t('photoPermission.title')}
-        </Text>
+    <BaseSheet onClose={onClose}>
+      {close => (
+        <View style={styles.container}>
+          <Text typography="t4" weight="bold" color={colors.grey[900]}>
+            {t('photoPermission.title')}
+          </Text>
 
-        <Text typography="t6" weight="semiBold" color={colors.grey[500]}>
-          {t('photoPermission.description')}
-        </Text>
+          <Text typography="t6" weight="semiBold" color={colors.grey[500]}>
+            {t('photoPermission.description')}
+          </Text>
 
-        <View style={styles.stepBox}>
-          <StepItem order={1} i18nKey={`photoPermission.${PLATFORM_KEY}.step1`} />
-          <StepItem order={2} i18nKey={`photoPermission.${PLATFORM_KEY}.step2`} />
-        </View>
-
-        <View style={styles.actions}>
-          <View style={styles.actionItem}>
-            <Button
-              type="light"
-              size="large"
-              display="block"
-              onPress={() => sheetRef.current?.close()}
-              containerStyle={styles.actionButton}
-            >
-              {t('photoPermission.later')}
-            </Button>
+          <View style={styles.stepBox}>
+            <StepItem order={1} i18nKey={`photoPermission.${PLATFORM_KEY}.step1`} />
+            <StepItem order={2} i18nKey={`photoPermission.${PLATFORM_KEY}.step2`} />
           </View>
-          <View style={styles.actionItem}>
-            <Button
-              type="primary"
-              size="large"
-              display="block"
-              onPress={handleOpenSettings}
-              containerStyle={styles.actionButton}
-            >
-              {t('photoPermission.openSettings')}
-            </Button>
+
+          <View style={styles.actions}>
+            <View style={styles.actionItem}>
+              <Button
+                type="light"
+                size="large"
+                display="block"
+                onPress={close}
+                containerStyle={styles.actionButton}
+              >
+                {t('photoPermission.later')}
+              </Button>
+            </View>
+            <View style={styles.actionItem}>
+              <Button
+                type="primary"
+                size="large"
+                display="block"
+                onPress={() => handleOpenSettings(close)}
+                containerStyle={styles.actionButton}
+              >
+                {t('photoPermission.openSettings')}
+              </Button>
+            </View>
           </View>
         </View>
-      </View>
+      )}
     </BaseSheet>
   );
 }

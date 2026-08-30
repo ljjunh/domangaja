@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import {
-  Dimensions,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -35,6 +34,7 @@ type FeedWriteScreenProps = StaticScreenProps<{ latitude: number; longitude: num
 
 const TITLE_MAX_LENGTH = 30;
 const CONTENT_MAX_LENGTH = 200;
+// 스크롤로 인풋을 올릴 때 인풋 바닥과 키보드 사이에 남길 여백
 const KEYBOARD_SAFE_PADDING = 16;
 
 export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
@@ -51,44 +51,28 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
 
   const scrollViewRef = useRef<ScrollView>(null);
   const contentInputRef = useRef<RNTextInputInstance>(null);
-
   const scrollOffsetYRef = useRef(0);
-  const keyboardHeightRef = useRef(0);
 
-  const adjustScrollForKeyboard = useCallback(() => {
-    if (Platform.OS !== 'ios' || keyboardHeightRef.current === 0) {
+  const scrollContentInputIntoView = () => {
+    if (Platform.OS !== 'ios' || !contentInputRef.current?.isFocused()) {
       return;
     }
-    contentInputRef.current?.measureInWindow((_x, y, _width, height) => {
-      const windowHeight = Dimensions.get('window').height;
-      const visibleBottom = windowHeight - keyboardHeightRef.current;
-      const inputBottom = y + height;
-      const overlap = inputBottom - visibleBottom + KEYBOARD_SAFE_PADDING;
-      // 이미 다 보이면(overlap <= 0) 아무것도 하지 않는다 — 필요한 만큼만 내린다
-      if (overlap > 0) {
-        scrollViewRef.current?.scrollTo({ y: scrollOffsetYRef.current + overlap, animated: true });
-      }
-    });
-  }, []);
-
-  // 안드로이드는 AndroidManifest의 windowSoftInputMode="adjustResize"가 알아서 처리해줘서
-  // 이 보정 로직은 iOS에서만 동작
-  useEffect(() => {
-    if (Platform.OS !== 'ios') {
-      return;
-    }
-    const showSubscription = Keyboard.addListener('keyboardWillShow', event => {
-      keyboardHeightRef.current = event.endCoordinates.height;
-      adjustScrollForKeyboard();
-    });
-    const hideSubscription = Keyboard.addListener('keyboardWillHide', () => {
-      keyboardHeightRef.current = 0;
-    });
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  }, [adjustScrollForKeyboard]);
+    scrollViewRef.current
+      ?.getNativeScrollRef()
+      ?.measureInWindow((_sx, scrollY, _sw, scrollHeight) => {
+        contentInputRef.current?.measureInWindow((_x, inputY, _w, inputHeight) => {
+          const visibleBottom = scrollY + scrollHeight;
+          const overlap = inputY + inputHeight - visibleBottom + KEYBOARD_SAFE_PADDING;
+          // 이미 다 보이면(overlap <= 0) 아무것도 하지 않는다 — 필요한 만큼만 내린다
+          if (overlap > 0) {
+            scrollViewRef.current?.scrollTo({
+              y: scrollOffsetYRef.current + overlap,
+              animated: true,
+            });
+          }
+        });
+      });
+  };
 
   const { mutate: createFeed } = useMutation(feedMutations.createFeed());
 
@@ -184,14 +168,12 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
         onClose={() => navigation.goBack()}
         onShare={handleShare}
       />
-      <KeyboardAvoidingView
-        style={styles.avoidingView}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      >
+      <KeyboardAvoidingView style={styles.avoidingView} behavior="padding">
         <ScrollView
           ref={scrollViewRef}
           contentContainerStyle={styles.container}
           keyboardShouldPersistTaps="handled"
+          onLayout={scrollContentInputIntoView}
           onScroll={event => {
             scrollOffsetYRef.current = event.nativeEvent.contentOffset.y;
           }}
@@ -237,8 +219,7 @@ export default function FeedWriteScreen({ route }: FeedWriteScreenProps) {
               maxLength={CONTENT_MAX_LENGTH}
               multiline
               textAlignVertical="top"
-              onFocus={adjustScrollForKeyboard}
-              onContentSizeChange={adjustScrollForKeyboard}
+              onFocus={scrollContentInputIntoView}
               style={styles.contentInput}
             />
           </View>

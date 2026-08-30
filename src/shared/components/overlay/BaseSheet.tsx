@@ -1,5 +1,5 @@
-import { type ComponentRef, type ReactNode, type Ref } from 'react';
-import { StyleSheet } from 'react-native';
+import { useEffect, useRef, type ComponentRef, type ReactNode } from 'react';
+import { BackHandler, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import BottomSheet, {
   BottomSheetBackdrop,
@@ -30,24 +30,38 @@ interface BaseSheetProps
    * @default true
    */
   withBackdrop?: boolean;
-  children: ReactNode;
-  ref?: Ref<ComponentRef<typeof BottomSheet>>;
+  /** 시트를 애니메이션으로 닫아야 하는 버튼이 있으면 함수형으로 받아 close를 쓴다 */
+  children: ReactNode | ((close: () => void) => ReactNode);
 }
 
 export default function BaseSheet({
   avoidMainTabBar = false,
   withBackdrop = true,
   children,
-  ref,
   ...bottomSheetProps
 }: BaseSheetProps) {
   // 시트는 SafeArea 밖에서 물리 화면 바닥에 붙으므로 시스템 네비 인셋까지 포함
   const mainTabBarSpace = useMainTabBarSpace({ fromPhysicalBottom: true });
   const { top, bottom } = useSafeAreaInsets();
 
+  // 닫기 애니메이션까지 돌리려면 시트 인스턴스의 close()가 필요하다 — ref는 여기서만 들고,
+  // 사용처에는 close 함수만 넘긴다
+  const sheetRef = useRef<ComponentRef<typeof BottomSheet>>(null);
+  const close = () => sheetRef.current?.close();
+
+  // 시트는 내비게이션 스택 밖(overlay 또는 화면 안 인라인)에 떠 있어서, 안드로이드 뒤로가기를
+  // 가로채지 않으면 시트는 그대로 남고 뒤의 화면만 pop된다 — 뒤로가기는 시트 닫기로 처리한다(BaseModal과 동일)
+  useEffect(function closeOnAndroidBackPress() {
+    const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
+      close();
+      return true; // 기본 동작(화면 뒤로) 막음
+    });
+    return () => subscription.remove();
+  }, []);
+
   return (
     <BottomSheet
-      ref={ref}
+      ref={sheetRef}
       enablePanDownToClose
       handleStyle={styles.handleContainer}
       handleIndicatorStyle={styles.handle}
@@ -65,7 +79,7 @@ export default function BaseSheet({
         ]}
         showsVerticalScrollIndicator={false}
       >
-        {children}
+        {typeof children === 'function' ? children(close) : children}
       </BottomSheetScrollView>
     </BottomSheet>
   );

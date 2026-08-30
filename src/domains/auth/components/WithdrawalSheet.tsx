@@ -1,7 +1,6 @@
-import { useRef, useState, type ComponentRef } from 'react';
+import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Trans, useTranslation } from 'react-i18next';
-import BottomSheet from '@gorhom/bottom-sheet';
 import { Pressable, Text } from '@/shared/components/base';
 import { Button } from '@/shared/components/ui';
 import { BaseSheet } from '@/shared/components/overlay';
@@ -16,81 +15,81 @@ interface WithdrawalSheetProps {
 export default function WithdrawalSheet({ onClose, onConfirm }: WithdrawalSheetProps) {
   const { t } = useTranslation();
   const [isAgreed, setIsAgreed] = useState(false);
-  const sheetRef = useRef<ComponentRef<typeof BottomSheet>>(null);
-
-  const handleConfirm = () => {
+  const handleConfirm = (close: () => void) => {
     onConfirm();
-    sheetRef.current?.close();
+    close();
   };
 
   return (
-    <BaseSheet ref={sheetRef} onClose={onClose}>
-      <View style={styles.container}>
-        <Text typography="t4" weight="bold" color={colors.grey[900]}>
-          {t('withdrawal.message')}
-        </Text>
-
-        <Text typography="t6" weight="semiBold" color={colors.grey[500]}>
-          <Trans
-            i18nKey="withdrawal.description"
-            components={{
-              danger: <Text typography="t6" weight="bold" color={colors.red[500]} />,
-            }}
-          />
-        </Text>
-
-        <View style={styles.noticeBox}>
-          <View style={styles.noticeHeader}>
-            <InfoCircleFillIcon width={18} height={18} color={colors.orange[600]} />
-            <Text typography="t7" weight="bold" color={colors.orange[900]}>
-              {t('withdrawal.noticeTitle')}
-            </Text>
-          </View>
-          <NoticeItem i18nKey="withdrawal.notice.scrap" />
-          <NoticeItem i18nKey="withdrawal.notice.post" />
-          <NoticeItem i18nKey="withdrawal.notice.history" />
-        </View>
-
-        <Pressable
-          onPress={() => setIsAgreed(prev => !prev)}
-          accessibilityRole="checkbox"
-          accessibilityState={{ checked: isAgreed }}
-          style={styles.agreement}
-        >
-          <View style={[styles.checkbox, isAgreed && styles.checkboxChecked]}>
-            {isAgreed && <DoneIcon width={16} height={16} color={colors.white} />}
-          </View>
-          <Text typography="t6" weight="semiBold" color={colors.grey[800]}>
-            {t('withdrawal.agree')}
+    <BaseSheet onClose={onClose}>
+      {close => (
+        <View style={styles.container}>
+          <Text typography="t4" weight="bold" color={colors.grey[900]}>
+            {t('withdrawal.message')}
           </Text>
-        </Pressable>
 
-        <View style={styles.actions}>
-          <View style={styles.actionItem}>
-            <Button
-              type="light"
-              size="large"
-              display="block"
-              onPress={() => sheetRef.current?.close()}
-              containerStyle={styles.actionButton}
-            >
-              {t('common.cancel')}
-            </Button>
+          <Text typography="t6" weight="semiBold" color={colors.grey[500]}>
+            <Trans
+              i18nKey="withdrawal.description"
+              components={{
+                danger: <Text typography="t6" weight="bold" color={colors.red[500]} />,
+              }}
+            />
+          </Text>
+
+          <View style={styles.noticeBox}>
+            <View style={styles.noticeHeader}>
+              <InfoCircleFillIcon width={18} height={18} color={colors.orange[600]} />
+              <Text typography="t7" weight="bold" color={colors.orange[900]}>
+                {t('withdrawal.noticeTitle')}
+              </Text>
+            </View>
+            <NoticeItem i18nKey="withdrawal.notice.scrap" />
+            <NoticeItem i18nKey="withdrawal.notice.post" />
+            <NoticeItem i18nKey="withdrawal.notice.history" />
           </View>
-          <View style={styles.actionItem}>
-            <Button
-              type="danger"
-              size="large"
-              display="block"
-              disabled={!isAgreed}
-              onPress={handleConfirm}
-              containerStyle={styles.actionButton}
-            >
-              {t('withdrawal.title')}
-            </Button>
+
+          <Pressable
+            onPress={() => setIsAgreed(prev => !prev)}
+            accessibilityRole="checkbox"
+            accessibilityState={{ checked: isAgreed }}
+            style={styles.agreement}
+          >
+            <View style={[styles.checkbox, isAgreed && styles.checkboxChecked]}>
+              {isAgreed && <DoneIcon width={16} height={16} color={colors.white} />}
+            </View>
+            <Text typography="t6" weight="semiBold" color={colors.grey[800]}>
+              {t('withdrawal.agree')}
+            </Text>
+          </Pressable>
+
+          <View style={styles.actions}>
+            <View style={styles.actionItem}>
+              <Button
+                type="light"
+                size="large"
+                display="block"
+                onPress={close}
+                containerStyle={styles.actionButton}
+              >
+                {t('common.cancel')}
+              </Button>
+            </View>
+            <View style={styles.actionItem}>
+              <Button
+                type="danger"
+                size="large"
+                display="block"
+                disabled={!isAgreed}
+                onPress={() => handleConfirm(close)}
+                containerStyle={styles.actionButton}
+              >
+                {t('withdrawal.title')}
+              </Button>
+            </View>
           </View>
         </View>
-      </View>
+      )}
     </BaseSheet>
   );
 }
