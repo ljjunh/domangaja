@@ -42,6 +42,7 @@ import {
   MyLocationButton,
   SpotTypeFilterChips,
 } from './components';
+import { IS_IOS } from '@/shared/constants/platform';
 
 const EXPANSION_DURATION = 300;
 const MOVE_DURATION = 500;
@@ -241,6 +242,8 @@ export default function MapScreen() {
         style={StyleSheet.absoluteFill}
         initialRegion={FALLBACK_REGION}
         showsCompass={false}
+        showsMyLocationButton={false}
+        toolbarEnabled={false}
         showsUserLocation={locationPermission === 'granted'}
         onUserLocationChange={receiveUserLocation}
         onMapReady={() => setIsMapReady(true)}
@@ -318,7 +321,7 @@ const styles = StyleSheet.create({
   },
   topOverlay: {
     position: 'absolute',
-    top: 60,
+    top: IS_IOS ? 60 : 40,
     left: 0,
     right: 0,
     gap: 10,
