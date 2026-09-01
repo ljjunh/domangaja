@@ -33,12 +33,11 @@ use_frameworks! :linkage => :static
 $RNFirebaseAsStaticFramework = true
 $RNFirebaseDisableSPM = true
 
-# React Native Maps — iOS도 구글 지도 사용 (Android와 통일)
-rn_maps_path = '../node_modules/react-native-maps'
-pod 'react-native-maps/Google', :path => rn_maps_path
-
 target 'domangaja' do
   config = use_native_modules!
+
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-maps/Google', :path => rn_maps_path
 
   use_react_native!(
     :path => config[:reactNativePath],

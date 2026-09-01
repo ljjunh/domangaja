@@ -1573,6 +1573,8 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
+  - react-native-maps (1.28.2):
+    - react-native-maps/Maps (= 1.28.2)
   - react-native-maps/Generated (1.28.2):
     - hermes-engine
     - RCTRequired
@@ -2743,6 +2745,7 @@ DEPENDENCIES:
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
   - React-mutationobservernativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/mutationobserver`)
+  - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-maps/Google (from `../node_modules/react-native-maps`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-video (from `../node_modules/react-native-video`)
@@ -3151,6 +3154,6 @@ SPEC CHECKSUMS:
   TOCropViewController: 797deaf39c90e6e9ddd848d88817f6b9a8a09888
   Yoga: c30c859b7e9b75e547b600b486fe33165f60de00
 
-PODFILE CHECKSUM: bdbc519d6c4857a4be942ba5867dc4e51a14b096
+PODFILE CHECKSUM: d0e228728bfd3a7d5d4d9656a96f1bb6c0e752b3
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.15.2
