@@ -6,6 +6,14 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>ko</string>
+		<string>en</string>
+		<string>ja</string>
+		<string>zh-Hans</string>
+		<string>zh-Hant</string>
+	</array>
 	<key>CFBundleDisplayName</key>
 	<string>도망가자</string>
 	<key>CFBundleExecutable</key>
